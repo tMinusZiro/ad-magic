@@ -10,6 +10,7 @@ const Map = () => {
   //coordinates[0] then do a second map
   //in the second map I will return a polygon filled with state border data
   //this should produce 51 polygons with outlined borders
+  //this should produce 51 polygons with outlined borders
 
   //each state object is represented by usState
   let stateOutline = borderData.features.map((usState) => {
