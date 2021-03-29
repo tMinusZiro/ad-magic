@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const port = process.env.PORT || 5000;
 
+// const mongoose = require("mongoose");
+
 const staticDir = path.resolve("./client/public");
 
 const { MongoClient} = require("mongodb")

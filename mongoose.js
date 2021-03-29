@@ -12,20 +12,6 @@ mongoose.connect(
 //   useNewUrlParser: true,
 // });
 
-//possibly for a mongoDB set up not mongoose
-// const MongoClient = require("mongodb").MongoClient;
-// const uri =
-//   "mongodb+srv://<username>:<password>@cluster0.9xf59.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// client.connect((err) => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
 //initialize variable that contains the connection to the collection db
 const magicDB = mongoose.connection;
 
