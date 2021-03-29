@@ -4,11 +4,11 @@ export default function TopBar(
 
 ) {
     return (
-        <div>
-            <span className="top-bar">Total Sales</span>
-            <span className="top-bar">Something</span>
-            <span className="top-bar">Something Else</span>
-            <span className="top-bar">Some Other Thing</span>
+        <div id="top-bar">
+            <span className="top-sections">Total Sales:</span>
+            <span className="top-sections">E-Commerce:</span>
+            <span className="top-sections">Brick and Mortar:</span>
+            <span className="top-sections">Number of Sales:</span>
         </div>
     )
 }

@@ -1,3 +1,33 @@
+/* ---------------Home Page--------------- */
+
+.App-header {
+    text-align: center;
+}
+
+
+#top-bar {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.top-sections {
+    margin-bottom:1vh;
+    border-style:solid;
+    border-radius: 15px;
+    padding: 1vh;
+}
+
+#low-bar {
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.low-sections {
+    margin-top:1vh;
+    border-style:solid;
+    border-radius: 15px;
+    padding: 1vh
+}
 
 
 
