@@ -7,25 +7,16 @@ const staticDir = path.resolve("./client/public");
 const { MongoClient} = require("mongodb")
 const uri = `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`
 const client = new MongoClient(uri, {useUnifiedTopology: true})
-const database = client.db("adMagic")
-const collection = database.collection("Sales")
-const app = express();
 
 async function runQuery() {
   await client.connect()
+  const database = client.db("adMagic")
+  const collection = database.collection("Sales")
   const results = await collection.find({})
   await results.forEach(doc => console.log(doc))
   await client.close()
 }
 runQuery() 
-
-// app.get("*", async (request, response)=> {
-//   await client.connect()
-//   const results = await collection.find({})
-//   array = [] 
-//   await results.forEach((doc) => {array.push(doc)})
-//   response.json(array)
-// })
 
 
 
@@ -33,6 +24,7 @@ runQuery()
 // const MagicModel = require("./mongoose.js");
 
 // //-------SERVER SETUP----------//
+const app = express();
 
 // //middleware for helping read body of post request
 // app.use(express.urlencoded({ extended: true }));
