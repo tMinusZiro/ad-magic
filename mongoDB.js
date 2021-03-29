@@ -1,12 +1,4 @@
-const express = require("express");
-const path = require("path");
-const port = process.env.PORT || 5000;
-
-// const mongoose = require("mongoose");
-
-const staticDir = path.resolve("./client/public");
-
-//global import of mongoose schema
+// Connection URI
 // Create a new MongoClient
 const MongoClient = require("mongodb").MongoClient;
 const uri =
@@ -34,24 +26,3 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-//-------SERVER SETUP----------//
-const app = express();
-
-//middleware for helping read body of post request
-app.use(express.urlencoded({ extended: true }));
-
-//setup for testing mongoose connection
-// app.get("*", async (req, res) => {
-//   const cursor = await MagicModel.findOne({ Account__c: "Main Line Games" });
-//   console.log("Curser =", cursor);
-//   res.json(results);
-// });
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(staticDir + "/index.html"));
-});
-
-app.listen(port, () => {
-  console.log(`All ears on port${port}`);
-});

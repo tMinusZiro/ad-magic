@@ -5,22 +5,22 @@ const MapToggle = (props) => {
   const [countriesList, setCountriesList] = useState()
   const [clientList, setClientList] = useState() 
 
-  useEffect ( () => {
-    if (countriesList.length=== 0) {
-      fetch("/countries")
-      .then((res) => res.json())
-      .then((list) => {
-        setCountriesList(list)
-      })
-    }
-    if (clientList.length === 0) {
-      fetch("/clients")
-      .then((res) => res.json())
-      .then((list) => {
-        setClientList(list)
-      })
-    }
-  })
+  // useEffect ( () => {
+  //   if (countriesList.length=== 0) {
+  //     fetch("/countries")
+  //     .then((res) => res.json())
+  //     .then((list) => {
+  //       setCountriesList(list)
+  //     })
+  //   }
+  //   if (clientList.length === 0) {
+  //     fetch("/clients")
+  //     .then((res) => res.json())
+  //     .then((list) => {
+  //       setClientList(list)
+  //     })
+  //   }
+  // })
 
 
   function changeStartDate(event) {
