@@ -6,7 +6,6 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
-import borderData from "../borderData/statesData.js";
 import multigonData from "../borderData/multigonData.js";
 import { useState } from "react";
 
@@ -21,22 +20,21 @@ const Map = () => {
 
   //each state object is represented by usState
 
-  for (let usState of borderData.features) {
-    for (let i = 0; i < usState.geometry.coordinates.length; i++) {
-      console.log(usState.geometry.coordinates.length);
-      console.log(`i = ${i}`);
+  // for (let usState of borderData.features) {
+  //   for (let i = 0; i < usState.geometry.coordinates.length; i++) {
+  //     console.log(usState.geometry.coordinates.length);
+  //     console.log(`i = ${i}`);
 
-      // let stateOutline = borderData.features.forEach((usState) => {
-      // console.log(usState.geometry.type);
+  //     // let stateOutline = borderData.features.forEach((usState) => {
+  //     // console.log(usState.geometry.type);
 
-      stateOutline = usState.geometry.coordinates[i].map((coords) => {
-        return [coords[1], coords[0]];
-      });
-    }
-  }
+  //     stateOutline = usState.geometry.coordinates[i].map((coords) => {
+  //       return [coords[1], coords[0]];
+  //     });
+  //   }
+  // }
 
-  let stateOutline;
-  console.log(`State Variable = ${stateOutline}`);
+  // console.log(`State Variable = ${stateOutline}`);
 
   // for (let usState of multigonData.features) {
   //   for (let i = 0; i < usState.geometry.coordinates.length; i++) {
@@ -68,10 +66,10 @@ const Map = () => {
           attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        <Polygon
+        {/* <Polygon
           positions={stateOutline}
           pathOptions={{ color: "blue", fillOpacity: 0 }}
-        />
+        /> */}
 
         {/* {borderData.features.map((usState) => {
           console.log(usState.geometry.type);
