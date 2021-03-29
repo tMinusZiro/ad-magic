@@ -2,11 +2,11 @@ const express = require("express");
 const path = require("path");
 const port = process.env.PORT || 5000;
 
+const mongoose = require("mongoose");
 const staticDir = path.resolve("./client/public");
 
 //global import of mongoose schema
 const MagicModel = require("./mongoose.js");
-
 //-------SERVER SETUP----------//
 const app = express();
 
@@ -14,15 +14,15 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 app.get("*", async (req, res) => {
-  const cursor = await MagicModel.find({});
+  const cursor = await MagicModel.findOne({ Account__c: "Main Line Games" });
   console.log("Curser =", cursor);
 
   let results = [];
-  //iterate through each document in collection and push it into array
-  await cursor.forEach((entry) => {
-    results.push(entry);
-  });
-
+  // //iterate through each document in collection and push it into array
+  // await cursor.forEach((entry) => {
+  //   results.push(entry);
+  // });
+  console.log(results);
   res.json(results);
 });
 
