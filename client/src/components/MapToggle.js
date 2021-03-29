@@ -13,13 +13,13 @@ const MapToggle = (props) => {
         setCountriesList(list)
       })
     }
-    if (clientList.length === 0) {
-      fetch("/clients")
-      .then((res) => res.json())
-      .then((list) => {
-        setClientList(list)
-      })
-    }
+    // if (clientList.length === 0) {
+    //   fetch("/clients")
+    //   .then((res) => res.json())
+    //   .then((list) => {
+    //     setClientList(list)
+    //   })
+    // }
   })
 
 

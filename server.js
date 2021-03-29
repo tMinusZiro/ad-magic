@@ -4,27 +4,51 @@ const port = process.env.PORT || 5000;
 
 const staticDir = path.resolve("./client/public");
 
-//global import of mongoose schema
-const MagicModel = require("./mongoose.js");
-
-//-------SERVER SETUP----------//
+const { MongoClient} = require("mongodb")
+const uri = `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`
+const client = new MongoClient(uri, {useUnifiedTopology: true})
+const database = client.db("adMagic")
+const collection = database.collection("Sales")
 const app = express();
 
-//middleware for helping read body of post request
-app.use(express.urlencoded({ extended: true }));
+async function runQuery() {
+  await client.connect()
+  const results = await collection.find({})
+  await results.forEach(doc => console.log(doc))
+  await client.close()
+}
+runQuery() 
 
-app.get("*", async (req, res) => {
-  const cursor = await MagicModel.find({});
-  console.log("Curser =", cursor);
+// app.get("*", async (request, response)=> {
+//   await client.connect()
+//   const results = await collection.find({})
+//   array = [] 
+//   await results.forEach((doc) => {array.push(doc)})
+//   response.json(array)
+// })
 
-  let results = [];
-  //iterate through each document in collection and push it into array
-  await cursor.forEach((entry) => {
-    results.push(entry);
-  });
 
-  res.json(results);
-});
+
+//global import of mongoose schema
+// const MagicModel = require("./mongoose.js");
+
+// //-------SERVER SETUP----------//
+
+// //middleware for helping read body of post request
+// app.use(express.urlencoded({ extended: true }));
+
+// app.get("*", async (req, res) => {
+//   const cursor = await MagicModel.find({});
+//   console.log("Curser =", cursor);
+
+//   let results = [];
+//   //iterate through each document in collection and push it into array
+//   await cursor.forEach((entry) => {
+//     results.push(entry);
+//   });
+
+//   res.json(results);
+// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
