@@ -1,7 +1,14 @@
 import React from "react";
-import { MapContainer, TileLayer, Polygon, Marker } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Polygon,
+  Marker,
+  GeoJSON,
+} from "react-leaflet";
 import borderData from "../borderData/statesData.js";
 import multigonData from "../borderData/multigonData.js";
+import { useState } from "react";
 
 const Map = () => {
   //tunnel into border data object
@@ -13,22 +20,41 @@ const Map = () => {
   //this should produce 51 polygons with outlined borders
 
   //each state object is represented by usState
-  let stateOutline = borderData.features.map((usState) => {
-    console.log(usState.geometry.type);
-    //  if (usState.geometry.type === "MultiPolygon") {
-    //     coords.map((multiPoly) => {
-    //       return [multiPoly[1], multiPoly[0]];
-    //     });
-    //   }
-    //stateCord is the array of array for indiv state cords
-    return usState.geometry.coordinates[0].map((coords) => {
-      return [coords[1], coords[0]];
-    });
-  });
 
-  let multiPolygon = multigonData.geometry.coordinates.map((usState) => {
-    return [usState[1], usState[0]];
-  });
+  for (let usState of borderData.features) {
+    for (let i = 0; i < usState.geometry.coordinates.length; i++) {
+      console.log(usState.geometry.coordinates.length);
+      console.log(`i = ${i}`);
+
+      // let stateOutline = borderData.features.forEach((usState) => {
+      // console.log(usState.geometry.type);
+
+      stateOutline = usState.geometry.coordinates[i].map((coords) => {
+        return [coords[1], coords[0]];
+      });
+    }
+  }
+
+  let stateOutline;
+  console.log(`State Variable = ${stateOutline}`);
+
+  // for (let usState of multigonData.features) {
+  //   for (let i = 0; i < usState.geometry.coordinates.length; i++) {
+  //     console.log(usState.geometry.coordinates.length);
+  //     console.log(`i = ${i}`);
+
+  //     // let stateOutline = borderData.features.forEach((usState) => {
+  //     // console.log(usState.geometry.type);
+  //     let n = 0;
+  //     usState.geometry.coordinates[i].map((coords) => {
+  //       console.log(`Coords = ${coords}`);
+  //       stateOutline = [coords[n][1], coords[n][0]];
+  //       n++;
+  //       console.log("StateOutline = ", stateOutline);
+  //       return stateOutline;
+  //     });
+  //   }
+  // }
 
   return (
     <>
@@ -42,7 +68,12 @@ const Map = () => {
           attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {borderData.features.map((usState) => {
+        <Polygon
+          positions={stateOutline}
+          pathOptions={{ color: "blue", fillOpacity: 0 }}
+        />
+
+        {/* {borderData.features.map((usState) => {
           console.log(usState.geometry.type);
           return usState.geometry.coordinates[0].map((coords) => {
             return (
@@ -52,7 +83,7 @@ const Map = () => {
               />
             );
           });
-        })}
+        })} */}
       </MapContainer>
     </>
   );

@@ -1,13 +1,13 @@
-const statesData = {
-  type: "FeatureCollection",
-  features: [
+{
+  "type": "FeatureCollection",
+  "features": [
     {
-      type: "Feature",
-      id: "01",
-      properties: { name: "Alabama", density: 94.65 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "01",
+      "properties": { "name": "Alabama", "density": 94.65 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-87.359296, 35.00118],
             [-85.606675, 34.984749],
@@ -41,92 +41,84 @@ const statesData = {
             [-88.241084, 33.796253],
             [-88.098683, 34.891641],
             [-88.202745, 34.995703],
-            [-87.359296, 35.00118],
-          ],
-        ],
-      },
+            [-87.359296, 35.00118]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "02",
-      properties: { name: "Alaska", density: 1.264 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "02",
+      "properties": { "name": "Alaska", "density": 1.264 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
-            [
-              [-131.602021, 55.117982],
-              [-131.569159, 55.28229],
-              [-131.355558, 55.183705],
-              [-131.38842, 55.01392],
-              [-131.645836, 55.035827],
-              [-131.602021, 55.117982],
-            ],
+            [-131.602021, 55.117982],
+            [-131.569159, 55.28229],
+            [-131.355558, 55.183705],
+            [-131.38842, 55.01392],
+            [-131.645836, 55.035827],
+            [-131.602021, 55.117982]
           ],
           [
-            [
-              [-131.832052, 55.42469],
-              [-131.645836, 55.304197],
-              [-131.749898, 55.128935],
-              [-131.832052, 55.189182],
-              [-131.832052, 55.42469],
-            ],
+            [-131.832052, 55.42469],
+            [-131.645836, 55.304197],
+            [-131.749898, 55.128935],
+            [-131.832052, 55.189182],
+            [-131.832052, 55.42469]
           ],
           [
-            [
-              [-132.976733, 56.437924],
-              [-132.735747, 56.459832],
-              [-132.631685, 56.421493],
-              [-132.664547, 56.273616],
-              [-132.878148, 56.240754],
-              [-133.069841, 56.333862],
-              [-132.976733, 56.437924],
-            ],
+            [-132.976733, 56.437924],
+            [-132.735747, 56.459832],
+            [-132.631685, 56.421493],
+            [-132.664547, 56.273616],
+            [-132.878148, 56.240754],
+            [-133.069841, 56.333862],
+            [-132.976733, 56.437924]
           ],
           [
-            [
-              [-133.595627, 56.350293],
-              [-133.162949, 56.317431],
-              [-133.05341, 56.125739],
-              [-132.620732, 55.912138],
-              [-132.472854, 55.780691],
-              [-132.4619, 55.671152],
-              [-132.357838, 55.649245],
-              [-132.341408, 55.506844],
-              [-132.166146, 55.364444],
-              [-132.144238, 55.238474],
-              [-132.029222, 55.276813],
-              [-131.97993, 55.178228],
-              [-131.958022, 54.789365],
-              [-132.029222, 54.701734],
-              [-132.308546, 54.718165],
-              [-132.385223, 54.915335],
-              [-132.483808, 54.898904],
-              [-132.686455, 55.046781],
-              [-132.746701, 54.997489],
-              [-132.916486, 55.046781],
-              [-132.889102, 54.898904],
-              [-132.73027, 54.937242],
-              [-132.626209, 54.882473],
-              [-132.675501, 54.679826],
-              [-132.867194, 54.701734],
-              [-133.157472, 54.95915],
-              [-133.239626, 55.090597],
-              [-133.223195, 55.22752],
-              [-133.453227, 55.216566],
-              [-133.453227, 55.320628],
-              [-133.277964, 55.331582],
-              [-133.102702, 55.42469],
-              [-133.17938, 55.588998],
-              [-133.387503, 55.62186],
-              [-133.420365, 55.884753],
-              [-133.497042, 56.0162],
-              [-133.639442, 55.923092],
-              [-133.694212, 56.070969],
-              [-133.546335, 56.142169],
-              [-133.666827, 56.311955],
-              [-133.595627, 56.350293],
-            ],
+            [-133.595627, 56.350293],
+            [-133.162949, 56.317431],
+            [-133.05341, 56.125739],
+            [-132.620732, 55.912138],
+            [-132.472854, 55.780691],
+            [-132.4619, 55.671152],
+            [-132.357838, 55.649245],
+            [-132.341408, 55.506844],
+            [-132.166146, 55.364444],
+            [-132.144238, 55.238474],
+            [-132.029222, 55.276813],
+            [-131.97993, 55.178228],
+            [-131.958022, 54.789365],
+            [-132.029222, 54.701734],
+            [-132.308546, 54.718165],
+            [-132.385223, 54.915335],
+            [-132.483808, 54.898904],
+            [-132.686455, 55.046781],
+            [-132.746701, 54.997489],
+            [-132.916486, 55.046781],
+            [-132.889102, 54.898904],
+            [-132.73027, 54.937242],
+            [-132.626209, 54.882473],
+            [-132.675501, 54.679826],
+            [-132.867194, 54.701734],
+            [-133.157472, 54.95915],
+            [-133.239626, 55.090597],
+            [-133.223195, 55.22752],
+            [-133.453227, 55.216566],
+            [-133.453227, 55.320628],
+            [-133.277964, 55.331582],
+            [-133.102702, 55.42469],
+            [-133.17938, 55.588998],
+            [-133.387503, 55.62186],
+            [-133.420365, 55.884753],
+            [-133.497042, 56.0162],
+            [-133.639442, 55.923092],
+            [-133.694212, 56.070969],
+            [-133.546335, 56.142169],
+            [-133.666827, 56.311955],
+            [-133.595627, 56.350293]
           ],
           [
             [
@@ -136,8 +128,8 @@ const statesData = {
               [-133.283441, 55.534229],
               [-133.420365, 55.386352],
               [-133.633966, 55.430167],
-              [-133.738027, 55.556137],
-            ],
+              [-133.738027, 55.556137]
+            ]
           ],
           [
             [
@@ -157,8 +149,8 @@ const statesData = {
               [-133.710643, 56.684386],
               [-133.688735, 56.837741],
               [-133.869474, 56.843218],
-              [-133.907813, 56.930849],
-            ],
+              [-133.907813, 56.930849]
+            ]
           ],
           [
             [
@@ -179,8 +171,8 @@ const statesData = {
               [-134.132367, 55.999769],
               [-134.230952, 56.070969],
               [-134.291198, 56.350293],
-              [-134.115936, 56.48174],
-            ],
+              [-134.115936, 56.48174]
+            ]
           ],
           [
             [
@@ -198,8 +190,8 @@ const statesData = {
               [-134.849846, 57.407343],
               [-134.844369, 57.248511],
               [-134.636246, 56.728202],
-              [-134.636246, 56.28457],
-            ],
+              [-134.636246, 56.28457]
+            ]
           ],
           [
             [
@@ -224,8 +216,8 @@ const statesData = {
               [-134.784123, 58.097437],
               [-134.91557, 58.212453],
               [-134.953908, 58.409623],
-              [-134.712923, 58.223407],
-            ],
+              [-134.712923, 58.223407]
+            ]
           ],
           [
             [
@@ -235,8 +227,8 @@ const statesData = {
               [-135.633049, 57.023957],
               [-135.857603, 56.996572],
               [-135.824742, 57.193742],
-              [-135.857603, 57.330665],
-            ],
+              [-135.857603, 57.330665]
+            ]
           ],
           [
             [
@@ -264,8 +256,8 @@ const statesData = {
               [-136.558652, 58.075529],
               [-136.421728, 58.130299],
               [-136.377913, 58.267222],
-              [-136.279328, 58.206976],
-            ],
+              [-136.279328, 58.206976]
+            ]
           ],
           [
             [
@@ -276,8 +268,8 @@ const statesData = {
               [-147.80281, 59.937689],
               [-147.435855, 60.09652],
               [-147.205824, 60.271782],
-              [-147.079854, 60.200582],
-            ],
+              [-147.079854, 60.200582]
+            ]
           ],
           [
             [
@@ -286,8 +278,8 @@ const statesData = {
               [-147.758995, 60.156767],
               [-147.956165, 60.227967],
               [-147.791856, 60.474429],
-              [-147.561825, 60.578491],
-            ],
+              [-147.561825, 60.578491]
+            ]
           ],
           [
             [
@@ -928,8 +920,8 @@ const statesData = {
               [-148.350504, 70.305537],
               [-148.202627, 70.349353],
               [-147.961642, 70.316491],
-              [-147.786379, 70.245291],
-            ],
+              [-147.786379, 70.245291]
+            ]
           ],
           [
             [
@@ -945,8 +937,8 @@ const statesData = {
               [-152.080301, 58.152206],
               [-152.480117, 58.130299],
               [-152.655379, 58.059098],
-              [-152.94018, 58.026237],
-            ],
+              [-152.94018, 58.026237]
+            ]
           ],
           [
             [
@@ -1287,12 +1279,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "04",
-      properties: { name: "Arizona", density: 57.05 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "04",
+      "properties": { "name": "Arizona", "density": 57.05 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-109.042503, 37.000263],
             [-109.04798, 31.331629],
@@ -1331,12 +1323,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "05",
-      properties: { name: "Arkansas", density: 56.43 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "05",
+      "properties": { "name": "Arkansas", "density": 56.43 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-94.473842, 36.501861],
             [-90.152536, 36.496384],
@@ -1380,12 +1372,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "06",
-      properties: { name: "California", density: 241.7 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "06",
+      "properties": { "name": "California", "density": 241.7 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-123.233256, 42.006186],
             [-122.378853, 42.011663],
@@ -1485,12 +1477,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "08",
-      properties: { name: "Colorado", density: 49.33 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "08",
+      "properties": { "name": "Colorado", "density": 49.33 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-107.919731, 41.003906],
             [-105.728954, 40.998429],
@@ -1513,12 +1505,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "09",
-      properties: { name: "Connecticut", density: 739.1 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "09",
+      "properties": { "name": "Connecticut", "density": 739.1 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-73.053528, 42.039048],
             [-71.799309, 42.022617],
@@ -1541,12 +1533,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "10",
-      properties: { name: "Delaware", density: 464.3 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "10",
+      "properties": { "name": "Delaware", "density": 464.3 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-75.414089, 39.804456],
             [-75.507197, 39.683964],
@@ -1566,12 +1558,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "11",
-      properties: { name: "District of Columbia", density: 10065 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "11",
+      "properties": { "name": "District of Columbia", "density": 10065 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-77.035264, 38.993869],
             [-76.909294, 38.895284],
@@ -1583,12 +1575,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "12",
-      properties: { name: "Florida", density: 353.4 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "12",
+      "properties": { "name": "Florida", "density": 353.4 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-85.497137, 30.997536],
             [-85.004212, 31.003013],
@@ -1673,12 +1665,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "13",
-      properties: { name: "Georgia", density: 169.5 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "13",
+      "properties": { "name": "Georgia", "density": 169.5 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-83.109191, 35.00118],
             [-83.322791, 34.787579],
@@ -1736,91 +1728,81 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "15",
-      properties: { name: "Hawaii", density: 214.1 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "15",
+      "properties": { "name": "Hawaii", "density": 214.1 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
-            [
-              [-155.634835, 18.948267],
-              [-155.881297, 19.035898],
-              [-155.919636, 19.123529],
-              [-155.886774, 19.348084],
-              [-156.062036, 19.73147],
-              [-155.925113, 19.857439],
-              [-155.826528, 20.032702],
-              [-155.897728, 20.147717],
-              [-155.87582, 20.26821],
-              [-155.596496, 20.12581],
-              [-155.284311, 20.021748],
-              [-155.092618, 19.868393],
-              [-155.092618, 19.736947],
-              [-154.807817, 19.523346],
-              [-154.983079, 19.348084],
-              [-155.295265, 19.26593],
-              [-155.514342, 19.134483],
-              [-155.634835, 18.948267],
-            ],
+            [-155.634835, 18.948267],
+            [-155.881297, 19.035898],
+            [-155.919636, 19.123529],
+            [-155.886774, 19.348084],
+            [-156.062036, 19.73147],
+            [-155.925113, 19.857439],
+            [-155.826528, 20.032702],
+            [-155.897728, 20.147717],
+            [-155.87582, 20.26821],
+            [-155.596496, 20.12581],
+            [-155.284311, 20.021748],
+            [-155.092618, 19.868393],
+            [-155.092618, 19.736947],
+            [-154.807817, 19.523346],
+            [-154.983079, 19.348084],
+            [-155.295265, 19.26593],
+            [-155.514342, 19.134483],
+            [-155.634835, 18.948267],
           ],
           [
-            [
-              [-156.587823, 21.029505],
-              [-156.472807, 20.892581],
-              [-156.324929, 20.952827],
-              [-156.00179, 20.793996],
-              [-156.051082, 20.651596],
-              [-156.379699, 20.580396],
-              [-156.445422, 20.60778],
-              [-156.461853, 20.783042],
-              [-156.631638, 20.821381],
-              [-156.697361, 20.919966],
-              [-156.587823, 21.029505],
-            ],
+            [-156.587823, 21.029505],
+            [-156.472807, 20.892581],
+            [-156.324929, 20.952827],
+            [-156.00179, 20.793996],
+            [-156.051082, 20.651596],
+            [-156.379699, 20.580396],
+            [-156.445422, 20.60778],
+            [-156.461853, 20.783042],
+            [-156.631638, 20.821381],
+            [-156.697361, 20.919966],
+            [-156.587823, 21.029505],
           ],
           [
-            [
-              [-156.982162, 21.210244],
-              [-157.080747, 21.106182],
-              [-157.310779, 21.106182],
-              [-157.239579, 21.221198],
-              [-156.982162, 21.210244],
-            ],
+            [-156.982162, 21.210244],
+            [-157.080747, 21.106182],
+            [-157.310779, 21.106182],
+            [-157.239579, 21.221198],
+            [-156.982162, 21.210244],
           ],
           [
-            [
-              [-157.951581, 21.697691],
-              [-157.842042, 21.462183],
-              [-157.896811, 21.325259],
-              [-158.110412, 21.303352],
-              [-158.252813, 21.582676],
-              [-158.126843, 21.588153],
-              [-157.951581, 21.697691],
-            ],
+            [-157.951581, 21.697691],
+            [-157.842042, 21.462183],
+            [-157.896811, 21.325259],
+            [-158.110412, 21.303352],
+            [-158.252813, 21.582676],
+            [-158.126843, 21.588153],
+            [-157.951581, 21.697691],
           ],
           [
-            [
-              [-159.468693, 22.228955],
-              [-159.353678, 22.218001],
-              [-159.298908, 22.113939],
-              [-159.33177, 21.966061],
-              [-159.446786, 21.872953],
-              [-159.764448, 21.987969],
-              [-159.726109, 22.152277],
-              [-159.468693, 22.228955],
-            ],
+            [-159.468693, 22.228955],
+            [-159.353678, 22.218001],
+            [-159.298908, 22.113939],
+            [-159.33177, 21.966061],
+            [-159.446786, 21.872953],
+            [-159.764448, 21.987969],
+            [-159.726109, 22.152277],
+            [-159.468693, 22.228955],
           ],
         ],
       },
     },
     {
-      type: "Feature",
-      id: "16",
-      properties: { name: "Idaho", density: 19.15 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "16",
+      "properties": { "name": "Idaho", "density": 19.15 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-116.04751, 49.000239],
             [-116.04751, 47.976051],
@@ -1893,12 +1875,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "17",
-      properties: { name: "Illinois", density: 231.5 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "17",
+      "properties": { "name": "Illinois", "density": 231.5 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-90.639984, 42.510065],
             [-88.788778, 42.493634],
@@ -1972,12 +1954,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "18",
-      properties: { name: "Indiana", density: 181.7 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "18",
+      "properties": { "name": "Indiana", "density": 181.7 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-85.990061, 41.759724],
             [-84.807042, 41.759724],
@@ -2030,12 +2012,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "19",
-      properties: { name: "Iowa", density: 54.81 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "19",
+      "properties": { "name": "Iowa", "density": 54.81 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-91.368417, 43.501391],
             [-91.215062, 43.501391],
@@ -2092,12 +2074,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "20",
-      properties: { name: "Kansas", density: 35.09 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "20",
+      "properties": { "name": "Kansas", "density": 35.09 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-101.90605, 40.001626],
             [-95.306337, 40.001626],
@@ -2117,12 +2099,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "21",
-      properties: { name: "Kentucky", density: 110 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "21",
+      "properties": { "name": "Kentucky", "density": 110 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-83.903347, 38.769315],
             [-83.678792, 38.632391],
@@ -2204,12 +2186,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "22",
-      properties: { name: "Louisiana", density: 105 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "22",
+      "properties": { "name": "Louisiana", "density": 105 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-93.608485, 33.018527],
             [-91.16577, 33.002096],
@@ -2292,12 +2274,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "23",
-      properties: { name: "Maine", density: 43.04 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "23",
+      "properties": { "name": "Maine", "density": 43.04 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-70.703921, 43.057759],
             [-70.824413, 43.128959],
@@ -2370,12 +2352,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "24",
-      properties: { name: "Maryland", density: 596.3 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "24",
+      "properties": { "name": "Maryland", "density": 596.3 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
             [
               [-75.994645, 37.95325],
@@ -2452,12 +2434,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "25",
-      properties: { name: "Massachusetts", density: 840.2 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "25",
+      "properties": { "name": "Massachusetts", "density": 840.2 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-70.917521, 42.887974],
             [-70.818936, 42.871543],
@@ -2499,12 +2481,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "26",
-      properties: { name: "Michigan", density: 173.9 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "26",
+      "properties": { "name": "Michigan", "density": 173.9 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
             [
               [-83.454238, 41.732339],
@@ -2677,12 +2659,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "27",
-      properties: { name: "Minnesota", density: 67.14 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "27",
+      "properties": { "name": "Minnesota", "density": 67.14 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-92.014696, 46.705401],
             [-92.091373, 46.749217],
@@ -2772,12 +2754,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "28",
-      properties: { name: "Mississippi", density: 63.5 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "28",
+      "properties": { "name": "Mississippi", "density": 63.5 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-88.471115, 34.995703],
             [-88.202745, 34.995703],
@@ -2830,12 +2812,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "29",
-      properties: { name: "Missouri", density: 87.26 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "29",
+      "properties": { "name": "Missouri", "density": 87.26 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-91.833957, 40.609566],
             [-91.729895, 40.615043],
@@ -2895,12 +2877,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "30",
-      properties: { name: "Montana", density: 6.858 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "30",
+      "properties": { "name": "Montana", "density": 6.858 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-104.047534, 49.000239],
             [-104.042057, 47.861036],
@@ -2959,12 +2941,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "31",
-      properties: { name: "Nebraska", density: 23.97 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "31",
+      "properties": { "name": "Nebraska", "density": 23.97 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-103.324578, 43.002989],
             [-101.626726, 42.997512],
@@ -3000,12 +2982,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "32",
-      properties: { name: "Nevada", density: 24.8 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "32",
+      "properties": { "name": "Nevada", "density": 24.8 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-117.027882, 42.000709],
             [-114.04295, 41.995232],
@@ -3033,12 +3015,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "33",
-      properties: { name: "New Hampshire", density: 147 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "33",
+      "properties": { "name": "New Hampshire", "density": 147 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-71.08183, 45.303304],
             [-71.032537, 44.657025],
@@ -3073,12 +3055,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "34",
-      properties: { name: "New Jersey", density: 1189 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "34",
+      "properties": { "name": "New Jersey", "density": 1189 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-74.236547, 41.14083],
             [-73.902454, 40.998429],
@@ -3117,12 +3099,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "35",
-      properties: { name: "New Mexico", density: 17.16 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "35",
+      "properties": { "name": "New Mexico", "density": 17.16 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-107.421329, 37.000263],
             [-106.868158, 36.994786],
@@ -3146,12 +3128,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "36",
-      properties: { name: "New York", density: 412.3 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "36",
+      "properties": { "name": "New York", "density": 412.3 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-73.343806, 45.013027],
             [-73.332852, 44.804903],
@@ -3226,12 +3208,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "37",
-      properties: { name: "North Carolina", density: 198.2 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "37",
+      "properties": { "name": "North Carolina", "density": 198.2 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-80.978661, 36.562108],
             [-80.294043, 36.545677],
@@ -3299,12 +3281,12 @@ const statesData = {
       },
     },
     {
-      type: "Feature",
-      id: "38",
-      properties: { name: "North Dakota", density: 9.916 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "38",
+      "properties": { "name": "North Dakota", "density": 9.916 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-97.228743, 49.000239],
             [-97.097296, 48.682577],
@@ -3321,18 +3303,18 @@ const statesData = {
             [-104.047534, 45.944106],
             [-104.042057, 47.861036],
             [-104.047534, 49.000239],
-            [-97.228743, 49.000239],
-          ],
-        ],
-      },
+            [-97.228743, 49.000239]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "39",
-      properties: { name: "Ohio", density: 281.9 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "39",
+      "properties": { "name": "Ohio", "density": 281.9 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-80.518598, 41.978802],
             [-80.518598, 40.636951],
@@ -3380,18 +3362,18 @@ const statesData = {
             [-81.444201, 41.672093],
             [-81.011523, 41.852832],
             [-80.518598, 41.978802],
-            [-80.518598, 41.978802],
-          ],
-        ],
-      },
+            [-80.518598, 41.978802]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "40",
-      properties: { name: "Oklahoma", density: 55.22 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "40",
+      "properties": { "name": "Oklahoma", "density": 55.22 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-100.087706, 37.000263],
             [-94.616242, 37.000263],
@@ -3437,18 +3419,18 @@ const statesData = {
             [-103.001438, 36.501861],
             [-103.001438, 37.000263],
             [-102.042974, 36.994786],
-            [-100.087706, 37.000263],
-          ],
-        ],
-      },
+            [-100.087706, 37.000263]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "41",
-      properties: { name: "Oregon", density: 40.33 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "41",
+      "properties": { "name": "Oregon", "density": 40.33 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-123.211348, 46.174138],
             [-123.11824, 46.185092],
@@ -3505,18 +3487,18 @@ const statesData = {
             [-123.945258, 46.113892],
             [-123.545441, 46.261769],
             [-123.370179, 46.146753],
-            [-123.211348, 46.174138],
-          ],
-        ],
-      },
+            [-123.211348, 46.174138]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "42",
-      properties: { name: "Pennsylvania", density: 284.3 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "42",
+      "properties": { "name": "Pennsylvania", "density": 284.3 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-79.76278, 42.252649],
             [-79.76278, 42.000709],
@@ -3550,25 +3532,25 @@ const statesData = {
             [-80.518598, 41.978802],
             [-80.332382, 42.033571],
             [-79.76278, 42.269079],
-            [-79.76278, 42.252649],
-          ],
-        ],
-      },
+            [-79.76278, 42.252649]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "44",
-      properties: { name: "Rhode Island", density: 1006 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "44",
+      "properties": { "name": "Rhode Island", "density": 1006 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
             [
               [-71.196845, 41.67757],
               [-71.120168, 41.496831],
               [-71.317338, 41.474923],
-              [-71.196845, 41.67757],
-            ],
+              [-71.196845, 41.67757]
+            ]
           ],
           [
             [
@@ -3582,19 +3564,19 @@ const statesData = {
               [-71.859555, 41.321569],
               [-71.799309, 41.414677],
               [-71.799309, 42.006186],
-              [-71.530939, 42.01714],
-            ],
-          ],
-        ],
-      },
+              [-71.530939, 42.01714]
+            ]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "45",
-      properties: { name: "South Carolina", density: 155.4 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "45",
+      "properties": { "name": "South Carolina", "density": 155.4 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-82.764143, 35.066903],
             [-82.550543, 35.160011],
@@ -3639,18 +3621,18 @@ const statesData = {
             [-83.339222, 34.683517],
             [-83.322791, 34.787579],
             [-83.109191, 35.00118],
-            [-82.764143, 35.066903],
-          ],
-        ],
-      },
+            [-82.764143, 35.066903]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "46",
-      properties: { name: "South Dakota", density: 98.07 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "46",
+      "properties": { "name": "South Dakota", "density": 98.07 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-104.047534, 45.944106],
             [-96.560556, 45.933153],
@@ -3680,18 +3662,18 @@ const statesData = {
             [-104.053011, 43.002989],
             [-104.058488, 44.996596],
             [-104.042057, 44.996596],
-            [-104.047534, 45.944106],
-          ],
-        ],
-      },
+            [-104.047534, 45.944106]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "47",
-      properties: { name: "Tennessee", density: 88.08 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "47",
+      "properties": { "name": "Tennessee", "density": 88.08 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-88.054868, 36.496384],
             [-88.071299, 36.677123],
@@ -3735,18 +3717,18 @@ const statesData = {
             [-89.484349, 36.496384],
             [-89.418626, 36.496384],
             [-89.298133, 36.507338],
-            [-88.054868, 36.496384],
-          ],
-        ],
-      },
+            [-88.054868, 36.496384]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "48",
-      properties: { name: "Texas", density: 98.07 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "48",
+      "properties": { "name": "Texas", "density": 98.07 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-101.812942, 36.501861],
             [-100.000075, 36.501861],
@@ -3899,18 +3881,18 @@ const statesData = {
             [-103.045254, 34.01533],
             [-103.039777, 36.501861],
             [-103.001438, 36.501861],
-            [-101.812942, 36.501861],
-          ],
-        ],
-      },
+            [-101.812942, 36.501861]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "49",
-      properties: { name: "Utah", density: 34.3 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "49",
+      "properties": { "name": "Utah", "density": 34.3 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-112.164359, 41.995232],
             [-111.047063, 42.000709],
@@ -3923,18 +3905,18 @@ const statesData = {
             [-110.499369, 37.00574],
             [-114.048427, 37.000263],
             [-114.04295, 41.995232],
-            [-112.164359, 41.995232],
-          ],
-        ],
-      },
+            [-112.164359, 41.995232]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "50",
-      properties: { name: "Vermont", density: 67.73 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "50",
+      "properties": { "name": "Vermont", "density": 67.73 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-71.503554, 45.013027],
             [-71.4926, 44.914442],
@@ -3963,18 +3945,18 @@ const statesData = {
             [-73.332852, 44.804903],
             [-73.343806, 45.013027],
             [-72.308664, 45.002073],
-            [-71.503554, 45.013027],
-          ],
-        ],
-      },
+            [-71.503554, 45.013027]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "51",
-      properties: { name: "Virginia", density: 204.5 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "51",
+      "properties": { "name": "Virginia", "density": 204.5 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
             [
               [-75.397659, 38.013497],
@@ -3987,16 +3969,16 @@ const statesData = {
               [-76.027507, 37.257679],
               [-75.939876, 37.564388],
               [-75.671506, 37.95325],
-              [-75.397659, 38.013497],
-            ],
+              [-75.397659, 38.013497]
+            ]
           ],
           [
             [
               [-76.016553, 37.95325],
               [-75.994645, 37.95325],
               [-76.043938, 37.95325],
-              [-76.016553, 37.95325],
-            ],
+              [-76.016553, 37.95325]
+            ]
           ],
           [
             [
@@ -4064,19 +4046,19 @@ const statesData = {
               [-78.996008, 38.851469],
               [-78.870039, 38.763838],
               [-78.404499, 39.169131],
-              [-78.349729, 39.464886],
-            ],
-          ],
-        ],
-      },
+              [-78.349729, 39.464886]
+            ]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "53",
-      properties: { name: "Washington", density: 102.6 },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "53",
+      "properties": { "name": "Washington", "density": 102.6 },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
           [
             [
               [-117.033359, 49.000239],
@@ -4139,8 +4121,8 @@ const statesData = {
               [-122.647223, 48.775685],
               [-122.795101, 48.8907],
               [-122.756762, 49.000239],
-              [-117.033359, 49.000239],
-            ],
+              [-117.033359, 49.000239]
+            ]
           ],
           [
             [
@@ -4148,8 +4130,8 @@ const statesData = {
               [-122.586977, 48.35396],
               [-122.608885, 48.151313],
               [-122.767716, 48.227991],
-              [-122.718423, 48.310145],
-            ],
+              [-122.718423, 48.310145]
+            ]
           ],
           [
             [
@@ -4158,19 +4140,19 @@ const statesData = {
               [-122.767716, 48.556607],
               [-122.811531, 48.419683],
               [-123.041563, 48.458022],
-              [-123.025132, 48.583992],
-            ],
-          ],
-        ],
-      },
+              [-123.025132, 48.583992]
+            ]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "54",
-      properties: { name: "West Virginia", density: 77.06 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "54",
+      "properties": { "name": "West Virginia", "density": 77.06 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-80.518598, 40.636951],
             [-80.518598, 39.722302],
@@ -4236,18 +4218,18 @@ const statesData = {
             [-80.600752, 40.319289],
             [-80.595275, 40.472643],
             [-80.666475, 40.582182],
-            [-80.518598, 40.636951],
-          ],
-        ],
-      },
+            [-80.518598, 40.636951]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "55",
-      properties: { name: "Wisconsin", density: 105.2 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "55",
+      "properties": { "name": "Wisconsin", "density": 105.2 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-90.415429, 46.568478],
             [-90.229213, 46.508231],
@@ -4323,18 +4305,18 @@ const statesData = {
             [-90.749522, 46.88614],
             [-90.886446, 46.754694],
             [-90.55783, 46.584908],
-            [-90.415429, 46.568478],
-          ],
-        ],
-      },
+            [-90.415429, 46.568478]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "56",
-      properties: { name: "Wyoming", density: 5.851 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "56",
+      "properties": { "name": "Wyoming", "density": 5.851 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-109.080842, 45.002073],
             [-105.91517, 45.002073],
@@ -4348,18 +4330,18 @@ const statesData = {
             [-111.047063, 42.000709],
             [-111.047063, 44.476286],
             [-111.05254, 45.002073],
-            [-109.080842, 45.002073],
-          ],
-        ],
-      },
+            [-109.080842, 45.002073]
+          ]
+        ]
+      }
     },
     {
-      type: "Feature",
-      id: "72",
-      properties: { name: "Puerto Rico", density: 1082 },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
+      "type": "Feature",
+      "id": "72",
+      "properties": { "name": "Puerto Rico", "density": 1082 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
             [-66.448338, 17.984326],
             [-66.771478, 18.006234],
@@ -4377,12 +4359,12 @@ const statesData = {
             [-65.730859, 18.186973],
             [-65.834921, 18.017187],
             [-66.234737, 17.929556],
-            [-66.448338, 17.984326],
-          ],
-        ],
-      },
-    },
-  ],
-};
+            [-66.448338, 17.984326]
+          ]
+        ]
+      }
+    }
+  ]
+}
 
-export default statesData;
+
