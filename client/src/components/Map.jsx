@@ -68,10 +68,10 @@ const Map = () => {
           attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        <Polygon
+        {/* <Polygon
           positions={stateOutline}
           pathOptions={{ color: "blue", fillOpacity: 0 }}
-        />
+        /> */}
 
         {/* {borderData.features.map((usState) => {
           console.log(usState.geometry.type);
