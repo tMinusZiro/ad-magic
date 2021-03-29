@@ -6,21 +6,19 @@ const port = process.env.PORT || 5000;
 
 const staticDir = path.resolve("./client/public");
 
-const { MongoClient} = require("mongodb")
-const uri = `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`
-const client = new MongoClient(uri, {useUnifiedTopology: true})
+const { MongoClient } = require("mongodb");
+const uri = `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 async function runQuery() {
-  await client.connect()
-  const database = client.db("adMagic")
-  const collection = database.collection("Sales")
-  const results = await collection.find({})
-  await results.forEach(doc => console.log(doc))
-  await client.close()
+  await client.connect();
+  const database = client.db("adMagic");
+  const collection = database.collection("Sales");
+  const results = await collection.find({});
+  await results.forEach((doc) => console.log(doc));
+  await client.close();
 }
-runQuery() 
-
-
+runQuery();
 
 //global import of mongoose schema
 // const MagicModel = require("./mongoose.js");
