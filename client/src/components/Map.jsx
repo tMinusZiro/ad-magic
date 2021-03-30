@@ -1,4 +1,7 @@
 import React from "react";
+//this import brings in the necessary css that stitches the map tiles together
+//alternative to providing style sheet link in public/index.html
+import "leaflet/dist/leaflet.css";
 import {
   MapContainer,
   TileLayer,
@@ -6,10 +9,30 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
+import { features } from "../borderData/statesData.json";
 import multigonData from "../borderData/multigonData.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Map = () => {
+  const [countryBorderUS, setCountryBorderUS] = useState([]);
+  //sets up class task that will prep the border data
+  class LoadBorderData {
+    //load method that will accept a state change function
+    load = (setState) => {
+      //then that state change function will take the destructured features import from the geojson
+      setState(features);
+      j;
+    };
+  }
+
+  //function that will create a new instance of LoadBorderData class
+  const load = () => {
+    //instance created
+    const loadBorderData = new LoadBorderData();
+    //accessing instance method load and passing in the setter function for countryBorderUS
+    loadBorderData.load(setCountryBorderUS);
+  };
+
   //tunnel into border data object
   //map the array of objects
   //iterate through each object and then tunnel into the coordinates array
@@ -58,19 +81,19 @@ const Map = () => {
     <>
       <MapContainer
         center={[38.0, -97.0]}
-        zoom={4}
+        zoom={3}
         style={{ height: "600px", width: "900px" }}
       >
-        <TileLayer
+        {/* <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
+        /> */}
+        <GeoJSON data={[features]} />
 
         {/* <Polygon
           positions={stateOutline}
           pathOptions={{ color: "blue", fillOpacity: 0 }}
         /> */}
-
         {/* {borderData.features.map((usState) => {
           console.log(usState.geometry.type);
           return usState.geometry.coordinates[0].map((coords) => {
