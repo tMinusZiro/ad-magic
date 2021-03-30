@@ -21,31 +21,42 @@ app.get("/all-sales", async (request, response) => {
   response.json(allSalesObjects);
 });
 
+// filtering total sales
+app.get("/total-sales", async (request, response) => {
+  let totalSales = await salesDB.totalSales();
+  let countrySalesArray = [];
+  await totalSales.forEach((item) => {
+    countrySalesArray.push(item);
+  });
+
+  response.send(countrySalesArray);
+});
+
 app.get("/countries", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
-  let countryArray = [] 
+  let countryArray = [];
   for (object of allSalesObjects) {
     // console.log(object)
     if (object.Country__c && !countryArray.includes(object.Country__c)) {
-      countryArray.push(object.Country__c)
+      countryArray.push(object.Country__c);
     }
-  } 
-  countryArray = countryArray.sort()
-  response.json(countryArray)
-  })
+  }
+  countryArray = countryArray.sort();
+  response.json(countryArray);
+});
 
-  let clientsArray = [] 
-  app.get("/clients", async (request, response) => {
-    let allSalesObjects = await salesDB.showAll();
-    for (object of allSalesObjects) {
-      // console.log(object)
-      if (object.Account__c && !clientsArray.includes(object.Account__c)) {
-        clientsArray.push(object.Account__c)
-      }
-    } 
-    clientsArray = clientsArray.sort()
-    response.json(clientsArray)
-    })
+let clientsArray = [];
+app.get("/clients", async (request, response) => {
+  let allSalesObjects = await salesDB.showAll();
+  for (object of allSalesObjects) {
+    // console.log(object)
+    if (object.Account__c && !clientsArray.includes(object.Account__c)) {
+      clientsArray.push(object.Account__c);
+    }
+  }
+  clientsArray = clientsArray.sort();
+  response.json(clientsArray);
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
