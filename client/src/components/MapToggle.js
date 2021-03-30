@@ -1,28 +1,28 @@
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 const MapToggle = (props) => {
-  //list of countries in database 
-  const [countriesList, setCountriesList] = useState()
-  const [clientList, setClientList] = useState() 
+  //list of countries in database
+  const [countriesList, setCountriesList] = useState();
+  const [clientList, setClientList] = useState();
 
-  useEffect ( () => {
-    if (countriesList.length=== 0) {
+  useEffect(() => {
+    if (!countriesList) {
       fetch("/countries")
-      .then((res) => res.json())
-      .then((list) => {
-        setCountriesList(list)
-      })
+        .then((res) => res.json())
+        .then((list) => {
+          console.log(list);
+          setCountriesList(list);
+        });
+      console.log(countriesList);
     }
-    if (clientList.length === 0) {
+    if (!clientList) {
       fetch("/clients")
-      .then((res) => res.json())
-      .then((list) => {
-        setClientList(list)
-      })
+        .then((res) => res.json())
+        .then((list) => {
+          setClientList(list);
+        });
     }
-  })
-
-
+  });
   function changeStartDate(event) {
     props.setStartDate(event.target.value);
   }
@@ -52,42 +52,52 @@ const MapToggle = (props) => {
           name="start-date"
           onChange={changeStartDate}
         ></input>
-                <br></br>
+        <br></br>
       </form>
 
       <br></br>
 
-        <label for="start-date">End Date: </label>
-        <br></br>
-        <input
-          type="date"
-          id="end-date"
-          name="end-date"
-          onChange={changeEndDate}
-        ></input>
-        <br></br>
+      <label for="start-date">End Date: </label>
+      <br></br>
+      <input
+        type="date"
+        id="end-date"
+        name="end-date"
+        onChange={changeEndDate}
+      ></input>
+      <br></br>
 
       <br></br>
 
       <label for="country">Country: </label>
-        <select name="country" value="Select Country" onChange={changeRegion}>
-          {countriesList ? countriesList.map((obj, index) => {
-            return( )
-</select>
+      <select name="country" value="Select Country" onChange={changeAccount}>
+        {countriesList
+          ? countriesList.map((country, index) => {
+              return (
+                <option key={index} id={country} value = {country}>
+                  {country}
+                </option>
+              );
+            })
+          : null}
+      </select>
+      <br></br>
       <br></br>
 
-      <form method="POST" action ="/account">
-      <label for="account">Client: </label>
-        <select name="account" value = "select company" onchange={changeAccount}>
-          <option value="People Against Humans">People Against Humans</option>
-          <option value="company-2">Company 2</option>
-          <option value="company-3">Company 3</option>
-          <option value="company-4">Company 4</option>
-          <option value="company-5">Company 5</option>
-          <option value="company-6">Company 6</option>
-          <option value="company-7">Company 7</option>
-          <option value="company-8">Company 8</option>
-        </select>
+      <form method="POST" action="/account">
+        <label for="account">Client: </label>
+        <select name="account" value="Select Account" onChange={changeRegion}>
+        {clientList
+          ? clientList.map((client, index) => {
+              return (
+                <option key={index} id={client} value = {client}>
+                  {client}
+                </option>
+              );
+            })
+          : null}
+      </select>
+
         <br></br>
       </form>
     </div>

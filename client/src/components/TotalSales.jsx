@@ -1,6 +1,6 @@
 import React from 'react'
-
-const TotalSales = () => {
+import Map from "./Map"
+const TotalSales = (props) => {
     return (
         <div>
             <Map></Map>
