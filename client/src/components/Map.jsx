@@ -1,4 +1,7 @@
 import React from "react";
+//this import brings in the necessary css that stitches the map tiles together
+//alternative to providing style sheet link in public/index.html
+import "leaflet/dist/leaflet.css";
 import {
   MapContainer,
   TileLayer,
@@ -6,82 +9,126 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
-import multigonData from "../borderData/multigonData.js";
-import { useState } from "react";
+import { features } from "../borderData/countries.json";
+// import { features } from "../borderData/usBorder.json";
+import { useState, useEffect } from "react";
 
 const Map = () => {
-  //tunnel into border data object
-  //map the array of objects
-  //iterate through each object and then tunnel into the coordinates array
-  //coordinates[0] then do a second map
-  //in the second map I will return a polygon filled with state border data
-  //this should produce 51 polygons with outlined borders
-  //this should produce 51 polygons with outlined borders
+  const [worldMapCenter, setWorldMapCenter] = useState([20, 100]);
+  const [mapCenter, setMapCenter] = useState(worldMapCenter);
+  const [mapZoom, setMapZoom] = useState(2);
+  const [countryBorder, setCountryBorder] = useState([features]);
+  const [selectedContinent, setSelectedContinent] = useState();
+  //center coordinates for main continents
+  const [continentCenter, setContinentCenter] = useState({
+    //Lat/Lon
+    southAmerica: {
+      center: [-14.235004, -51.92528],
+      zoom: 3,
+    },
+    northAmerica: [38.0, -97.0],
+    europe: [49.817492, 15.472962],
+    africa: [6.611111, 20.939444],
+    asia: [35.86166, 104.195397],
+    australia: [-25.274398, 133.775136],
+  });
 
-  //each state object is represented by usState
+  const [usCenter, setUSCenter] = useState([38.0, -97.0]);
 
-  // for (let usState of borderData.features) {
-  //   for (let i = 0; i < usState.geometry.coordinates.length; i++) {
-  //     console.log(usState.geometry.coordinates.length);
-  //     console.log(`i = ${i}`);
+  //sets up class task that will prep the border data
+  class LoadBorderData {
+    //load method that will accept a state change function
+    load = (setState) => {
+      //then that state change function will take the destructured features import from the geojson
+      setState(features);
+    };
+  }
 
-  //     // let stateOutline = borderData.features.forEach((usState) => {
-  //     // console.log(usState.geometry.type);
+  //function that will create a new instance of LoadBorderData class
+  const load = () => {
+    //instance created
+    const loadBorderData = new LoadBorderData();
+    //accessing instance method load and passing in the setter function for countryBorderUS
+    loadBorderData.load(setCountryBorder);
+  };
+  //when page loads fires once to call the load function which in turn updates the country border state
+  useEffect(load, []);
 
-  //     stateOutline = usState.geometry.coordinates[i].map((coords) => {
-  //       return [coords[1], coords[0]];
-  //     });
-  //   }
-  // }
+  //first argument is the feature for GeoJSON we are dealing with
+  //second is the layer => thing drawn on screen
+  const onEachState = (countryBorder, layer) => {
+    layer.options.fillColor = countryBorder.properties.color;
 
-  // console.log(`State Variable = ${stateOutline}`);
 
-  // for (let usState of multigonData.features) {
-  //   for (let i = 0; i < usState.geometry.coordinates.length; i++) {
-  //     console.log(usState.geometry.coordinates.length);
-  //     console.log(`i = ${i}`);
+    
+    const countryName = countryBorder.properties.ADMIN;
 
-  //     // let stateOutline = borderData.features.forEach((usState) => {
-  //     // console.log(usState.geometry.type);
-  //     let n = 0;
-  //     usState.geometry.coordinates[i].map((coords) => {
-  //       console.log(`Coords = ${coords}`);
-  //       stateOutline = [coords[n][1], coords[n][0]];
-  //       n++;
-  //       console.log("StateOutline = ", stateOutline);
-  //       return stateOutline;
-  //     });
-  //   }
-  // }
+
+    layer.bindPopup(`${countryName} Total Sales Data `);
+  };
+
+  //----------function that changes style of map based on total sales----------//
+//steps
+//GeoJSON layer will rely on the country object.totalsales
+//fill color will change based on the total sales number
+
+//function decides on color of country based on total sales
+  const countryColor = (totalSales) => {
+    
+      if(totalSales < 2_500_000) {
+       return "08519c"
+      }
+      else if (totalSales < 2_000_000) {
+        return "3182bd"
+      }
+      else if (totalSales < 1_500_000) {
+        return "6baed6"
+      }
+      else if (totalSales < 1_000_000) {
+        return "bdd7e7"
+      }
+      else if (totalSales < 500_000) {
+         return "eff3ff"
+      } else {
+        return "08519c"
+      }
+    
+  }
+
+  //manages style of geoJSON child component
+  const geoJSONStyle = (country) => {
+    return {
+      fillColor: countryColor(country.totalSales),
+      weight: 2,
+      opacity: 1,
+      color: "white",
+      fillOpacity: 0.7
+    };
+  }
+
+
+
 
   return (
     <>
       <MapContainer
-        center={[38.0, -97.0]}
-        zoom={4}
-        style={{ height: "600px", width: "900px" }}
+        center={mapCenter}
+        // center={[20, 100]}
+        zoom={mapZoom}
+        style={{ height: "90vh", width: "1000px" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {/* <Polygon
-          positions={stateOutline}
-          pathOptions={{ color: "blue", fillOpacity: 0 }}
-        /> */}
-
-        {/* {borderData.features.map((usState) => {
-          console.log(usState.geometry.type);
-          return usState.geometry.coordinates[0].map((coords) => {
-            return (
-              <Polygon
-                positions={[coords[1], coords[0]]}
-                pathOptions={{ color: "blue", fillOpacity: 0 }}
-              />
-            );
-          });
-        })} */}
+        {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
+        <GeoJSON 
+        data={countryBorder} 
+        onEachFeature={onEachState}
+        // style={geoJSONStyle} 
+        
+        />
       </MapContainer>
     </>
   );
