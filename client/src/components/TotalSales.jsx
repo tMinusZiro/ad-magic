@@ -40,4 +40,4 @@ const TotalSales = (props) => {
     )
 }
 
-export default TotalSales
+export default TotalSales;
