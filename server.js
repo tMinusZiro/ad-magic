@@ -21,31 +21,71 @@ app.get("/all-sales", async (request, response) => {
   response.json(allSalesObjects);
 });
 
+//create a list of countries 
 app.get("/countries", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
-  let countryArray = [] 
+  let countryArray = [];
   for (object of allSalesObjects) {
-    // console.log(object)
     if (object.Country__c && !countryArray.includes(object.Country__c)) {
-      countryArray.push(object.Country__c)
+      countryArray.push(object.Country__c);
     }
-  } 
-  countryArray = countryArray.sort()
-  response.json(countryArray)
-  })
+  }
+  countryArray = countryArray.sort();
+  response.json(countryArray);
+});
 
-  let clientsArray = [] 
-  app.get("/clients", async (request, response) => {
-    let allSalesObjects = await salesDB.showAll();
-    for (object of allSalesObjects) {
-      // console.log(object)
-      if (object.Account__c && !clientsArray.includes(object.Account__c)) {
-        clientsArray.push(object.Account__c)
-      }
-    } 
-    clientsArray = clientsArray.sort()
-    response.json(clientsArray)
-    })
+//create a list of clients 
+let clientsArray = [];
+app.get("/clients", async (request, response) => {
+  let allSalesObjects = await salesDB.showAll();
+  for (object of allSalesObjects) {
+    if (object.Account__c && !clientsArray.includes(object.Account__c)) {
+      clientsArray.push(object.Account__c);
+    }
+  }
+  clientsArray = clientsArray.sort();
+  response.json(clientsArray);
+});
+
+//render a list of items based on a client
+app.get("/items/:client", async (request, response) => { 
+  let allSalesObjects = await salesDB.showAll();
+  let client = request.params.client 
+  let itemList = []; 
+  for (object of allSalesObjects) {
+    if (object.Account__c === client && object.Item__c && !itemList.includes(object.Item__c)) {
+      itemList.push(object.Item__c)
+    }
+  }
+  response.json(itemList)
+})
+
+
+//create a list of all dates 
+let datesArray = [];
+app.get("/dates", async (request, response) => {
+  let allSalesObjects = await salesDB.showAll();
+  let exampleDate = allSalesObjects[0].Transaction_date__c;
+  // console.log(
+  //   exampleDate,
+  //   typeof exampleDate,
+  //   exampleDate.getMonth(),
+  //   exampleDate.getFullYear()
+  // );
+  for (object of allSalesObjects) {
+    if (
+      object.Transaction_date__c &&
+      !datesArray.includes(object.Transaction_date__c)
+    ) {
+      datesArray.push(object.Transaction_date__c);
+    }
+  }
+  datesArray = datesArray.sort((a, b) => b.date - a.date);
+  response.json(datesArray);
+});
+
+
+
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));

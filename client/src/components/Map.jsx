@@ -8,8 +8,11 @@ import {
 } from "react-leaflet";
 import multigonData from "../borderData/multigonData.js";
 import { useState } from "react";
+import "leaflet/dist/leaflet.css";
 
-const Map = () => {
+const Map = (props) => {
+
+  console.log(props.region)
   //tunnel into border data object
   //map the array of objects
   //iterate through each object and then tunnel into the coordinates array
