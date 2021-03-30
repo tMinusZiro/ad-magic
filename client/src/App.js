@@ -3,6 +3,7 @@ import MapToggle from "./components/MapToggle";
 import DataDisplays from "./components/DataDisplays";
 import { useState } from "react";
 import TotalSales from "./components/TotalSales";
+import Countries from "./components/tasks/Countries";
 
 function App() {
   //set the start date
@@ -44,6 +45,7 @@ function App() {
       <div id="data-displays-wrapper">
         <DataDisplays />
       </div>
+      {/* element to test the fetch  */}
       <Countries />
     </div>
   );
