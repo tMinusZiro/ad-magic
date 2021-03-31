@@ -22,10 +22,10 @@ const Map = (props) => {
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
   const [mapZoom, setMapZoom] = useState(2);
   //state for json country border data
-  const [countryBorder, setCountryBorder] = useState();
+  const [countryBorder, setCountryBorder] = useState(features);
   const [selectedContinent, setSelectedContinent] = useState();
   const [countryColor, setCountryColor] = useState({});
-
+  const [interTotalSales, setInterTotalSales] = useState();
   //center coordinates for main continents
   const [continentCenter, setContinentCenter] = useState({
     //Lat/Lon
@@ -41,39 +41,67 @@ const Map = (props) => {
   });
 
   const [usCenter, setUSCenter] = useState([38.0, -97.0]);
-
-  console.log("See props sales list below ");
-  console.log(props.totalSales);
-
+  const [officialSales, setOfficialSales] = useState();
   //sets up class task that will prep the border data
   class LoadBorderTask {
-    
+    setState = null;
+    mapCountries = features;
 
-      setState = null;
-      mapCountries = features;
-
-    
-
-      
-    
     //load method that will accept a state change function
     load = (setState) => {
       this.setState = setState;
+      // setState(features); //works but do not want to call it right away
       //then that state change function will take the destructured features import from the geojson
     };
 
     loopTotalSales() {
-      for (let country of this.mapCountries) {
-        const mapCountry = this.mapCountries[country];
-        const fetchedTotalSalesList = props.totalSales.find((matchedCountry) => matchedCountry._id === mapCountry.properties.ADMIN)
+      console.log("mapCountries = :");
+      console.log(this.mapCountries);
+      // console.log("Inside of loopTotalSales Method accessing props totalsales");
+      console.log(props.totalSales);
+      let matchedSalesValue;
+      for (let i = 0; i < this.mapCountries.length; i++) {
+        // console.log(props.totalSales);
+        const mapCountry = this.mapCountries[i];
 
-mapCountry.properties.totalSales = 0
-mapCountry.properties.totalSalesText = "0"
+        if (props.totalSales) {
+          // for (let j = 0; j < props.totalSales.length; j++) {
+          //   if (mapCountry.properties.ADMIN === props.totalSales[j]._id) {
+          //     matchedSalesValue = props.totalSales[j].totalSales
+          //     console.log()
+          //   }
+          // }
 
+          const matchedSalesValue = props.totalSales.find(
+            (element) => element._id === mapCountry.properties.ADMIN
+          );
+          // console.log("matched sales value");
+          // console.log(matchedSalesValue);
+
+          //DEFAULT VALUES:
+          //geoJSON layer properties total sales
+          mapCountry.properties.totalSales = 0;
+          //modal text
+          mapCountry.properties.totalSalesText = "0";
+
+          if (matchedSalesValue != null) {
+            setOfficialSales(matchedSalesValue.totalSales);
+            // console.log(
+            //   "Inside of conditional about to assign sales value to geoJSON"
+            // );
+            // console.log(officialSales);
+            mapCountry.properties.totalSales = officialSales;
+            // console.log("NOW the geoJSON sales is ");
+            // console.log(mapCountry.properties.officialSales);
+
+            mapCountry.properties.totalSalesText = officialSales;
+            // console.log("Map Modal text should display: ");
+            // console.log(mapCountry.properties.totalSalesText);
+          }
+        }
       }
-
-      this.setState(this.MapCountries)
-
+      //assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
+      this.setState(this.mapCountries);
     }
   }
 
@@ -83,9 +111,12 @@ mapCountry.properties.totalSalesText = "0"
     const loadBorderTask = new LoadBorderTask();
     //accessing instance method load and passing in the setter function for countryBorderUS
     loadBorderTask.load(setCountryBorder);
+    loadBorderTask.loopTotalSales();
   };
   //when page loads fires once to call the load function which in turn updates the country border state
-  useEffect(load, []);
+  useEffect(() => {
+    load();
+  });
 
   //function decides on color of country based on total sales
   //  const colorPicker = (props) => {
@@ -136,15 +167,23 @@ mapCountry.properties.totalSalesText = "0"
 
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
-  const onEachState = (countryBorder, layer) => {
+
+  function onEachState(countryBorder, layer) {
+    console.log("Inside of feature function");
+    console.log(countryBorder.properties);
     //fill color on geojson layer
     layer.options.fillColor = countryBorder.properties.color;
     const countryName = countryBorder.properties.ADMIN;
+
+    console.log(countryName);
     //will show total sales of each country when country is clicked
-    const totalSalesText = countryBorder.properties.totalSalesText;
+    console.log("total sales number");
+    console.log(countryBorder.properties.totalSales);
+    const totalSales = countryBorder.properties.totalSales;
+
     //info on popup when country is clicked
-    layer.bindPopup(`${countryName} ${totalSalesText} `);
-  };
+    layer.bindPopup(`${totalSales} ${countryName}  `);
+  }
 
   //----------function that changes style of map based on total sales----------//
   //steps
