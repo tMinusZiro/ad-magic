@@ -14,6 +14,8 @@ function App() {
   const [region, setRegion] = useState("all");
   //set the client that we would like to show data for:
   const [account, setAccount] = useState("all");
+  //total sales array of objects
+
   console.log(startDate, endDate, region, account);
 
   return (

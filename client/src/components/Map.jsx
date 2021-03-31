@@ -9,7 +9,9 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
+//data set for global country borders
 import { features } from "../borderData/countries.json";
+//data set for us state borders
 // import { features } from "../borderData/usBorder.json";
 import { useState, useEffect } from "react";
 
@@ -59,41 +61,32 @@ const Map = () => {
   const onEachState = (countryBorder, layer) => {
     layer.options.fillColor = countryBorder.properties.color;
 
-
-    
     const countryName = countryBorder.properties.ADMIN;
-
 
     layer.bindPopup(`${countryName} Total Sales Data `);
   };
 
   //----------function that changes style of map based on total sales----------//
-//steps
-//GeoJSON layer will rely on the country object.totalsales
-//fill color will change based on the total sales number
+  //steps
+  //GeoJSON layer will rely on the country object.totalsales
+  //fill color will change based on the total sales number
 
-//function decides on color of country based on total sales
+  //function decides on color of country based on total sales
   const countryColor = (totalSales) => {
-    
-      if(totalSales < 2_500_000) {
-       return "08519c"
-      }
-      else if (totalSales < 2_000_000) {
-        return "3182bd"
-      }
-      else if (totalSales < 1_500_000) {
-        return "6baed6"
-      }
-      else if (totalSales < 1_000_000) {
-        return "bdd7e7"
-      }
-      else if (totalSales < 500_000) {
-         return "eff3ff"
-      } else {
-        return "08519c"
-      }
-    
-  }
+    if (totalSales < 2_500_000) {
+      return "08519c";
+    } else if (totalSales < 2_000_000) {
+      return "3182bd";
+    } else if (totalSales < 1_500_000) {
+      return "6baed6";
+    } else if (totalSales < 1_000_000) {
+      return "bdd7e7";
+    } else if (totalSales < 500_000) {
+      return "eff3ff";
+    } else {
+      return "08519c";
+    }
+  };
 
   //manages style of geoJSON child component
   const geoJSONStyle = (country) => {
@@ -102,12 +95,9 @@ const Map = () => {
       weight: 2,
       opacity: 1,
       color: "white",
-      fillOpacity: 0.7
+      fillOpacity: 0.7,
     };
-  }
-
-
-
+  };
 
   return (
     <>
@@ -123,11 +113,10 @@ const Map = () => {
         />
 
         {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
-        <GeoJSON 
-        data={countryBorder} 
-        onEachFeature={onEachState}
-        // style={geoJSONStyle} 
-        
+        <GeoJSON
+          data={countryBorder}
+          onEachFeature={onEachState}
+          // style={geoJSONStyle}
         />
       </MapContainer>
     </>
