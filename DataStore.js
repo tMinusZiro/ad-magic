@@ -60,6 +60,20 @@ class DataStore {
     await collection.updateOne({ _id: ObjectId(targetId) }, { $set: update });
   }
 
+  async totalSales() {
+    const collection = await this.openConnect();
+    console.log("agg method");
+    const result = await collection.aggregate([
+      { $match: { Scrubbed__c: "true" } },
+      {
+        $group: { _id: "$Country__c", totalSales: { $sum: "$Total_Sales__c" } },
+      },
+    ]);
+    // await result.forEach(console.dir);
+    // console.log("cursor ", result);
+    return result;
+  }
+
   async closeConnect() {
     if (this.isConnected) {
       await this.isConnected.close();
