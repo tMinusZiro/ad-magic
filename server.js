@@ -44,20 +44,7 @@ app.get("/countries", async (request, response) => {
   response.json(countryArray);
 });
 
-let clientsArray = [];
-app.get("/clients", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
-  for (object of allSalesObjects) {
-    // console.log(object)
-    if (object.Account__c && !clientsArray.includes(object.Account__c)) {
-      clientsArray.push(object.Account__c);
-    }
-  }
-  clientsArray = clientsArray.sort();
-  response.json(clientsArray);
-});
- 
-//create a list of clients 
+//create a list of clients
 let clientsArray = [];
 app.get("/clients", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
@@ -71,20 +58,23 @@ app.get("/clients", async (request, response) => {
 });
 
 //render a list of items based on a client
-app.get("/items/:client", async (request, response) => { 
+app.get("/items/:client", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
-  let client = request.params.client 
-  let itemList = []; 
+  let client = request.params.client;
+  let itemList = [];
   for (object of allSalesObjects) {
-    if (object.Account__c === client && object.Item__c && !itemList.includes(object.Item__c)) {
-      itemList.push(object.Item__c)
+    if (
+      object.Account__c === client &&
+      object.Item__c &&
+      !itemList.includes(object.Item__c)
+    ) {
+      itemList.push(object.Item__c);
     }
   }
-  response.json(itemList)
-})
+  response.json(itemList);
+});
 
-
-//create a list of all dates 
+//create a list of all dates
 let datesArray = [];
 app.get("/dates", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
@@ -106,9 +96,6 @@ app.get("/dates", async (request, response) => {
   datesArray = datesArray.sort((a, b) => b.date - a.date);
   response.json(datesArray);
 });
-
-
-
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
