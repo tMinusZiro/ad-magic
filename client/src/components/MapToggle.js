@@ -38,29 +38,71 @@ const MapToggle = (props) => {
   //pre-set date range function
 
   function changeDateRange(event) {
+    //if client chooses last year, subtract 1 from current year
     if (event.target.value === "year") {
-      let newStart = new Date()
-      let year = newStart.getFullYear()
-      newStart.setFullYear(year-1)
-      props.setStartDate(newStart)
-    } else if (event.target.value ==="six-months") {
-      let newStart = new Date()
-      let month = newStart.getMonth()
-      newStart.setMonth(month-6)
-      props.setStartDate(newStart)
-    } else if (event.target.value ==="month") {
-      let newStart = new Date()
-      let month = newStart.getMonth()
-      newStart.setMonth(month-1)
-      props.setStartDate(newStart)
-    } else if (event.target.value === "week") {
-      let newStart = new Date()
-      let date = newStart.getDate()
-      newStart.setDate(date-7)
-      props.setStartDate(newStart)
-    } else if (event.target.value === "quarter") {
-      let newStart = new Date()
+      let newStart = new Date();
+      let year = newStart.getFullYear();
+      newStart.setFullYear(year - 1);
+      props.setStartDate(newStart);
+      //if client chooses last 6 months, subtract 6 months from months
+    } else if (event.target.value === "six-months") {
+      let newStart = new Date();
       let month = newStart.getMonth();
+      newStart.setMonth(month - 6);
+      props.setStartDate(newStart);
+      //if client chooses last month, subtract 1 month from months
+    } else if (event.target.value === "month") {
+      let newStart = new Date();
+      let month = newStart.getMonth();
+      newStart.setMonth(month - 1);
+      props.setStartDate(newStart);
+      //if client chooses last week, subtract 7 days from date 
+    } else if (event.target.value === "week") {
+      let newStart = new Date();
+      let date = newStart.getDate();
+      newStart.setDate(date - 7);
+      props.setStartDate(newStart);
+      //client chooses quarter 
+    } else if (event.target.value === "quarter") {
+      let newStart = new Date();
+      let month = newStart.getMonth();
+      //if it's Jan, Feb, or March, set the quarter to be the last three months of the previous year 
+      if (month === 0 || month === 1 || month === 2) {
+        let year = newStart.getFullYear() - 1;
+        let startMonth = 10;
+        let endMonth = 12;
+        let startDate = 1;
+        let endDate = 31;
+        props.setStartDate(new Date(`${year}-${startMonth}-${startDate}`));
+        props.setEndDate(new Date(`${year}-${endMonth}-${endDate}`));
+        //if it's April, May or June, set the quarter to be January - March of current year 
+      } else if (month === 3 || month === 4 || month === 5) {
+        let year = newStart.getFullYear();
+        let startMonth = 1;
+        let endMonth = 3;
+        let startDate = 1;
+        let endDate = 31;
+        props.setStartDate(new Date(`${year}-${startMonth}-${startDate}`));
+        props.setEndDate(new Date(`${year}-${endMonth}-${endDate}`));
+        //if it's July, or August, or September set the quarter to be April - June of current year 
+      } else if (month === 6 || month === 7 || month === 8) {
+        let year = newStart.getFullYear();
+        let startMonth = 4;
+        let endMonth = 6;
+        let startDate = 1;
+        let endDate = 31;
+        props.setStartDate(new Date(`${year}-${startMonth}-${startDate}`));
+        props.setEndDate(new Date(`${year}-${endMonth}-${endDate}`));
+        //if it's October, November, or December, set the quarter to be July - September of current year 
+      } else if (month === 9 || month === 10 || month === 11) {
+        let year = newStart.getFullYear();
+        let startMonth = 7;
+        let endMonth = 9;
+        let startDate = 1;
+        let endDate = 30;
+        props.setStartDate(new Date(`${year}-${startMonth}-${startDate}`));
+        props.setEndDate(new Date(`${year}-${endMonth}-${endDate}`));
+      }
     }
   }
 
@@ -119,7 +161,8 @@ const MapToggle = (props) => {
       <br></br>
       <br></br>
 
-      {//select a region menu
+      {
+        //select a region menu
       }
       <label for="region">Region: </label>
       <select name="region" value="Select Region" onChange={changeRegion}>
@@ -134,8 +177,9 @@ const MapToggle = (props) => {
       <br></br>
       <br></br>
 
-{//once the client list has been loaded, create a menu with each client as an option 
-}
+      {
+        //once the client list has been loaded, create a menu with each client as an option
+      }
       {clientList ? (
         <div>
           <label for="account">Client:</label>
@@ -157,7 +201,8 @@ const MapToggle = (props) => {
 
       <br></br>
 
-      {//once the item list has been loaded, create a menu with each item as an option
+      {
+        //once the item list has been loaded, create a menu with each item as an option
       }
       {itemList && itemList != "create new item list" ? (
         <div>

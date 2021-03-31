@@ -5,6 +5,7 @@ const TotalSales = (props) => {
     const [data, setData] = useState()
     const [subsetData, setSubsetData] = useState() 
 
+    console.log(props.startDate, props.endDate)
     useEffect(() => {
         if (!data) {
             fetch("/all-sales")
