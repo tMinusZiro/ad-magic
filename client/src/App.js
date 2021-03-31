@@ -4,6 +4,7 @@ import DataDisplays from "./components/DataDisplays";
 import { useState } from "react";
 import TotalSales from "./components/TotalSales";
 import Countries from "./components/tasks/Countries";
+import LoadTotalSalesTask from "./mapTasks/LoadTotalSalesTask.js";
 
 function App() {
   //set the start date
@@ -16,7 +17,6 @@ function App() {
   const [region, setRegion] = useState("all");
   //set the client that we would like to show data for:
   const [account, setAccount] = useState("all");
-  //total sales array of objects
 
   console.log(startDate, endDate, region, account);
   //set the item we would liek to show data for:
@@ -48,6 +48,7 @@ function App() {
       <div id="data-displays-wrapper">
         <DataDisplays />
       </div>
+
       {/* element to test the fetch  */}
       <Countries />
     </div>

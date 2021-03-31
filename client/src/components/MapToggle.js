@@ -80,7 +80,7 @@ const MapToggle = (props) => {
       {
         //preset date range menu
       }
-      <label for="date-preset">View By:</label>
+      <label htmlFor="date-preset">View By:</label>
       <select name="date-preset" value="date-preset" onChange={changeDateRange}>
         <option value="all-time">All Time</option>
         <option value="week">Past Week</option>
@@ -96,7 +96,7 @@ const MapToggle = (props) => {
       {
         //choose your own start and end date menu
       }
-      <label for="start-date">Start Date: </label>
+      <label htmlFor="start-date">Start Date: </label>
       <input
         type="date"
         id="start-date"
@@ -107,7 +107,7 @@ const MapToggle = (props) => {
       <br></br>
       <br></br>
 
-      <label for="end-date">End Date: </label>
+      <label htmlFor="end-date">End Date: </label>
       <br></br>
       <input
         type="date"
@@ -121,7 +121,7 @@ const MapToggle = (props) => {
 
       {//select a region menu
       }
-      <label for="region">Region: </label>
+      <label htmlFor="region">Region: </label>
       <select name="region" value="Select Region" onChange={changeRegion}>
         <option value="United States">United States</option>
         <option value="Africa">Australia</option>
@@ -138,7 +138,7 @@ const MapToggle = (props) => {
 }
       {clientList ? (
         <div>
-          <label for="account">Client:</label>
+          <label htmlFor="account">Client:</label>
           <select
             name="account"
             value="Select Account"
@@ -161,7 +161,7 @@ const MapToggle = (props) => {
       }
       {itemList && itemList != "create new item list" ? (
         <div>
-          <label for="item-list">Items:</label>
+          <label htmlFor="item-list">Items:</label>
           <select name="item" value="Select item">
             {itemList.map((item, index) => {
               return (

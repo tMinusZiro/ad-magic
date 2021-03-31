@@ -66,7 +66,10 @@ class DataStore {
     const result = await collection.aggregate([
       { $match: { Scrubbed__c: "true" } },
       {
-        $group: { _id: "$Country__c", totalSales: { $sum: "$Total_Sales__c" } },
+        $group: {
+          _id: "$Country__c",
+          totalSales: { $sum: "$Total_Sales__c" },
+        },
       },
     ]);
     // await result.forEach(console.dir);

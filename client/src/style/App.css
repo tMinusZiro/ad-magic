@@ -1,9 +1,13 @@
-
-.App {
-  text-align: center;
-  font-family: Avenir; 
+* {
+  margin: 0;
+  padding: 0;
 }
 
+/* .App {
+  text-align: center;
+  font-family: Avenir;
+} */
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -13,7 +17,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 #app-wrapper {
   display: grid;
@@ -34,24 +38,23 @@
 }
 input {
   font-family: Avenir;
-  width:100%;
+  width: 100%;
   text-align: center;
 }
 select {
   width: 100%;
   text-align: center;
   align-items: center;
-
 }
 
 option {
-  text-align:center;
+  text-align: center;
   align-items: center;
 }
-#map-wrapper {
+/* #map-wrapper {
   grid-column: 2;
   grid-row: 2;
-}
+} */
 
 #data-displays-wrapper {
   grid-column: 3;

@@ -37,11 +37,7 @@ export default function Countries() {
   console.log(countryList);
   console.log(countryList.Australia);
 
-  return (
-    <div>
-      <h1>Country List!</h1>
-    </div>
-  );
+  return <div>{/* <h1>Country List!</h1> */}</div>;
 }
 
 // class countryList {
