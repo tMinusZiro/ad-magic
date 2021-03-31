@@ -13,11 +13,11 @@ function App() {
   //set the end date
   const [endDate, setEndDate] = useState(new Date());
   //set the region that the map should focus on
-  const [region, setRegion] = useState("all");
+  const [region, setRegion] = useState("World");
   //set the client that we would like to show data for:
-  const [account, setAccount] = useState("all");
+  const [account, setAccount] = useState("all-accounts");
   //set the item we would liek to show data for:
-  const [item, setItem] = useState();
+  const [item, setItem] = useState("all-items");
 
   return (
     <div id="app-wrapper">

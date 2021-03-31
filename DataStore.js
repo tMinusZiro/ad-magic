@@ -66,12 +66,84 @@ class DataStore {
     const result = await collection.aggregate([
       { $match: { Scrubbed__c: "true" } },
       {
-        $group: { _id: "$Country__c", totalSales: { $sum: "$Total_Sales__c" } },
+        $group: {
+          _id: "$Country__c",
+          totalSales: { $sum: "$Total_Sales__c" },
+          averageSale: { $avg: "$Total_Sales__c" },
+          totalItems: { $sum: "QTY__c" },
+        },
       },
     ]);
     // await result.forEach(console.dir);
     // console.log("cursor ", result);
     return result;
+  }
+
+  async findClients() {
+    const collection = await this.openConnect();
+    const clientsResult = await collection.aggregate([
+      { $match: { Scrubbed__c: "true" } },
+      {
+        $group: {
+          _id: "$Account__c",
+          totalSales: { $sum: "$Total_Sales__c" },
+          itemList: { $addToSet: "$Item__c" },
+        },
+      },
+    ]);
+    return clientsResult;
+  }
+
+  async findSalesByForm(formResults) {
+    const collection = await this.openConnect();
+    let newStart = formResults.startDate;
+    let newEnd = formResults.endDate;
+
+    const salesResults = await collection.aggregate([
+      {
+        $match: {
+          $expr: {
+            $lte: [
+              newStart,
+              {
+                $dateToString: {
+                  date: "$Transaction_date__c",
+                  format: "%Y-%m-%d",
+                },
+              },
+            ],
+          },
+        },
+      },
+      { 
+        $match: {
+        $expr: {
+        $gte: [
+          newEnd,
+          {
+            $dateToString: {
+              date: "$Transaction_date__c",
+              format: "%Y-%m-%d",
+            },
+          },
+        ],
+      }
+    }
+  },
+      {$match: {Account__c: ""}
+    },
+
+      {
+        $group: {
+          _id: "$Country__c",
+          account: { $addToSet: "$Account__c" },
+          totalSales: { $sum: "$Total_Sales__c" },
+          itemList: { $addToSet: "$Item__c" },
+          date: { $addToSet: "$Transaction_date__c" },
+        },
+      },
+    ]);
+    return salesResults;
   }
 
   async closeConnect() {
