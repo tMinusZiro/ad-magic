@@ -70,7 +70,7 @@ class DataStore {
           _id: "$Country__c",
           totalSales: { $sum: "$Total_Sales__c" },
           averageSale: { $avg: "$Total_Sales__c" },
-          totalItems: { $sum: "QTY__c" },
+          totalItems: { $sum: "$QTY__c" },
         },
       },
     ]);
@@ -96,8 +96,26 @@ class DataStore {
 
   async findSalesByForm(formResults) {
     const collection = await this.openConnect();
-    let newStart = formResults.startDate;
+    let newStart;
+    console.log(formResults.startDate)
+    console.log(typeof(formResults.startDate))
+    if (formResults.startDate) {
+      newStart = formResults.startDate;
+      console.log("inside if")
+    } else {newStart = "2020-01-01"
+    console.log("inside else")
+
+    }
     let newEnd = formResults.endDate;
+    console.log(typeof(newStart))
+    console.log((formResults.startDate))
+
+    let clientName;
+    if (formResults.account) {
+      clientName = `$match: {Account__c: ${formResults.account}}`
+    } else clientName = "" 
+    
+    // let clientName = formResults.account
 
     const salesResults = await collection.aggregate([
       {
@@ -130,14 +148,28 @@ class DataStore {
       }
     }
   },
-      {$match: {Account__c: ""}
-    },
-
+  {
+    $match: {Account__c: formResults.account}
+},
+{
+  $match: {Item__c: formResults.item}
+},
       {
         $group: {
           _id: "$Country__c",
           account: { $addToSet: "$Account__c" },
+          averagePrice: {$avg: "$Price__c"},
           totalSales: { $sum: "$Total_Sales__c" },
+          division: { $addToSet: "$Division__c"},
+          optInMarketing: {$push: "$opt_in__c"},
+          postalCode: {$push: "$Postal_Code__c"},
+          itemsSold: {$sum: "$QTY__c"},
+          distinctSalesTypes: {$addToSet: "$Sales_Type__c"},
+          salesType: {$push: "$Sales_Type__c"},
+          distinctSources: {$addToSet: "$Source__c" },
+          source: {$push: "$Source__c" },
+          distinctVendors: {$addToSet: "$Vendor__c"},
+          vendor: {$push: "$Vendor__c"},
           itemList: { $addToSet: "$Item__c" },
           date: { $addToSet: "$Transaction_date__c" },
         },
