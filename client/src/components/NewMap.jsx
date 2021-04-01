@@ -56,7 +56,7 @@ const Map = ({ countries }) => {
     const totalSales = countryBorder.properties.totalSales;
 
     //info on popup when country is clicked
-    layer.bindPopup(`${totalSales} ${countryName}  `);
+    layer.bindPopup(`${totalSales} ${countryName}`);
   }
 
   //----------function that changes style of map based on total sales----------//

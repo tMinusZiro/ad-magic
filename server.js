@@ -24,7 +24,9 @@ app.get("/all-sales", async (request, response) => {
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
   let totalSales = await salesDB.totalSales();
+
   let countrySalesArray = [];
+
   await totalSales.forEach((item) => {
     countrySalesArray.push(item);
   });

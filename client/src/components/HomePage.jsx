@@ -5,24 +5,11 @@ import MapLegend from "./MapLegend.jsx";
 import Loading from "./Loading.jsx";
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
-import LoadBorderTask from "../mapTasks/LoadBorderTask.js";
-import LoadTotalSalesTask from "../mapTasks/LoadTotalSalesTask.js";
-
+import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
 const HomePage = () => {
   //list of countries
   const [countries, setCountries] = useState([]);
-
-  //   function that will create a new instance of LoadBorderData class
-  const load = () => {
-    //instance created
-    const loadBorderTask = new LoadBorderTask();
-    //accessing instance method load and passing in the setter function for countryBorderUS
-    loadBorderTask.load(setCountries);
-    loadBorderTask.loopTotalSales(); //do I need this?
-  };
-
-  //   when page loads fires once to call the load function which in turn updates the country border state
-  useEffect(load, []);
+  const [totalSales, setTotalSales] = useState();
 
   return (
     <div>
@@ -34,10 +21,12 @@ const HomePage = () => {
           <MapLegend />
         </div>
       )}
-      {/* <LoadTotalSalesTask
-        totalSalesList={totalSalesList}
-        setTotalSalesList={setTotalSalesList}
-      /> */}
+      <NewLoadMap
+        // totalSales={totalSales}
+        // setTotalSales={setTotalSales}
+        countries={countries}
+        setCountries={setCountries}
+      />
     </div>
   );
 };
