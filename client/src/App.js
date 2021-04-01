@@ -4,7 +4,7 @@ import DataDisplays from "./components/DataDisplays";
 import { useState } from "react";
 import TotalSales from "./components/TotalSales";
 import Countries from "./components/tasks/Countries";
-import LoadTotalSalesTask from "./mapTasks/LoadTotalSalesTask.js";
+import HomePage from "./components/HomePage.jsx";
 
 function App() {
   //set the start date
@@ -36,7 +36,7 @@ function App() {
           setItem={setItem}
         />
       </div>
-      <div id="map-wrapper">
+      {/* <div id="map-wrapper">
         <TotalSales
           startDate={startDate}
           endDate={endDate}
@@ -44,9 +44,12 @@ function App() {
           account={account}
           item={item}
         />
-      </div>
+      </div> */}
       <div id="data-displays-wrapper">
         <DataDisplays />
+      </div>
+      <div>
+        <HomePage />
       </div>
 
       {/* element to test the fetch  */}

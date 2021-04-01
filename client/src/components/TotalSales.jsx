@@ -8,27 +8,27 @@ const TotalSales = (props) => {
   //object kay/value country/total sales
   const [totalSales, setTotalSales] = useState();
 
-  useEffect(() => {
-    if (!data) {
-      fetch("/all-sales")
-        .then((res) => res.json())
-        .then((list) => {
-          setData(list);
-        });
-    }
-  });
+  // useEffect(() => {
+  //   if (!data) {
+  //     fetch("/all-sales")
+  //       .then((res) => res.json())
+  //       .then((list) => {
+  //         setData(list);
+  //       });
+  //   }
+  // });
 
-  //fetching total sales for map chloropleth
-  useEffect(() => {
-    console.log("Outside guard clause");
-    if (!totalSales) {
-      fetch("/total-sales")
-        .then((res) => res.json())
-        .then((list) => {
-          setTotalSales(list);
-        });
-    }
-  });
+  // //fetching total sales for map chloropleth
+  // useEffect(() => {
+  //   console.log("Outside guard clause");
+  //   if (!totalSales) {
+  //     fetch("/total-sales")
+  //       .then((res) => res.json())
+  //       .then((list) => {
+  //         setTotalSales(list);
+  //       });
+  //   }
+  // });
 
   // function testTotalSalesList() {
   //   if (interTotalSales) {
@@ -57,14 +57,14 @@ const TotalSales = (props) => {
 
   return (
     <div>
-      <Map
+      {/* <Map
         totalSales={totalSales}
         startDate={props.startDate}
         endDate={props.endDate}
         region={props.region}
         account={props.account}
         item={props.item}
-      ></Map>
+      ></Map> */}
     </div>
   );
 };

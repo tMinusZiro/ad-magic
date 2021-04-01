@@ -1,7 +1,7 @@
 import React from "react";
 
 const MapLegend = () => {
-  return <div></div>;
+  return <div>Legend</div>;
 };
 
 export default MapLegend;
