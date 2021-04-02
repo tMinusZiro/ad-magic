@@ -28,7 +28,6 @@ app.get("/total-sales", async (request, response) => {
   await totalSales.forEach((item) => {
     countrySalesArray.push(item);
   });
-
   response.send(countrySalesArray);
 });
 
@@ -56,8 +55,10 @@ app.get("/clients", async (request, response) => {
 //render a list of items based on a client
 app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
+  console.log(client)
   let itemSales = await salesDB.findClients();
   let itemArray = [];
+  // console.log(itemSales)
   await itemSales.forEach((item) => {
     if (client === "all") {
       itemArray.push(item.itemList);
@@ -65,19 +66,17 @@ app.get("/items/:client", async (request, response) => {
       itemArray.push(item.itemList);
     }
   });
-
+  console.log(itemArray)
   response.send(itemArray);
 });
 
-
-app.post("/show-sales", async (request, response) => {
+let showSalesArray = []; 
+app.post("/show-item-sales", async (request, response) => {
   let formRes = request.body
-  let showSalesArray = []; 
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
     showSalesArray.push(item)
   })
-  console.log("form Results on server.js:",formRes)
   response.send(showSalesArray)
 })
 
