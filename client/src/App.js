@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div id="app-wrapper">
-      {/* <div id="map-toggle-wrapper">
+      <div id="map-toggle-wrapper">
         <MapToggle
           setRegion={setRegion}
           region = {region}
@@ -23,10 +23,10 @@ function App() {
           region={region}
         />
       </div>
-      <div id="data-displays-wrapper">
+      {/* <div id="data-displays-wrapper">
         <DataDisplays />
-      </div>
-      {/* element to test the fetch  */}
+      </div> */}
+      {/* element to test the fetch 
       {/* <Countries /> */}
       <TopDash />
       <RightDash />

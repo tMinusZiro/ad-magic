@@ -32,11 +32,11 @@ const TotalSales = (props) => {
 
     return (
         <div>
-            <Map startDate={props.startDate}
+            {/* <Map startDate={props.startDate}
           endDate={props.endDate}
           region={props.region}
           account={props.account}
-          item={props.item} ></Map>
+          item={props.item} ></Map> */}
         </div>
     )
 }

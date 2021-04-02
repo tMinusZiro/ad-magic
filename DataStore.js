@@ -56,10 +56,6 @@ class DataStore {
 //top dashboard data
   async totalSales() {
     const collection = await this.openConnect();
-<<<<<<< HEAD
-
-=======
->>>>>>> 0fcec2097eefebbed07f39265154eb68c245a2ba
     const result = await collection.aggregate([
       { $match: { Scrubbed__c: "true" } },
       {
@@ -72,11 +68,7 @@ class DataStore {
         //
       },
     ]);
-<<<<<<< HEAD
-    return result;
-=======
     return result
->>>>>>> 0fcec2097eefebbed07f39265154eb68c245a2ba
   }
   //Vendors chart data
   async vendors(){
@@ -110,28 +102,6 @@ class DataStore {
 
   async findSalesByForm(formResults) {
     const collection = await this.openConnect();
-<<<<<<< HEAD
-    let newStart;
-    console.log(formResults.startDate);
-    console.log(typeof formResults.startDate);
-    if (formResults.startDate) {
-      newStart = formResults.startDate;
-      console.log("inside if");
-    } else {
-      newStart = "2020-01-01";
-      console.log("inside else");
-    }
-    let newEnd = formResults.endDate;
-    console.log(typeof newStart);
-    console.log(formResults.startDate);
-
-    let clientName;
-    if (formResults.account) {
-      clientName = `$match: {Account__c: ${formResults.account}}`;
-    } else clientName = "";
-
-    // let clientName = formResults.account
-=======
     let newStart = new Date();
     let newEnd = new Date();
     //decide on start date based on pre-sets or user input
@@ -224,7 +194,6 @@ class DataStore {
     if (formResults.region === "United States") {
       filterBy = "$State_Provence__c";
     } else filterBy = "$Country__c";
->>>>>>> 0fcec2097eefebbed07f39265154eb68c245a2ba
 
     let account = formResults.account; 
     // let accountName;
@@ -251,13 +220,8 @@ class DataStore {
       {
         $match: {
           $expr: {
-<<<<<<< HEAD
-            $gte: [
-              newEnd,
-=======
             $lte: [
               newStart,
->>>>>>> 0fcec2097eefebbed07f39265154eb68c245a2ba
               {
                 $dateToString: {
                   date: "$Transaction_date__c",
@@ -269,19 +233,11 @@ class DataStore {
         },
       },
       {
-<<<<<<< HEAD
         $match: { Account__c: formResults.account },
       },
       {
         $match: { Item__c: formResults.item },
       },
-=======
-        $match: { Account__c: account},
-      },
-      // {
-      //   $match: { Item__c: formResults.item },
-      // },
->>>>>>> 0fcec2097eefebbed07f39265154eb68c245a2ba
       {
         $group: {
           _id: filterBy,
