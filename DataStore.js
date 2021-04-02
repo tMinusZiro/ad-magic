@@ -59,26 +59,38 @@ class DataStore {
     const collection = await this.openConnect();
     await collection.updateOne({ _id: ObjectId(targetId) }, { $set: update });
   }
-
+//top dashboard data
   async totalSales() {
     const collection = await this.openConnect();
-    console.log("agg method");
+
     const result = await collection.aggregate([
       { $match: { Scrubbed__c: "true" } },
       {
         $group: {
-          _id: "$Country__c",
+          _id: "$Scrubbed__c",
           totalSales: { $sum: "$Total_Sales__c" },
           averageSale: { $avg: "$Total_Sales__c" },
           totalItems: { $sum: "$QTY__c" },
         },
+        //
       },
     ]);
-    // await result.forEach(console.dir);
-    // console.log("cursor ", result);
     return result;
   }
-
+  //Vendors chart data
+  async vendors(){
+    const collection= await this.openConnect();
+    const vendors = await collection.aggregate([
+      {$match: { Scrubbed__c: "true"}},
+      { $group: {
+        _id: "$Sales_Type__c", 
+        numberOfSales: { $sum: "$QTY__c"},
+        totalSales: { $sum: "$Total_Sales__c" },
+      }
+      }
+    ])
+    return vendors;
+  }
   async findClients() {
     const collection = await this.openConnect();
     const clientsResult = await collection.aggregate([
@@ -97,24 +109,24 @@ class DataStore {
   async findSalesByForm(formResults) {
     const collection = await this.openConnect();
     let newStart;
-    console.log(formResults.startDate)
-    console.log(typeof(formResults.startDate))
+    console.log(formResults.startDate);
+    console.log(typeof formResults.startDate);
     if (formResults.startDate) {
       newStart = formResults.startDate;
-      console.log("inside if")
-    } else {newStart = "2020-01-01"
-    console.log("inside else")
-
+      console.log("inside if");
+    } else {
+      newStart = "2020-01-01";
+      console.log("inside else");
     }
     let newEnd = formResults.endDate;
-    console.log(typeof(newStart))
-    console.log((formResults.startDate))
+    console.log(typeof newStart);
+    console.log(formResults.startDate);
 
     let clientName;
     if (formResults.account) {
-      clientName = `$match: {Account__c: ${formResults.account}}`
-    } else clientName = "" 
-    
+      clientName = `$match: {Account__c: ${formResults.account}}`;
+    } else clientName = "";
+
     // let clientName = formResults.account
 
     const salesResults = await collection.aggregate([
@@ -133,43 +145,43 @@ class DataStore {
           },
         },
       },
-      { 
+      {
         $match: {
-        $expr: {
-        $gte: [
-          newEnd,
-          {
-            $dateToString: {
-              date: "$Transaction_date__c",
-              format: "%Y-%m-%d",
-            },
+          $expr: {
+            $gte: [
+              newEnd,
+              {
+                $dateToString: {
+                  date: "$Transaction_date__c",
+                  format: "%Y-%m-%d",
+                },
+              },
+            ],
           },
-        ],
-      }
-    }
-  },
-  {
-    $match: {Account__c: formResults.account}
-},
-{
-  $match: {Item__c: formResults.item}
-},
+        },
+      },
+      {
+        $match: { Account__c: formResults.account },
+      },
+      {
+        $match: { Item__c: formResults.item },
+      },
       {
         $group: {
           _id: "$Country__c",
           account: { $addToSet: "$Account__c" },
-          averagePrice: {$avg: "$Price__c"},
+          averagePrice: { $avg: "$Price__c" },
           totalSales: { $sum: "$Total_Sales__c" },
-          division: { $addToSet: "$Division__c"},
-          optInMarketing: {$push: "$opt_in__c"},
-          postalCode: {$push: "$Postal_Code__c"},
-          itemsSold: {$sum: "$QTY__c"},
-          distinctSalesTypes: {$addToSet: "$Sales_Type__c"},
-          salesType: {$push: "$Sales_Type__c"},
-          distinctSources: {$addToSet: "$Source__c" },
-          source: {$push: "$Source__c" },
-          distinctVendors: {$addToSet: "$Vendor__c"},
-          vendor: {$push: "$Vendor__c"},
+          division: { $addToSet: "$Division__c" },
+          optInMarketing: { $push: "$opt_in__c" },
+          postalCode: { $push: "$Postal_Code__c" },
+          itemsSold: { $sum: "$QTY__c" },
+          distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
+          salesType: { $push: "$Sales_Type__c" },
+          distinctSources: { $addToSet: "$Source__c" },
+          source: { $push: "$Source__c" },
+          distinctVendors: { $addToSet: "$Vendor__c" },
+          vendor: { $push: "$Vendor__c" },
           itemList: { $addToSet: "$Item__c" },
           date: { $addToSet: "$Transaction_date__c" },
         },
