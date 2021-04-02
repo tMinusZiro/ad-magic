@@ -1,6 +1,7 @@
 import React from "react";
 import { features } from "../borderData/countries.json";
 import { useState, useEffect } from "react";
+import legendItems from "../entities/LegendItems";
 
 const NewLoadMap = (props) => {
   const [mapCountries, setMapCountries] = useState(features);
@@ -22,9 +23,18 @@ const NewLoadMap = (props) => {
     }
   });
 
-  console.log("Total Sales on Load Map function");
-  console.log(totalSales);
+  function setCountryColor(country) {
+    const legendItem = legendItems.find((legendItem) =>
+      legendItem.isFor(country.properties.totalSales)
+    );
+
+    if (legendItem != null) {
+      country.properties.color = legendItem.color;
+    }
+  }
+
   function loadMapData() {
+    console.log("inside load function after timeout");
     //iterate through array of geoJSON objects representing each country in world
     for (let country of mapCountries) {
       let matchedValue;
@@ -37,8 +47,8 @@ const NewLoadMap = (props) => {
           if (country.properties.ADMIN == sale._id) {
             //if there is a match assign it to intermediate variable
             matchedValue = sale;
-            console.log("MATCHED OBJECT");
-            console.log(matchedValue);
+            // console.log("MATCHED OBJECT");
+            // console.log(matchedValue);
           }
         }
       }
@@ -57,23 +67,28 @@ const NewLoadMap = (props) => {
         //creates intermediate variable
         const assignTotalSales = matchedValue.totalSales;
 
-        console.log(assignTotalSales);
+        // console.log(assignTotalSales);
         //assigns correct total sales to geoJSON object
         country.properties.totalSales = assignTotalSales;
-        console.log("NOW the geoJSON sales is ");
-        console.log(country.properties);
+        // console.log("NOW the geoJSON sales is ");
+        // console.log(country.properties);
         //assigns total sales to geoJSON object for displaying text on pop up modal
         country.properties.totalSalesText = assignTotalSales;
-        console.log("Map Modal text should display: ");
-        console.log(country.properties.totalSalesText);
+        // console.log("Map Modal text should display: ");
+        // console.log(country.properties.totalSalesText);
       }
-
+      setCountryColor(country);
       // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
-      props.setCountries(features);
     }
+    props.setCountries(features);
     // console.log(mapCountries);
   }
   loadMapData();
+  // setTimeout(() => {
+  //   alert("Inside timeout");
+  //   loadMapData();
+  // }, 9000);
+
   return <div></div>;
 };
 

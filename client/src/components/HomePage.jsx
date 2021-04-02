@@ -6,10 +6,13 @@ import Loading from "./Loading.jsx";
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
 import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
+import legendItems from "../entities/LegendItems";
+
 const HomePage = () => {
   //list of countries
   const [countries, setCountries] = useState([]);
   const [totalSales, setTotalSales] = useState();
+  const legendItemsInReverse = [...legendItems].reverse();
 
   return (
     <div>
@@ -18,7 +21,7 @@ const HomePage = () => {
       ) : (
         <div>
           <NewMap countries={countries} />
-          <MapLegend />
+          <MapLegend legendItems={legendItemsInReverse} />
         </div>
       )}
       <NewLoadMap
