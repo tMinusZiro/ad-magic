@@ -1,9 +1,10 @@
 import "./style/App.css";
 import MapToggle from "./components/MapToggle";
-import DataDisplays from "./components/DataDisplays";
 import { useState } from "react";
 import TotalSales from "./components/TotalSales";
 import Countries from "./components/tasks/Countries";
+import TopDash from "./components/TopDash";
+import RightDash from "./components/RightDash";
 
 function App() {
   //set the start date
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div id="app-wrapper">
-      <div id="map-toggle-wrapper">
+      {/* <div id="map-toggle-wrapper">
         <MapToggle
           startDate={startDate}
           endDate={endDate}
@@ -46,7 +47,9 @@ function App() {
         <DataDisplays />
       </div>
       {/* element to test the fetch  */}
-      <Countries />
+      {/* <Countries /> */}
+      <TopDash />
+      <RightDash />
     </div>
   );
 }
