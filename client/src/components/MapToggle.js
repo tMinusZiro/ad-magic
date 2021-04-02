@@ -4,64 +4,48 @@ const MapToggle = (props) => {
   //list of all clients in database
   const [clientList, setClientList] = useState();
   //list of all items by a particular client
-  const [itemList, setItemList] = useState();
-
+  const [loadItems, setLoadItems] = useState(false);
+  const [listOfItems, setListOfItems] = useState();
+  const [showCustomDate, setShowCustomDate] = useState(false);
+  const [account, setAccount] = useState("all");
+  let clientArray = [];
   useEffect(() => {
-    //if there is no clientList, fetch the list of clients from server
+    // if there is no clientList, fetch the list of clients from server
     if (!clientList) {
       fetch("/clients")
         .then((res) => res.json())
         .then((list) => {
-          setClientList(list);
+          list.forEach((obj) => {
+            clientArray.push(obj._id);
+          });
+          setClientList(clientArray.sort());
         });
     }
     //once the client/account is selected, fetch all items from server that are sold by that client/account
-    if (itemList === "create new item list") {
-      fetch(`/items/${props.account}`)
+    let itemArray = [];
+    if (loadItems) {
+      fetch(`/items/${account}`)
         .then((res) => res.json())
         .then((list) => {
-          setItemList(list);
+          list.forEach((array) => {
+            itemArray.push(array);
+            array.forEach((item) => {
+              itemArray.push(item);
+            });
+          });
+          console.log(itemArray);
+          setLoadItems(false);
+          setListOfItems(itemArray.sort());
         });
     }
   });
 
-  //choose your own start date function
-  function changeStartDate(event) {
-    props.setStartDate(event.target.value);
-  }
-
-  //chose your own end date function
-  function changeEndDate(event) {
-    props.setEndDate(event.target.value);
-  }
-
   //pre-set date range function
 
-  function changeDateRange(event) {
-    if (event.target.value === "year") {
-      let newStart = new Date()
-      let year = newStart.getFullYear()
-      newStart.setFullYear(year-1)
-      props.setStartDate(newStart)
-    } else if (event.target.value ==="six-months") {
-      let newStart = new Date()
-      let month = newStart.getMonth()
-      newStart.setMonth(month-6)
-      props.setStartDate(newStart)
-    } else if (event.target.value ==="month") {
-      let newStart = new Date()
-      let month = newStart.getMonth()
-      newStart.setMonth(month-1)
-      props.setStartDate(newStart)
-    } else if (event.target.value === "week") {
-      let newStart = new Date()
-      let date = newStart.getDate()
-      newStart.setDate(date-7)
-      props.setStartDate(newStart)
-    } else if (event.target.value === "quarter") {
-      let newStart = new Date()
-      let month = newStart.getMonth();
-    }
+  function showCalendar(event) {
+    if (event.target.value === "custom") {
+      setShowCustomDate(true);
+    } else setShowCustomDate(false);
   }
 
   //change the map to focus in on a particular region
@@ -71,110 +55,132 @@ const MapToggle = (props) => {
 
   //change the client account in order to show data from that client then render the item menu for that client
   function changeAccount(event) {
-    props.setAccount(event.target.value);
-    setItemList("create new item list");
+    setAccount(event.target.value);
+    setLoadItems(true);
   }
+
+  //set default date on form
+  let today = new Date();
+  let year = today.getFullYear();
+  let month;
+  //add a 0 if month or day is signle digits
+  if (today.getMonth() + 1 < 10) {
+    month = "0" + (today.getMonth() + 1);
+  } else month = today.getMonth() + 1;
+  let day;
+  if (today.getDate() < 10) {
+    day = "0" + today.getDate();
+  } else day = today.getDate();
+  //set default end date
+  let defaultDate = `${year}-${month}-${day}`;
 
   return (
     <div>
       {
-        //preset date range menu
+        //select a region menu
       }
-      <label htmlFor="date-preset">View By:</label>
-      <select name="date-preset" value="date-preset" onChange={changeDateRange}>
-        <option value="all-time">All Time</option>
-        <option value="week">Past Week</option>
-        <option value="month">Past Month</option>
-        <option value="quarter">Last Quarter</option>
-        <option value="six-months">Past Six Month</option>
-        <option value="year">Past Year</option>
-      </select>
+      <form method="POST" action="/show-item-sales">
+        <label for="region">Region: </label>
+        <select name="region" onChange={changeRegion}>
+          <option value="World">View World Sales</option>
+          <option value="United States">United States</option>
+          <option value="Africa">Australia</option>
+          <option value="Asia">Asia</option>
+          <option value="Australia">Australia</option>
+          <option value="Europe">Europe</option>
+          <option value="North America">North America</option>
+          <option value="South America">South America</option>
+        </select>
+        <br></br>
+        <br></br>
+        <label for="date-preset">View By:</label>
+        <select name="datePreset" onChange={showCalendar}>
+          <option value="all-time">All Time</option>
+          <option value="week">Past Week</option>
+          <option value="month">Past Month</option>
+          <option value="quarter">Last Quarter</option>
+          <option value="six-months">Past Six Month</option>
+          <option value="year">Past Year</option>
+          <option value="custom">Custom Timeframe</option>
+        </select>
 
-      <br></br>
-      <br></br>
+        <br></br>
+        <br></br>
+        {showCustomDate ? (
+          <div>
+            <label for="startDate">Start Date: </label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              defaultValue="2018-01-01"
+              // onChange={changeStartDate}
+            ></input>
 
-      {
-        //choose your own start and end date menu
-      }
-      <label htmlFor="start-date">Start Date: </label>
-      <input
-        type="date"
-        id="start-date"
-        name="start-date"
-        onChange={changeStartDate}
-      ></input>
+            <br></br>
+            <br></br>
 
-      <br></br>
-      <br></br>
+            <label for="endDate">End Date: </label>
+            <br></br>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              // onChange={changeEndDate}
+              defaultValue={defaultDate}
+            ></input>
+          </div>
+        ) : null}
 
-      <label htmlFor="end-date">End Date: </label>
-      <br></br>
-      <input
-        type="date"
-        id="end-date"
-        name="end-date"
-        onChange={changeEndDate}
-      ></input>
+        <br></br>
+        <br></br>
 
-      <br></br>
-      <br></br>
+        {
+          //once the client list has been loaded, create a menu with each client as an option
+        }
+        {clientList ? (
+          <div>
+            <label for="account">
+              Client:
+              <select name="account" onChange={changeAccount}>
+                <option value="all">View All Clients</option>
+                {clientList.map((client, index) => {
+                  return (
+                    <option key={index} value={client}>
+                      {client}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+          </div>
+        ) : null}
 
-      {//select a region menu
-      }
-      <label htmlFor="region">Region: </label>
-      <select name="region" value="Select Region" onChange={changeRegion}>
-        <option value="United States">United States</option>
-        <option value="Africa">Australia</option>
-        <option value="Asia">Asia</option>
-        <option value="Australia">Australia</option>
-        <option value="Europe">Europe</option>
-        <option value="North America">North America</option>
-        <option value="South America">South America</option>
-      </select>
-      <br></br>
-      <br></br>
+        <br></br>
 
-{//once the client list has been loaded, create a menu with each client as an option 
-}
-      {clientList ? (
-        <div>
-          <label htmlFor="account">Client:</label>
-          <select
-            name="account"
-            value="Select Account"
-            onChange={changeAccount}
-          >
-            {clientList.map((client, index) => {
-              return (
-                <option key={index} id={client} value={client}>
-                  {client}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      ) : null}
-
-      <br></br>
-
-      {//once the item list has been loaded, create a menu with each item as an option
-      }
-      {itemList && itemList != "create new item list" ? (
-        <div>
-          <label htmlFor="item-list">Items:</label>
-          <select name="item" value="Select item">
-            {itemList.map((item, index) => {
-              return (
-                <option key={index} id={item} value={item}>
-                  {item}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      ) : null}
-
-      <br></br>
+        {
+          //once the item list has been loaded, create a menu with each item as an option
+        }
+        {listOfItems ? (
+          <div>
+            <label for="item-list">
+              Items:
+              <select name="item">
+                <option value="all-items">View All Items</option>
+                {listOfItems.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+          </div>
+        ) : null}
+        <input type="submit" value="Show Sales!" />
+        <br></br>
+      </form>
     </div>
   );
 };

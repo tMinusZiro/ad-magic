@@ -7,6 +7,16 @@ const TotalSales = (props) => {
 
   //object kay/value country/total sales
   const [totalSales, setTotalSales] = useState();
+    console.log(props.startDate, props.endDate)
+    useEffect(() => {
+        if (!data) {
+            fetch("/all-sales")
+            .then((res) => res.json())
+            .then((list) => {
+                setData(list)
+            })
+        }
+    })
 
   // useEffect(() => {
   //   if (!data) {

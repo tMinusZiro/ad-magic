@@ -34,8 +34,8 @@ export default function Countries() {
   let countryList = new CountryList();
 
   countryList.addCountries();
-  console.log(countryList);
-  console.log(countryList.Australia);
+  // console.log(countryList);
+  // console.log(countryList.Australia);
 
   return <div>{/* <h1>Country List!</h1> */}</div>;
 }
