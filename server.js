@@ -57,32 +57,30 @@ app.get("/countries", async (request, response) => {
 //create a list of clients
 let clientsArray = [];
 app.get("/clients", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
-  for (object of allSalesObjects) {
-    if (object.Account__c && !clientsArray.includes(object.Account__c)) {
-      clientsArray.push(object.Account__c);
-    }
-  }
-  clientsArray = clientsArray.sort();
-  response.json(clientsArray);
+  let clientSales = await salesDB.findClients();
+  let clientSalesArray = [];
+  await clientSales.forEach((item) => {
+    clientSalesArray.push(item);
+  });
+  response.send(clientSalesArray);
 });
 
 //render a list of items based on a client
 app.get("/items/:client", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
   let client = request.params.client;
-
-  let itemList = [];
-  for (object of allSalesObjects) {
-    if (
-      object.Account__c === client &&
-      object.Item__c &&
-      !itemList.includes(object.Item__c)
-    ) {
-      itemList.push(object.Item__c);
+  console.log(client)
+  let itemSales = await salesDB.findClients();
+  let itemArray = [];
+  // console.log(itemSales)
+  await itemSales.forEach((item) => {
+    if (client === "all") {
+      itemArray.push(item.itemList);
+    } else if (client === item._id) {
+      itemArray.push(item.itemList);
     }
-  }
-  response.json(itemList);
+  });
+  console.log(itemArray)
+  response.send(itemArray);
 });
 
 //create a list of all dates
