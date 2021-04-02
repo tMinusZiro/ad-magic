@@ -16,20 +16,20 @@ function App() {
       <div id="map-toggle-wrapper">
         <MapToggle setRegion={setRegion} region={region} />
       </div>
-
       <div id="data-displays-wrapper">
-        <DataDisplays />
+        {/* <DataDisplays /> */}
       </div>
-      <div>
+      <div id = "home-page">
         <HomePage />
       </div>
-
       {/* element to test the fetch  */}
       <Countries />
-
+      <div id ="top-dash-header">
       <TopDash />
-
+      </div>
+      <div id="right-dash-header">
       <RightDash />
+      </div>
     </div>
   );
 }

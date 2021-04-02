@@ -66,18 +66,15 @@ const Map = ({ countries }) => {
 
   return (
     <>
+    <div id ="map-wrapper" >
       <MapContainer
         center={mapCenter}
         scrollWheelZoom={false}
         // center={[20, 100]}
         zoom={mapZoom}
-        style={{ height: "90vh", width: "90vw" }}
+        style={{ height: "60vh", width: "60vw" }}
       >
-        {/* <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        /> */}
-
+      <div>This is the Map </div>
         {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
         <GeoJSON
           data={countries}
@@ -85,6 +82,7 @@ const Map = ({ countries }) => {
           style={geoJSONStyle}
         />
       </MapContainer>
+      </div>
     </>
   );
 };

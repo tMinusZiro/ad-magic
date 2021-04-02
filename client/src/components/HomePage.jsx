@@ -7,31 +7,38 @@ import Loading from "./Loading.jsx";
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
 import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
+//legend items - part of legends class 
 import legendItems from "../entities/LegendItems";
 
 const HomePage = () => {
   //list of countries
   const [countries, setCountries] = useState([]);
+  //total sales 
   const [totalSales, setTotalSales] = useState();
+  //reverse the array so that it's in descending order  
   const legendItemsInReverse = [...legendItems].reverse();
+  //intermediate array for totalSales 
+  let interArray = [];
+  //use to trigger the loadMap() function 
+  const [loadMap, setLoadMap] = useState(false) 
 
-  //fetch array of objects from db for each  country admagic does business with and total sales for that country
-  useEffect(async () => {
+  // fetch array of objects from db for each  country admagic does business with and total sales for that country
+  useEffect(() => {
     if (!totalSales) {
-      await fetch("/total-sales")
+     fetch("/show-sales")
         .then((res) => res.json())
         .then((list) => {
-          let interArray = [];
+          //push each sales item into the intermediate array 
           list.forEach((countrySale) => {
             interArray.push(countrySale);
-            setTotalSales(interArray);
           });
+          //set totalSales to be the inner array 
+          setTotalSales(interArray);
+          //trigger the loadMap() function 
+          setLoadMap(true)
         });
     }
   });
-
-  console.log("Total Sales");
-  console.log(totalSales);
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -95,8 +102,9 @@ const HomePage = () => {
     // console.log(mapCountries);
   }
 
-  if (totalSales) {
+  if (loadMap) {
     loadMapData();
+    setLoadMap(false)
   }
 
   return (

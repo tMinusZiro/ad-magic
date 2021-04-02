@@ -78,7 +78,7 @@ console.log('labels ',VendorsLabels)
     return (
         <div>
            <div id="chart">
-        <ReactApexChart options={options} series={series} type="pie" width="500" />
+        <ReactApexChart options={options} series={series} type="pie" width="100%" />
       </div>       
         </div>
     )

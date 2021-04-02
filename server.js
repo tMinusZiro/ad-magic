@@ -24,9 +24,7 @@ app.get("/all-sales", async (request, response) => {
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
   let totalSales = await salesDB.totalSales();
-
   let countrySalesArray = [];
-
   await totalSales.forEach((item) => {
     // countrySalesArray.push(item);
     countrySalesArray = item;
@@ -70,10 +68,8 @@ app.get("/clients", async (request, response) => {
 //render a list of items based on a client
 app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
-  console.log(client)
   let itemSales = await salesDB.findClients();
   let itemArray = [];
-  // console.log(itemSales)
   await itemSales.forEach((item) => {
     if (client === "all") {
       itemArray.push(item.itemList);
@@ -81,7 +77,6 @@ app.get("/items/:client", async (request, response) => {
       itemArray.push(item.itemList);
     }
   });
-  console.log(itemArray)
   response.send(itemArray);
 });
 
@@ -126,13 +121,24 @@ app.get("/items/:client", async (request, response) => {
 let showSalesArray = []; 
 app.post("/show-item-sales", async (request, response) => {
   let formRes = request.body
+  console.log(formRes)
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
     showSalesArray.push(item)
   })
-  response.send(showSalesArray)
+  // response.send(showSalesArray)
 })
 
+app.get("/show-sales", async (request, response) => {
+  if (showSalesArray.length === 0) {
+    let totalSalesByCountry = await salesDB.findAllSales();
+    // console.log("totalSales",totalSales)
+    await totalSalesByCountry.forEach((item) => {
+    showSalesArray.push(item)
+  })
+  response.send(showSalesArray)
+  } else return response.send(showSalesArray) 
+})
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
