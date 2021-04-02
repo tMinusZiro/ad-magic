@@ -71,6 +71,7 @@ app.get("/clients", async (request, response) => {
 app.get("/items/:client", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
   let client = request.params.client;
+
   let itemList = [];
   for (object of allSalesObjects) {
     if (
@@ -106,6 +107,32 @@ app.get("/dates", async (request, response) => {
   datesArray = datesArray.sort((a, b) => b.date - a.date);
   response.json(datesArray);
 });
+
+  console.log(client)
+  let itemSales = await salesDB.findClients();
+  let itemArray = [];
+  // console.log(itemSales)
+  await itemSales.forEach((item) => {
+    if (client === "all") {
+      itemArray.push(item.itemList);
+    } else if (client === item._id) {
+      itemArray.push(item.itemList);
+    }
+  });
+  console.log(itemArray)
+  response.send(itemArray);
+});
+
+let showSalesArray = []; 
+app.post("/show-item-sales", async (request, response) => {
+  let formRes = request.body
+  let totalSales = await salesDB.findSalesByForm(formRes);
+  await totalSales.forEach((item) => {
+    showSalesArray.push(item)
+  })
+  response.send(showSalesArray)
+})
+
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
