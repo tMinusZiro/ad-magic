@@ -34,7 +34,7 @@ const Map = ({ countries }) => {
     return {
       fillColor: "white", // color of country
       weight: 1.2, //thickness of country border lines
-      color: "black", //color of country border line
+      color: "blue", //color of country border line
       fillOpacity: 1,
     };
   };
