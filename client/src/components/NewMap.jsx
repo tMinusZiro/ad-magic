@@ -72,7 +72,7 @@ const Map = ({ countries }) => {
         scrollWheelZoom={false}
         // center={[20, 100]}
         zoom={mapZoom}
-        style={{ height: "60vh", width: "60vw" }}
+        style={{ height: "64vh", width: "60vw" }}
       >
       <div>This is the Map </div>
         {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}

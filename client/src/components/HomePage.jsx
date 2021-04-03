@@ -7,35 +7,36 @@ import Loading from "./Loading.jsx";
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
 import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
-//legend items - part of legends class 
+//legend items - part of legends class
 import legendItems from "../entities/LegendItems";
 
-const HomePage = () => {
+const HomePage = (props) => {
   //list of countries
   const [countries, setCountries] = useState([]);
-  //total sales 
+  //total sales
   const [totalSales, setTotalSales] = useState();
-  //reverse the array so that it's in descending order  
+  //reverse the array so that it's in descending order
   const legendItemsInReverse = [...legendItems].reverse();
-  //intermediate array for totalSales 
-  let interArray = [];
-  //use to trigger the loadMap() function 
-  const [loadMap, setLoadMap] = useState(false) 
+  //intermediate array for totalSales
+  //trigger loadmap() function
+  const [loadMap, setLoadMap] = useState(false);
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
-    if (!totalSales) {
-     fetch("/show-sales")
+    if (props.getData) {
+      let interArray = [];
+      fetch("/show-sales")
         .then((res) => res.json())
         .then((list) => {
-          //push each sales item into the intermediate array 
+          //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
-          //set totalSales to be the inner array 
+          //set totalSales to be the inner array
           setTotalSales(interArray);
-          //trigger the loadMap() function 
-          setLoadMap(true)
+          //trigger the loadMap() function
+          setLoadMap(true);
+          props.setGetData(false);
         });
     }
   });
@@ -104,7 +105,7 @@ const HomePage = () => {
 
   if (loadMap) {
     loadMapData();
-    setLoadMap(false)
+    setLoadMap(false);
   }
 
   return (

@@ -178,7 +178,7 @@ const MapToggle = (props) => {
             </label>
           </div>
         ) : null}
-        <input type="submit" value="Show Sales!" />
+        <input type="submit" value="Show Sales!" onSubmit={props.setGetData(true)}/>
         <br></br>
       </form>
     </div>

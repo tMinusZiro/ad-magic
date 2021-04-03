@@ -10,17 +10,21 @@ import RightDash from "./components/RightDash";
 function App() {
   //set the region that the map should focus on
   const [region, setRegion] = useState("World");
+  //trigger the data to re-fetch when form is submitted 
+  const [getData, setGetData] = useState(true)
+
 
   return (
     <div id="app-wrapper">
       <div id="map-toggle-wrapper">
-        <MapToggle setRegion={setRegion} region={region} />
+        <MapToggle setRegion={setRegion} region={region}
+        getData={getData} setGetData={setGetData} />
       </div>
       <div id="data-displays-wrapper">
         {/* <DataDisplays /> */}
       </div>
       <div id = "home-page">
-        <HomePage />
+        <HomePage getData={getData} setGetData={setGetData} />
       </div>
       {/* element to test the fetch  */}
       <Countries />
