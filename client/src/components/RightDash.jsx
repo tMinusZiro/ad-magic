@@ -1,35 +1,35 @@
 import ReactApexChart from "react-apexcharts";
 import {useState, useEffect} from 'react'
-import Vendors from './Vendors'
+// import Vendors from './Vendors'
 
 
 
-export default function RightDash() {
- const[SaleTypes, setSaleTypes] = useState([])
+// export default function RightDash() {
+//  const[SaleTypes, setSaleTypes] = useState([])
     
 // async function vendorsList(){
-    console.log('in use effect RIGTH DASH')
-    console.log('in trigger RIGHT DASH')
-useEffect(() => {
-    console.log('in use effect')
+//     console.log('in use effect RIGTH DASH')
+//     console.log('in trigger RIGHT DASH')
+// useEffect(() => {
+//     console.log('in use effect')
     
-        console.log('in trigger')
-    fetch('/vendors')
-    .then((res) =>res.json())
-    .then((entry)=>{
-        setSaleTypes(entry)
-    })
-}
-, []
-)
+//         console.log('in trigger')
+//     fetch('/vendors')
+//     .then((res) =>res.json())
+//     .then((entry)=>{
+//         setSaleTypes(entry)
+//     })
 // }
+// , []
+// )
+// // }
 
-// vendorsList()
+// // vendorsList()
 
 
-    return (
-        <div>
-       <Vendors SaleTypes={SaleTypes} />
-        </div>
-    )
-}
+//     return (
+//         <div>
+//        <Vendors SaleTypes={SaleTypes} />
+//         </div>
+//     )
+// }

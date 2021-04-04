@@ -4,8 +4,8 @@ import { useState } from "react";
 import TotalSales from "./components/TotalSales";
 import Countries from "./components/tasks/Countries";
 import HomePage from "./components/HomePage.jsx";
-import TopDash from "./components/TopDash";
-import RightDash from "./components/RightDash";
+// import TopDash from "./components/TopDash";
+// import RightDash from "./components/RightDash";
 
 function App() {
   //set the region that the map should focus on
@@ -24,16 +24,16 @@ function App() {
         {/* <DataDisplays /> */}
       </div>
       <div id = "home-page">
-        <HomePage getData={getData} setGetData={setGetData} />
+        <HomePage getData={getData} setGetData={setGetData} region={region}/>
       </div>
       {/* element to test the fetch  */}
       <Countries />
-      <div id ="top-dash-header">
+      {/* <div id ="top-dash-header">
       <TopDash />
       </div>
       <div id="right-dash-header">
       <RightDash />
-      </div>
+      </div> */}
     </div>
   );
 }

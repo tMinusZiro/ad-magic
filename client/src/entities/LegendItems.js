@@ -3,7 +3,7 @@ import LegendItem from "./LegendItem";
 //each item is a portion of the legend 
 const legendItems = [
   new LegendItem(
-    "500,000 +",
+    "50,000 +",
     "#7a0177",
     (totalSales) => totalSales >= 50_000,
     "white"

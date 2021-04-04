@@ -268,15 +268,19 @@ class DataStore {
     return salesResults;
   }
 
-async findAllSales() {
+async findAllSales(region) {
   const collection = await this.openConnect();
+  let filterBy;
+  if (region === "United States") {
+    filterBy = "$State_Provence__c";
+  } else filterBy = "$Country__c";
   const salesResults = await collection.aggregate([
     {
       $match: { Scrubbed__c: "true" },
     },
     {
       $group: {
-        _id: "$Country__c",
+        _id: filterBy,
         totalSales: { $sum: "$Total_Sales__c" }
       },
     },

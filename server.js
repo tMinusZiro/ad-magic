@@ -42,6 +42,7 @@ app.get("/vendors", async (request, response) => {
   response.send(vendors);
 });
 
+//MEGAN IS THINKING THAT THIS IS AN UNNECCESSARY FUNCTION
 app.get("/countries", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
   let countryArray = [];
@@ -58,11 +59,11 @@ app.get("/countries", async (request, response) => {
 let clientsArray = [];
 app.get("/clients", async (request, response) => {
   if (clientsArray.length === 0) {
-  let clientSales = await salesDB.findClients();
-  await clientSales.forEach((item) => {
-    clientsArray.push(item);
-  });
-}
+    let clientSales = await salesDB.findClients();
+    await clientSales.forEach((item) => {
+      clientsArray.push(item);
+    });
+  }
   response.send(clientsArray);
 });
 
@@ -80,26 +81,39 @@ app.get("/items/:client", async (request, response) => {
   response.send(itemArray);
 });
 
+//showSalesArray gets populated when the form is submitted
 let showSalesArray = [];
+let formRes; 
 app.post("/show-item-sales", async (request, response) => {
-  let formRes = request.body;
+  //if user has already submitted a form, clear the results to re-load new results
+  showSalesArray = [];
+  formRes = request.body;
   console.log(formRes);
+  //findSalesByForm uses $match to match the form results with proper parameters
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
     showSalesArray.push(item);
   });
+  console.log(showSalesArray);
 });
 
 let totalSalesArray = [];
-app.get("/show-sales", async (request, response) => {
+app.get("/show-sales/:region", async (request, response) => {
+  let region = request.params.region;
+  //if user has not submitted sidebar form, show all sales
   if (showSalesArray.length === 0) {
-    let totalSalesByCountry = await salesDB.findAllSales();
-    // console.log("totalSales",totalSales)
+    //findAllSales() filters by country (long term - country or US)
+    let totalSalesByCountry = await salesDB.findAllSales(region);
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);
     });
+    console.log(totalSalesArray);
     response.send(totalSalesArray);
-  } else return response.send(showSalesArray);
+    //otherwise, user HAS submitted side-bar form on /show-item-sales, so send up the show sales array
+  } else {
+    console.log(showSalesArray);
+    response.send(showSalesArray);
+  }
 });
 
 app.get("*", (req, res) => {
