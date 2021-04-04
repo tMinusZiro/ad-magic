@@ -14,7 +14,11 @@ const MapBurger = (props) => {
         id="burger-line-one"
         style={
           props.openLegend
-            ? { transform: "rotate(405deg)", background: "black" }
+            ? {
+                transform: "rotate(405deg)",
+
+                background: "red",
+              }
             : { transform: "rotate(0)", background: "black" }
         }
       />
@@ -34,7 +38,11 @@ const MapBurger = (props) => {
         id="burger-line-three"
         style={
           props.openLegend
-            ? { transform: "rotate(-405deg)", background: "black" }
+            ? {
+                transform: "rotate(-405deg)",
+
+                background: "red",
+              }
             : { transform: "rotate(0)", background: "black" }
         }
       />

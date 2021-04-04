@@ -60,6 +60,17 @@ const Map = ({ countries }) => {
     layer.bindPopup(`${totalSales} ${countryName}`);
   }
 
+  function highlightFeature(e) {
+    let layer = e.target;
+
+    layer.setStyle({
+      weight: 5,
+      color: "#666",
+      dashArray: "",
+      fillOpacity: 0.7,
+    });
+  }
+
   //----------function that changes style of map based on total sales----------//
   //steps
   //GeoJSON layer will rely on the country object.totalsales
