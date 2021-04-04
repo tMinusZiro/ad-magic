@@ -11,6 +11,7 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
+import MapBurger from "./MapBurger.jsx";
 //data set for global country borders
 import { features } from "../borderData/countries.json";
 //data set for us state borders
@@ -24,7 +25,7 @@ const Map = ({ countries }) => {
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
   const [mapZoom, setMapZoom] = useState(2);
   //state for json country border data
-
+  // const [openLegend, setOpenLegend] = useState(false);
   const [usCenter, setUSCenter] = useState([38.0, -97.0]);
   const [officialSales, setOfficialSales] = useState();
 
@@ -66,22 +67,23 @@ const Map = ({ countries }) => {
 
   return (
     <>
-    <div id ="map-wrapper" >
-      <MapContainer
-        center={mapCenter}
-        scrollWheelZoom={false}
-        // center={[20, 100]}
-        zoom={mapZoom}
-        style={{ height: "60vh", width: "60vw" }}
-      >
-      <div>This is the Map </div>
-        {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
-        <GeoJSON
-          data={countries}
-          onEachFeature={onEachState}
-          style={geoJSONStyle}
-        />
-      </MapContainer>
+      <div id="map-wrapper">
+        <MapContainer
+          center={mapCenter}
+          scrollWheelZoom={false}
+          // center={[20, 100]}
+          zoom={mapZoom}
+          style={{ height: "60vh", width: "60vw" }}
+        >
+          <div>This is the Map </div>
+          {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
+          <GeoJSON
+            data={countries}
+            onEachFeature={onEachState}
+            style={geoJSONStyle}
+          />
+        </MapContainer>
+        {/* <MapBurger setOpenLegend={setOpenLegend} openLegend={openLegend} /> */}
       </div>
     </>
   );
