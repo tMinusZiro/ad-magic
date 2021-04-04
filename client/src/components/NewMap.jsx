@@ -22,9 +22,9 @@ import RegionZoom from "./RegionZoom";
 const Map = (props) => {
   console.log("props.region:", props.region);
 
-  const [worldMapCenter, setWorldMapCenter] = useState([40, 20]);
+  const [worldMapCenter, setWorldMapCenter] = useState([39,-29]);
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
-  const [mapZoom, setMapZoom] = useState(2);
+  const [mapZoom, setMapZoom] = useState(1.5);
   const [newMapZoom, setNewMapZoom] = useState();
   const [newMapCenter, setNewMapCenter] = useState();
 
@@ -46,31 +46,30 @@ const Map = (props) => {
 
   useEffect(() => {
     if (props.region === "United States") {
-      setNewMapCenter([38.0, -97.0]);
-      setNewMapZoom(3);
+      setNewMapCenter([37.0902, -95.7129]);
+      setNewMapZoom(4);
     } else if (props.region === "Africa") {
       setNewMapCenter([6.611111, 20.939444]);
-      setNewMapZoom(3);
+      setNewMapZoom(3.3);
     } else if (props.region === "Asia") {
-      setNewMapCenter([35.86166, 104.195397]);
+      setNewMapCenter([34.0479, 100.6197]);
       setNewMapZoom(3);
     } else if (props.region === "Australia") {
       setNewMapCenter([-25.274398, 133.775136]);
-      setNewMapZoom(3);
+      setNewMapZoom(4);
     } else if (props.region === "Europe") {
-      console.log("entering else if");
-      setNewMapCenter([49.817492, 15.472962]);
-      setNewMapZoom(3);
+      setNewMapCenter([54.5260, 15.2551]);
+      setNewMapZoom(3.5);
     } else if (props.region === "North America") {
-      setNewMapCenter([38.0, -97.0]);
+      setNewMapCenter([47.1164, -101.2996]);
       setNewMapZoom(3);
     } else if (props.region === "South America") {
-      setNewMapCenter([-14.235004, -51.92528]);
-      setNewMapZoom(3);
+      setNewMapCenter([-20, -55.4915]);
+      setNewMapZoom(3.5);
     } 
     else {
-      setNewMapCenter([40, 20])
-      setNewMapZoom(2)
+      setNewMapCenter([39, -29])
+      setNewMapZoom(1.5)
     }
   }, [props.region]);
 
