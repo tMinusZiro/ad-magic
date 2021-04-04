@@ -4,6 +4,8 @@ import NewMap from "./NewMap.jsx";
 import MapLegend from "./MapLegend.jsx";
 import { features } from "../borderData/countries.json";
 import Loading from "./Loading.jsx";
+import { Route, Switch, Link } from "react-router-dom";
+
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
 import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
@@ -25,19 +27,22 @@ const HomePage = (props) => {
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
 
+
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
     if (props.getData) {
       let interArray = [];
-      fetch("/show-sales")
+      fetch(`/show-sales/${props.region}`)
         .then((res) => res.json())
         .then((list) => {
+          console.log("inside show-sales fetch")
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
           //set totalSales to be the inner array
           setTotalSales(interArray);
+          console.log(interArray)
           //trigger the loadMap() function
           setLoadMap(true);
           props.setGetData(false);
@@ -105,6 +110,7 @@ const HomePage = (props) => {
     }
     setCountries(features);
     // console.log(mapCountries);
+    console.log("at end of loadMapData()")
   }
 
   if (loadMap) {
@@ -119,7 +125,7 @@ const HomePage = (props) => {
       ) : (
         <div id="map-component-wrapper">
           <div>
-            <NewMap countries={countries} />
+            <NewMap region = {props.region} countries={countries} loadMap = {loadMap} />
           </div>
           <div>
             <MapLegend
@@ -131,7 +137,7 @@ const HomePage = (props) => {
           <div id="map-burger-wrapper">
             <MapBurger setOpenLegend={setOpenLegend} openLegend={openLegend} />
           </div>
-        </div>
+          </div>
       )}
     </div>
   );

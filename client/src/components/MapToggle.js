@@ -51,12 +51,19 @@ const MapToggle = (props) => {
   //change the map to focus in on a particular region
   function changeRegion(event) {
     props.setRegion(event.target.value);
+    // if (event.target.value ==="United States") {
+    //   props.setGetData(true)
+    // }
   }
 
   //change the client account in order to show data from that client then render the item menu for that client
   function changeAccount(event) {
     setAccount(event.target.value);
     setLoadItems(true);
+  }
+
+  function reLoad(event) {
+    props.setGetData(true)
   }
 
   //set default date on form
@@ -84,7 +91,7 @@ const MapToggle = (props) => {
         <select name="region" onChange={changeRegion}>
           <option value="World">View World Sales</option>
           <option value="United States">United States</option>
-          <option value="Africa">Australia</option>
+          <option value="Africa">Africa</option>
           <option value="Asia">Asia</option>
           <option value="Australia">Australia</option>
           <option value="Europe">Europe</option>
@@ -178,7 +185,7 @@ const MapToggle = (props) => {
             </label>
           </div>
         ) : null}
-        <input type="submit" value="Show Sales!" onSubmit={props.setGetData(true)}/>
+        <input type="submit" value="Show Sales!" onClick = {reLoad}/>
         <br></br>
       </form>
     </div>
