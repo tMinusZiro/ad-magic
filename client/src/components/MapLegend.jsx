@@ -1,14 +1,29 @@
 import React from "react";
 
-const MapLegend = ({ legendItems }) => {
+const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
   console.log(legendItems);
+
+  function flipMenu() {
+    openLegend ? setOpenLegend(!openLegend) : setOpenLegend(openLegend);
+  }
 
   return (
     <div
-      style={{
-        display: "flex",
-        alignItems: "stretch",
-      }}
+      id="map-legend-wrapper"
+      style={
+        openLegend
+          ? {
+              transform: "translateY(0)",
+              display: "flex",
+              alignItems: "stretch",
+            }
+          : {
+              transform: "translateY(-100%)",
+              display: "flex",
+              alignItems: "stretch",
+              zIndex: -1,
+            }
+      }
     >
       {legendItems.map((item, index) => (
         <div

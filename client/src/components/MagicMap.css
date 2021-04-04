@@ -1,3 +1,4 @@
 .leaflet-container {
   background-color: white;
+  z-index: 5;
 }

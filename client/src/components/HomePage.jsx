@@ -9,16 +9,20 @@ import Loading from "./Loading.jsx";
 import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
 //legend items - part of legends class
 import legendItems from "../entities/LegendItems";
+import MapBurger from "./MapBurger.jsx";
 
 const HomePage = (props) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
   const [totalSales, setTotalSales] = useState();
+  const [openLegend, setOpenLegend] = useState(false);
+
   //reverse the array so that it's in descending order
   const legendItemsInReverse = [...legendItems].reverse();
   //intermediate array for totalSales
-  //trigger loadmap() function
+  let interArray = [];
+  //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
@@ -113,9 +117,20 @@ const HomePage = (props) => {
       {countries.length === 0 ? (
         <Loading />
       ) : (
-        <div>
-          <NewMap countries={countries} />
-          <MapLegend legendItems={legendItemsInReverse} />
+        <div id="map-component-wrapper">
+          <div>
+            <NewMap countries={countries} />
+          </div>
+          <div>
+            <MapLegend
+              legendItems={legendItemsInReverse}
+              openLegend={openLegend}
+              setOpenLegend={setOpenLegend}
+            />
+          </div>
+          <div id="map-burger-wrapper">
+            <MapBurger setOpenLegend={setOpenLegend} openLegend={openLegend} />
+          </div>
         </div>
       )}
     </div>
