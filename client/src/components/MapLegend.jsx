@@ -38,11 +38,6 @@ const MapLegend = ( {legendItems}) => {
     setShowClients(true)
   }
 
-<<<<<<< HEAD
-const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
-  console.log(legendItems);
-=======
->>>>>>> new-sidebar
 
   function flipMenu() {
     openLegend ? setOpenLegend(!openLegend) : setOpenLegend(openLegend);
