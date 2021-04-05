@@ -94,48 +94,6 @@ option {
   grid-area: 1/3/2/4;
 }
 
-<<<<<<< HEAD
-/*-------------MAP--------------*/
-
-/*-----Burger-Map----------*/
-.burger-menu {
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-
-  /* z-index: 500; */
-}
-
-.burger-menu div {
-  width: 2rem;
-  height: 0.25rem;
-
-  /* border: 1px solid red; */
-  border-radius: 10px;
-  transition: all 0.3s linear;
-  position: relative;
-  transform-origin: 1px;
-  box-sizing: border-box;
-}
-
-#map-burger-wrapper {
-  position: absolute;
-
-  right: 22%;
-  top: 22%;
-  z-index: 400;
-}
-#map-legend-wrapper {
-  transition: transform 0.3s ease-in-out;
-}
-=======
 
 /*------Client Popup-------*/
 .popup-wrapper {
@@ -167,4 +125,3 @@ option {
   font-size: x-large;
 }
 
->>>>>>> new-sidebar
