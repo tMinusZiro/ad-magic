@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import NewMap from "./NewMap.jsx";
 import MapLegend from "./MapLegend.jsx";
 import { features } from "../borderData/countries.json";
+
 import Loading from "./Loading.jsx";
 import { Route, Switch, Link } from "react-router-dom";
 
@@ -27,7 +28,6 @@ const HomePage = (props) => {
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
 
-
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
     if (props.getData) {
@@ -35,14 +35,15 @@ const HomePage = (props) => {
       fetch(`/show-sales/${props.region}`)
         .then((res) => res.json())
         .then((list) => {
-          console.log("inside show-sales fetch")
+          console.log("inside show-sales fetch");
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
           //set totalSales to be the inner array
           setTotalSales(interArray);
-          console.log(interArray)
+          console.log("INSIDE FETCH TOTAL SALES =");
+          console.log(interArray);
           //trigger the loadMap() function
           setLoadMap(true);
           props.setGetData(false);
@@ -61,56 +62,104 @@ const HomePage = (props) => {
   }
 
   function loadMapData() {
-    const mapCountries = features;
-
-    //iterate through array of geoJSON objects representing each country in world
-    for (let country of mapCountries) {
-      let matchedValue;
-      //if total sales list that was fetched has valid state
-      //guard clause
-      if (totalSales) {
-        // console.log(totalSales);
-        //second for loop to iterate through total sales list from db and match admagic country to geoJSON
-        for (let sale of totalSales) {
-          if (country.properties.ADMIN == sale._id) {
-            //if there is a match assign it to intermediate variable
-            matchedValue = sale;
-            // console.log("MATCHED OBJECT");
-            // console.log(matchedValue);
+    console.log("Entering Load Map Data");
+    //Conditional branch for rendering just US State geoJSON data
+    if (props.region === "United States") {
+      console.log("I am in the special US branch");
+      for (let usState of props.usBorderData) {
+        let usMatchedValue;
+        if (totalSales) {
+          //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
+          for (let sale of totalSales) {
+            if (usState.properties.name == sale._id) {
+              //if there is a match assign it to intermediate variable
+              usMatchedValue = sale;
+              // console.log("MATCHED OBJECT");
+              // console.log(usMatchedValue);
+            }
           }
         }
-      }
-      //     //DEFAULT VALUES:
-      //     //geoJSON layer properties total sales
-      country.properties.totalSales = 0;
-      // //modal text
-      country.properties.totalSalesText = "0";
 
-      //checks if the matched total sales object has valid state
-      if (matchedValue != null) {
-        //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-        console.log(
-          "Inside of conditional about to assign sales value to geoJSON"
-        );
-        //creates intermediate variable
-        const assignTotalSales = matchedValue.totalSales;
+        //DEFAULT VALUES:
+        //geoJSON layer properties total sales
+        usState.properties.totalSales = 0;
+        //modal text
+        usState.properties.totalSalesText = "0";
+        //checks if the matched total sales object has valid state
+        if (usMatchedValue != null) {
+          //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
+          console.log(
+            "Inside of conditional about to assign sales value to geoJSON"
+          );
+          //creates intermediate variable
+          const assignUSTotalSales = usMatchedValue.totalSales;
 
-        // console.log(assignTotalSales);
-        //assigns correct total sales to geoJSON object
-        country.properties.totalSales = assignTotalSales;
-        // console.log("NOW the geoJSON sales is ");
-        // console.log(country.properties);
-        //assigns total sales to geoJSON object for displaying text on pop up modal
-        country.properties.totalSalesText = assignTotalSales;
-        // console.log("Map Modal text should display: ");
-        // console.log(country.properties.totalSalesText);
+          // console.log(assignTotalSales);
+          //assigns correct total sales to geoJSON object
+          usState.properties.totalSales = assignUSTotalSales;
+          // console.log("NOW the geoJSON sales is ");
+          // console.log(country.properties);
+          //assigns total sales to geoJSON object for displaying text on pop up modal
+          usState.properties.totalSalesText = assignUSTotalSales;
+          // console.log("Map Modal text should display: ");
+          // console.log(country.properties.totalSalesText);
+        }
+        setCountryColor(usState);
+        // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
       }
-      setCountryColor(country);
-      // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
+      setCountries(props.usBorderData);
+    } else if (props.region !== "United States") {
+      const mapCountries = features;
+
+      //iterate through array of geoJSON objects representing each country in world
+      for (let country of mapCountries) {
+        let matchedValue;
+        //if total sales list that was fetched has valid state
+        //guard clause
+        if (totalSales) {
+          // console.log(totalSales);
+          //second for loop to iterate through total sales list from db and match admagic country to geoJSON
+          for (let sale of totalSales) {
+            if (country.properties.ADMIN == sale._id) {
+              //if there is a match assign it to intermediate variable
+              matchedValue = sale;
+              // console.log("MATCHED OBJECT");
+              // console.log(matchedValue);
+            }
+          }
+        }
+        //DEFAULT VALUES:
+        //geoJSON layer properties total sales
+        country.properties.totalSales = 0;
+        //modal text
+        country.properties.totalSalesText = "0";
+
+        //checks if the matched total sales object has valid state
+        if (matchedValue != null) {
+          //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
+          console.log(
+            "Inside of conditional about to assign sales value to geoJSON"
+          );
+          //creates intermediate variable
+          const assignTotalSales = matchedValue.totalSales;
+
+          // console.log(assignTotalSales);
+          //assigns correct total sales to geoJSON object
+          country.properties.totalSales = assignTotalSales;
+          // console.log("NOW the geoJSON sales is ");
+          // console.log(country.properties);
+          //assigns total sales to geoJSON object for displaying text on pop up modal
+          country.properties.totalSalesText = assignTotalSales;
+          // console.log("Map Modal text should display: ");
+          // console.log(country.properties.totalSalesText);
+        }
+        setCountryColor(country);
+        // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
+      }
+      setCountries(features);
     }
-    setCountries(features);
     // console.log(mapCountries);
-    console.log("at end of loadMapData()")
+    console.log("at end of loadMapData()");
   }
 
   if (loadMap) {
@@ -125,7 +174,11 @@ const HomePage = (props) => {
       ) : (
         <div id="map-component-wrapper">
           <div>
-            <NewMap region = {props.region} countries={countries} loadMap = {loadMap} />
+            <NewMap
+              region={props.region}
+              countries={countries}
+              loadMap={loadMap}
+            />
           </div>
           <div>
             <MapLegend
@@ -137,7 +190,7 @@ const HomePage = (props) => {
           <div id="map-burger-wrapper">
             <MapBurger setOpenLegend={setOpenLegend} openLegend={openLegend} />
           </div>
-          </div>
+        </div>
       )}
     </div>
   );

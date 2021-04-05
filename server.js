@@ -83,7 +83,7 @@ app.get("/items/:client", async (request, response) => {
 
 //showSalesArray gets populated when the form is submitted
 let showSalesArray = [];
-let formRes; 
+let formRes;
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   showSalesArray = [];
@@ -94,24 +94,39 @@ app.post("/show-item-sales", async (request, response) => {
   await totalSales.forEach((item) => {
     showSalesArray.push(item);
   });
-  console.log(showSalesArray);
+  // console.log(showSalesArray);
 });
 
 let totalSalesArray = [];
 app.get("/show-sales/:region", async (request, response) => {
   let region = request.params.region;
   //if user has not submitted sidebar form, show all sales
-  if (showSalesArray.length === 0) {
+  if (showSalesArray.length === 0 && region === "United States") {
+    totalSalesArray = [];
+
     //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllSales(region);
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);
     });
+    console.log("UNITED STATES total sales array in SERVER");
     console.log(totalSalesArray);
+    // console.log(totalSalesArray);
     response.send(totalSalesArray);
     //otherwise, user HAS submitted side-bar form on /show-item-sales, so send up the show sales array
+  } else if (showSalesArray.length === 0) {
+    totalSalesArray = [];
+
+    //findAllSales() filters by country (long term - country or US)
+    let totalSalesByCountry = await salesDB.findAllSales(region);
+    await totalSalesByCountry.forEach((item) => {
+      totalSalesArray.push(item);
+    });
+
+    // console.log(totalSalesArray);
+    response.send(totalSalesArray);
   } else {
-    console.log(showSalesArray);
+    // console.log(showSalesArray);
     response.send(showSalesArray);
   }
 });

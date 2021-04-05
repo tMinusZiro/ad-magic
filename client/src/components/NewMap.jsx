@@ -67,10 +67,9 @@ const Map = (props) => {
     } else if (props.region === "South America") {
       setNewMapCenter([-14.235004, -51.92528]);
       setNewMapZoom(3);
-    } 
-    else {
-      setNewMapCenter([40, 20])
-      setNewMapZoom(2)
+    } else {
+      setNewMapCenter([40, 20]);
+      setNewMapZoom(2);
     }
   }, [props.region]);
 
@@ -78,22 +77,37 @@ const Map = (props) => {
   //second is the layer => thing drawn on screen
 
   function onEachState(countryBorder, layer) {
-    // if (props.loadMap) {
-    // console.log("Inside of feature function");
-    // console.log(countryBorder.properties);
-    //fill color on geojson layer
-    layer.options.fillColor = countryBorder.properties.color;
-    const countryName = countryBorder.properties.ADMIN;
+    if (props.region === "United States") {
+      // console.log("Inside of feature function");
+      // console.log(countryBorder.properties);
+      //fill color on geojson layer
+      layer.options.fillColor = countryBorder.properties.color;
+      const usStateName = countryBorder.properties.name;
 
-    // console.log(countryName);
-    //will show total sales of each country when country is clicked
-    // console.log("total sales number");
-    // console.log(countryBorder.properties.totalSales);
-    const totalSales = countryBorder.properties.totalSales;
+      // console.log(countryName);
+      //will show total sales of each country when country is clicked
+      // console.log("total sales number");
+      // console.log(countryBorder.properties.totalSales);
+      const totalSales = countryBorder.properties.totalSales;
 
-    //info on popup when country is clicked
-    layer.bindPopup(`${totalSales} ${countryName}`);
-    // }
+      //info on popup when country is clicked
+      layer.bindPopup(`${totalSales} ${usStateName}`);
+    } else {
+      // console.log("Inside of feature function");
+      // console.log(countryBorder.properties);
+      //fill color on geojson layer
+      layer.options.fillColor = countryBorder.properties.color;
+      const countryName = countryBorder.properties.ADMIN;
+
+      // console.log(countryName);
+      //will show total sales of each country when country is clicked
+      // console.log("total sales number");
+      // console.log(countryBorder.properties.totalSales);
+      const totalSales = countryBorder.properties.totalSales;
+
+      //info on popup when country is clicked
+      layer.bindPopup(`${totalSales} ${countryName}`);
+    }
   }
 
   function highlightFeature(e) {
