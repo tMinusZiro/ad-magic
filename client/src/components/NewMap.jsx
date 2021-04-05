@@ -19,8 +19,6 @@ import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
 const Map = (props) => {
-  console.log("props.region:", props.region);
-
   const [worldMapCenter, setWorldMapCenter] = useState([39,-29]);
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
   const [mapZoom, setMapZoom] = useState(1.5);
@@ -43,6 +41,7 @@ const Map = (props) => {
     };
   };
 
+  //when region is changed, send a new center and zoom into the map view 
   useEffect(() => {
     if (props.region === "United States") {
       setNewMapCenter([37.0902, -95.7129]);
@@ -74,27 +73,21 @@ const Map = (props) => {
 
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
-
   function onEachState(countryBorder, layer) {
-    // if (props.loadMap) {
-    // console.log("Inside of feature function");
-    // console.log(countryBorder.properties);
+    console.log("INSIDE IN EACH STATE")
     //fill color on geojson layer
     layer.options.fillColor = countryBorder.properties.color;
     const countryName = countryBorder.properties.ADMIN;
-
-    // console.log(countryName);
     //will show total sales of each country when country is clicked
-    // console.log("total sales number");
-    // console.log(countryBorder.properties.totalSales);
     const totalSales = countryBorder.properties.totalSales;
 
     //info on popup when country is clicked
-    layer.bindPopup(`${totalSales} ${countryName}`);
+    layer.bindPopup(`${countryName} Total Sales:
+    $${Math.round(totalSales)} `);
     // }
   }
 
-  //----------function that changes style of map based on total sales----------//
+  //----------function that changes style of map based on total sales-------//
   //steps
   //GeoJSON layer will rely on the country object.totalsales
   //fill color will change based on the total sales number
@@ -105,7 +98,6 @@ const Map = (props) => {
         <MapContainer
           center={mapCenter}
           scrollWheelZoom={false}
-          // center={[20, 100]}
           zoom={mapZoom}
           style={{ height: "64vh", width: "60vw" }}
         >

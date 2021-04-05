@@ -1,7 +1,43 @@
 import React from "react";
+import {useState, useEffect} from "react"
+import ClientPopUp from "./ClientPopUp"
+const MapLegend = ( {legendItems}) => {
 
-const MapLegend = ({ legendItems }) => {
-  console.log(legendItems);
+  const [min, setMin] = useState()
+  const [max, setMax] = useState()
+  const [clientListInRange, setClientListInRange] = useState()
+  const [showClients, setShowClients] = useState(false)
+
+  useEffect(() => {
+    fetch(`/client/${min}/${max}`)
+    .then((res) => res.json())
+    .then((list) => {
+      setClientListInRange(list)
+    })
+  }, [min])
+
+  console.log(clientListInRange)
+
+  function getClients (event) {
+    let itemRange = event.target.value
+    console.log(event.target.value.isFor)
+    if (itemRange === "0") {
+      setMin(0)
+      setMax(0)
+    } else if (itemRange.includes("+")) {
+      itemRange = itemRange.split(" ")
+      itemRange = itemRange[0]
+      itemRange = itemRange.replace(",", "")
+      setMin(parseInt(itemRange))
+      setMax(100000000000)
+    } else {
+      itemRange = itemRange.split(" - ")
+      setMin(parseInt(itemRange[0].replace(",", "")))
+      setMax(parseInt(itemRange[1].replace(",", "")))
+    }
+    setShowClients(true)
+  }
+
 
   return (
     <div
@@ -11,8 +47,11 @@ const MapLegend = ({ legendItems }) => {
       }}
     >
       {legendItems.map((item, index) => (
-        <div
+        <button
+          onClick= {getClients}
           key={index}
+          value ={item.title}
+          name = {item.title}
           style={{
             backgroundColor: item.color,
             flex: 1,
@@ -25,9 +64,12 @@ const MapLegend = ({ legendItems }) => {
             fontSize: "1.5em",
           }}
         >
-          <span>{item.title}</span>
-        </div>
+          {item.title}
+        </button>
       ))}
+      {showClients ? 
+      (<ClientPopUp min = {min} max = {max} clientListInRange = {clientListInRange} setShowClients= {setShowClients} showClients = {showClients}/>)
+      : null }
     </div>
   );
 };
