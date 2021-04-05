@@ -83,7 +83,7 @@ app.get("/items/:client", async (request, response) => {
 
 //showSalesArray gets populated when the form is submitted
 let showSalesArray = [];
-let formRes; 
+let formRes;
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   showSalesArray = [];
@@ -94,51 +94,67 @@ app.post("/show-item-sales", async (request, response) => {
   await totalSales.forEach((item) => {
     showSalesArray.push(item);
   });
-  response.redirect(("/"))
+  response.redirect("/");
 });
 
 let totalSalesArray = [];
 app.get("/show-sales/:region", async (request, response) => {
   let region = request.params.region;
   //if user has not submitted sidebar form, show all sales
-  if (showSalesArray.length === 0 && region=== "United States") {
-    response.send(totalSalesArray)
-  } else if (showSalesArray.length===0) {
+  if (showSalesArray.length === 0 && region === "United States") {
+    response.send(totalSalesArray);
+  } else if (showSalesArray.length === 0) {
     //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllSales(region);
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);
     });
+    console.log("UNITED STATES total sales array in SERVER");
     console.log(totalSalesArray);
+    // console.log(totalSalesArray);
     response.send(totalSalesArray);
     //otherwise, user HAS submitted side-bar form on /show-item-sales, so send up the show sales array
+  } else if (showSalesArray.length === 0) {
+    totalSalesArray = [];
+
+    //findAllSales() filters by country (long term - country or US)
+    let totalSalesByCountry = await salesDB.findAllSales(region);
+    await totalSalesByCountry.forEach((item) => {
+      totalSalesArray.push(item);
+    });
+
+    // console.log(totalSalesArray);
+    response.send(totalSalesArray);
   } else {
-    console.log(showSalesArray);
+    // console.log(showSalesArray);
     response.send(showSalesArray);
   }
 });
 
 app.get("/client/:min/:max", async (request, response) => {
-  let min = request.params.min
-  let max = request.params.max 
-  let clientsOfCertainSales = []
-for (let i=0; i<clientsArray.length; i++) {
-  if (clientsArray[i].totalSales >= min && clientsArray[i].totalSales <= max) {
-    clientsOfCertainSales.push(clientsArray[i]._id)
-    clientsOfCertainSales.push(clientsArray[i].totalSales.toFixed(2))
+  let min = request.params.min;
+  let max = request.params.max;
+  let clientsOfCertainSales = [];
+  for (let i = 0; i < clientsArray.length; i++) {
+    if (
+      clientsArray[i].totalSales >= min &&
+      clientsArray[i].totalSales <= max
+    ) {
+      clientsOfCertainSales.push(clientsArray[i]._id);
+      clientsOfCertainSales.push(clientsArray[i].totalSales.toFixed(2));
+    }
   }
-}
-response.send(clientsOfCertainSales)
-})
+  response.send(clientsOfCertainSales);
+});
 
 app.post("/united-states", async (request, response) => {
-  totalSalesArray = []  
+  totalSalesArray = [];
   let totalSalesByCountry = await salesDB.findAllSales("United States");
-    await totalSalesByCountry.forEach((item) => {
-      totalSalesArray.push(item);
-    });
- response.redirect(("/"))
-})
+  await totalSalesByCountry.forEach((item) => {
+    totalSalesArray.push(item);
+  });
+  response.redirect("/");
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
