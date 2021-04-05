@@ -41,13 +41,35 @@ if(Trigger){
 //     fetch('/vendors')
 //     .then((res) =>res.json())
 //     .then((entry)=>{
-//         props.setSaleTypes(entry)
+//         setSaleTypes(entry)
 //     })
-//      props.SaleTypes.forEach((type) => {
-//             labels.push(type._id);
-//             amount.push(type.numberOfSales)
-// } )
-// triger = true;
+// }
+// , [SaleTypes]
+// )
+if(Trigger){
+   props.SaleTypes.forEach((type) => {
+            labels.push(type._id);
+            amount.push(type.numberOfSales)
+} )
+    console.log('Time Out Function')
+    setVendorsLabels(labels)
+            setVendorsAmounts(amount)
+
+    setTrigger(false)
+    }
+
+
+
+    fetch('/vendors')
+    .then((res) =>res.json())
+    .then((entry)=>{
+        props.setSaleTypes(entry)
+    })
+     props.SaleTypes.forEach((type) => {
+            labels.push(type._id);
+            amount.push(type.numberOfSales)
+} )
+triger = true;
 
 console.log('props.SaleTypes',props.SaleTypes)
 console.log('Amount',VendorsAmounts)

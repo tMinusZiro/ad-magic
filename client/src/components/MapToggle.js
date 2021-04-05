@@ -83,6 +83,9 @@ const MapToggle = (props) => {
 
   return (
     <div>
+      <form method = "POST" action="/united-states">
+        <input type = "submit" value = "United States" onSubmit={reLoad}/>
+      </form>
       {
         //select a region menu
       }
