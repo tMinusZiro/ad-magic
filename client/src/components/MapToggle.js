@@ -64,7 +64,10 @@ const MapToggle = (props) => {
   }
 
   function reLoad(event) {
-    props.setGetData(true);
+    props.setRegion("United States");
+    setTimeout(() => {
+      props.setGetData(true);
+    }, 3000);
   }
 
   //set default date on form
@@ -84,8 +87,8 @@ const MapToggle = (props) => {
 
   return (
     <div>
-      <form method = "POST" action="/united-states">
-        <input type = "submit" value = "United States" onSubmit={reLoad}/>
+      <form method="POST" action="/united-states">
+        <input type="submit" value="United States" onClick={reLoad} />
       </form>
       {
         //select a region menu

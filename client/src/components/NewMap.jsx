@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
 const Map = (props) => {
-  const [worldMapCenter, setWorldMapCenter] = useState([39,-29]);
+  const [worldMapCenter, setWorldMapCenter] = useState([39, -29]);
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
   const [mapZoom, setMapZoom] = useState(1.5);
   const [newMapZoom, setNewMapZoom] = useState();
@@ -42,7 +42,7 @@ const Map = (props) => {
     };
   };
 
-  //when region is changed, send a new center and zoom into the map view 
+  //when region is changed, send a new center and zoom into the map view
   useEffect(() => {
     if (props.region === "United States") {
       setNewMapCenter([37.0902, -95.7129]);
@@ -57,7 +57,7 @@ const Map = (props) => {
       setNewMapCenter([-25.274398, 133.775136]);
       setNewMapZoom(4);
     } else if (props.region === "Europe") {
-      setNewMapCenter([54.5260, 15.2551]);
+      setNewMapCenter([54.526, 15.2551]);
       setNewMapZoom(3.5);
     } else if (props.region === "North America") {
       setNewMapCenter([47.1164, -101.2996]);
@@ -65,10 +65,9 @@ const Map = (props) => {
     } else if (props.region === "South America") {
       setNewMapCenter([-20, -55.4915]);
       setNewMapZoom(3.5);
-    } 
-    else {
-      setNewMapCenter([39, -29])
-      setNewMapZoom(1.5)
+    } else {
+      setNewMapCenter([39, -29]);
+      setNewMapZoom(1.5);
     }
   }, [props.region]);
 
@@ -91,32 +90,18 @@ const Map = (props) => {
       //info on popup when country is clicked
       layer.bindPopup(`${totalSales} ${usStateName}`);
     } else {
-      // console.log("Inside of feature function");
-      // console.log(countryBorder.properties);
+      console.log("INSIDE IN EACH STATE");
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const countryName = countryBorder.properties.ADMIN;
-
-      // console.log(countryName);
       //will show total sales of each country when country is clicked
-      // console.log("total sales number");
-      // console.log(countryBorder.properties.totalSales);
       const totalSales = countryBorder.properties.totalSales;
 
       //info on popup when country is clicked
-      layer.bindPopup(`${totalSales} ${countryName}`);
-    }
-    console.log("INSIDE IN EACH STATE")
-    //fill color on geojson layer
-    layer.options.fillColor = countryBorder.properties.color;
-    const countryName = countryBorder.properties.ADMIN;
-    //will show total sales of each country when country is clicked
-    const totalSales = countryBorder.properties.totalSales;
-
-    //info on popup when country is clicked
-    layer.bindPopup(`${countryName} Total Sales:
+      layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
-    // }
+      // }
+    }
   }
 
   function highlightFeature(e) {

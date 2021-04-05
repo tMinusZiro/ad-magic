@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ClientPopUp from "./ClientPopUp";
 const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
-  console.log(legendItems);
   const [min, setMin] = useState();
   const [max, setMax] = useState();
   const [clientListInRange, setClientListInRange] = useState();
@@ -16,11 +15,9 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
       });
   }, [min]);
 
-  console.log(clientListInRange);
-
   function getClients(event) {
     let itemRange = event.target.value;
-    console.log(event.target.value.isFor);
+
     if (itemRange === "0") {
       setMin(0);
       setMax(0);
