@@ -32,6 +32,7 @@ const HomePage = (props) => {
   useEffect(() => {
     if (props.getData) {
       let interArray = [];
+
       fetch(`/show-sales/${props.region}`)
         .then((res) => res.json())
         .then((list) => {
@@ -39,6 +40,7 @@ const HomePage = (props) => {
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
+
           //set totalSales to be the inner array
           setTotalSales(interArray);
           //trigger the loadMap() function
@@ -63,6 +65,8 @@ const HomePage = (props) => {
     //Conditional branch for rendering just US State geoJSON data
     if (props.region === "United States") {
       console.log("I am in the special US branch");
+      console.log("US geoJSON");
+      console.log(props.usBorderData);
       for (let usState of props.usBorderData) {
         let usMatchedValue;
         if (totalSales) {
@@ -104,6 +108,8 @@ const HomePage = (props) => {
         setCountryColor(usState);
         // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
       }
+      console.log("US BORDER DATE B4 setCOUNTRY");
+      console.log(props.usBorderData);
       setCountries(props.usBorderData);
     } else if (props.region !== "United States") {
       const mapCountries = features;
