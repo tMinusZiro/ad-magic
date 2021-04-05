@@ -1,6 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 import {useState, useEffect} from 'react'
-// import Vendors from './Vendors'
+import Vendors from './Vendors'
 
 
 
@@ -11,6 +11,9 @@ async function vendorsList(){
     console.log('in use effect RIGTH DASH')
     console.log('in trigger RIGHT DASH')
 useEffect(() => {
+    console.log('in use effect')
+    
+        console.log('in trigger')
     fetch('/vendors')
     .then((res) =>res.json())
     .then((entry)=>{
@@ -21,7 +24,7 @@ useEffect(() => {
 )
 }
 
-// vendorsList()
+vendorsList()
 
 
     return (

@@ -35,15 +35,12 @@ const HomePage = (props) => {
       fetch(`/show-sales/${props.region}`)
         .then((res) => res.json())
         .then((list) => {
-          console.log("inside show-sales fetch");
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
           //set totalSales to be the inner array
           setTotalSales(interArray);
-          console.log("INSIDE FETCH TOTAL SALES =");
-          console.log(interArray);
           //trigger the loadMap() function
           setLoadMap(true);
           props.setGetData(false);
@@ -158,8 +155,7 @@ const HomePage = (props) => {
       }
       setCountries(features);
     }
-    // console.log(mapCountries);
-    console.log("at end of loadMapData()");
+    setCountries(features);
   }
 
   if (loadMap) {
