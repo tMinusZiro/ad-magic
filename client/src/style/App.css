@@ -128,11 +128,9 @@
 #home-page {
   /* border: 5px red solid; */
   height: 100%;
-  grid-column: 3;
-  grid-row: 2;
+  grid-area: 2/2/3/3;
 }
-/* #home-page {
-} */
+
 input {
   font-family: Avenir;
   width: 100%;
