@@ -24,7 +24,9 @@ app.get("/all-sales", async (request, response) => {
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
   let totalSales = await salesDB.totalSales();
+
   let countrySalesArray = [];
+
   await totalSales.forEach((item) => {
     // countrySalesArray.push(item);
     countrySalesArray = item;
@@ -33,14 +35,55 @@ app.get("/total-sales", async (request, response) => {
 });
 
 //vendors chart data
-app.get("/vendors", async(request, response) =>{
-  let vendorsData = await salesDB.vendors();
-  let vendors = [];
-  await vendorsData.forEach((entry) =>{
-    vendors.push(entry)
-  })
-  response.send(vendors)
-})
+app.get("/salesTypes", async (request, response) => {
+  let salesTypes = await salesDB.salesTypes();
+  let types = [];
+  await salesTypes.forEach((entry) => {
+    types.push(entry);
+  });
+  response.send(types);
+});
+
+//fullfilment chart data
+app.get("/fullfilment", async (request, response) => {
+  let fullfilmentType = await salesDB.fullfilmentType();
+  let types = [];
+  await fullfilmentType.forEach((entry) => {
+    types.push(entry);
+  });
+  response.send(types);
+});
+
+//marketing chart data
+app.get("/marketing", async (request, response) => {
+  let optInMarketing = await salesDB.MarketingOpt();
+  let opt = [];
+  await optInMarketing.forEach((entry) => {
+    opt.push(entry);
+  });
+  response.send(opt);
+});
+
+//vendors chart data
+app.get("/vendors", async (request, response) => {
+  let Vendors = await salesDB.Vendors();
+  let vendorQyt = [];
+  let vendorTopFive = [];
+  await Vendors.forEach((entry) => {
+    vendorQyt.push(entry.numberOfSales);
+  });
+  //sort vendor by qyt
+  vendorQyt.sort((a, b) => b - a);
+  // to get the top 5
+  for (let i = 0; i < 5; i++) {
+    await Vendors.forEach((entry) => {
+      if (entry.numberOfSales === vendorQyt[i]) {
+        vendorTopFive.push(entry);
+      }
+    });
+  }
+  response.send(vendorTopFive);
+});
 
 app.get("/countries", async (request, response) => {
   let allSalesObjects = await salesDB.showAll();
@@ -68,8 +111,10 @@ app.get("/clients", async (request, response) => {
 //render a list of items based on a client
 app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
+  console.log(client);
   let itemSales = await salesDB.findClients();
   let itemArray = [];
+  // console.log(itemSales)
   await itemSales.forEach((item) => {
     if (client === "all") {
       itemArray.push(item.itemList);
@@ -77,6 +122,7 @@ app.get("/items/:client", async (request, response) => {
       itemArray.push(item.itemList);
     }
   });
+  console.log(itemArray);
   response.send(itemArray);
 });
 
@@ -118,27 +164,15 @@ app.get("/items/:client", async (request, response) => {
 //   response.send(itemArray);
 // });
 
-let showSalesArray = []; 
+let showSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
-  let formRes = request.body
-  console.log(formRes)
+  let formRes = request.body;
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
-    showSalesArray.push(item)
-  })
-  // response.send(showSalesArray)
-})
-
-app.get("/show-sales", async (request, response) => {
-  if (showSalesArray.length === 0) {
-    let totalSalesByCountry = await salesDB.findAllSales();
-    // console.log("totalSales",totalSales)
-    await totalSalesByCountry.forEach((item) => {
-    showSalesArray.push(item)
-  })
-  response.send(showSalesArray)
-  } else return response.send(showSalesArray) 
-})
+    showSalesArray.push(item);
+  });
+  response.send(showSalesArray);
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));
