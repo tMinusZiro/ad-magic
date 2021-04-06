@@ -8,6 +8,7 @@ const MapToggle = (props) => {
   const [listOfItems, setListOfItems] = useState();
   const [showCustomDate, setShowCustomDate] = useState(false);
   const [account, setAccount] = useState("all");
+  const [USMap, setUSMap] = useState(false)
   let clientArray = [];
   useEffect(() => {
     // if there is no clientList, fetch the list of clients from server
@@ -52,7 +53,6 @@ const MapToggle = (props) => {
   function changeRegion(event) {
     props.setRegion(event.target.value);
     if (event.target.value === "United States") {
-      console.log("INSIDE CHANGE-REGION CONDITIONAL for UNITED STATES");
       props.setGetData(true);
     }
   }
@@ -64,6 +64,10 @@ const MapToggle = (props) => {
   }
 
   function reLoad(event) {
+    props.setGetData(true);
+  }
+
+  function switchMap(event) {
     props.setRegion("United States");
     setTimeout(() => {
       props.setGetData(true);
@@ -85,19 +89,39 @@ const MapToggle = (props) => {
   //set default end date
   let defaultDate = `${year}-${month}-${day}`;
 
+  useEffect(() => {
+    if (USMap) {
+      fetch("/united-states")
+    }
+  }, [USMap])
+
+  function switchToUSMap (event) {
+    setUSMap(!USMap)
+    if (USMap) {
+      props.setRegion("United States")
+    } else props.setRegion("World")
+    console.log(event.target.value)
+  }
   return (
     <div>
+        <label class="switch">
+          <input
+            onChange={switchToUSMap}
+            type="checkbox"
+            name = "country"
+            value = "United States"
+          />
+          <span class="slider round"></span>
+        </label> <label>US</label>
+
       <form method="POST" action="/united-states">
-        <input type="submit" value="United States" onClick={reLoad} />
+        <input type="submit" value="United States" />
       </form>
-      {
-        //select a region menu
-      }
+
       <form method="POST" action="/show-item-sales">
-        <label for="region">Region: </label>
         <select name="region" onChange={changeRegion}>
+          <option>Region</option>
           <option value="World">View World Sales</option>
-          <option value="United States">United States</option>
           <option value="Africa">Africa</option>
           <option value="Asia">Asia</option>
           <option value="Australia">Australia</option>
@@ -107,13 +131,13 @@ const MapToggle = (props) => {
         </select>
         <br></br>
         <br></br>
-        <label for="date-preset">View By:</label>
         <select name="datePreset" onChange={showCalendar}>
+          <option>View By:</option>
           <option value="all-time">All Time</option>
           <option value="week">Past Week</option>
           <option value="month">Past Month</option>
           <option value="quarter">Last Quarter</option>
-          <option value="six-months">Past Six Month</option>
+          <option value="six-months">Past Six Months</option>
           <option value="year">Past Year</option>
           <option value="custom">Custom Timeframe</option>
         </select>
@@ -154,19 +178,17 @@ const MapToggle = (props) => {
         }
         {clientList ? (
           <div>
-            <label for="account">
-              Client:
-              <select name="account" onChange={changeAccount}>
-                <option value="all">View All Clients</option>
-                {clientList.map((client, index) => {
-                  return (
-                    <option key={index} value={client}>
-                      {client}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
+            <select name="account" onChange={changeAccount}>
+              <option>Client</option>
+              <option value="all">View All Clients</option>
+              {clientList.map((client, index) => {
+                return (
+                  <option key={index} value={client}>
+                    {client}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         ) : null}
 
@@ -177,19 +199,16 @@ const MapToggle = (props) => {
         }
         {listOfItems ? (
           <div>
-            <label for="item-list">
-              Items:
-              <select name="item">
-                <option value="all-items">View All Items</option>
-                {listOfItems.map((item, index) => {
-                  return (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
+            <select name="item">
+              <option value="all-items">View All Items</option>
+              {listOfItems.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         ) : null}
         <input type="submit" value="Show Sales!" onClick={reLoad} />

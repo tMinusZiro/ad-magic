@@ -75,16 +75,9 @@ const Map = (props) => {
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
     if (props.region === "United States") {
-      // console.log("Inside of feature function");
-      // console.log(countryBorder.properties);
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const usStateName = countryBorder.properties.name;
-
-      // console.log(countryName);
-      //will show total sales of each country when country is clicked
-      // console.log("total sales number");
-      // console.log(countryBorder.properties.totalSales);
       const totalSales = countryBorder.properties.totalSales;
 
       //info on popup when country is clicked
@@ -99,7 +92,6 @@ const Map = (props) => {
       //info on popup when country is clicked
       layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
-      // }
     }
   }
 

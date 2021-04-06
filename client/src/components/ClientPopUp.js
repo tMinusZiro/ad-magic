@@ -10,6 +10,7 @@ const ClientPopUp = (props) => {
     for (let i=0; i< (props.clientListInRange.length)/2; i+=2) {
         array.push(`${props.clientListInRange[i]}: $${props.clientListInRange[i+1]}`)
     }
+    console.log(array)
 
     function hidePopup (event) {
         props.setShowClients(false)
@@ -22,7 +23,7 @@ const ClientPopUp = (props) => {
         <div class="popup-wrapper" 
         style ={props.showClients ?  {display: 'flex'} : {display: 'none'}}>
         <div class="popup">
-            <h3>Clients with Sales between ${props.min} and {props.max}:</h3>
+            <h3>Clients with Sales between ${props.min} and ${props.max}:</h3>
             <ul>{array.map((client, index) => {
                 return(
                 <li key = {index}>{client}</li>)

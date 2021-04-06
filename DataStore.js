@@ -23,39 +23,6 @@ class DataStore {
       return collection;
     }
   }
-  // ------------ Megan thinks that the functions below should be deleted --//
-  async showAll() {
-    const collection = await this.openConnect();
-    //find all sales objects
-    let cursor = await collection.find({});
-    //add to results array
-    let resultArr = [];
-    await cursor.forEach((document) => {
-      resultArr.push(document);
-    });
-    return resultArr;
-  }
-
-  async searchByKey(searchType, value) {
-    const collection = await this.openConnect();
-    let cursor = await collection.find({ [searchType]: value });
-    let resultsArr = await cursor.forEach((document) => {
-      resultsArr.push(document);
-    });
-    return resultsArr;
-  }
-
-  async deleteEntry(targetId) {
-    const collection = await this.openConnect();
-    await collection.deleteOne({ _id: ObjectId(targetId) });
-  }
-
-  async updateEntry(targetId, update) {
-    const collection = await this.openConnect();
-    await collection.updateOne({ _id: ObjectId(targetId) }, { $set: update });
-  }
-
-  // ------------ Megan thinks that the functions above should be deleted --//
 
   //top dashboard data
   async totalSales() {
@@ -144,7 +111,7 @@ class DataStore {
       else if (formResults.datePreset === "week") {
         newStart.setDate(startDay - 7);
         startDay = newStart.getDate();
-        startMonth = newStart.getMonth();
+        startMonth = newStart.getMonth() +1;
         startYear = newStart.getFullYear();
       }
       //client chooses quarter
@@ -192,7 +159,6 @@ class DataStore {
       }
       newEnd = `${endYear}-${endMonth}-${endDate}`;
       newStart = `${startYear}-${startMonth}-${startDay}`;
-      console.log("at end of date function", newStart, newEnd);
     }
 
     //group results by state on country based on user input
@@ -373,9 +339,8 @@ class DataStore {
           },
         },
       ]);
-      //helperFunction(salesResults)
-      return salesResults;
     }
+    return salesResults;
   }
 
   async findAllSales(region) {

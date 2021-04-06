@@ -42,19 +42,6 @@ app.get("/vendors", async (request, response) => {
   response.send(vendors);
 });
 
-//MEGAN IS THINKING THAT THIS IS AN UNNECCESSARY FUNCTION
-app.get("/countries", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
-  let countryArray = [];
-  for (object of allSalesObjects) {
-    if (object.Country__c && !countryArray.includes(object.Country__c)) {
-      countryArray.push(object.Country__c);
-    }
-  }
-  countryArray = countryArray.sort();
-  response.json(countryArray);
-});
-
 //create a list of clients
 let clientsArray = [];
 app.get("/clients", async (request, response) => {
@@ -67,7 +54,7 @@ app.get("/clients", async (request, response) => {
   response.send(clientsArray);
 });
 
-//render a list of items based on a client
+//create a list of items based on a client
 app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
   let itemArray = [];
@@ -106,8 +93,6 @@ app.get("/show-sales/:region", async (request, response) => {
   console.log(totalSalesArray);
   //if user has not submitted sidebar form, show all sales
   if (showSalesArray.length === 0 && region === "United States") {
-    console.log("UNITED STATES ARRAY /SHOW SALES route");
-    console.log(totalSalesArray);
     response.send(totalSalesArray);
   } else if (showSalesArray.length === 0) {
     totalSalesArray = [];
@@ -121,7 +106,6 @@ app.get("/show-sales/:region", async (request, response) => {
     // console.log(totalSalesArray);
     response.send(totalSalesArray);
   } else {
-    // console.log(showSalesArray);
     response.send(showSalesArray);
   }
 });
@@ -142,8 +126,10 @@ app.get("/client/:min/:max", async (request, response) => {
   response.send(clientsOfCertainSales);
 });
 
-app.post("/united-states", async (request, response) => {
+app.get("/united-states", async (request, response) => {
   totalSalesArray = [];
+  console.log(request.body);
+  console.log("in the post!");
   let totalSalesByCountry = await salesDB.findAllSales("United States");
   await totalSalesByCountry.forEach((item) => {
     totalSalesArray.push(item);
