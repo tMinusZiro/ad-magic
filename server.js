@@ -101,7 +101,7 @@ let totalSalesArray = [];
 app.get("/show-sales/:region", async (request, response) => {
   let region = request.params.region;
   console.log("The Region is : ", region);
-  console.log("UNITED STATES ARRAY /SHOW SALES route");
+  console.log(" /SHOW SALES route");
   console.log("OUTSIDE of conditional");
   console.log(totalSalesArray);
   //if user has not submitted sidebar form, show all sales
@@ -109,17 +109,6 @@ app.get("/show-sales/:region", async (request, response) => {
     console.log("UNITED STATES ARRAY /SHOW SALES route");
     console.log(totalSalesArray);
     response.send(totalSalesArray);
-  } else if (showSalesArray.length === 0) {
-    //findAllSales() filters by country (long term - country or US)
-    let totalSalesByCountry = await salesDB.findAllSales(region);
-    await totalSalesByCountry.forEach((item) => {
-      totalSalesArray.push(item);
-    });
-    // console.log("UNITED STATES total sales array in SERVER");
-    // console.log(totalSalesArray);
-    // console.log(totalSalesArray);
-    response.send(totalSalesArray);
-    //otherwise, user HAS submitted side-bar form on /show-item-sales, so send up the show sales array
   } else if (showSalesArray.length === 0) {
     totalSalesArray = [];
 
@@ -161,7 +150,7 @@ app.post("/united-states", async (request, response) => {
   });
   console.log("UNITED STATES ARRAY SERVER SIDE");
   console.log(totalSalesArray);
-  response.send(totalSalesArray);
+  response.redirect("/united");
 });
 
 app.get("*", (req, res) => {

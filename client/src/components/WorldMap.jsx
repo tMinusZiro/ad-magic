@@ -23,8 +23,8 @@ const Map = (props) => {
   const [worldMapCenter, setWorldMapCenter] = useState([39, -29]);
   const [mapCenter, setMapCenter] = useState(worldMapCenter);
   const [mapZoom, setMapZoom] = useState(1.5);
-  const [newMapZoom, setNewMapZoom] = useState();
-  const [newMapCenter, setNewMapCenter] = useState();
+  const [worldMapZoom, setWorldMapZoom] = useState();
+  const [newWorldCenter, setWorldCenter] = useState();
 
   //state for json country border data
   // const [openLegend, setOpenLegend] = useState(false);
@@ -45,29 +45,29 @@ const Map = (props) => {
   //when region is changed, send a new center and zoom into the map view
   useEffect(() => {
     if (props.region === "United States") {
-      setNewMapCenter([37.0902, -95.7129]);
-      setNewMapZoom(4);
+      setWorldMapCenter([37.0902, -95.7129]);
+      setWorldMapZoom(4);
     } else if (props.region === "Africa") {
-      setNewMapCenter([6.611111, 20.939444]);
-      setNewMapZoom(3.3);
+      setWorldMapCenter([6.611111, 20.939444]);
+      setWorldMapZoom(3.3);
     } else if (props.region === "Asia") {
-      setNewMapCenter([34.0479, 100.6197]);
-      setNewMapZoom(3);
+      setWorldMapCenter([34.0479, 100.6197]);
+      setWorldMapZoom(3);
     } else if (props.region === "Australia") {
-      setNewMapCenter([-25.274398, 133.775136]);
-      setNewMapZoom(4);
+      setWorldMapCenter([-25.274398, 133.775136]);
+      setWorldMapZoom(4);
     } else if (props.region === "Europe") {
-      setNewMapCenter([54.526, 15.2551]);
-      setNewMapZoom(3.5);
+      setWorldMapCenter([54.526, 15.2551]);
+      setWorldMapZoom(3.5);
     } else if (props.region === "North America") {
-      setNewMapCenter([47.1164, -101.2996]);
-      setNewMapZoom(3);
+      setWorldMapCenter([47.1164, -101.2996]);
+      setWorldMapZoom(3);
     } else if (props.region === "South America") {
-      setNewMapCenter([-20, -55.4915]);
-      setNewMapZoom(3.5);
+      setWorldMapCenter([-20, -55.4915]);
+      setWorldMapZoom(3.5);
     } else {
-      setNewMapCenter([39, -29]);
-      setNewMapZoom(1.5);
+      setWorldMapCenter([39, -29]);
+      setWorldMapZoom(1.5);
     }
   }, [props.region]);
 
@@ -90,7 +90,6 @@ const Map = (props) => {
       //info on popup when country is clicked
       layer.bindPopup(`${totalSales} ${usStateName}`);
     } else {
-      console.log("INSIDE IN EACH STATE");
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const countryName = countryBorder.properties.ADMIN;
@@ -135,9 +134,9 @@ const Map = (props) => {
             onEachFeature={onEachState}
             style={geoJSONStyle}
           />
-          {newMapCenter && newMapZoom ? (
-            <RegionZoom center={newMapCenter} zoom={newMapZoom} />
-          ) : null}
+          {/* {newWorldCenter && newWorldZoom ? (
+            <RegionZoom center={newWorldCenter} zoom={newWorldZoom} />
+          ) : null} */}
         </MapContainer>
       </div>
     </>

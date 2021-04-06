@@ -35,7 +35,7 @@ function App() {
         />
       </div>
       {/* element to test the fetch  */}
-      <Countries />
+      {/* <Countries /> */}
       {/* <div id ="top-dash-header">
       <TopDash />
       </div>
