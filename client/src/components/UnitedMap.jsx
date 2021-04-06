@@ -19,7 +19,7 @@ import { features } from "../borderData/countries.json";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
-const UnitedMap = ({region, usBorderData, loadUnitedMap}) => {
+const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
   const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
   const [mapZoom, setMapZoom] = useState(4);
 
@@ -87,7 +87,7 @@ const UnitedMap = ({region, usBorderData, loadUnitedMap}) => {
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON
-            data={usBorderData}
+            data={states}
             onEachFeature={onEachState}
             style={geoJSONStyle}
           />

@@ -32,6 +32,7 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
   const [loadMap, setLoadMap] = useState(false);
   const [newRegion, setNewRegion] = useState()
   const [getUSdata, setGetUSdata] = useState(true) 
+  const [states, setStates] = useState([])
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
@@ -116,7 +117,7 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
       setCountryColor(usState);
       // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
     }
-    setCountries(usBorderData);
+    setStates(usBorderData);
   }
 
   function loadMapData() {
@@ -211,14 +212,14 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
             exact
             path="/united"
             render={(props) =>
-              countries.length === 0 ? (
+              states.length === 0 ? (
                 <Loading />
               ) : (
                 <div id="map-component-wrapper">
                   <div>
                     <UnitedMap
                       region={region}
-                      usBorderData={usBorderData}
+                      states = {states}
                       loadUnitedMap={loadUnitedMap}
                     />
                   </div>
