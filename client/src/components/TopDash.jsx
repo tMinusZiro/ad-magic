@@ -11,7 +11,7 @@ export default function TopDash() {
     fetch("/total-sales")
       .then((res) => res.json())
       .then((totals) => {
-        console.log("List ", totals);
+        // console.log("List ", totals);
         //take this off the loop
         let ts = Math.ceil(totals.totalSales);
         ts = ts.toString().split(".");
@@ -23,12 +23,6 @@ export default function TopDash() {
         setitemSold(totals.totalItems);
         setdata(true);
       });
-
-    // console.log("country data", List);
-
-    console.log("TS ", TotalSales);
-    console.log("AP ", averagePrice);
-    console.log("IS ", itemSold);
   }
 
   return (

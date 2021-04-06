@@ -85,37 +85,23 @@ app.get("/vendors", async (request, response) => {
   response.send(vendorTopFive);
 });
 
-app.get("/countries", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
-  let countryArray = [];
-  for (object of allSalesObjects) {
-    if (object.Country__c && !countryArray.includes(object.Country__c)) {
-      countryArray.push(object.Country__c);
-    }
-  }
-  countryArray = countryArray.sort();
-  response.json(countryArray);
-});
-
 //create a list of clients
 let clientsArray = [];
 app.get("/clients", async (request, response) => {
-  let clientSales = await salesDB.findClients();
-  let clientSalesArray = [];
-  await clientSales.forEach((item) => {
-    clientSalesArray.push(item);
-  });
-  response.send(clientSalesArray);
+  if (clientsArray.length === 0) {
+    let clientSales = await salesDB.findClients();
+    await clientSales.forEach((item) => {
+      clientsArray.push(item);
+    });
+  }
+  response.send(clientsArray);
 });
 
-//render a list of items based on a client
+//create a list of items based on a client
 app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
-  console.log(client);
-  let itemSales = await salesDB.findClients();
   let itemArray = [];
-  // console.log(itemSales)
-  await itemSales.forEach((item) => {
+  await clientsArray.forEach((item) => {
     if (client === "all") {
       itemArray.push(item.itemList);
     } else if (client === item._id) {
@@ -126,52 +112,75 @@ app.get("/items/:client", async (request, response) => {
   response.send(itemArray);
 });
 
-//create a list of all dates
-// let datesArray = [];
-// app.get("/dates", async (request, response) => {
-//   let allSalesObjects = await salesDB.showAll();
-//   let exampleDate = allSalesObjects[0].Transaction_date__c;
-//   // console.log(
-//   //   exampleDate,
-//   //   typeof exampleDate,
-//   //   exampleDate.getMonth(),
-//   //   exampleDate.getFullYear()
-//   // );
-//   for (object of allSalesObjects) {
-//     if (
-//       object.Transaction_date__c &&
-//       !datesArray.includes(object.Transaction_date__c)
-//     ) {
-//       datesArray.push(object.Transaction_date__c);
-//     }
-//   }
-//   datesArray = datesArray.sort((a, b) => b.date - a.date);
-//   response.json(datesArray);
-// });
-
-//   console.log(client)
-//   let itemSales = await salesDB.findClients();
-//   let itemArray = [];
-//   // console.log(itemSales)
-//   await itemSales.forEach((item) => {
-//     if (client === "all") {
-//       itemArray.push(item.itemList);
-//     } else if (client === item._id) {
-//       itemArray.push(item.itemList);
-//     }
-//   });
-//   console.log(itemArray)
-//   response.send(itemArray);
-// });
-
+//showSalesArray gets populated when the form is submitted
 let showSalesArray = [];
+let formRes;
 app.post("/show-item-sales", async (request, response) => {
-  let formRes = request.body;
+  //if user has already submitted a form, clear the results to re-load new results
+  showSalesArray = [];
+  formRes = request.body;
+  console.log(formRes);
+  //findSalesByForm uses $match to match the form results with proper parameters
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
     showSalesArray.push(item);
   });
-  response.send(showSalesArray);
+  response.redirect("/");
+});
+
+let totalSalesArray = [];
+app.get("/show-sales/:region", async (request, response) => {
+  let region = request.params.region;
+  console.log("The Region is : ", region);
+  console.log(" /SHOW SALES route");
+  console.log("OUTSIDE of conditional");
+  console.log(totalSalesArray);
+  //if user has not submitted sidebar form, show all sales
+  if (showSalesArray.length === 0 && region === "United States") {
+    response.send(totalSalesArray);
+  } else if (showSalesArray.length === 0) {
+    totalSalesArray = [];
+
+    //findAllSales() filters by country (long term - country or US)
+    let totalSalesByCountry = await salesDB.findAllSales(region);
+    await totalSalesByCountry.forEach((item) => {
+      totalSalesArray.push(item);
+    });
+
+    // console.log(totalSalesArray);
+    response.send(totalSalesArray);
+  } else {
+    response.send(showSalesArray);
+  }
+});
+
+app.get("/client/:min/:max", async (request, response) => {
+  let min = request.params.min;
+  let max = request.params.max;
+  let clientsOfCertainSales = [];
+  for (let i = 0; i < clientsArray.length; i++) {
+    if (
+      clientsArray[i].totalSales >= min &&
+      clientsArray[i].totalSales <= max
+    ) {
+      clientsOfCertainSales.push(clientsArray[i]._id);
+      clientsOfCertainSales.push(clientsArray[i].totalSales.toFixed(2));
+    }
+  }
+  response.send(clientsOfCertainSales);
+});
+
+app.get("/united-states", async (request, response) => {
+  totalSalesArray = [];
+  console.log(request.body);
+  console.log("in the post!");
+  let totalSalesByCountry = await salesDB.findAllSales("United States");
+  await totalSalesByCountry.forEach((item) => {
+    totalSalesArray.push(item);
+  });
+  console.log("UNITED STATES ARRAY SERVER SIDE");
+  console.log(totalSalesArray);
+  response.redirect("/united");
 });
 
 app.get("*", (req, res) => {

@@ -8,6 +8,7 @@ class DataStore {
     this.isConnected = false;
   }
 
+  //open the connection to the DB
   async openConnect() {
     if (!this.isConnected) {
       const client = new MongoClient(this.url, { useUnifiedTopology: true });
@@ -23,36 +24,6 @@ class DataStore {
     }
   }
 
-  async showAll() {
-    const collection = await this.openConnect();
-    //find all sales objects
-    let cursor = await collection.find({});
-    //add to results array
-    let resultArr = [];
-    await cursor.forEach((document) => {
-      resultArr.push(document);
-    });
-    return resultArr;
-  }
-
-  async searchByKey(searchType, value) {
-    const collection = await this.openConnect();
-    let cursor = await collection.find({ [searchType]: value });
-    let resultsArr = await cursor.forEach((document) => {
-      resultsArr.push(document);
-    });
-    return resultsArr;
-  }
-
-  async deleteEntry(targetId) {
-    const collection = await this.openConnect();
-    await collection.deleteOne({ _id: ObjectId(targetId) });
-  }
-
-  async updateEntry(targetId, update) {
-    const collection = await this.openConnect();
-    await collection.updateOne({ _id: ObjectId(targetId) }, { $set: update });
-  }
   //top dashboard data
   async totalSales() {
     const collection = await this.openConnect();
@@ -130,6 +101,8 @@ class DataStore {
     ]);
     return vendor;
   }
+
+  //populate sidebar with accounts and items
   async findClients() {
     const collection = await this.openConnect();
     const clientsResult = await collection.aggregate([
@@ -145,6 +118,7 @@ class DataStore {
     return clientsResult;
   }
 
+  //return sales based on form results
   async findSalesByForm(formResults) {
     const collection = await this.openConnect();
     let newStart = new Date();
@@ -181,7 +155,7 @@ class DataStore {
       else if (formResults.datePreset === "week") {
         newStart.setDate(startDay - 7);
         startDay = newStart.getDate();
-        startMonth = newStart.getMonth();
+        startMonth = newStart.getMonth() + 1;
         startYear = newStart.getFullYear();
       }
       //client chooses quarter
@@ -229,7 +203,6 @@ class DataStore {
       }
       newEnd = `${endYear}-${endMonth}-${endDate}`;
       newStart = `${startYear}-${startMonth}-${startDay}`;
-      console.log("at end of date function", newStart, newEnd);
     }
 
     //group results by state on country based on user input
@@ -239,87 +212,235 @@ class DataStore {
     } else filterBy = "$Country__c";
 
     let account = formResults.account;
-    // let accountName;
-    // if (formResults.account === "all") {
-    //   accountName = `Scrubbed__c: "true"`;
-    // } else accountName = `Account__c: ${formResults.account}`;
-    console.log("form results in datastore", formResults);
-    const salesResults = await collection.aggregate([
-      {
-        $match: {
-          $expr: {
-            $gte: [
-              newEnd,
-              {
-                $dateToString: {
-                  date: "$Transaction_date__c",
-                  format: "%Y-%m-%d",
+    let item = formResults.item;
+    let salesResults;
+    if (account === "all") {
+      salesResults = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
                 },
-              },
-            ],
+              ],
+            },
           },
         },
-      },
-      {
-        $match: {
-          $expr: {
-            $lte: [
-              newStart,
-              {
-                $dateToString: {
-                  date: "$Transaction_date__c",
-                  format: "%Y-%m-%d",
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
                 },
-              },
-            ],
+              ],
+            },
           },
         },
-      },
-      {
-        $match: { Account__c: formResults.account },
-      },
-      {
-        $match: { Item__c: formResults.item },
-      },
-      {
-        $group: {
-          _id: filterBy,
-          account: { $addToSet: "$Account__c" },
-          averagePrice: { $avg: "$Price__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
-          division: { $addToSet: "$Division__c" },
-          optInMarketing: { $push: "$opt_in__c" },
-          postalCode: { $push: "$Postal_Code__c" },
-          itemsSold: { $sum: "$QTY__c" },
-          distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
-          salesType: { $push: "$Sales_Type__c" },
-          distinctSources: { $addToSet: "$Source__c" },
-          source: { $push: "$Source__c" },
-          distinctVendors: { $addToSet: "$Vendor__c" },
-          vendor: { $push: "$Vendor__c" },
-          itemList: { $addToSet: "$Item__c" },
-          date: { $addToSet: "$Transaction_date__c" },
+        {
+          $group: {
+            _id: filterBy,
+            account: { $addToSet: "$Account__c" },
+            averagePrice: { $avg: "$Price__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+            division: { $addToSet: "$Division__c" },
+            optInMarketing: { $push: "$opt_in__c" },
+            postalCode: { $push: "$Postal_Code__c" },
+            itemsSold: { $sum: "$QTY__c" },
+            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
+            salesType: { $push: "$Sales_Type__c" },
+            distinctSources: { $addToSet: "$Source__c" },
+            source: { $push: "$Source__c" },
+            distinctVendors: { $addToSet: "$Vendor__c" },
+            vendor: { $push: "$Vendor__c" },
+            itemList: { $addToSet: "$Item__c" },
+            date: { $addToSet: "$Transaction_date__c" },
+          },
         },
-      },
-    ]);
-    //helperFunction(salesResults)
+      ]);
+    } else if (item === "all-items") {
+      salesResults = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        { $match: { Account__c: formResults.account } },
+        {
+          $group: {
+            _id: filterBy,
+            account: { $addToSet: "$Account__c" },
+            averagePrice: { $avg: "$Price__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+            division: { $addToSet: "$Division__c" },
+            optInMarketing: { $push: "$opt_in__c" },
+            postalCode: { $push: "$Postal_Code__c" },
+            itemsSold: { $sum: "$QTY__c" },
+            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
+            salesType: { $push: "$Sales_Type__c" },
+            distinctSources: { $addToSet: "$Source__c" },
+            source: { $push: "$Source__c" },
+            distinctVendors: { $addToSet: "$Vendor__c" },
+            vendor: { $push: "$Vendor__c" },
+            itemList: { $addToSet: "$Item__c" },
+            date: { $addToSet: "$Transaction_date__c" },
+          },
+        },
+      ]);
+    } else {
+      salesResults = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: { Account__c: formResults.account },
+        },
+        {
+          $match: { Item__c: formResults.item },
+        },
+        {
+          $group: {
+            _id: filterBy,
+            account: { $addToSet: "$Account__c" },
+            averagePrice: { $avg: "$Price__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+            division: { $addToSet: "$Division__c" },
+            optInMarketing: { $push: "$opt_in__c" },
+            postalCode: { $push: "$Postal_Code__c" },
+            itemsSold: { $sum: "$QTY__c" },
+            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
+            salesType: { $push: "$Sales_Type__c" },
+            distinctSources: { $addToSet: "$Source__c" },
+            source: { $push: "$Source__c" },
+            distinctVendors: { $addToSet: "$Vendor__c" },
+            vendor: { $push: "$Vendor__c" },
+            itemList: { $addToSet: "$Item__c" },
+            date: { $addToSet: "$Transaction_date__c" },
+          },
+        },
+      ]);
+    }
     return salesResults;
   }
 
-  async findAllSales() {
+  async findAllSales(region) {
     const collection = await this.openConnect();
-    const salesResults = await collection.aggregate([
-      {
-        $match: { Scrubbed__c: "true" },
-      },
-      {
-        $group: {
-          _id: "$Country__c",
-          totalSales: { $sum: "$Total_Sales__c" },
+    let salesResults;
+    if (region === "United States") {
+      salesResults = await collection.aggregate([
+        {
+          $match: { Country__c: "United States" },
         },
-      },
-    ]);
-    //helperFunction(salesResults)
+        {
+          $group: {
+            _id: "$State_Provence__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+    } else {
+      salesResults = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Country__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+    }
+    return salesResults;
+  }
+
+  async findAllSales(region) {
+    const collection = await this.openConnect();
+    let salesResults;
+    if (region === "United States") {
+      salesResults = await collection.aggregate([
+        {
+          $match: { Country__c: "United States" },
+        },
+        {
+          $group: {
+            _id: "$State_Provence__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+    } else {
+      salesResults = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Country__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+    }
     return salesResults;
   }
 
