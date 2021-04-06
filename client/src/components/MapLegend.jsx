@@ -43,7 +43,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
       display: "flex",
       alignItems: "stretch",
     }}>
-    {/* <div
+    <div
       id="map-legend-wrapper"
       style={
         openLegend
@@ -59,7 +59,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
               zIndex: -1,
             }
       }
-    > */}
+    >
       {legendItems.map((item, index) => (
         <button
           onClick={getClients}
@@ -77,33 +77,23 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
             fontWeight: "bolder",
             fontSize: "1.5em",
           }}
-          //burger menu style stuff 
-          // style={{
-          //   backgroundColor: item.color,
-          //   flex: 1,
-          //   display: "flex",
-          //   alignItems: "center",
-          //   justifyContent: "center",
-          //   color: item.textColor,
-          //   height: "10vh",
-          //   fontWeight: "bolder",
-          //   fontSize: "1.5em",
-          // }}
         >
           {item.title}
         </button>
       ))}
-      {showClients ? (
+
+    </div>
+    {showClients ? (
         <ClientPopUp
           min={min}
           max={max}
           clientListInRange={clientListInRange}
           setShowClients={setShowClients}
           showClients={showClients}
+          style = {{zIndex:1000}}
         />
       ) : null}
-    </div>
-    // </div>
+   </div>
   );
 };
 

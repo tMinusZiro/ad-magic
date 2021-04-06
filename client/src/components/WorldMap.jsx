@@ -45,28 +45,28 @@ const Map = (props) => {
   //when region is changed, send a new center and zoom into the map view
   useEffect(() => {
     if (props.region === "United States") {
-      setWorldMapCenter([37.0902, -95.7129]);
+      setWorldCenter([37.0902, -95.7129]);
       setWorldMapZoom(4);
     } else if (props.region === "Africa") {
-      setWorldMapCenter([6.611111, 20.939444]);
+      setWorldCenter([6.611111, 20.939444]);
       setWorldMapZoom(3.3);
     } else if (props.region === "Asia") {
-      setWorldMapCenter([34.0479, 100.6197]);
+      setWorldCenter([34.0479, 100.6197]);
       setWorldMapZoom(3);
     } else if (props.region === "Australia") {
-      setWorldMapCenter([-25.274398, 133.775136]);
+      setWorldCenter([-25.274398, 133.775136]);
       setWorldMapZoom(4);
     } else if (props.region === "Europe") {
-      setWorldMapCenter([54.526, 15.2551]);
+      setWorldCenter([54.526, 15.2551]);
       setWorldMapZoom(3.5);
     } else if (props.region === "North America") {
-      setWorldMapCenter([47.1164, -101.2996]);
+      setWorldCenter([47.1164, -101.2996]);
       setWorldMapZoom(3);
     } else if (props.region === "South America") {
-      setWorldMapCenter([-20, -55.4915]);
+      setWorldCenter([-20, -55.4915]);
       setWorldMapZoom(3.5);
     } else {
-      setWorldMapCenter([39, -29]);
+      setWorldCenter([39, -29]);
       setWorldMapZoom(1.5);
     }
   }, [props.region]);
@@ -126,9 +126,9 @@ const Map = (props) => {
             onEachFeature={onEachState}
             style={geoJSONStyle}
           />
-          {/* {newWorldCenter && newWorldZoom ? (
-            <RegionZoom center={newWorldCenter} zoom={newWorldZoom} />
-          ) : null} */}
+          {newWorldCenter && worldMapZoom ? (
+            <RegionZoom center={newWorldCenter} zoom={worldMapZoom} />
+          ) : null}
         </MapContainer>
       </div>
     </>
