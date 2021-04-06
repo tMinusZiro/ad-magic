@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 const MapToggle = (props) => {
   //list of all clients in database
   const [clientList, setClientList] = useState();
@@ -8,7 +10,8 @@ const MapToggle = (props) => {
   const [listOfItems, setListOfItems] = useState();
   const [showCustomDate, setShowCustomDate] = useState(false);
   const [account, setAccount] = useState("all");
-  const [USMap, setUSMap] = useState(false)
+  const [USMap, setUSMap] = useState(true);
+
   let clientArray = [];
   useEffect(() => {
     // if there is no clientList, fetch the list of clients from server
@@ -53,7 +56,7 @@ const MapToggle = (props) => {
   function changeRegion(event) {
     props.setRegion(event.target.value);
     if (event.target.value === "United States") {
-      props.setGetData(true);
+      // props.setGetData(true);
     }
   }
 
@@ -64,14 +67,14 @@ const MapToggle = (props) => {
   }
 
   function reLoad(event) {
-    props.setGetData(true);
+    // props.setGetData(true);
   }
 
   function switchMap(event) {
     props.setRegion("United States");
-    setTimeout(() => {
-      props.setGetData(true);
-    }, 3000);
+    // setTimeout(() => {
+      // props.setGetData(true);
+    // }, 3000);
   }
 
   //set default date on form
@@ -91,32 +94,35 @@ const MapToggle = (props) => {
 
   useEffect(() => {
     if (USMap) {
-      fetch("/united-states")
+      fetch("/united-states");
     }
-  }, [USMap])
+  }, [USMap]);
 
-  function switchToUSMap (event) {
-    setUSMap(!USMap)
-    if (USMap) {
-      props.setRegion("United States")
-    } else props.setRegion("World")
-    console.log(event.target.value)
+  function switchToUSMap(event) {
+    // setUSMap(!USMap);
+    // if (USMap) {
+      // props.setGetData(true)
+    //   props.setRegion("United States");
+    // } else props.setRegion("World");
   }
+  
   return (
     <div>
-        <label class="switch">
-          <input
-            onChange={switchToUSMap}
-            type="checkbox"
-            name = "country"
-            value = "United States"
-          />
-          <span class="slider round"></span>
-        </label> <label>US</label>
+      {/* <label class="switch">
+        <input
+          onChange={switchToUSMap}
+          type="checkbox"
+          name="country"
+          value="United States"
+        />
+        <span class="slider round"></span>
+      </label>{" "}
+      <label>US</label> */}
 
-      {/* <form method="POST" action="/united-states">
-        <input type="submit" value="United States" />
-      </form> */}
+      {/* <form method="POST" action="/united-states" onSubmit={switchMap}> */}
+       <Link
+       to = {"/united"}> <button name ="region" >push history</button></Link>
+      {/* </form> */}
 
       <form method="POST" action="/show-item-sales">
         <select name="region" onChange={changeRegion}>
@@ -131,7 +137,7 @@ const MapToggle = (props) => {
         </select>
         <br></br>
         <br></br>
-        <select name="datePreset" onChange={showCalendar}>
+        <select name="datePreset" onChange={showCalendar} default ="all-time">
           <option>View By:</option>
           <option value="all-time">All Time</option>
           <option value="week">Past Week</option>

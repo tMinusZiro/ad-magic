@@ -1,6 +1,6 @@
 import "./style/App.css";
 import MapToggle from "./components/MapToggle";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 // import TotalSales from "./components/TotalSales";
 // import Countries from "./components/tasks/Countries";
 import HomePage from "./components/HomePage.jsx";
@@ -11,10 +11,17 @@ import { features } from "./borderData/usBorder.json";
 
 function App() {
   //set the region that the map should focus on
-  const [region, setRegion] = useState("World");
+  const [region, setRegion] = useState();
   //trigger the data to re-fetch when form is submitted
   const [getData, setGetData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
+
+  useEffect(() => {
+    if (window.location.pathname === "/united") {
+      setRegion("United States")
+    } else setRegion("World")
+  }, [getData])
+
 
   return (
     <div id="app-wrapper">
@@ -33,6 +40,7 @@ function App() {
           setGetData={setGetData}
           region={region}
           usBorderData={usBorderData}
+          setRegion = {setRegion}
         />
       </div>
       {/* <Countries /> */}

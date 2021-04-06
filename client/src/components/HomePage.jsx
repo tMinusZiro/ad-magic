@@ -15,14 +15,15 @@ import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
 import legendItems from "../entities/LegendItems";
 import MapBurger from "./MapBurger.jsx";
 
-const HomePage = (props) => {
+const HomePage = ({getData, setGetData, region, usBorderData}) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
   const [totalSales, setTotalSales] = useState();
+  const [totalUSSales, setTotalUSSales] = useState();
+
   const [openLegend, setOpenLegend] = useState(false);
   const [loadUnitedMap, setLoadUnitedMap] = useState(false);
-  const [interUS, setInterUS] = useState(props.usBorderData);
   //reverse the array so that it's in descending order
   const legendItemsInReverse = [...legendItems].reverse();
   //intermediate array for totalSales
@@ -30,38 +31,48 @@ const HomePage = (props) => {
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
   const [newRegion, setNewRegion] = useState()
+  const [getUSdata, setGetUSdata] = useState(true) 
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
-    if (props.getData) {
+    if (getData) {
       let interArray = [];
-
-      fetch(`/show-sales/${props.region}`)
+      fetch(`/show-sales/`)
         .then((res) => res.json())
         .then((list) => {
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
           });
-
           //set totalSales to be the inner array
           setTotalSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
-          if (props.region === "United States") {
-            setLoadUnitedMap(true);
-            props.setGetData(false);
-          } else {
             setLoadMap(true);
-            props.setGetData(false);
-          }
+            setGetData(false);
+            console.log("getData", getData)
+          });
+    }
+    if (getUSdata) {
+      let interArray = [];
+      fetch(`/show-us`)
+        .then((res) => res.json())
+        .then((list) => {
+          //push each sales item into the intermediate array
+          list.forEach((countrySale) => {
+            interArray.push(countrySale);
+          });
+          //set totalSales to be the inner array
+          console.log(interArray)
+          setTotalUSSales(interArray);
+          //trigger the loadMap() function
+          //conditional for which map to load
+            setLoadUnitedMap(true);
+            setGetUSdata(false);
+            console.log("getUSdata:", getUSdata)
         });
     }
   });
-
-  useEffect(() => {
-    setNewRegion(props.region)
-  }, [props.region])
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -74,19 +85,14 @@ const HomePage = (props) => {
   }
 
   function loadUnitedData() {
-    console.log("I am in the special US branch");
-    console.log("US geoJSON");
-    console.log(props.usBorderData);
-    for (let usState of props.usBorderData) {
+    for (let usState of usBorderData) {
       let usMatchedValue;
-      if (totalSales) {
+      if (totalUSSales) {
         //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
-        for (let sale of totalSales) {
+        for (let sale of totalUSSales) {
           if (usState.properties.name == sale._id) {
             //if there is a match assign it to intermediate variable
             usMatchedValue = sale;
-            // console.log("MATCHED OBJECT");
-            // console.log(usMatchedValue);
           }
         }
       }
@@ -99,32 +105,21 @@ const HomePage = (props) => {
       //checks if the matched total sales object has valid state
       if (usMatchedValue != null) {
         //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-        console.log(
-          "Inside of conditional about to assign sales value to geoJSON"
-        );
         //creates intermediate variable
         const assignUSTotalSales = usMatchedValue.totalSales;
 
-        // console.log(assignTotalSales);
         //assigns correct total sales to geoJSON object
         usState.properties.totalSales = assignUSTotalSales;
-        // console.log("NOW the geoJSON sales is ");
-        // console.log(country.properties);
         //assigns total sales to geoJSON object for displaying text on pop up modal
         usState.properties.totalSalesText = assignUSTotalSales;
-        // console.log("Map Modal text should display: ");
-        // console.log(country.properties.totalSalesText);
       }
       setCountryColor(usState);
       // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
     }
-    console.log("US BORDER DATE B4 setCOUNTRY");
-    console.log(props.usBorderData);
-    setCountries(props.usBorderData);
+    setCountries(usBorderData);
   }
 
   function loadMapData() {
-    console.log("Entering Load Map Data");
     //Conditional branch for rendering just US State geoJSON data
 
     const mapCountries = features;
@@ -135,14 +130,11 @@ const HomePage = (props) => {
       //if total sales list that was fetched has valid state
       //guard clause
       if (totalSales) {
-        // console.log(totalSales);
         //second for loop to iterate through total sales list from db and match admagic country to geoJSON
         for (let sale of totalSales) {
           if (country.properties.ADMIN == sale._id) {
             //if there is a match assign it to intermediate variable
             matchedValue = sale;
-            // console.log("MATCHED OBJECT");
-            // console.log(matchedValue);
           }
         }
       }
@@ -155,21 +147,13 @@ const HomePage = (props) => {
       //checks if the matched total sales object has valid state
       if (matchedValue != null) {
         //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-        console.log(
-          "Inside of conditional about to assign sales value to geoJSON"
-        );
         //creates intermediate variable
         const assignTotalSales = matchedValue.totalSales;
 
-        // console.log(assignTotalSales);
         //assigns correct total sales to geoJSON object
         country.properties.totalSales = assignTotalSales;
-        // console.log("NOW the geoJSON sales is ");
-        // console.log(country.properties);
         //assigns total sales to geoJSON object for displaying text on pop up modal
         country.properties.totalSalesText = assignTotalSales;
-        // console.log("Map Modal text should display: ");
-        // console.log(country.properties.totalSalesText);
       }
       setCountryColor(country);
       // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
@@ -189,24 +173,19 @@ const HomePage = (props) => {
 
   return (
     <div>
-      <BrowserRouter>
         <Switch>
           <Route
             exact
             path="/"
             render={(props) =>
-              // console.log("Inside Browser Router / countries = ");
-              // console.log(countries);
 
               countries.length === 0 ? (
                 <Loading />
               ) : (
                 <div id="map-component-wrapper">
-                  {console.log("INSIDE  /ROUTE region =")}
-                  {console.log(props.region)}
                   <div>
                     <WorldMap
-                      region={newRegion}
+                      region={region}
                       countries={countries}
                       loadMap={loadMap}
                     />
@@ -237,11 +216,9 @@ const HomePage = (props) => {
               ) : (
                 <div id="map-component-wrapper">
                   <div>
-                    {console.log("INSIDE UNITED SWITCH Statement")}
-                    {console.log(props.usBorderData)}
                     <UnitedMap
-                      region={props.region}
-                      interUS={interUS}
+                      region={region}
+                      usBorderData={usBorderData}
                       loadUnitedMap={loadUnitedMap}
                     />
                   </div>
@@ -263,7 +240,6 @@ const HomePage = (props) => {
             }
           />
         </Switch>
-      </BrowserRouter>
     </div>
   );
 };

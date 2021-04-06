@@ -19,10 +19,9 @@ import { features } from "../borderData/countries.json";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
-const UnitedMap = (props) => {
-  const [worldMapCenter, setWorldMapCenter] = useState([39, -29]);
-  const [mapCenter, setMapCenter] = useState(worldMapCenter);
-  const [mapZoom, setMapZoom] = useState(1.5);
+const UnitedMap = ({region, usBorderData, loadUnitedMap}) => {
+  const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
+  const [mapZoom, setMapZoom] = useState(4);
 
   // const [newWorldCenter, setWorldMapCenter] = useState();
 
@@ -47,17 +46,13 @@ const UnitedMap = (props) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-    if (props.region === "United States") {
-      // console.log("Inside of feature function");
-      // console.log(countryBorder.properties);
+    if (region === "United States") {
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const usStateName = countryBorder.properties.name;
 
-      // console.log(countryName);
       //will show total sales of each country when country is clicked
-      // console.log("total sales number");
-      // console.log(countryBorder.properties.totalSales);
+
       const totalSales = countryBorder.properties.totalSales;
 
       //info on popup when country is clicked
@@ -92,7 +87,7 @@ const UnitedMap = (props) => {
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON
-            data={props.interUS}
+            data={usBorderData}
             onEachFeature={onEachState}
             style={geoJSONStyle}
           />

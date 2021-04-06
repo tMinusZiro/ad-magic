@@ -57,7 +57,7 @@ class DataStore {
     return types;
   }
   //Fullfilment chart data
-  async fullfilmentType() {
+  async fullfilmentType(input) {
     const collection = await this.openConnect();
     const fullfilment = await collection.aggregate([
       { $match: { Scrubbed__c: "true" } },
@@ -214,6 +214,7 @@ class DataStore {
     let account = formResults.account;
     let item = formResults.item;
     let salesResults;
+    //if all accounts are chosen, match the start & end date
     if (account === "all") {
       salesResults = await collection.aggregate([
         {
@@ -249,24 +250,11 @@ class DataStore {
         {
           $group: {
             _id: filterBy,
-            account: { $addToSet: "$Account__c" },
-            averagePrice: { $avg: "$Price__c" },
             totalSales: { $sum: "$Total_Sales__c" },
-            division: { $addToSet: "$Division__c" },
-            optInMarketing: { $push: "$opt_in__c" },
-            postalCode: { $push: "$Postal_Code__c" },
-            itemsSold: { $sum: "$QTY__c" },
-            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
-            salesType: { $push: "$Sales_Type__c" },
-            distinctSources: { $addToSet: "$Source__c" },
-            source: { $push: "$Source__c" },
-            distinctVendors: { $addToSet: "$Vendor__c" },
-            vendor: { $push: "$Vendor__c" },
-            itemList: { $addToSet: "$Item__c" },
-            date: { $addToSet: "$Transaction_date__c" },
           },
         },
       ]);
+      //if all accounts are chosen, match the start date, end date, & client
     } else if (item === "all-items") {
       salesResults = await collection.aggregate([
         {
@@ -304,25 +292,12 @@ class DataStore {
         {
           $group: {
             _id: filterBy,
-            account: { $addToSet: "$Account__c" },
-            averagePrice: { $avg: "$Price__c" },
             totalSales: { $sum: "$Total_Sales__c" },
-            division: { $addToSet: "$Division__c" },
-            optInMarketing: { $push: "$opt_in__c" },
-            postalCode: { $push: "$Postal_Code__c" },
-            itemsSold: { $sum: "$QTY__c" },
-            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
-            salesType: { $push: "$Sales_Type__c" },
-            distinctSources: { $addToSet: "$Source__c" },
-            source: { $push: "$Source__c" },
-            distinctVendors: { $addToSet: "$Vendor__c" },
-            vendor: { $push: "$Vendor__c" },
-            itemList: { $addToSet: "$Item__c" },
-            date: { $addToSet: "$Transaction_date__c" },
           },
         },
       ]);
     } else {
+      //match the start date, end date, client, & item
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -364,49 +339,6 @@ class DataStore {
         {
           $group: {
             _id: filterBy,
-            account: { $addToSet: "$Account__c" },
-            averagePrice: { $avg: "$Price__c" },
-            totalSales: { $sum: "$Total_Sales__c" },
-            division: { $addToSet: "$Division__c" },
-            optInMarketing: { $push: "$opt_in__c" },
-            postalCode: { $push: "$Postal_Code__c" },
-            itemsSold: { $sum: "$QTY__c" },
-            distinctSalesTypes: { $addToSet: "$Sales_Type__c" },
-            salesType: { $push: "$Sales_Type__c" },
-            distinctSources: { $addToSet: "$Source__c" },
-            source: { $push: "$Source__c" },
-            distinctVendors: { $addToSet: "$Vendor__c" },
-            vendor: { $push: "$Vendor__c" },
-            itemList: { $addToSet: "$Item__c" },
-            date: { $addToSet: "$Transaction_date__c" },
-          },
-        },
-      ]);
-    }
-    return salesResults;
-  }
-
-  async findAllSales(region) {
-    const collection = await this.openConnect();
-    let salesResults;
-    if (region === "United States") {
-      salesResults = await collection.aggregate([
-        {
-          $match: { Country__c: "United States" },
-        },
-        {
-          $group: {
-            _id: "$State_Provence__c",
-            totalSales: { $sum: "$Total_Sales__c" },
-          },
-        },
-      ]);
-    } else {
-      salesResults = await collection.aggregate([
-        { $match: { Scrubbed__c: "true" } },
-        {
-          $group: {
-            _id: "$Country__c",
             totalSales: { $sum: "$Total_Sales__c" },
           },
         },
@@ -415,32 +347,33 @@ class DataStore {
     return salesResults;
   }
 
-  async findAllSales(region) {
+  async findAllWorldSales() {
     const collection = await this.openConnect();
-    let salesResults;
-    if (region === "United States") {
-      salesResults = await collection.aggregate([
-        {
-          $match: { Country__c: "United States" },
+    const salesResults = await collection.aggregate([
+      { $match: { Scrubbed__c: "true" } },
+      {
+        $group: {
+          _id: "$Country__c",
+          totalSales: { $sum: "$Total_Sales__c" },
         },
-        {
-          $group: {
-            _id: "$State_Provence__c",
-            totalSales: { $sum: "$Total_Sales__c" },
-          },
+      },
+    ]);
+    return salesResults;
+  }
+  async findAllUSSales() {
+    const collection = await this.openConnect();
+    let salesResults = [];
+    salesResults = await collection.aggregate([
+      {
+        $match: { Country__c: "United States" },
+      },
+      {
+        $group: {
+          _id: "$State_Provence__c",
+          totalSales: { $sum: "$Total_Sales__c" },
         },
-      ]);
-    } else {
-      salesResults = await collection.aggregate([
-        { $match: { Scrubbed__c: "true" } },
-        {
-          $group: {
-            _id: "$Country__c",
-            totalSales: { $sum: "$Total_Sales__c" },
-          },
-        },
-      ]);
-    }
+      },
+    ]);
     return salesResults;
   }
 

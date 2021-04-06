@@ -108,7 +108,6 @@ app.get("/items/:client", async (request, response) => {
       itemArray.push(item.itemList);
     }
   });
-  console.log(itemArray);
   response.send(itemArray);
 });
 
@@ -119,7 +118,7 @@ app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   showSalesArray = [];
   formRes = request.body;
-  console.log(formRes);
+  console.log("form results", formRes);
   //findSalesByForm uses $match to match the form results with proper parameters
   let totalSales = await salesDB.findSalesByForm(formRes);
   await totalSales.forEach((item) => {
@@ -128,31 +127,40 @@ app.post("/show-item-sales", async (request, response) => {
   response.redirect("/");
 });
 
+
+
+let USsales = [] 
 let totalSalesArray = [];
-app.get("/show-sales/:region", async (request, response) => {
-  let region = request.params.region;
-  console.log("The Region is : ", region);
-  console.log(" /SHOW SALES route");
-  console.log("OUTSIDE of conditional");
-  console.log(totalSalesArray);
+app.get("/show-sales", async (request, response) => {
   //if user has not submitted sidebar form, show all sales
-  if (showSalesArray.length === 0 && region === "United States") {
-    response.send(totalSalesArray);
-  } else if (showSalesArray.length === 0) {
+   if (showSalesArray.length === 0) {
+    console.log("inside else if showsalesarray.length === 0 ")
     totalSalesArray = [];
 
     //findAllSales() filters by country (long term - country or US)
-    let totalSalesByCountry = await salesDB.findAllSales(region);
+    let totalSalesByCountry = await salesDB.findAllWorldSales();
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);
     });
 
-    // console.log(totalSalesArray);
+    console.log(totalSalesArray);
     response.send(totalSalesArray);
   } else {
     response.send(showSalesArray);
   }
 });
+
+app.get("/show-us", async (request, response) => {
+  "INSIDE UNITED STATS APP.GET:"
+  console.log(USsales)
+  USsales = [];
+  let totalSalesByCountry = await salesDB.findAllUSSales();
+  await totalSalesByCountry.forEach((item) => {
+    USsales.push(item);
+  });
+  response.send(USsales);
+})
+
 
 app.get("/client/:min/:max", async (request, response) => {
   let min = request.params.min;
@@ -170,17 +178,14 @@ app.get("/client/:min/:max", async (request, response) => {
   response.send(clientsOfCertainSales);
 });
 
-app.get("/united-states", async (request, response) => {
-  totalSalesArray = [];
-  console.log(request.body);
-  console.log("in the post!");
+app.post("/united-states", async (request, response) => {
+  USsales = [];
   let totalSalesByCountry = await salesDB.findAllSales("United States");
   await totalSalesByCountry.forEach((item) => {
-    totalSalesArray.push(item);
+    USsales.push(item);
   });
-  console.log("UNITED STATES ARRAY SERVER SIDE");
-  console.log(totalSalesArray);
-  response.redirect("/united");
+  console.log("inside the US post request", USsales)
+  response.redirect("/united")
 });
 
 app.get("*", (req, res) => {
