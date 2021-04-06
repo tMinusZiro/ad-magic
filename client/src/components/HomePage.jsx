@@ -61,12 +61,8 @@ const HomePage = (props) => {
   }
 
   function loadMapData() {
-    console.log("Entering Load Map Data");
     //Conditional branch for rendering just US State geoJSON data
     if (props.region === "United States") {
-      console.log("I am in the special US branch");
-      console.log("US geoJSON");
-      console.log(props.usBorderData);
       for (let usState of props.usBorderData) {
         let usMatchedValue;
         if (totalSales) {
@@ -75,12 +71,9 @@ const HomePage = (props) => {
             if (usState.properties.name == sale._id) {
               //if there is a match assign it to intermediate variable
               usMatchedValue = sale;
-              // console.log("MATCHED OBJECT");
-              // console.log(usMatchedValue);
             }
           }
         }
-
         //DEFAULT VALUES:
         //geoJSON layer properties total sales
         usState.properties.totalSales = 0;
@@ -89,9 +82,6 @@ const HomePage = (props) => {
         //checks if the matched total sales object has valid state
         if (usMatchedValue != null) {
           //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-          console.log(
-            "Inside of conditional about to assign sales value to geoJSON"
-          );
           //creates intermediate variable
           const assignUSTotalSales = usMatchedValue.totalSales;
 
@@ -108,8 +98,6 @@ const HomePage = (props) => {
         setCountryColor(usState);
         // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
       }
-      console.log("US BORDER DATE B4 setCOUNTRY");
-      console.log(props.usBorderData);
       setCountries(props.usBorderData);
     } else if (props.region !== "United States") {
       const mapCountries = features;

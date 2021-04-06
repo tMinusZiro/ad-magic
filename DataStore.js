@@ -111,7 +111,7 @@ class DataStore {
       else if (formResults.datePreset === "week") {
         newStart.setDate(startDay - 7);
         startDay = newStart.getDate();
-        startMonth = newStart.getMonth();
+        startMonth = newStart.getMonth() +1;
         startYear = newStart.getFullYear();
       }
       //client chooses quarter
@@ -159,7 +159,6 @@ class DataStore {
       }
       newEnd = `${endYear}-${endMonth}-${endDate}`;
       newStart = `${startYear}-${startMonth}-${startDay}`;
-      console.log("at end of date function", newStart, newEnd);
     }
 
     //group results by state on country based on user input
@@ -340,9 +339,8 @@ class DataStore {
           },
         },
       ]);
-      //helperFunction(salesResults)
-      return salesResults;
     }
+    return salesResults;
   }
 
   async findAllSales(region) {

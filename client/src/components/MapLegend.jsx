@@ -34,13 +34,16 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
     }
     setShowClients(true);
   }
-
   function flipMenu() {
     openLegend ? setOpenLegend(!openLegend) : setOpenLegend(openLegend);
   }
 
   return (
-    <div
+    <div style={{
+      display: "flex",
+      alignItems: "stretch",
+    }}>
+    {/* <div
       id="map-legend-wrapper"
       style={
         openLegend
@@ -56,7 +59,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
               zIndex: -1,
             }
       }
-    >
+    > */}
       {legendItems.map((item, index) => (
         <button
           onClick={getClients}
@@ -74,6 +77,18 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
             fontWeight: "bolder",
             fontSize: "1.5em",
           }}
+          //burger menu style stuff 
+          // style={{
+          //   backgroundColor: item.color,
+          //   flex: 1,
+          //   display: "flex",
+          //   alignItems: "center",
+          //   justifyContent: "center",
+          //   color: item.textColor,
+          //   height: "10vh",
+          //   fontWeight: "bolder",
+          //   fontSize: "1.5em",
+          // }}
         >
           {item.title}
         </button>
@@ -88,6 +103,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
         />
       ) : null}
     </div>
+    // </div>
   );
 };
 
