@@ -114,9 +114,9 @@ const MapToggle = (props) => {
           <span class="slider round"></span>
         </label> <label>US</label>
 
-      <form method="POST" action="/united-states">
+      {/* <form method="POST" action="/united-states">
         <input type="submit" value="United States" />
-      </form>
+      </form> */}
 
       <form method="POST" action="/show-item-sales">
         <select name="region" onChange={changeRegion}>

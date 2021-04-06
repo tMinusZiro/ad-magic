@@ -29,6 +29,7 @@ const HomePage = (props) => {
   let interArray = [];
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
+  const [newRegion, setNewRegion] = useState()
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
@@ -57,6 +58,10 @@ const HomePage = (props) => {
         });
     }
   });
+
+  useEffect(() => {
+    setNewRegion(props.region)
+  }, [props.region])
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -201,7 +206,7 @@ const HomePage = (props) => {
                   {console.log(props.region)}
                   <div>
                     <WorldMap
-                      region={props.region}
+                      region={newRegion}
                       countries={countries}
                       loadMap={loadMap}
                     />
