@@ -32,6 +32,22 @@ app.get("/total-sales", async (request, response) => {
   response.send(countrySalesArray);
 });
 
+// filtering total sales
+app.get("/total-sales/filter", async (request, response) => {
+  let client = formRes.account;
+  let item = formRes.item;
+  console.log("in fetch");
+  let filters;
+  let result = await salesDB.filterTotalSales(client, item);
+  // console.log("crash test", result);
+  await result.forEach((entry) => {
+    console.log("crash test 1", entry);
+    filters = entry;
+  });
+  console.log(filters);
+  response.send(filters);
+});
+
 //vendors chart data
 app.get("/salesTypes", async (request, response) => {
   let salesTypes = await salesDB.salesTypes();
@@ -117,33 +133,33 @@ app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   showSalesArray = [];
   formRes = request.body;
-  console.log(formRes)
+  console.log(formRes);
   if (formRes.US === "on") {
-    //empty out an prior results 
-    showUSSalesArray = []
-    //re-populate teh array using the function in Data Store 
+    //empty out an prior results
+    showUSSalesArray = [];
+    //re-populate teh array using the function in Data Store
     let totalSales = await salesDB.findUSSalesByForm(formRes);
     await totalSales.forEach((item) => {
       showUSSalesArray.push(item);
     });
-    //redirect the page so that new map data loads 
+    //redirect the page so that new map data loads
     response.redirect("/united");
   } else {
-  //findWordSalesByForm uses $match to match the form results with proper parameters
-  showWorldSalesArray = []
-  let totalSales = await salesDB.findWorldSalesByForm(formRes);
-  await totalSales.forEach((item) => {
-    showWorldSalesArray.push(item);
-  });
-  response.redirect("/");
-}
+    //findWordSalesByForm uses $match to match the form results with proper parameters
+    showWorldSalesArray = [];
+    let totalSales = await salesDB.findWorldSalesByForm(formRes);
+    await totalSales.forEach((item) => {
+      showWorldSalesArray.push(item);
+    });
+    // response.redirect("/");
+  }
 });
 
-//totalSalesArray gets populated when the page loads 
+//totalSalesArray gets populated when the page loads
 let totalSalesArray = [];
 app.get("/show-sales", async (request, response) => {
   //if user has not submitted sidebar form, show all sales
-   if (showWorldSalesArray.length === 0) {
+  if (showWorldSalesArray.length === 0) {
     //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllWorldSales();
     await totalSalesByCountry.forEach((item) => {
@@ -155,21 +171,21 @@ app.get("/show-sales", async (request, response) => {
   }
 });
 
-// USsales gets populated when the page is loaded 
-let USsales = [] 
+// USsales gets populated when the page is loaded
+let USsales = [];
 app.get("/show-us", async (request, response) => {
-  //if the form has not been submitted, get ALL US sales 
-if (showUSSalesArray.length === 0) {
-  let totalSalesByState = await salesDB.findAllUSSales();
-  await totalSalesByState.forEach((item) => {
-    USsales.push(item);
-  });
-  response.send(USsales);
-  //if form has been submitted, send US Data 
-} else response.send(showUSSalesArray)
-})
+  //if the form has not been submitted, get ALL US sales
+  if (showUSSalesArray.length === 0) {
+    let totalSalesByState = await salesDB.findAllUSSales();
+    await totalSalesByState.forEach((item) => {
+      USsales.push(item);
+    });
+    response.send(USsales);
+    //if form has been submitted, send US Data
+  } else response.send(showUSSalesArray);
+});
 
-//function to get all clients within a specific sales range 
+//function to get all clients within a specific sales range
 app.get("/client/:min/:max", async (request, response) => {
   let min = request.params.min;
   let max = request.params.max;

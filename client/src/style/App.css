@@ -129,6 +129,12 @@
   justify-content: space-around;
   align-items: center;
 }
+#home-page {
+  /* border: 5px red solid; */
+  height: 100%;
+  grid-area: 2/2/3/3;
+}
+
 
 /* #home-page {
 } */
