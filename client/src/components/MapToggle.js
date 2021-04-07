@@ -90,9 +90,9 @@ const MapToggle = (props) => {
 
   useEffect(() => {
   if (window.location.pathname === "/united") { 
-    setCheckedStatus("true")
+    setCheckedStatus(!checkedStatus)
   } else if (window.location.pathname === "/") {
-    setCheckedStatus("false")
+    setCheckedStatus(!checkedStatus)
   }
 }, [window.location.pathname])
 
@@ -138,13 +138,11 @@ const MapToggle = (props) => {
         :
         (<select name="region" onChange={changeRegion}>
         <option>Region</option>
-        <option value="World">View World Sales</option>
-        <option value="Africa">Africa</option>
-        <option value="Asia">Asia</option>
-        <option value="Australia">Australia</option>
-        <option value="Europe">Europe</option>
-        <option value="North America">North America</option>
-        <option value="South America">South America</option>
+        <option value="World">United States</option>
+        <option value="Northeast">Northeast</option>
+        <option value="South">South</option>
+        <option value="Midwest">Midwest</option>
+        <option value="West">West</option>
       </select>)  }
         <br></br>
         <br></br>
