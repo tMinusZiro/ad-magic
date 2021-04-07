@@ -15,7 +15,14 @@ import Loading from "./Loading.jsx";
 import legendItems from "../entities/LegendItems";
 import MapBurger from "./MapBurger.jsx";
 
-const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, region, usBorderData}) => {
+const HomePage = ({
+  getWorldData,
+  setGetWorldData,
+  getUSData,
+  setGetUSData,
+  region,
+  usBorderData,
+}) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
@@ -27,7 +34,7 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
   const legendItemsInReverse = [...legendItems].reverse();
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
-  const [states, setStates] = useState([])
+  const [states, setStates] = useState([]);
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
@@ -44,9 +51,9 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
           setTotalSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
-            setLoadMap(true);
-            setGetWorldData(false);
-          });
+          setLoadMap(true);
+          setGetWorldData(false);
+        });
     }
     if (getUSData) {
       let interArray = [];
@@ -61,13 +68,11 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
           setTotalUSSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
-            setLoadUnitedMap(true);
-            setGetUSData(false);
+          setLoadUnitedMap(true);
+          setGetUSData(false);
         });
     }
   });
-
- 
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -167,73 +172,72 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
 
   return (
     <div>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) =>
-
-              countries.length === 0 ? (
-                <Loading />
-              ) : (
-                <div id="map-component-wrapper">
-                  <div>
-                    <WorldMap
-                      region={region}
-                      countries={countries}
-                      loadMap={loadMap}
-                    />
-                  </div>
-                  <div>
-                    <MapLegend
-                      legendItems={legendItemsInReverse}
-                      openLegend={openLegend}
-                      setOpenLegend={setOpenLegend}
-                    />
-                  </div>
-                  <div id="map-burger-wrapper">
-                    <MapBurger
-                      setOpenLegend={setOpenLegend}
-                      openLegend={openLegend}
-                    />
-                  </div>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) =>
+            countries.length === 0 ? (
+              <Loading />
+            ) : (
+              <div id="map-component-wrapper">
+                <div>
+                  <WorldMap
+                    region={region}
+                    countries={countries}
+                    loadMap={loadMap}
+                  />
                 </div>
-              )
-            }
-          />
-          <Route
-            exact
-            path="/united"
-            render={(props) =>
-              states.length === 0 ? (
-                <Loading />
-              ) : (
-                <div id="map-component-wrapper">
-                  <div>
-                    <UnitedMap
-                      region={region}
-                      states = {states}
-                      loadUnitedMap={loadUnitedMap}
-                    />
-                  </div>
-                  <div>
-                    <MapLegend
-                      legendItems={legendItemsInReverse}
-                      openLegend={openLegend}
-                      setOpenLegend={setOpenLegend}
-                    />
-                  </div>
-                  <div id="map-burger-wrapper">
-                    <MapBurger
-                      setOpenLegend={setOpenLegend}
-                      openLegend={openLegend}
-                    />
-                  </div>
+                <div>
+                  <MapLegend
+                    legendItems={legendItemsInReverse}
+                    openLegend={openLegend}
+                    setOpenLegend={setOpenLegend}
+                  />
                 </div>
-              )
-            }
-          />
-        </Switch>
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
+              </div>
+            )
+          }
+        />
+        <Route
+          exact
+          path="/united"
+          render={(props) =>
+            states.length === 0 ? (
+              <Loading />
+            ) : (
+              <div id="map-component-wrapper">
+                <div>
+                  <UnitedMap
+                    region={region}
+                    states={states}
+                    loadUnitedMap={loadUnitedMap}
+                  />
+                </div>
+                <div>
+                  <MapLegend
+                    legendItems={legendItemsInReverse}
+                    openLegend={openLegend}
+                    setOpenLegend={setOpenLegend}
+                  />
+                </div>
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
+              </div>
+            )
+          }
+        />
+      </Switch>
     </div>
   );
 };

@@ -69,6 +69,8 @@ const MapToggle = (props) => {
   }
 
   function reLoad(event) {
+    props.setgetData(true);
+    console.log("reload function");
     if (props.map === "United States") {
       props.setGetUSData(true);
     } else props.setGetWorldData(true);
