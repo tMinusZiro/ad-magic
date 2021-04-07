@@ -13,6 +13,7 @@ export default function TopDash(props) {
       fetch("/total-sales/filter")
         .then((res) => res.json())
         .then((totals) => {
+          console.log("getData inside:  ", props.getData);
           console.log("List ", totals);
           //take this off the loop
           // let ts = Math.ceil(totals.totalSales);
@@ -26,30 +27,31 @@ export default function TopDash(props) {
           setAveragePrice(Math.ceil(totals.averageSale));
           setitemSold(totals.totalItems);
           setNewdata(false);
-          setdata(true);
+
+          props.setgetData(false);
         });
-      console.log("in filter fetch");
+    } else if (!data) {
+      fetch("/total-sales")
+        .then((res) => res.json())
+        .then((totals) => {
+          console.log("main fetch!!");
+          // take this off the loop
+          let ts = Math.ceil(totals.totalSales);
+          ts = ts.toString().split(".");
+          ts[0] = ts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          ts = ts.join(".");
+
+          setTotalSales(ts);
+
+          setAveragePrice(Math.ceil(totals.averageSale));
+          setitemSold(totals.totalItems);
+          setdata(true);
+          setNewdata(true);
+        });
     }
-  }, [props.getData]);
-  if (!data) {
-    fetch("/total-sales")
-      .then((res) => res.json())
-      .then((totals) => {
-        console.log("main fetch!!");
-        // take this off the loop
-        let ts = Math.ceil(totals.totalSales);
-        ts = ts.toString().split(".");
-        ts[0] = ts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        ts = ts.join(".");
-
-        setTotalSales(ts);
-
-        setAveragePrice(Math.ceil(totals.averageSale));
-        setitemSold(totals.totalItems);
-        setdata(true);
-        setNewdata(true);
-      });
-  }
+    console.log("getData outside:  ", props.getData);
+    console.log("in use effect");
+  }, []);
 
   return (
     <section id="top-dash">
