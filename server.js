@@ -24,14 +24,28 @@ app.get("/all-sales", async (request, response) => {
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
   let totalSales = await salesDB.totalSales();
-
   let countrySalesArray = [];
-
   await totalSales.forEach((item) => {
     // countrySalesArray.push(item);
     countrySalesArray = item;
   });
   response.send(countrySalesArray);
+});
+
+// filtering total sales
+app.get("/total-sales/filter", async (request, response) => {
+  let client = formRes.account;
+  let item = formRes.item;
+  console.log("in fetch");
+  let filters;
+  let result = await salesDB.filterTotalSales(client, item);
+  // console.log("crash test", result);
+  await result.forEach((entry) => {
+    console.log("crash test 1", entry);
+    filters = entry;
+  });
+  console.log(filters);
+  response.send(filters);
 });
 
 //vendors chart data

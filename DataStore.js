@@ -41,6 +41,65 @@ class DataStore {
     ]);
     return result;
   }
+  //filtered top dashboard data
+  async filterTotalSales(client, item) {
+    console.log("client in data store", client);
+    const collection = await this.openConnect();
+    //filter function
+    if (client === "all" && item === "all-items") {
+      console.log("item in function", item);
+      const result = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Scrubbed__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+            averageSale: { $avg: "$Total_Sales__c" },
+            totalItems: { $sum: "$QTY__c" },
+          },
+        },
+      ]);
+      return result;
+    }
+    // filter by item
+    else if (client === "all" && item !== "all-items") {
+      console.log("item in function", item);
+      const result = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Scrubbed__c",
+            item: item,
+            totalSales: { $sum: "$Total_Sales__c" },
+            averageSale: { $avg: "$Total_Sales__c" },
+            totalItems: { $sum: "$QTY__c" },
+          },
+        },
+      ]);
+      return result;
+    }
+    // filter by client
+    else if (client !== "all" && item === "all-items") {
+      let naming = client;
+      console.log("client in function", naming);
+      console.log("item in function", item);
+      const result = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Account__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+            averageSale: { $avg: "$Total_Sales__c" },
+            totalItems: { $sum: "$QTY__c" },
+          },
+        },
+      ]);
+      console.log("crash test2", result);
+      return result;
+    }
+  }
   //Sale Type chart data
   async salesTypes() {
     const collection = await this.openConnect();

@@ -37,7 +37,7 @@ function App() {
       </div>
       {/* <Countries /> */}
       <div id="top-dash-header">
-        <TopDash />
+        <TopDash getData={getData} />
       </div>
       <div id="right-dash-header">
         <RightDash />
