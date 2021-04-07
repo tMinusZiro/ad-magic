@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import WorldMap from "./WorldMap.jsx";
 import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
@@ -10,33 +10,28 @@ import Loading from "./Loading.jsx";
 
 //importing the component task that brings in the geoJSON file
 //task will also handle all map data gathering and parsing and then send it to the map
-import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
+// import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
 //legend items - part of legends class
 import legendItems from "../entities/LegendItems";
 import MapBurger from "./MapBurger.jsx";
 
-const HomePage = ({getData, setGetData, region, usBorderData}) => {
+const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, region, usBorderData}) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
   const [totalSales, setTotalSales] = useState();
   const [totalUSSales, setTotalUSSales] = useState();
-
   const [openLegend, setOpenLegend] = useState(false);
   const [loadUnitedMap, setLoadUnitedMap] = useState(false);
   //reverse the array so that it's in descending order
   const legendItemsInReverse = [...legendItems].reverse();
-  //intermediate array for totalSales
-  let interArray = [];
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
-  const [newRegion, setNewRegion] = useState()
-  const [getUSdata, setGetUSdata] = useState(true) 
   const [states, setStates] = useState([])
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
-    if (getData) {
+    if (getWorldData) {
       let interArray = [];
       fetch(`/show-sales/`)
         .then((res) => res.json())
@@ -50,11 +45,10 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
           //trigger the loadMap() function
           //conditional for which map to load
             setLoadMap(true);
-            setGetData(false);
-            console.log("getData", getData)
+            setGetWorldData(false);
           });
     }
-    if (getUSdata) {
+    if (getUSData) {
       let interArray = [];
       fetch(`/show-us`)
         .then((res) => res.json())
@@ -64,16 +58,16 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
             interArray.push(countrySale);
           });
           //set totalSales to be the inner array
-          console.log(interArray)
           setTotalUSSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
             setLoadUnitedMap(true);
-            setGetUSdata(false);
-            console.log("getUSdata:", getUSdata)
+            setGetUSData(false);
         });
     }
   });
+
+ 
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -91,13 +85,12 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
       if (totalUSSales) {
         //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
         for (let sale of totalUSSales) {
-          if (usState.properties.name == sale._id) {
+          if (usState.properties.name === sale._id) {
             //if there is a match assign it to intermediate variable
             usMatchedValue = sale;
           }
         }
       }
-
       //DEFAULT VALUES:
       //geoJSON layer properties total sales
       usState.properties.totalSales = 0;
@@ -133,7 +126,7 @@ const HomePage = ({getData, setGetData, region, usBorderData}) => {
       if (totalSales) {
         //second for loop to iterate through total sales list from db and match admagic country to geoJSON
         for (let sale of totalSales) {
-          if (country.properties.ADMIN == sale._id) {
+          if (country.properties.ADMIN === sale._id) {
             //if there is a match assign it to intermediate variable
             matchedValue = sale;
           }

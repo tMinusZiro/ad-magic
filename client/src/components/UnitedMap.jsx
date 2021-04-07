@@ -22,13 +22,7 @@ import RegionZoom from "./RegionZoom";
 const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
   const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
   const [mapZoom, setMapZoom] = useState(4);
-
-  // const [newWorldCenter, setWorldMapCenter] = useState();
-
   //state for json country border data
-  // const [openLegend, setOpenLegend] = useState(false);
-  const [usCenter, setUSCenter] = useState([38.0, -97.0]);
-  const [officialSales, setOfficialSales] = useState();
 
   // countryBorder.properties.color
   //manages style of geoJSON child component
@@ -46,7 +40,7 @@ const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-    if (region === "United States") {
+
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const usStateName = countryBorder.properties.name;
@@ -59,7 +53,7 @@ const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
       layer.bindPopup(`${usStateName} Total Sales:
        $${Math.round(totalSales)} `);
     }
-  }
+  
   function highlightFeature(e) {
     let layer = e.target;
 

@@ -1,16 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 const MapToggle = (props) => {
   //list of all clients in database
   const [clientList, setClientList] = useState();
-  //list of all items by a particular client
+  //trigger items to load for a specific client 
   const [loadItems, setLoadItems] = useState(false);
+    //list of all items by a particular client
   const [listOfItems, setListOfItems] = useState();
+  //show and hide custom date function 
   const [showCustomDate, setShowCustomDate] = useState(false);
+  //user chosen account 
   const [account, setAccount] = useState("all");
-  const [USMap, setUSMap] = useState(true);
+  //status of switch checked = US Map, false = world map 
+  const history = useHistory() 
+  const [checkStatus, setCheckedStatus] = useState("false")
 
   let clientArray = [];
   useEffect(() => {
@@ -55,9 +60,6 @@ const MapToggle = (props) => {
   //change the map to focus in on a particular region
   function changeRegion(event) {
     props.setRegion(event.target.value);
-    if (event.target.value === "United States") {
-      // props.setGetData(true);
-    }
   }
 
   //change the client account in order to show data from that client then render the item menu for that client
@@ -67,15 +69,32 @@ const MapToggle = (props) => {
   }
 
   function reLoad(event) {
-    // props.setGetData(true);
+    if (props.map === "United States") {
+      props.setGetUSData(true);
+    } else props.setGetWorldData(true)
   }
 
   function switchMap(event) {
-    props.setRegion("United States");
-    // setTimeout(() => {
-      // props.setGetData(true);
-    // }, 3000);
+    console.log(props.map)
+    console.log(window.location.pathname)
+    if (props.map === "United States") {
+      console.log(props.map)
+      props.setMap("World")
+      history.push("/")
+    } else if (props.map === "World") {
+    console.log(props.map)
+    props.setMap("United States")
+    history.push("/united")
+    }
   }
+
+  useEffect(() => {
+  if (window.location.pathname === "/united") { 
+    setCheckedStatus("true")
+  } else if (window.location.pathname === "/") {
+    setCheckedStatus("false")
+  }
+}, [window.location.pathname])
 
   //set default date on form
   let today = new Date();
@@ -91,41 +110,22 @@ const MapToggle = (props) => {
   } else day = today.getDate();
   //set default end date
   let defaultDate = `${year}-${month}-${day}`;
-
-  useEffect(() => {
-    if (USMap) {
-      fetch("/united-states");
-    }
-  }, [USMap]);
-
-  function switchToUSMap(event) {
-    // setUSMap(!USMap);
-    // if (USMap) {
-      // props.setGetData(true)
-    //   props.setRegion("United States");
-    // } else props.setRegion("World");
-  }
   
   return (
     <div>
-      {/* <label class="switch">
+    <form method="POST" action="/show-item-sales">
+      <label class="switch" onChange = {switchMap}>
         <input
-          onChange={switchToUSMap}
           type="checkbox"
-          name="country"
-          value="United States"
+          name="US"
+          // autoComplete="on"
+          defaultChecked = {checkStatus}
         />
         <span class="slider round"></span>
       </label>{" "}
-      <label>US</label> */}
-
-      {/* <form method="POST" action="/united-states" onSubmit={switchMap}> */}
-       <Link
-       to = {"/united"}> <button name ="region" >push history</button></Link>
-      {/* </form> */}
-
-      <form method="POST" action="/show-item-sales">
-        <select name="region" onChange={changeRegion}>
+      <label>US</label>
+      {props.map === "World" ? 
+        (<select name="region" onChange={changeRegion}>
           <option>Region</option>
           <option value="World">View World Sales</option>
           <option value="Africa">Africa</option>
@@ -134,7 +134,18 @@ const MapToggle = (props) => {
           <option value="Europe">Europe</option>
           <option value="North America">North America</option>
           <option value="South America">South America</option>
-        </select>
+        </select>) 
+        :
+        (<select name="region" onChange={changeRegion}>
+        <option>Region</option>
+        <option value="World">View World Sales</option>
+        <option value="Africa">Africa</option>
+        <option value="Asia">Asia</option>
+        <option value="Australia">Australia</option>
+        <option value="Europe">Europe</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+      </select>)  }
         <br></br>
         <br></br>
         <select name="datePreset" onChange={showCalendar} default ="all-time">
