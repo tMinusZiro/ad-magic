@@ -15,7 +15,7 @@ const MapToggle = (props) => {
   const [account, setAccount] = useState("all");
   //status of switch checked = US Map, false = world map 
   const history = useHistory() 
-  const [checkStatus, setCheckedStatus] = useState("false")
+  const [checkStatus, setCheckedStatus] = useState()
 
   let clientArray = [];
   useEffect(() => {
@@ -90,9 +90,9 @@ const MapToggle = (props) => {
 
   useEffect(() => {
   if (window.location.pathname === "/united") { 
-    setCheckedStatus(!checkedStatus)
+    setCheckedStatus("true")
   } else if (window.location.pathname === "/") {
-    setCheckedStatus(!checkedStatus)
+    setCheckedStatus("false")
   }
 }, [window.location.pathname])
 
@@ -118,7 +118,6 @@ const MapToggle = (props) => {
         <input
           type="checkbox"
           name="US"
-          // autoComplete="on"
           defaultChecked = {checkStatus}
         />
         <span class="slider round"></span>
