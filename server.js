@@ -122,52 +122,70 @@ app.get("/items/:client", async (request, response) => {
       itemArray.push(item.itemList);
     }
   });
-  console.log(itemArray);
   response.send(itemArray);
 });
 
 //showSalesArray gets populated when the form is submitted
-let showSalesArray = [];
+let showWorldSalesArray = [];
+let showUSSalesArray = [];
 let formRes;
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   showSalesArray = [];
   formRes = request.body;
-  console.log(formRes);
-  //findSalesByForm uses $match to match the form results with proper parameters
-  let totalSales = await salesDB.findSalesByForm(formRes);
+  console.log(formRes)
+  if (formRes.US === "on") {
+    //empty out an prior results 
+    showUSSalesArray = []
+    //re-populate teh array using the function in Data Store 
+    let totalSales = await salesDB.findUSSalesByForm(formRes);
+    await totalSales.forEach((item) => {
+      showUSSalesArray.push(item);
+    });
+    //redirect the page so that new map data loads 
+    response.redirect("/united");
+  } else {
+  //findWordSalesByForm uses $match to match the form results with proper parameters
+  showWorldSalesArray = []
+  let totalSales = await salesDB.findWorldSalesByForm(formRes);
   await totalSales.forEach((item) => {
-    showSalesArray.push(item);
+    showWorldSalesArray.push(item);
   });
   response.redirect("/");
+}
 });
 
+//totalSalesArray gets populated when the page loads 
 let totalSalesArray = [];
-app.get("/show-sales/:region", async (request, response) => {
-  let region = request.params.region;
-  console.log("The Region is : ", region);
-  console.log(" /SHOW SALES route");
-  console.log("OUTSIDE of conditional");
-  console.log(totalSalesArray);
+app.get("/show-sales", async (request, response) => {
   //if user has not submitted sidebar form, show all sales
-  if (showSalesArray.length === 0 && region === "United States") {
-    response.send(totalSalesArray);
-  } else if (showSalesArray.length === 0) {
-    totalSalesArray = [];
-
+   if (showWorldSalesArray.length === 0) {
     //findAllSales() filters by country (long term - country or US)
-    let totalSalesByCountry = await salesDB.findAllSales(region);
+    let totalSalesByCountry = await salesDB.findAllWorldSales();
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);
     });
-
-    // console.log(totalSalesArray);
     response.send(totalSalesArray);
   } else {
-    response.send(showSalesArray);
+    response.send(showWorldSalesArray);
   }
 });
 
+// USsales gets populated when the page is loaded 
+let USsales = [] 
+app.get("/show-us", async (request, response) => {
+  //if the form has not been submitted, get ALL US sales 
+if (showUSSalesArray.length === 0) {
+  let totalSalesByState = await salesDB.findAllUSSales();
+  await totalSalesByState.forEach((item) => {
+    USsales.push(item);
+  });
+  response.send(USsales);
+  //if form has been submitted, send US Data 
+} else response.send(showUSSalesArray)
+})
+
+//function to get all clients within a specific sales range 
 app.get("/client/:min/:max", async (request, response) => {
   let min = request.params.min;
   let max = request.params.max;
@@ -182,19 +200,6 @@ app.get("/client/:min/:max", async (request, response) => {
     }
   }
   response.send(clientsOfCertainSales);
-});
-
-app.get("/united-states", async (request, response) => {
-  totalSalesArray = [];
-  console.log(request.body);
-  console.log("in the post!");
-  let totalSalesByCountry = await salesDB.findAllSales("United States");
-  await totalSalesByCountry.forEach((item) => {
-    totalSalesArray.push(item);
-  });
-  console.log("UNITED STATES ARRAY SERVER SIDE");
-  console.log(totalSalesArray);
-  response.redirect("/united");
 });
 
 app.get("*", (req, res) => {

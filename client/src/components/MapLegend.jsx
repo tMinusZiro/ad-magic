@@ -13,7 +13,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
       .then((list) => {
         setClientListInRange(list);
       });
-  }, [min]);
+  }, [min, max]);
 
   function getClients(event) {
     let itemRange = event.target.value;

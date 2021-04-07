@@ -20,16 +20,12 @@ import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
 const Map = (props) => {
-  const [worldMapCenter, setWorldMapCenter] = useState([39, -29]);
-  const [mapCenter, setMapCenter] = useState(worldMapCenter);
+  const [mapCenter, setMapCenter] = useState([39, -29]);
   const [mapZoom, setMapZoom] = useState(1.5);
   const [worldMapZoom, setWorldMapZoom] = useState();
   const [newWorldCenter, setWorldCenter] = useState();
 
   //state for json country border data
-  // const [openLegend, setOpenLegend] = useState(false);
-  const [usCenter, setUSCenter] = useState([38.0, -97.0]);
-  const [officialSales, setOfficialSales] = useState();
 
   // countryBorder.properties.color
   //manages style of geoJSON child component
@@ -74,15 +70,6 @@ const Map = (props) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-    if (props.region === "United States") {
-      //fill color on geojson layer
-      layer.options.fillColor = countryBorder.properties.color;
-      const usStateName = countryBorder.properties.name;
-      const totalSales = countryBorder.properties.totalSales;
-
-      //info on popup when country is clicked
-      layer.bindPopup(`${totalSales} ${usStateName}`);
-    } else {
       //fill color on geojson layer
       layer.options.fillColor = countryBorder.properties.color;
       const countryName = countryBorder.properties.ADMIN;
@@ -93,7 +80,7 @@ const Map = (props) => {
       layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
     }
-  }
+  
 
   function highlightFeature(e) {
     let layer = e.target;

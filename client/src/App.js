@@ -1,6 +1,6 @@
 import "./style/App.css";
 import MapToggle from "./components/MapToggle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import TotalSales from "./components/TotalSales";
 // import Countries from "./components/tasks/Countries";
 import HomePage from "./components/HomePage.jsx";
@@ -11,10 +11,22 @@ import { features } from "./borderData/usBorder.json";
 
 function App() {
   //set the region that the map should focus on
-  const [region, setRegion] = useState("World");
+  const [region, setRegion] = useState();
   //trigger the data to re-fetch when form is submitted
-  const [getData, setGetData] = useState(true);
+  const [getUSData, setGetUSData] = useState(true);
+  const [getWorldData, setGetWorldData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
+  const [map, setMap] = useState("World");
+
+  useEffect(() => {
+    console.log(window.location.pathname)
+    if (window.location.pathname === "/united") {
+      console.log("inside path = /united")
+      setMap("United States");
+    } else if (window.location.pathname === "/") {
+      console.log("inside path name /")
+      setMap("World");
+  }}, [map]);
 
   return (
     <div id="app-wrapper">
@@ -22,15 +34,21 @@ function App() {
         <MapToggle
           setRegion={setRegion}
           region={region}
-          getData={getData}
-          setGetData={setGetData}
+          getUSData={getUSData}
+          setGetUSData={setGetUSData}
+          getWorldData={getWorldData}
+          setGetWorldData={setGetWorldData}
+          map={map}
+          setMap={setMap}
         />
       </div>
       {/* <div id="data-displays-wrapper"><DataDisplays /></div> */}
       <div id="home-page">
         <HomePage
-          getData={getData}
-          setGetData={setGetData}
+          getUSData={getUSData}
+          setGetUSData={setGetUSData}
+          getWorldData={getWorldData}
+          setGetWorldData={setGetWorldData}
           region={region}
           usBorderData={usBorderData}
         />
