@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage.jsx";
 import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
+import Header from "./components/Header.jsx";
 import { features } from "./borderData/usBorder.json";
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
 
   return (
     <div id="app-wrapper">
+      <div id="header-wrapper">
+        <Header />
+      </div>
       <div id="map-toggle-wrapper">
         <MapToggle
           setRegion={setRegion}

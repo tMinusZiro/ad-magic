@@ -129,12 +129,15 @@ app.get("/items/:client", async (request, response) => {
 let showWorldSalesArray = [];
 let showUSSalesArray = [];
 let formRes;
+
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
+  console.log("HI I HAVE ENTERED THE POST");
   showSalesArray = [];
   formRes = request.body;
   console.log(formRes);
   if (formRes.US === "on") {
+    console.log("HI I HAVE ENTERED THE POST and IN US MAP");
     //empty out an prior results
     showUSSalesArray = [];
     //re-populate teh array using the function in Data Store
@@ -143,15 +146,17 @@ app.post("/show-item-sales", async (request, response) => {
       showUSSalesArray.push(item);
     });
     //redirect the page so that new map data loads
-    response.redirect("/united");
+
+    response.status(204).send();
   } else {
+    console.log("HI I HAVE ENTERED THE POST and IN COUNTRY MAP");
     //findWordSalesByForm uses $match to match the form results with proper parameters
     showWorldSalesArray = [];
     let totalSales = await salesDB.findWorldSalesByForm(formRes);
     await totalSales.forEach((item) => {
       showWorldSalesArray.push(item);
     });
-    // response.redirect("/");
+    response.status(204).send();
   }
 });
 
