@@ -182,6 +182,7 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
                       region={region}
                       countries={countries}
                       loadMap={loadMap}
+                      getWorldData = {getWorldData}
                     />
                   </div>
                   <div>

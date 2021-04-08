@@ -77,6 +77,7 @@ const Map = (props) => {
       //info on popup when country is clicked
       layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
+    
     }
 
   function highlightFeature(e) {

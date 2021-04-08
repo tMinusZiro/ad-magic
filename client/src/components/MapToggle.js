@@ -34,6 +34,8 @@ const MapToggle = (props) => {
             clientArray.push(obj._id);
           });
           setClientList(clientArray.sort());
+          setAccount("all")
+          setLoadItems(true)
         });
     }
     //once the client/account is selected, fetch all items from server that are sold by that client/account
@@ -150,7 +152,7 @@ const MapToggle = (props) => {
             <option value = "Hawaii">Hawaii</option>
           </select>
         )}
-        <select name="datePreset" onChange={showCalendar} default="all-time">
+        <select name="datePreset" onChange={showCalendar} defaultValue="all-time">
           <option>View By:</option>
           <option value="all-time">All Time</option>
           <option value="week">Past Week</option>
@@ -184,7 +186,7 @@ const MapToggle = (props) => {
         ) : null}
         {clientList ? (
           <div>
-            <select name="account" onChange={changeAccount}>
+            <select name="account" defaultValue="all" onChange={changeAccount}>
               <option>Client</option>
               <option value="all">View All Clients</option>
               {clientList.map((client, index) => {
@@ -199,7 +201,7 @@ const MapToggle = (props) => {
         ) : null}
         {listOfItems ? (
           <div>
-            <select name="item">
+            <select name="item" defaultValue = "all-items">
               <option value="all-items">View All Items</option>
               {listOfItems.map((item, index) => {
                 return (

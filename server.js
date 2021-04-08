@@ -142,7 +142,7 @@ app.post("/show-item-sales", async (request, response) => {
       showUSSalesArray.push(item);
     });
     //redirect the page so that new map data loads
-    response.status(204).send();
+    response.redirect("/united")
   } else {
     //findWordSalesByForm uses $match to match the form results with proper parameters
     showWorldSalesArray = [];
@@ -150,7 +150,7 @@ app.post("/show-item-sales", async (request, response) => {
     await totalSales.forEach((item) => {
       showWorldSalesArray.push(item);
     });
-    response.status(204).send();
+    response.redirect("/")
   }
 });
 
