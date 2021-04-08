@@ -131,7 +131,6 @@ let showUSSalesArray = [];
 let formRes;
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
-  showSalesArray = [];
   formRes = request.body;
   console.log(formRes);
   if (formRes.US === "on") {
@@ -143,7 +142,7 @@ app.post("/show-item-sales", async (request, response) => {
       showUSSalesArray.push(item);
     });
     //redirect the page so that new map data loads
-    response.redirect("/united");
+    response.status(204).send();
   } else {
     //findWordSalesByForm uses $match to match the form results with proper parameters
     showWorldSalesArray = [];
@@ -151,7 +150,7 @@ app.post("/show-item-sales", async (request, response) => {
     await totalSales.forEach((item) => {
       showWorldSalesArray.push(item);
     });
-    // response.redirect("/");
+    response.status(204).send();
   }
 });
 
@@ -159,7 +158,7 @@ app.post("/show-item-sales", async (request, response) => {
 let totalSalesArray = [];
 app.get("/show-sales", async (request, response) => {
   //if user has not submitted sidebar form, show all sales
-  if (showWorldSalesArray.length === 0) {
+  if (!formRes) {
     //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllWorldSales();
     await totalSalesByCountry.forEach((item) => {

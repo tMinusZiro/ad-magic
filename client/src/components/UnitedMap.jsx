@@ -19,11 +19,11 @@ import { features } from "../borderData/countries.json";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
-const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
+const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
   const [mapZoom, setMapZoom] = useState(4);
-  //state for json country border data
-
+  const [USMapZoom, setUSmapZoom] = useState();
+  const [newUSCenter, setUSCenter] = useState();
   // countryBorder.properties.color
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
@@ -35,25 +35,50 @@ const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
     };
   };
 
+  useEffect(() => {
+    if (region === "Northeast") {
+      setUSCenter([43.2994, -74.2179]);
+      setUSmapZoom(6);
+    } else if (region === "South") {
+      setUSCenter([34.935595, -88.094787]);
+      setUSmapZoom(5.497);
+    } else if (region === "Midwest") {
+      setUSCenter([42.365351, -93.171769]);
+      setUSmapZoom(5);
+    } else if (region === "West") {
+      setUSCenter([41.997017, -114.495868]);
+      setUSmapZoom(4.5);
+    } else if (region === "Alaska") {
+      setUSCenter([64.2008, -149.4937])
+      setUSmapZoom(4);
+    } else if (region === "Hawaii") {
+      setUSCenter([19.8968, -157])
+      setUSmapZoom(7)
+    }
+    else {
+      setUSCenter([37.0902, -95.7129]);
+      setUSmapZoom(4);
+    }
+  }, [region]);
+
   //when region is changed, send a new center and zoom into the map view
 
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
+    //fill color on geojson layer
+    layer.options.fillColor = countryBorder.properties.color;
+    const usStateName = countryBorder.properties.name;
 
-      //fill color on geojson layer
-      layer.options.fillColor = countryBorder.properties.color;
-      const usStateName = countryBorder.properties.name;
+    //will show total sales of each country when country is clicked
 
-      //will show total sales of each country when country is clicked
+    const totalSales = countryBorder.properties.totalSales;
 
-      const totalSales = countryBorder.properties.totalSales;
-
-      //info on popup when country is clicked
-      layer.bindPopup(`${usStateName} Total Sales:
+    //info on popup when country is clicked
+    layer.bindPopup(`${usStateName} Total Sales:
        $${Math.round(totalSales)} `);
-    }
-  
+  }
+
   function highlightFeature(e) {
     let layer = e.target;
 
@@ -85,9 +110,9 @@ const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
             onEachFeature={onEachState}
             style={geoJSONStyle}
           />
-          {/* {newWorldCenter && newWorldZoom ? (
-            <RegionZoom center={newWorldCenter} zoom={newWorldZoom} />
-          ) : null} */}
+          {newUSCenter && USMapZoom ? (
+            <RegionZoom center={newUSCenter} zoom={USMapZoom} />
+          ) : null}
         </MapContainer>
       </div>
     </>

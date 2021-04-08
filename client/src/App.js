@@ -16,19 +16,18 @@ function App() {
   const [getUSData, setGetUSData] = useState(true);
   const [getWorldData, setGetWorldData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
-  const [map, setMap] = useState("World");
   const [getData, setgetData] = useState(false);
 
-  useEffect(() => {
-    console.log(window.location.pathname);
-    if (window.location.pathname === "/united") {
-      console.log("inside path = /united");
-      setMap("United States");
-    } else if (window.location.pathname === "/") {
-      console.log("inside path name /");
-      setMap("World");
-    }
-  }, [map]);
+  // useEffect(() => {
+  //   console.log(window.location.pathname);
+  //   if (window.location.pathname === "/united") {
+  //     console.log("inside path = /united");
+  //     setMap("United States");
+  //   } else if (window.location.pathname === "/") {
+  //     console.log("inside path name /");
+  //     setMap("World");
+  //   }
+  // }, [map]);
 
   return (
     <div id="app-wrapper">
@@ -40,8 +39,6 @@ function App() {
           setGetUSData={setGetUSData}
           getWorldData={getWorldData}
           setGetWorldData={setGetWorldData}
-          map={map}
-          setMap={setMap}
           setgetData={setgetData}
         />
       </div>

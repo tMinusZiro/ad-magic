@@ -173,7 +173,7 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
             path="/"
             render={(props) =>
 
-              countries.length === 0 ? (
+              (countries.length === 0) ? (
                 <Loading />
               ) : (
                 <div id="map-component-wrapper">
