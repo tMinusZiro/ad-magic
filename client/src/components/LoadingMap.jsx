@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function LoadingMap() {
+const LoadingMap = () => {
   return (
     <div>
-      <Link to="/">
-        <button>Click</button>
+      <Link to={"/"}>
+        <button>Push Me</button>
       </Link>
     </div>
   );
-}
+};
+
+export default LoadingMap;

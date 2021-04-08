@@ -168,14 +168,14 @@ app.get("/items/:client", async (request, response) => {
 //showSalesArray gets populated when the form is submitted
 let showWorldSalesArray = [];
 let showUSSalesArray = [];
-// let formRes;
-//formRes is all the way up
+let formRes;
+
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
-  showSalesArray = [];
   formRes = request.body;
   console.log(formRes);
   if (formRes.US === "on") {
+    console.log("HI I HAVE ENTERED THE POST and IN US MAP");
     //empty out an prior results
     showUSSalesArray = [];
     //re-populate teh array using the function in Data Store
@@ -186,14 +186,14 @@ app.post("/show-item-sales", async (request, response) => {
     //redirect the page so that new map data loads
     response.redirect("/united");
   } else {
+    console.log("HI I HAVE ENTERED THE POST and IN COUNTRY MAP");
     //findWordSalesByForm uses $match to match the form results with proper parameters
     showWorldSalesArray = [];
     let totalSales = await salesDB.findWorldSalesByForm(formRes);
     await totalSales.forEach((item) => {
       showWorldSalesArray.push(item);
     });
-    // response.redirect("/");
-    response.status(204).send();
+    response.redirect("/");
   }
 });
 
@@ -201,7 +201,6 @@ app.post("/show-item-sales", async (request, response) => {
 let totalSalesArray = [];
 app.get("/show-sales", async (request, response) => {
   //if user has not submitted sidebar form, show all sales
-  // if (showWorldSalesArray.length === 0) {
   if (!formRes) {
     //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllWorldSales();

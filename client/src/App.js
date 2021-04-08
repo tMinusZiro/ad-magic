@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage.jsx";
 import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
+import Header from "./components/Header.jsx";
 import { features } from "./borderData/usBorder.json";
 
 function App() {
@@ -16,22 +17,24 @@ function App() {
   const [getUSData, setGetUSData] = useState(true);
   const [getWorldData, setGetWorldData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
-  const [map, setMap] = useState("World");
   const [getData, setgetData] = useState(false);
 
-  useEffect(() => {
-    console.log(window.location.pathname);
-    if (window.location.pathname === "/united") {
-      console.log("inside path = /united");
-      setMap("United States");
-    } else if (window.location.pathname === "/") {
-      console.log("inside path name /");
-      setMap("World");
-    }
-  }, [map]);
+  // useEffect(() => {
+  //   console.log(window.location.pathname);
+  //   if (window.location.pathname === "/united") {
+  //     console.log("inside path = /united");
+  //     setMap("United States");
+  //   } else if (window.location.pathname === "/") {
+  //     console.log("inside path name /");
+  //     setMap("World");
+  //   }
+  // }, [map]);
 
   return (
     <div id="app-wrapper">
+      <div id="header-wrapper">
+        <Header />
+      </div>
       <div id="map-toggle-wrapper">
         <MapToggle
           setRegion={setRegion}
@@ -40,8 +43,6 @@ function App() {
           setGetUSData={setGetUSData}
           getWorldData={getWorldData}
           setGetWorldData={setGetWorldData}
-          map={map}
-          setMap={setMap}
           setgetData={setgetData}
         />
       </div>

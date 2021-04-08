@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import WorldMap from "./WorldMap.jsx";
 import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
+import LoadingMap from "./LoadingMap.jsx";
 import { features } from "../borderData/countries.json";
 import LoadingMap from "./LoadingMap";
 
@@ -41,7 +42,6 @@ const HomePage = ({
   useEffect(() => {
     if (getWorldData) {
       let interArray = [];
-      // setCountries([]);
       fetch(`/show-sales/`)
         .then((res) => res.json())
         .then((list) => {
@@ -177,7 +177,6 @@ const HomePage = ({
   return (
     <div>
       <Switch>
-        <Route path="/loading" component={LoadingMap} />
         <Route
           exact
           path="/"
