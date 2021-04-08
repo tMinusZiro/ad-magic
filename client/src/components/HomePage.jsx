@@ -175,8 +175,6 @@ const HomePage = ({
   return (
     <div>
       <Switch>
-        <Route path="/loading-map" render={() => <LoadingMap />} />
-
         <Route
           exact
           path="/"
@@ -190,6 +188,7 @@ const HomePage = ({
                     region={region}
                     countries={countries}
                     loadMap={loadMap}
+                    getWorldData={getWorldData}
                   />
                 </div>
                 <div>

@@ -25,8 +25,6 @@ const Map = (props) => {
   const [worldMapZoom, setWorldMapZoom] = useState();
   const [newWorldCenter, setWorldCenter] = useState();
 
-  //state for json country border data
-
   // countryBorder.properties.color
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
@@ -48,19 +46,19 @@ const Map = (props) => {
       setWorldMapZoom(3.3);
     } else if (props.region === "Asia") {
       setWorldCenter([34.0479, 100.6197]);
-      setWorldMapZoom(3);
+      setWorldMapZoom(2.9);
     } else if (props.region === "Australia") {
-      setWorldCenter([-25.274398, 133.775136]);
-      setWorldMapZoom(4);
+      setWorldCenter([-29.274398, 151.775136]);
+      setWorldMapZoom(3.7);
     } else if (props.region === "Europe") {
-      setWorldCenter([54.526, 15.2551]);
-      setWorldMapZoom(3.5);
+      setWorldCenter([53, 23]);
+      setWorldMapZoom(3.45);
     } else if (props.region === "North America") {
-      setWorldCenter([47.1164, -101.2996]);
-      setWorldMapZoom(3);
+      setWorldCenter([50, -101.2996]);
+      setWorldMapZoom(2.5);
     } else if (props.region === "South America") {
-      setWorldCenter([-20, -55.4915]);
-      setWorldMapZoom(3.5);
+      setWorldCenter([-27, -68]);
+      setWorldMapZoom(3.1);
     } else {
       setWorldCenter([39, -29]);
       setWorldMapZoom(1.5);
@@ -70,13 +68,11 @@ const Map = (props) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-    console.log("WORLD MAP LAYER FUNCTION");
     //fill color on geojson layer
     layer.options.fillColor = countryBorder.properties.color;
     const countryName = countryBorder.properties.ADMIN;
     //will show total sales of each country when country is clicked
     const totalSales = countryBorder.properties.totalSales;
-
     //info on popup when country is clicked
     layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);

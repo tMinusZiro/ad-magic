@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import List from "@material-ui/core/List";
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemText from "@material-ui/core/ListItemText";
 
 const MapToggle = (props) => {
   //list of all clients in database
@@ -15,7 +19,8 @@ const MapToggle = (props) => {
   const [account, setAccount] = useState("all");
   //status of switch checked = US Map, false = world map
   const history = useHistory();
-  const [checkStatus, setCheckedStatus] = useState("false");
+  const [checkStatus, setCheckedStatus] = useState();
+  const [USmap, setUSMap] = useState(false);
 
   let clientArray = [];
   useEffect(() => {
@@ -28,6 +33,8 @@ const MapToggle = (props) => {
             clientArray.push(obj._id);
           });
           setClientList(clientArray.sort());
+          setAccount("all");
+          setLoadItems(true);
         });
     }
     //once the client/account is selected, fetch all items from server that are sold by that client/account
@@ -71,32 +78,11 @@ const MapToggle = (props) => {
   function reLoad(event) {
     props.setgetData(true);
     console.log("reload function");
-    if (props.map === "United States") {
-      props.setGetUSData(true);
-    } else props.setGetWorldData(true);
+    // if (USmap) {
+    // props.setGetUSData(true);
+    // } else
+    props.setGetWorldData(true);
   }
-
-  function switchMap(event) {
-    console.log(props.map);
-    console.log(window.location.pathname);
-    if (props.map === "United States") {
-      console.log(props.map);
-      props.setMap("World");
-      history.push("/");
-    } else if (props.map === "World") {
-      console.log(props.map);
-      props.setMap("United States");
-      history.push("/united");
-    }
-  }
-
-  useEffect(() => {
-    if (window.location.pathname === "/united") {
-      setCheckedStatus("true");
-    } else if (window.location.pathname === "/") {
-      setCheckedStatus("false");
-    }
-  }, [window.location.pathname]);
 
   //set default date on form
   let today = new Date();
@@ -113,40 +99,65 @@ const MapToggle = (props) => {
   //set default end date
   let defaultDate = `${year}-${month}-${day}`;
 
+  function switchMap(event) {
+    if (USmap) {
+      setUSMap(false);
+      history.push("/");
+    } else if (!USmap) {
+      console.log(props.map);
+      setUSMap(true);
+      history.push("/united");
+    }
+  }
+
+  // useEffect(() => {
+  //   if (window.location.pathname === "/united") {
+  //     setCheckedStatus("true");
+  //   } else if (window.location.pathname === "/") {
+  //     setCheckedStatus("false");
+  //   }
+  // }, [window.location.pathname]);
+
   return (
-    <div>
+    <div id="side-bar">
       <form method="POST" action="/show-item-sales">
-        {/* <label class="switch" onChange={switchMap}>
-          <input type="checkbox" name="US" defaultChecked={checkStatus} />
-          <span class="slider round"></span>
-        </label>{" "}
-        <label>US</label> */}
-        {props.map === "World" ? (
-          <select name="region" onChange={changeRegion}>
-            <option>Region</option>
-            <option value="World">View World Sales</option>
-            <option value="Africa">Africa</option>
-            <option value="Asia">Asia</option>
-            <option value="Australia">Australia</option>
-            <option value="Europe">Europe</option>
-            <option value="North America">North America</option>
-            <option value="South America">South America</option>
-          </select>
+        <div class="switch-container">
+          <label class="switch" onChange={switchMap}>
+            <input type="checkbox" name="US" defaultChecked={checkStatus} />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <br></br>
+        {!USmap ? (
+          <button class="dropdown-btn">
+            <select name="region" onChange={changeRegion}>
+              <option>Region</option>
+              <option value="World">View World Sales</option>
+              <option value="Africa">Africa</option>
+              <option value="Asia">Asia</option>
+              <option value="Australia">Australia</option>
+              <option value="Europe">Europe</option>
+              <option value="North America">North America</option>
+              <option value="South America">South America</option>
+            </select>
+          </button>
         ) : (
           <select name="region" onChange={changeRegion}>
             <option>Region</option>
-            <option value="World">View World Sales</option>
-            <option value="Africa">Africa</option>
-            <option value="Asia">Asia</option>
-            <option value="Australia">Australia</option>
-            <option value="Europe">Europe</option>
-            <option value="North America">North America</option>
-            <option value="South America">South America</option>
+            <option value="US">United States</option>
+            <option value="Northeast">Northeast</option>
+            <option value="South">South</option>
+            <option value="Midwest">Midwest</option>
+            <option value="West">West</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Hawaii">Hawaii</option>
           </select>
         )}
-        <br></br>
-        <br></br>
-        <select name="datePreset" onChange={showCalendar} default="all-time">
+        <select
+          name="datePreset"
+          onChange={showCalendar}
+          defaultValue="all-time"
+        >
           <option>View By:</option>
           <option value="all-time">All Time</option>
           <option value="week">Past Week</option>
@@ -156,8 +167,6 @@ const MapToggle = (props) => {
           <option value="year">Past Year</option>
           <option value="custom">Custom Timeframe</option>
         </select>
-        <br></br>
-        <br></br>
         {showCustomDate ? (
           <div>
             <label for="startDate">Start Date: </label>
@@ -168,9 +177,6 @@ const MapToggle = (props) => {
               defaultValue="2018-01-01"
               // onChange={changeStartDate}
             ></input>
-
-            <br></br>
-            <br></br>
 
             <label for="endDate">End Date: </label>
             <br></br>
@@ -183,14 +189,9 @@ const MapToggle = (props) => {
             ></input>
           </div>
         ) : null}
-        <br></br>
-        <br></br>
-        {
-          //once the client list has been loaded, create a menu with each client as an option
-        }
         {clientList ? (
           <div>
-            <select name="account" onChange={changeAccount}>
+            <select name="account" defaultValue="all" onChange={changeAccount}>
               <option>Client</option>
               <option value="all">View All Clients</option>
               {clientList.map((client, index) => {
@@ -203,13 +204,9 @@ const MapToggle = (props) => {
             </select>
           </div>
         ) : null}
-        <br></br>
-        {
-          //once the item list has been loaded, create a menu with each item as an option
-        }
         {listOfItems ? (
           <div>
-            <select name="item">
+            <select name="item" defaultValue="all-items">
               <option value="all-items">View All Items</option>
               {listOfItems.map((item, index) => {
                 return (

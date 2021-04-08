@@ -80,7 +80,8 @@
   text-align: center;
   align-items: center;
   font-weight: bold;
-  background-color: rgb(233, 231, 231);
+  background-color: #264653;
+  color: white;
 }
 
 /*Three financial top tiles */
@@ -194,21 +195,6 @@
 
 /* #home-page {
 } */
-input {
-  font-family: Avenir;
-  width: 100%;
-  text-align: center;
-}
-select {
-  width: 100%;
-  text-align: center;
-  align-items: center;
-}
-
-option {
-  text-align: center;
-  align-items: center;
-}
 
 /* top dashboard */
 
@@ -377,4 +363,48 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+#side-bar {
+  max-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #264653;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/*-----sidebar styling*/
+input {
+  font-family: Avenir;
+  width: 100%;
+  text-align: center;
+  background-color: #264653;
+  color: white;
+}
+select {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  height: 30px;
+  background-color: #264653;
+  color: white;
+  border: white;
+  border-radius: 5%;
+  margin: 2px;
+}
+
+option {
+  text-align: center;
+  align-items: center;
+  background-color: #264653;
+  color: white;
+}
+
+.switch-title {
+  font-size: 26px;
+  padding: 5px;
+}
+
+.switch-container {
+  display: inline;
 }
