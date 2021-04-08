@@ -19,7 +19,7 @@ import { features } from "../borderData/countries.json";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
-const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
+const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
   const [mapZoom, setMapZoom] = useState(4);
   //state for json country border data
@@ -40,20 +40,20 @@ const UnitedMap = ({region, usBorderData, states, loadUnitedMap}) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
+    //fill color on geojson layer
 
-      //fill color on geojson layer
-      layer.options.fillColor = countryBorder.properties.color;
-      const usStateName = countryBorder.properties.name;
+    layer.options.fillColor = countryBorder.properties.color;
+    const usStateName = countryBorder.properties.name;
 
-      //will show total sales of each country when country is clicked
+    //will show total sales of each country when country is clicked
 
-      const totalSales = countryBorder.properties.totalSales;
+    const totalSales = countryBorder.properties.totalSales;
 
-      //info on popup when country is clicked
-      layer.bindPopup(`${usStateName} Total Sales:
+    //info on popup when country is clicked
+    layer.bindPopup(`${usStateName} Total Sales:
        $${Math.round(totalSales)} `);
-    }
-  
+  }
+
   function highlightFeature(e) {
     let layer = e.target;
 

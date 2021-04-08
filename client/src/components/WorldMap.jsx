@@ -70,17 +70,20 @@ const Map = (props) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-      //fill color on geojson layer
-      layer.options.fillColor = countryBorder.properties.color;
-      const countryName = countryBorder.properties.ADMIN;
-      //will show total sales of each country when country is clicked
-      const totalSales = countryBorder.properties.totalSales;
+    //fill color on geojson layer
+    // forceUpdate();
+    console.log("On Each Function");
 
-      //info on popup when country is clicked
-      layer.bindPopup(`${countryName} Total Sales:
+    layer.options.fillColor = countryBorder.properties.color;
+
+    const countryName = countryBorder.properties.ADMIN;
+    //will show total sales of each country when country is clicked
+    const totalSales = countryBorder.properties.totalSales;
+
+    //info on popup when country is clicked
+    layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
-    }
-  
+  }
 
   function highlightFeature(e) {
     let layer = e.target;

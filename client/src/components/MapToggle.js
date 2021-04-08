@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const MapToggle = (props) => {
   //list of all clients in database
@@ -70,10 +70,11 @@ const MapToggle = (props) => {
 
   function reLoad(event) {
     props.setgetData(true);
+    props.setGetWorldData(true);
     console.log("reload function");
-    if (props.map === "United States") {
-      props.setGetUSData(true);
-    } else props.setGetWorldData(true);
+    // if (props.map === "United States") {
+    //   props.setGetUSData(true);
+    // } else props.setGetWorldData(true);
   }
 
   function switchMap(event) {
@@ -116,7 +117,7 @@ const MapToggle = (props) => {
   return (
     <div>
       <form method="POST" action="/show-item-sales">
-        <label class="switch" onChange={switchMap}>
+        {/* <label class="switch" onChange={switchMap}>
           <input
             type="checkbox"
             name="US"
@@ -124,7 +125,7 @@ const MapToggle = (props) => {
             defaultChecked={checkStatus}
           />
           <span class="slider round"></span>
-        </label>{" "}
+        </label>{" "} */}
         <label>US</label>
         {props.map === "World" ? (
           <select name="region" onChange={changeRegion}>
@@ -229,6 +230,9 @@ const MapToggle = (props) => {
         <input type="submit" value="Show Sales!" onClick={reLoad} />
         <br></br>
       </form>
+      <Link to="/loading">
+        <button>Click</button>
+      </Link>
     </div>
   );
 };

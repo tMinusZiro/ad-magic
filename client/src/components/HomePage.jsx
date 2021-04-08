@@ -5,6 +5,7 @@ import WorldMap from "./WorldMap.jsx";
 import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
 import { features } from "../borderData/countries.json";
+import LoadingMap from "./LoadingMap";
 
 import Loading from "./Loading.jsx";
 
@@ -15,7 +16,14 @@ import Loading from "./Loading.jsx";
 import legendItems from "../entities/LegendItems";
 import MapBurger from "./MapBurger.jsx";
 
-const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, region, usBorderData}) => {
+const HomePage = ({
+  getWorldData,
+  setGetWorldData,
+  getUSData,
+  setGetUSData,
+  region,
+  usBorderData,
+}) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
@@ -27,12 +35,13 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
   const legendItemsInReverse = [...legendItems].reverse();
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
-  const [states, setStates] = useState([])
+  const [states, setStates] = useState([]);
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
     if (getWorldData) {
       let interArray = [];
+      // setCountries([]);
       fetch(`/show-sales/`)
         .then((res) => res.json())
         .then((list) => {
@@ -44,9 +53,9 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
           setTotalSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
-            setLoadMap(true);
-            setGetWorldData(false);
-          });
+          setLoadMap(true);
+          setGetWorldData(false);
+        });
     }
     if (getUSData) {
       let interArray = [];
@@ -61,13 +70,11 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
           setTotalUSSales(interArray);
           //trigger the loadMap() function
           //conditional for which map to load
-            setLoadUnitedMap(true);
-            setGetUSData(false);
+          setLoadUnitedMap(true);
+          setGetUSData(false);
         });
     }
   });
-
- 
 
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
@@ -80,46 +87,47 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
   }
 
   function loadUnitedData() {
-    for (let usState of usBorderData) {
-      let usMatchedValue;
-      if (totalUSSales) {
-        //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
-        for (let sale of totalUSSales) {
-          if (usState.properties.name === sale._id) {
-            //if there is a match assign it to intermediate variable
-            usMatchedValue = sale;
-          }
-        }
-      }
-      //DEFAULT VALUES:
-      //geoJSON layer properties total sales
-      usState.properties.totalSales = 0;
-      //modal text
-      usState.properties.totalSalesText = "0";
-      //checks if the matched total sales object has valid state
-      if (usMatchedValue != null) {
-        //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-        //creates intermediate variable
-        const assignUSTotalSales = usMatchedValue.totalSales;
-
-        //assigns correct total sales to geoJSON object
-        usState.properties.totalSales = assignUSTotalSales;
-        //assigns total sales to geoJSON object for displaying text on pop up modal
-        usState.properties.totalSalesText = assignUSTotalSales;
-      }
-      setCountryColor(usState);
-      // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
-    }
-    setStates(usBorderData);
+    // let BorderData = usBorderData;
+    // for (let usState of BorderData) {
+    //   let usMatchedValue;
+    //   if (totalUSSales) {
+    //     //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
+    //     for (let sale of totalUSSales) {
+    //       if (usState.properties.name === sale._id) {
+    //         //if there is a match assign it to intermediate variable
+    //         usMatchedValue = sale;
+    //       }
+    //     }
+    //   }
+    //   //DEFAULT VALUES:
+    //   //geoJSON layer properties total sales
+    //   usState.properties.totalSales = 0;
+    //   //modal text
+    //   usState.properties.totalSalesText = "0";
+    //   //checks if the matched total sales object has valid state
+    //   if (usMatchedValue != null) {
+    //     //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
+    //     //creates intermediate variable
+    //     const assignUSTotalSales = usMatchedValue.totalSales;
+    //     //assigns correct total sales to geoJSON object
+    //     usState.properties.totalSales = assignUSTotalSales;
+    //     //assigns total sales to geoJSON object for displaying text on pop up modal
+    //     usState.properties.totalSalesText = assignUSTotalSales;
+    //   }
+    //   setCountryColor(usState);
+    //   // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
+    // }
+    // setStates(BorderData);
   }
 
   function loadMapData() {
     //Conditional branch for rendering just US State geoJSON data
 
-    const mapCountries = features;
+    // const mapCountries = features ;
 
     //iterate through array of geoJSON objects representing each country in world
-    for (let country of mapCountries) {
+    // for (let country of mapCountries) {
+    let mapCountries = features.map((country) => {
       let matchedValue;
       //if total sales list that was fetched has valid state
       //guard clause
@@ -150,10 +158,11 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
         country.properties.totalSalesText = assignTotalSales;
       }
       setCountryColor(country);
+      return country;
       // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
-    }
+    });
 
-    setCountries(features);
+    setCountries(mapCountries);
   }
 
   if (loadMap) {
@@ -167,73 +176,74 @@ const HomePage = ({getWorldData, setGetWorldData, getUSData, setGetUSData, regio
 
   return (
     <div>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) =>
-
-              countries.length === 0 ? (
-                <Loading />
-              ) : (
-                <div id="map-component-wrapper">
-                  <div>
-                    <WorldMap
-                      region={region}
-                      countries={countries}
-                      loadMap={loadMap}
-                    />
-                  </div>
-                  <div>
-                    <MapLegend
-                      legendItems={legendItemsInReverse}
-                      openLegend={openLegend}
-                      setOpenLegend={setOpenLegend}
-                    />
-                  </div>
-                  <div id="map-burger-wrapper">
-                    <MapBurger
-                      setOpenLegend={setOpenLegend}
-                      openLegend={openLegend}
-                    />
-                  </div>
+      <Switch>
+        <Route path="/loading" component={LoadingMap} />
+        <Route
+          exact
+          path="/"
+          render={(props) =>
+            countries.length === 0 ? (
+              <Loading />
+            ) : (
+              <div id="map-component-wrapper">
+                <div>
+                  <WorldMap
+                    region={region}
+                    countries={countries}
+                    loadMap={loadMap}
+                    getWorldData={getWorldData}
+                  />
                 </div>
-              )
-            }
-          />
-          <Route
-            exact
-            path="/united"
-            render={(props) =>
-              states.length === 0 ? (
-                <Loading />
-              ) : (
-                <div id="map-component-wrapper">
-                  <div>
-                    <UnitedMap
-                      region={region}
-                      states = {states}
-                      loadUnitedMap={loadUnitedMap}
-                    />
-                  </div>
-                  <div>
-                    <MapLegend
-                      legendItems={legendItemsInReverse}
-                      openLegend={openLegend}
-                      setOpenLegend={setOpenLegend}
-                    />
-                  </div>
-                  <div id="map-burger-wrapper">
-                    <MapBurger
-                      setOpenLegend={setOpenLegend}
-                      openLegend={openLegend}
-                    />
-                  </div>
+                <div>
+                  <MapLegend
+                    legendItems={legendItemsInReverse}
+                    openLegend={openLegend}
+                    setOpenLegend={setOpenLegend}
+                  />
                 </div>
-              )
-            }
-          />
-        </Switch>
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
+              </div>
+            )
+          }
+        />
+        <Route
+          exact
+          path="/united"
+          render={(props) =>
+            states.length === 0 ? (
+              <Loading />
+            ) : (
+              <div id="map-component-wrapper">
+                <div>
+                  <UnitedMap
+                    region={region}
+                    states={states}
+                    loadUnitedMap={loadUnitedMap}
+                  />
+                </div>
+                <div>
+                  <MapLegend
+                    legendItems={legendItemsInReverse}
+                    openLegend={openLegend}
+                    setOpenLegend={setOpenLegend}
+                  />
+                </div>
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
+              </div>
+            )
+          }
+        />
+      </Switch>
     </div>
   );
 };
