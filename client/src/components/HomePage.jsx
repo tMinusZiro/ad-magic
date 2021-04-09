@@ -183,6 +183,12 @@ const HomePage = ({
               <Loading />
             ) : (
               <div id="map-component-wrapper">
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
                 <div>
                   <WorldMap
                     region={region}
@@ -198,12 +204,6 @@ const HomePage = ({
                     setOpenLegend={setOpenLegend}
                   />
                 </div>
-                <div id="map-burger-wrapper">
-                  <MapBurger
-                    setOpenLegend={setOpenLegend}
-                    openLegend={openLegend}
-                  />
-                </div>
               </div>
             )
           }
@@ -216,6 +216,12 @@ const HomePage = ({
               <Loading />
             ) : (
               <div id="map-component-wrapper">
+                <div id="map-burger-wrapper">
+                  <MapBurger
+                    setOpenLegend={setOpenLegend}
+                    openLegend={openLegend}
+                  />
+                </div>
                 <div>
                   <UnitedMap
                     region={region}
@@ -228,12 +234,6 @@ const HomePage = ({
                     legendItems={legendItemsInReverse}
                     openLegend={openLegend}
                     setOpenLegend={setOpenLegend}
-                  />
-                </div>
-                <div id="map-burger-wrapper">
-                  <MapBurger
-                    setOpenLegend={setOpenLegend}
-                    openLegend={openLegend}
                   />
                 </div>
               </div>

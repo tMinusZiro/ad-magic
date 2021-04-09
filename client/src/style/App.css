@@ -4,9 +4,10 @@
 }
 
 body {
-  background: #e0e0e0;
+  background: #ebe7e7de;
+  /* background: #efefef; */
 }
-/*Splits the top half of the vp with contrasting color*/
+/*Splits the top half of the viewport with contrasting color*/
 #top-background-color {
   grid-area: 1/1/3/4;
   z-index: -3;
@@ -16,20 +17,36 @@ body {
 /*-------Parent Page Grid Wrapper---------*/
 #app-wrapper {
   display: grid;
-  grid-template-columns: 0.7fr 3fr 1fr;
-  grid-template-rows: 1fr 1.8fr 2fr 1fr;
+  grid-template-columns: 0.7fr 3fr;
+  grid-template-rows: 1fr 1.8fr 1.5fr 2fr 1fr;
   /* border: blue solid 5px; */
   grid-gap: 2rem;
   box-sizing: border-box;
+  border: 2px solid rgba(0, 5, 194, 0.979411833092612);
 }
 
 /*-----------------MAP-------------*/
 
+/*App.JS tag*/
 #home-page {
-  border: 5px solid red;
+  /* border: 10px solid white; */
+  /* border-radius: 5px; */
   height: 100%;
-  grid-area: 3/2/4/3;
+  width: 100%;
+  /* background: white; */
+  /* box-shadow: 0.7px 0.7px 1.5px rgba(83, 82, 82, 0.514); */
+  grid-area: 4/2/5/3;
 }
+
+/* Tag on Home Page*/
+
+/* #map-component-wrapper {
+  width: 100%;
+} */
+/*Wraps map container itself*/
+/* #map-wrapper {
+  border: 2px solid black;
+} */
 
 /*------Fake Graph Background--------*/
 #fake-graph-wrapper {
@@ -44,7 +61,7 @@ body {
 /*------Header----------*/
 
 #header-wrapper {
-  grid-area: 1/2/2/4;
+  grid-area: 1/2/2/3;
 
   /* background-color: trans; */
   /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
@@ -113,17 +130,20 @@ h6 {
 
 #map-toggle-wrapper {
   /* border: 5px black solid; */
-  grid-area: 1/1/5/2;
+  grid-area: 1/1/6/2;
   align-content: center;
   width: 100%;
   height: 100%;
   text-align: center;
   align-items: center;
   font-weight: bold;
-  background-color: #132127;
+  background-color: #272b2a;
   color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
-/*------ switch on sidebar ----------*/
+/*------ ---------switch on sidebar -----------------*/
 .switch {
   position: relative;
   display: inline-block;
@@ -230,19 +250,69 @@ option {
   display: inline;
 }
 /*-------------------------*/
+/*-----------------APEX CHARTS and GRAPHS-----------------------------*/
 
-/* #top-dash-header {
-  grid-area: 1/2/2/4;
-} */
+/*------------------TOP BAR GRAPHS---------------*/
 /*This includes two right side graphs*/
+/*In App.JS Wrapper for main parent component*/
 #right-dash-header {
-  grid-area: 3/3/4/4;
-  border: 2px solid black;
-  margin-right: 2rem;
+  grid-area: 3/2/4/3;
 }
 
+#v-and-r-flexWrap {
+  margin-top: 20vh;
+  display: flex;
+  gap: 5rem;
+  height: 45%;
+}
+/*----- Bar Graphs Wrapper for graph components----*/
+.right-charts {
+  /* border: 2px rgb(205, 203, 203) solid; */
+  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
+  width: 50%;
+  height: 100%;
+  /* background-color: white; */
+  border-radius: 15px;
+  margin-bottom: 1em;
+  /* border: 3px solid green; */
+  align-items: center;
+}
+
+/*--Top Five Total Sales Bar Graph--*/
+/*Closest Div Wrapper: child of .right-charts*/
+#V-chart {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  border-radius: 5px;
+  height: 100%;
+  width: 85%;
+
+  margin-left: 5rem;
+}
+/*--Revenue Bar Graph-*/
+/*Closest Div Wrapper: child of .right-charts */
+#R-chart {
+  display: flex;
+  flex-flow: column;
+  border-radius: 5px;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  height: 100%;
+  width: 85%;
+}
+/*----------------------------------------------------*/
+
+/*--------------BOTTOM PIE CHARTS---------------*/
+
+/*Bottom Three Graph*/
 #bottom-dash-header {
-  grid-area: 4/2/5/4;
+  grid-area: 5/2/6/3;
   /* border: 5px yellow solid; */
   height: 12em;
   box-sizing: border-box;
@@ -265,37 +335,13 @@ option {
   border-radius: 15px;
   border: 2px solid red;
 }
-.right-charts {
-  border: 2px rgb(205, 203, 203) solid;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(233, 231, 231);
-  border-radius: 15px;
-  margin-bottom: 1em;
-  border: 2px solid green;
-}
+
 /* // */
 #f-chart {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
-  width: 100%;
-}
-#V-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  height: 100%;
-  width: 100%;
-}
-#R-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: flex-start;
   height: 100%;
   width: 100%;
 }
@@ -317,28 +363,22 @@ option {
   height: 100%;
   width: 100%;
 }
-#map-wrapper {
-  grid-area: 3/2/4/3;
-  width: 100%;
-  height: 100%;
-}
 
-#data-displays-wrapper {
-  /* background-color: rgba(255, 119, 0, 0.461); */
-  /* border: 5px pink solid; */
+/* #data-displays-wrapper {
+  border: 5px pink solid;
   grid-area: 3/3/4/4;
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-}
+} */
 
 /*---------Top Dashboard Tiles-------------- */
 
 /*Three financial top tiles */
 #top-dash-header {
-  grid-area: 2/2/3/4;
-
+  grid-area: 2/2/3/3;
+  /* margin-top: 10rem; */
   height: 100%;
 
   padding: 10px;
@@ -350,12 +390,15 @@ option {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-
+  gap: 3rem;
   height: 100%;
+
+  margin-top: 3rem;
 }
 .top-tile-background {
   background-color: white;
-  box-shadow: 0.7px 0.7px 1.5px rgba(83, 82, 82, 0.514);
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+
   width: 25vw;
   height: 85%;
   margin-top: 6rem;
@@ -410,7 +453,7 @@ option {
   );
 }
 
-/*------Client Popup-------*/
+/*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
   display: flex;
   justify-content: center;
@@ -442,39 +485,61 @@ option {
 
 /*------Burger Menu------*/
 /*-----Burger-Map----------*/
-/* .burger-menu {
+
+#map-component-wrapper {
+  border: 2px solid purple;
+  box-sizing: border-box;
+}
+
+/*div wrapper on burger component in Home Page*/
+#map-burger-wrapper {
+  position: relative;
+  top: 7rem;
+  border: 1px solid red;
+  z-index: 600;
+  display: flex;
+  justify-content: flex-end;
+  flex: auto;
+  margin-left: 75vw;
+  margin-top: 4rem;
+}
+
+/*section tag that wraps all three divs*/
+.burger-menu {
   left: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+
   width: 2rem;
   height: 2rem;
   border: none;
   cursor: pointer;
   padding: 0;
-
- 
-} */
-
-/* .burger-menu div {
+  border: 2px solid blue;
+}
+/*Individual three divs*/
+.burger-menu div {
   width: 2rem;
   height: 0.25rem;
-
- 
   border-radius: 10px;
   transition: all 0.3s linear;
-  position: relative;
+  /* position: relative; */
   transform-origin: 1px;
   box-sizing: border-box;
 }
 
-#map-burger-wrapper {
-  position: absolute;
-  right: 22%;
-  top: 22%;
-  z-index: 400;
-}
 #map-legend-wrapper {
   transition: transform 0.3s ease-in-out;
-} */
+
+  margin-left: 2rem;
+  margin-right: 2rem;
+  width: 100%;
+}
+
+/*Each legend color square*/
+#legend-button {
+  border: 1px solid rgba(194, 27, 0, 0.979411833092612);
+  /* border-radius: 5px; */
+}

@@ -31,7 +31,7 @@ const Map = (props) => {
     return {
       fillColor: "white", // color of country
       weight: 1.2, //thickness of country border lines
-      color: "blue", //color of country border line
+      color: "#84b6e1", //color of country border line
       fillOpacity: 1,
     };
   };
@@ -101,7 +101,13 @@ const Map = (props) => {
           center={mapCenter}
           scrollWheelZoom={false}
           zoom={mapZoom}
-          style={{ height: "64vh", width: "60vw" }}
+          style={{
+            // width: "50vw",
+            // border: "3px solid black",
+            backgroundColor: "#84b6e1",
+            borderRadius: "5px",
+            height: "60vh",
+          }}
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON

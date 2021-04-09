@@ -30,7 +30,7 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
     return {
       fillColor: "white", // color of country
       weight: 1.2, //thickness of country border lines
-      color: "blue", //color of country border line
+      color: "black", //color of country border line
       fillOpacity: 1,
     };
   };
@@ -49,13 +49,12 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
       setUSCenter([41.997017, -114.495868]);
       setUSmapZoom(4.5);
     } else if (region === "Alaska") {
-      setUSCenter([64.2008, -149.4937])
+      setUSCenter([64.2008, -149.4937]);
       setUSmapZoom(4);
     } else if (region === "Hawaii") {
-      setUSCenter([19.8968, -157])
-      setUSmapZoom(7)
-    }
-    else {
+      setUSCenter([19.8968, -157]);
+      setUSmapZoom(7);
+    } else {
       setUSCenter([37.0902, -95.7129]);
       setUSmapZoom(4);
     }
@@ -102,7 +101,11 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
           center={mapCenter}
           scrollWheelZoom={false}
           zoom={mapZoom}
-          style={{ height: "64vh", width: "60vw" }}
+          style={{
+            height: "40vh",
+            width: "60vw",
+            paddingTop: "8rem",
+          }}
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON
