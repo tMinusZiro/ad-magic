@@ -43,11 +43,9 @@ class DataStore {
   }
   //filtered top dashboard data
   async filterTotalSales(client, item) {
-    console.log("client in data store", client);
     const collection = await this.openConnect();
     //filter function
     if (client === "all" && item === "all-items") {
-      console.log("item in function", item);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         {
@@ -63,14 +61,12 @@ class DataStore {
     }
     // filter by item
     else if (client === "all" && item !== "all-items") {
-      console.log("item in function", item);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         {
           $group: {
             _id: "$Scrubbed__c",
-            item: item,
             totalSales: { $sum: "$Total_Sales__c" },
             averageSale: { $avg: "$Total_Sales__c" },
             totalItems: { $sum: "$QTY__c" },
@@ -81,12 +77,10 @@ class DataStore {
     }
     // filter by client
     else if (client !== "all" && item === "all-items") {
-      let naming = client;
-      console.log("client in function", naming);
-      console.log("item in function", item);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
         {
           $group: {
             _id: "$Account__c",
@@ -96,7 +90,23 @@ class DataStore {
           },
         },
       ]);
-      console.log("crash test2", result);
+
+      return result;
+    } else if (client !== "all" && item !== "all-items") {
+      const result = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Account__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+            averageSale: { $avg: "$Total_Sales__c" },
+            totalItems: { $sum: "$QTY__c" },
+          },
+        },
+      ]);
+
       return result;
     }
   }
@@ -146,19 +156,61 @@ class DataStore {
     return marketingOpt;
   }
   //   //Vendors chart data
-  async Vendors() {
+  async Vendors(client, item) {
     const collection = await this.openConnect();
-    const vendor = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$Vendor__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const vendor = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Vendor__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return vendor;
+      ]);
+      return vendor;
+    } else if (client !== "all" && item === "all-items") {
+      const vendor = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Vendor__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return vendor;
+    } else if (client === "all" && item !== "all-items") {
+      const vendor = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Vendor__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return vendor;
+    } else if (client !== "all" && item !== "all-items") {
+      const vendor = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Vendor__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return vendor;
+    }
   }
 
   //populate sidebar with accounts and items
@@ -180,7 +232,9 @@ class DataStore {
   //return WORLD SALES sales on form results
   async findWorldSalesByForm(formResults) {
     const collection = await this.openConnect();
-    changeDate(formResults)
+    //function to get new dates
+    changeDate(formResults);
+
     let account = formResults.account;
     let item = formResults.item;
     let salesResults;
@@ -188,6 +242,8 @@ class DataStore {
     if (account === "all") {
       salesResults = await collection.aggregate([
         {
+          ///////////////////////
+          //Match by date
           $match: {
             $expr: {
               $gte: [
@@ -217,6 +273,7 @@ class DataStore {
             },
           },
         },
+        /////////////
         {
           $group: {
             _id: "$Country__c",
@@ -321,7 +378,7 @@ class DataStore {
     const collection = await this.openConnect();
 
     //decide on start date based on pre-sets or user input
-    changeDate(formResults)
+    changeDate(formResults);
     let account = formResults.account;
     let item = formResults.item;
     let salesResults;
@@ -593,7 +650,7 @@ function changeDate(formResults) {
     newEnd = `${endYear}-${endMonth}-${endDate}`;
     newStart = `${startYear}-${startMonth}-${startDay}`;
   }
-  return (newEnd, newStart);
+  return newEnd, newStart;
 }
 
 module.exports = DataStore;

@@ -1,10 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
+import { useHistory, Link } from "react-router-dom";
+=======
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import List from "@material-ui/core/List";
 // import ListItem from "@material-ui/core/ListItem";
 // import ListItemText from "@material-ui/core/ListItemText";
+>>>>>>> df28df8e4e7ea162a2389f74fd01e8189667c682
 
 const MapToggle = (props) => {
   //list of all clients in database
@@ -77,6 +81,7 @@ const MapToggle = (props) => {
 
   function reLoad(event) {
     props.setgetData(true);
+    props.setGetWorldData(true);
     console.log("reload function");
     // if (USmap) {
     // props.setGetUSData(true);
