@@ -70,6 +70,12 @@
   border-radius: 50%;
 }
 
+#user-id {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
 /*-------Map Toggle ------*/
 
 #map-toggle-wrapper {

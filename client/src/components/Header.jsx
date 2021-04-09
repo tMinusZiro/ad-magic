@@ -25,7 +25,10 @@ const Header = () => {
           <img src={alertBell} />
         </div>
         <div id="user-wrapper">
-          <h5>Margarette</h5>
+          <div id="user-id">
+            <h5>Margarette</h5>
+            <h6>Active</h6>
+          </div>
           <img src={userPic} />
         </div>
       </div>
