@@ -28,7 +28,7 @@ class DataStore {
   async totalSales() {
     const collection = await this.openConnect();
     const result = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Scrubbed__c",
@@ -49,7 +49,7 @@ class DataStore {
     if (client === "all" && item === "all-items") {
       console.log("item in function", item);
       const result = await collection.aggregate([
-        { $match: { Scrubbed__c: "true" } },
+        // { $match: { Scrubbed__c: "true" } },
         {
           $group: {
             _id: "$Scrubbed__c",
@@ -104,7 +104,7 @@ class DataStore {
   async salesTypes() {
     const collection = await this.openConnect();
     const types = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Sales_Type__c",
@@ -119,7 +119,7 @@ class DataStore {
   async fullfilmentType(input) {
     const collection = await this.openConnect();
     const fullfilment = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Fulfillment_Type__c",
@@ -134,7 +134,7 @@ class DataStore {
   async MarketingOpt() {
     const collection = await this.openConnect();
     const marketingOpt = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$opt_in__c",
@@ -149,7 +149,7 @@ class DataStore {
   async Vendors() {
     const collection = await this.openConnect();
     const vendor = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Vendor__c",
@@ -165,7 +165,7 @@ class DataStore {
   async findClients() {
     const collection = await this.openConnect();
     const clientsResult = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Account__c",
@@ -472,7 +472,7 @@ class DataStore {
     const collection = await this.openConnect();
 
     const salesResults = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
+      // { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Country__c",

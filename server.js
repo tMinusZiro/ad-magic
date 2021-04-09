@@ -166,6 +166,7 @@ app.get("/show-sales", async (request, response) => {
     });
     response.send(totalSalesArray);
   } else {
+    console.log(showWorldSalesArray)
     response.send(showWorldSalesArray);
   }
 });

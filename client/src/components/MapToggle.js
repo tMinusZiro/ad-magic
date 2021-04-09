@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Rfdd, RfddOption } from "react-free-dropdown";
 
 const MapToggle = (props) => {
+  //useHistory to push to correct page on map toggle 
+  const history = useHistory();
   //list of all clients in database
   const [clientList, setClientList] = useState();
   //trigger items to load for a specific client
@@ -13,13 +13,20 @@ const MapToggle = (props) => {
   const [listOfItems, setListOfItems] = useState();
   //show and hide custom date function
   const [showCustomDate, setShowCustomDate] = useState(false);
-  //user chosen account
-  const [account, setAccount] = useState("all");
-  //status of switch checked = US Map, false = world map
-  const history = useHistory();
   const [checkStatus, setCheckedStatus] = useState();
-  const [USmap, setUSMap] = useState(false);
-  const [value, setValue] = useState("");
+  const [displayRegions, setDisplayRegions] = useState(false);
+  //status of switch checked = US Map, false = world map
+  const [USmap, setUSMap] = useState();
+  const [account, setAccount] = useState("all");
+  const [regionList, setRegionList] = useState([
+    "World",
+    "Africa",
+    "Asia",
+    "Australia",
+    "Europe",
+    "North America",
+    "South America",
+  ]);
 
   let clientArray = [];
   useEffect(() => {
@@ -48,24 +55,16 @@ const MapToggle = (props) => {
               itemArray.push(item);
             });
           });
-          console.log(itemArray);
           setLoadItems(false);
           setListOfItems(itemArray.sort());
         });
     }
   });
 
-  //pre-set date range function
-
   function showCalendar(event) {
     if (event.target.value === "custom") {
       setShowCustomDate(true);
     } else setShowCustomDate(false);
-  }
-
-  //change the map to focus in on a particular region
-  function changeRegion(event) {
-    props.setRegion(event.target.value);
   }
 
   //change the client account in order to show data from that client then render the item menu for that client
@@ -76,11 +75,9 @@ const MapToggle = (props) => {
 
   function reLoad(event) {
     props.setgetData(true);
-    console.log("reload function");
-    // if (USmap) {
-    // props.setGetUSData(true);
-    // } else
-    props.setGetWorldData(true);
+    if (window.location.pathname === "/") { 
+      
+    }
   }
 
   //set default date on form
@@ -100,137 +97,143 @@ const MapToggle = (props) => {
 
   function switchMap(event) {
     if (USmap) {
+      props.setRegion("World");
       setUSMap(false);
+      setRegionList([
+        "World",
+        "Africa",
+        "Asia",
+        "Australia",
+        "Europe",
+        "North America",
+        "South America",
+      ]);
       history.push("/");
     } else if (!USmap) {
-      console.log(props.map);
       setUSMap(true);
+      props.setRegion("US");
+      setRegionList([
+        "US",
+        "Northeast",
+        "South",
+        "Midwest",
+        "West",
+        "Alaska",
+        "Hawaii",
+      ]);
       history.push("/united");
     }
   }
 
-  function setOption(event) {
-    setValue(event.target.value)
+  useEffect(() => { 
+  if (window.location.pathname === "/united") {
+    setCheckedStatus(true)
+  } else if(window.location.pathname === "/") {
+    setCheckedStatus(false)
+  }
+}, [window.location.pathname])
+
+  function handleRegionDropdown(event) {
+    setDisplayRegions(!displayRegions);
   }
 
-  // useEffect(() => {
-  //   if (window.location.pathname === "/united") {
-  //     setCheckedStatus("true");
-  //   } else if (window.location.pathname === "/") {
-  //     setCheckedStatus("false");
-  //   }
-  // }, [window.location.pathname]);
+  function changeRegion(event) {
+    props.setRegion(event.target.innerHTML);
+    setDisplayRegions(!displayRegions);
+  }
 
   return (
     <div id="side-bar">
+      <img id = "logo" src="/logo.png" ></img>
       <form method="POST" action="/show-item-sales">
+      <div id="map-toggles">
+        MAP TOGGLES:
+        <br></br>
         <div class="switch-container">
+          World
           <label class="switch" onChange={switchMap}>
             <input type="checkbox" name="US" defaultChecked={checkStatus} />
             <span class="slider round"></span>
-          </label>
+          </label> US 
         </div>
         <br></br>
-        {!USmap ? (
-          <button class="dropdown-btn">
-            <select name="region" onChange={changeRegion}>
-              <option>Region</option>
-              <option value="World">View World Sales</option>
-              <option value="Africa">Africa</option>
-              <option value="Asia">Asia</option>
-              <option value="Australia">Australia</option>
-              <option value="Europe">Europe</option>
-              <option value="North America">North America</option>
-              <option value="South America">South America</option>
-            </select>
-          </button>
-        ) : (
-          <select name="region" onChange={changeRegion}>
-            <option>Region</option>
-            <option value="US">United States</option>
-            <option value="Northeast">Northeast</option>
-            <option value="South">South</option>
-            <option value="Midwest">Midwest</option>
-            <option value="West">West</option>
-            <option value="Alaska">Alaska</option>
-            <option value="Hawaii">Hawaii</option>
+        <div class="dropdown-container" style={{ border: "2px black solid" }}>
+          <div class="dropdown-title" onClick={handleRegionDropdown}>
+            Region: {props.region}
+          </div>
+          <ul>
+            {displayRegions
+              ? regionList.map((item, index) => {
+                  return <li class = "dropdown-item" onClick ={changeRegion} key={index}>{item}</li>;
+                })
+              : null}
+          </ul>
+        </div>
+      </div>
+
+      <select name="datePreset" onChange={showCalendar} defaultValue="all-time">
+        <option>View By:</option>
+        <option value="all-time">All Time</option>
+        <option value="week">Past Week</option>
+        <option value="month">Past Month</option>
+        <option value="quarter">Last Quarter</option>
+        <option value="six-months">Past Six Months</option>
+        <option value="year">Past Year</option>
+        <option value="custom">Custom Timeframe</option>
+      </select>
+      {showCustomDate ? (
+        <div>
+          <label for="startDate">Start Date: </label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            defaultValue="2018-01-01"
+          ></input>
+
+          <label for="endDate">End Date: </label>
+          <br></br>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            defaultValue={defaultDate}
+          ></input>
+        </div>
+      ) : null}
+
+      {clientList ? (
+        <div>
+          <select name="account" defaultValue="all" onChange={changeAccount}>
+            <option>Client</option>
+            <option value="all">View All Clients</option>
+            {clientList.map((client, index) => {
+              return (
+                <option key={index} value={client}>
+                  {client}
+                </option>
+              );
+            })}
           </select>
-        )}
-        <>
-          <Rfdd name="fruit" onChange={setOption}>
-            <RfddOption value="AllT">Apple</RfddOption>
-            <RfddOption value="Grape">Grape</RfddOption>
-          </Rfdd>
-          <p>{value}</p>
-        </>
+        </div>
+      ) : null}
 
-        <select
-          name="datePreset"
-          onChange={showCalendar}
-          defaultValue="all-time"
-        >
-          <option>View By:</option>
-          <option value="all-time">All Time</option>
-          <option value="week">Past Week</option>
-          <option value="month">Past Month</option>
-          <option value="quarter">Last Quarter</option>
-          <option value="six-months">Past Six Months</option>
-          <option value="year">Past Year</option>
-          <option value="custom">Custom Timeframe</option>
-        </select>
-        {showCustomDate ? (
-          <div>
-            <label for="startDate">Start Date: </label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              defaultValue="2018-01-01"
-              // onChange={changeStartDate}
-            ></input>
+      {listOfItems ? (
+        <div>
+          <select name="item" defaultValue="all-items">
+            <option value="all-items">View All Items</option>
+            {listOfItems.map((item, index) => {
+              return (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      ) : null}
 
-            <label for="endDate">End Date: </label>
-            <br></br>
-            <input
-              type="date"
-              id="endDate"
-              name="endDate"
-              // onChange={changeEndDate}
-              defaultValue={defaultDate}
-            ></input>
-          </div>
-        ) : null}
-        {clientList ? (
-          <div>
-            <select name="account" defaultValue="all" onChange={changeAccount}>
-              <option>Client</option>
-              <option value="all">View All Clients</option>
-              {clientList.map((client, index) => {
-                return (
-                  <option key={index} value={client}>
-                    {client}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        ) : null}
-        {listOfItems ? (
-          <div>
-            <select name="item" defaultValue="all-items">
-              <option value="all-items">View All Items</option>
-              {listOfItems.map((item, index) => {
-                return (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        ) : null}
-        <input type="submit" value="Show Sales!" onClick={reLoad} />
-        <br></br>
+      <input type="submit" value="Show Sales!" onClick={reLoad} />
       </form>
     </div>
   );

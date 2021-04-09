@@ -5,7 +5,7 @@
 
 #app-wrapper {
   display: grid;
-  grid-template-columns: 0.7fr 3fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 0.5fr 2fr 1fr;
   /* border: blue solid 5px; */
   grid-gap: 1em;
@@ -353,4 +353,38 @@ option {
 
 .switch-container {
   display: inline; 
+}
+
+/*-----------------dropdown stuff------------------*/
+
+#map-toggles {
+  border: solid black 2px; 
+}
+
+/* .dropdown-container {
+
+} */
+
+.dropdown-title { 
+  height: 35px;
+  border: 1px solid white;
+  padding: 5px; 
+
+} 
+
+/* .dropdown-list { 
+  height: 20px; 
+} */
+
+.dropdown-item {
+  height: 35px;
+  border: 1px solid white;
+  padding: 5px; 
+
+}
+
+#logo {
+  padding: 5px;
+  width: 90%;
+  margin: 10px;
 }
