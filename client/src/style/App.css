@@ -248,6 +248,8 @@
   transition: transform 0.3s ease-in-out;
 }
 
+
+/* -----------------------------------SIDEBAR---------------------------------*/ 
 /*------ switch on sidebar ----------*/
 .switch {
   position: relative;
