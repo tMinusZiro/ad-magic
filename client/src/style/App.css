@@ -3,7 +3,7 @@
   padding: 0;
 }
 html {
-  scroll-snap-type: y mandatory
+  scroll-snap-type: y mandatory;
 }
 body {
   background: #ebe7e7de;
@@ -24,8 +24,6 @@ body {
   /* border: blue solid 5px; */
   grid-gap: 2rem;
   box-sizing: border-box;
-  
-
 }
 
 /* scroll-snap-align: start; */
@@ -413,7 +411,6 @@ option {
   padding: 1em;
   height: 10vh;
 
- 
   /* height: 10vh; */
   color: #000000;
   border: 2px solid black;
@@ -538,7 +535,7 @@ option {
   /* border-radius: 5px; */
 }
 
-/* -----------------------------------SIDEBAR---------------------------------*/ 
+/* -----------------------------------SIDEBAR---------------------------------*/
 /*------ switch on sidebar ----------*/
 .switch {
   position: relative;
@@ -605,30 +602,30 @@ input:checked + .slider:before {
 #side-bar {
   max-width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color:  #272b2a;
+  background-color: #272b2a;
   overflow-x: hidden;
   padding-top: 20px;
-  font-family: Avenir; 
+  font-family: Avenir;
 }
 
-.switch-title { 
+.switch-title {
   font-size: 26px;
   padding: 5px;
 }
 
 .switch-container {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 }
 
 /*-----------------dropdown stuff------------------*/
 
 #map-toggles {
-  border-radius: 5%; 
+  border-radius: 5%;
 }
 
-.switch-title { 
+.switch-title {
   font-weight: bold;
   padding: 5px;
 }
@@ -636,15 +633,15 @@ input:checked + .slider:before {
 
 } */
 
-.dropdown-title { 
+.dropdown-title {
   height: 35px;
-  padding: 5px; 
+  padding: 5px;
 }
 
-.dropdown-title:hover { 
+.dropdown-title:hover {
   background-color: #48504e;
   border: 2px solid white;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 /* .dropdown-list { 
   height: 20px; 
@@ -653,7 +650,7 @@ input:checked + .slider:before {
 .dropdown-item {
   height: 35px;
   border: 1px solid white;
-  padding: 5px; 
+  padding: 5px;
 }
 
 #logo {

@@ -33,13 +33,6 @@ function App() {
 
   return (
     <div id="app-wrapper">
-      <div id="header-wrapper">
-        <Header />
-      </div>
-      <div id="top-background-color"></div>
-      <div id="fake-graph-wrapper">
-        <img src={backgroundGraph} />
-      </div>
       <div id="map-toggle-wrapper">
         <MapToggle
           setRegion={setRegion}
@@ -51,25 +44,33 @@ function App() {
           setgetData={setgetData}
         />
       </div>
-      {/* <div id="data-displays-wrapper"><DataDisplays /></div> */}
-      <div id="home-page">
-        <HomePage
-          getUSData={getUSData}
-          setGetUSData={setGetUSData}
-          getWorldData={getWorldData}
-          setGetWorldData={setGetWorldData}
-          getData = {getData}
-          region={region}
-          usBorderData={usBorderData}
-        />
+
+      <div id="header-wrapper">
+        <Header />
       </div>
-      {/* <Countries /> */}
+      <div id="top-background-color"></div>
+      <div id="fake-graph-wrapper">
+        <img src={backgroundGraph} />
+      </div>
       <div id="top-dash-header">
         <TopDash getData={getData} setgetData={setgetData} />
       </div>
       <div id="right-dash-header">
         <RightDash />
       </div>
+
+      <div id="home-page">
+        <HomePage
+          getUSData={getUSData}
+          setGetUSData={setGetUSData}
+          getWorldData={getWorldData}
+          setGetWorldData={setGetWorldData}
+          getData={getData}
+          region={region}
+          usBorderData={usBorderData}
+        />
+      </div>
+
       <div id="bottom-dash-header">
         <BottomDash />
       </div>
