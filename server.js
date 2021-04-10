@@ -168,7 +168,7 @@ app.get("/items/:client", async (request, response) => {
 //showSalesArray gets populated when the form is submitted
 let showWorldSalesArray = [];
 let showUSSalesArray = [];
-let formRes;
+// let formRes;
 
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results

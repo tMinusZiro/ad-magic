@@ -6,7 +6,7 @@ import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
 import LoadingMap from "./LoadingMap.jsx";
 import { features } from "../borderData/countries.json";
-import LoadingMap from "./LoadingMap";
+// import LoadingMap from "./LoadingMap";
 
 import Loading from "./Loading.jsx";
 
