@@ -44,36 +44,39 @@ function App() {
           setgetData={setgetData}
         />
       </div>
-
-      <div id="header-wrapper">
-        <Header />
-      </div>
-      <div id="top-background-color"></div>
-      <div id="fake-graph-wrapper">
-        <img src={backgroundGraph} />
-      </div>
-      <div id="top-dash-header">
-        <TopDash getData={getData} setgetData={setgetData} />
-      </div>
-      <div id="right-dash-header">
-        <RightDash />
-      </div>
-
-      <div id="home-page">
-        <HomePage
-          getUSData={getUSData}
-          setGetUSData={setGetUSData}
-          getWorldData={getWorldData}
-          setGetWorldData={setGetWorldData}
-          getData={getData}
-          region={region}
-          usBorderData={usBorderData}
-        />
-      </div>
-
-      <div id="bottom-dash-header">
-        <BottomDash />
-      </div>
+      <section className="container-one snap-child">
+        <div id="header-wrapper">
+          <Header />
+        </div>
+        <div id="top-background-color"></div>
+        <div id="fake-graph-wrapper">
+          <img src={backgroundGraph} />
+        </div>
+        <div id="right-dash-header">
+          <RightDash />
+        </div>
+        <div id="top-dash-header">
+          <TopDash getData={getData} setgetData={setgetData} />
+        </div>
+      </section>
+      <section className="container-two snap-child">
+        <div id="home-page">
+          <HomePage
+            getUSData={getUSData}
+            setGetUSData={setGetUSData}
+            getWorldData={getWorldData}
+            setGetWorldData={setGetWorldData}
+            getData={getData}
+            region={region}
+            usBorderData={usBorderData}
+          />
+        </div>
+      </section>
+      <section className="container-three snap-child">
+        <div id="bottom-dash-header">
+          <BottomDash />
+        </div>
+      </section>
     </div>
   );
 }
