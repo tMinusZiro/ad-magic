@@ -117,6 +117,7 @@ const MapToggle = (props) => {
 
   return (
     <div id="side-bar">
+      <h2 style={{ color: "white" }}>AdMagic</h2>
       <form method="POST" action="/show-item-sales">
         <div class="switch-container">
           <label class="switch" onChange={switchMap}>
