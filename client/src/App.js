@@ -59,7 +59,7 @@ function App() {
           <RightDash />
         </div>
       </section>
-      <section id="container-two " className="snap-child">
+      <section id="container-two" className="snap-child">
         <div id="home-page">
           <HomePage
             getUSData={getUSData}

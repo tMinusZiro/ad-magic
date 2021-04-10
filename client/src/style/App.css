@@ -37,10 +37,10 @@ html {
   justify-content: space-between;
 }
 
-#section-two {
+#container-two {
   grid-area: 2/2/3/3;
 }
-#section-three {
+#container-three {
   grid-area: 3/2/4/3;
 }
 
@@ -250,9 +250,27 @@ h6 {
 
 /*App.JS tag*/
 #home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
   height: 100%;
+}
+/*-----Burger-Map----------*/
+
+#map-component-wrapper {
+  box-sizing: border-box;
+
+  width: 70vw;
+}
+
+#map-legend-wrapper {
   width: 100%;
-  border: 2px solid purple;
+}
+
+/*Each legend color square*/
+#legend-button {
+  /* border-radius: 5px; */
 }
 
 /*------Fake Graph Background--------*/
@@ -480,66 +498,6 @@ h6 {
   /* justify-content: space-between; */
   text-align: center;
   font-size: x-large;
-}
-
-/*------Burger Menu------*/
-/*-----Burger-Map----------*/
-
-#map-component-wrapper {
-  box-sizing: border-box;
-}
-
-/*div wrapper on burger component in Home Page*/
-#map-burger-wrapper {
-  position: relative;
-  top: 7rem;
-
-  z-index: 600;
-  display: flex;
-  justify-content: flex-start;
-  flex: auto;
-  margin-left: 75vw;
-  margin-top: 4rem;
-}
-
-/*section tag that wraps all three divs*/
-.burger-menu {
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-/*Individual three divs*/
-.burger-menu div {
-  width: 2rem;
-  height: 0.25rem;
-  border-radius: 10px;
-  transition: all 0.3s linear;
-  /* position: relative; */
-  transform-origin: 1px;
-  box-sizing: border-box;
-}
-
-#map-legend-wrapper {
-  transition: transform 0.3s ease-in-out;
-}
-/* 
-  margin-left: 2rem;
-  margin-right: 2rem;
-  width: 100%;
-} */
-
-/*Each legend color square*/
-#legend-button {
-  border: 1px solid rgba(194, 27, 0, 0.979411833092612);
-  /* border-radius: 5px; */
 }
 
 /* -----------------------------------SIDEBAR---------------------------------*/

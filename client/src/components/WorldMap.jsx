@@ -11,7 +11,7 @@ import {
   Marker,
   GeoJSON,
 } from "react-leaflet";
-import MapBurger from "./MapBurger.jsx";
+
 //data set for global country borders
 import { features } from "../borderData/countries.json";
 //data set for us state borders
