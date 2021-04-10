@@ -12,6 +12,7 @@ const salesDB = new DataStore(
   "adMagic",
   "Sales"
 );
+let formRes;
 
 app.use(express.static(staticDir));
 app.use(express.urlencoded({ extended: true }));
@@ -280,7 +281,7 @@ app.get("/show-sales", async (request, response) => {
     });
     response.send(totalSalesArray);
   } else {
-    console.log(showWorldSalesArray)
+    console.log(showWorldSalesArray);
     response.send(showWorldSalesArray);
   }
 });

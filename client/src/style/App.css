@@ -2,7 +2,9 @@
   margin: 0;
   padding: 0;
 }
-
+html {
+  scroll-snap-type: y mandatory
+}
 body {
   background: #ebe7e7de;
   /* background: #efefef; */
@@ -12,19 +14,21 @@ body {
   grid-area: 1/1/3/4;
   z-index: -3;
   background-color: #a81515c7;
-  height: 55%;
+  height: 65%;
 }
 /*-------Parent Page Grid Wrapper---------*/
 #app-wrapper {
   display: grid;
-  grid-template-columns: 0.7fr 3fr;
-  grid-template-rows: 1fr 1.8fr 1.5fr 2fr 1fr;
+  grid-template-columns: 0.6fr 3fr;
+  grid-template-rows: 0.4fr 0.4fr 0.6fr 1fr 0.8fr;
   /* border: blue solid 5px; */
   grid-gap: 2rem;
   box-sizing: border-box;
-  border: 2px solid rgba(0, 5, 194, 0.979411833092612);
+  
+
 }
 
+/* scroll-snap-align: start; */
 /*-----------------MAP-------------*/
 
 /*App.JS tag*/
@@ -36,17 +40,8 @@ body {
   /* background: white; */
   /* box-shadow: 0.7px 0.7px 1.5px rgba(83, 82, 82, 0.514); */
   grid-area: 4/2/5/3;
+  border: 1px solid red;
 }
-
-/* Tag on Home Page*/
-
-/* #map-component-wrapper {
-  width: 100%;
-} */
-/*Wraps map container itself*/
-/* #map-wrapper {
-  border: 2px solid black;
-} */
 
 /*------Fake Graph Background--------*/
 #fake-graph-wrapper {
@@ -56,7 +51,7 @@ body {
 #fake-graph-wrapper img {
   margin-top: 1.5vh;
   width: 100%;
-  height: 45%;
+  height: 52%;
 }
 /*------Header----------*/
 
@@ -137,11 +132,9 @@ h6 {
   text-align: center;
   align-items: center;
   font-weight: bold;
+  border: 1px solid red;
   background-color: #272b2a;
   color: white;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
 }
 /*------ ---------switch on sidebar -----------------*/
 .switch {
@@ -212,6 +205,9 @@ input:checked + .slider:before {
   background-color: #518194;
   overflow-x: hidden;
   padding-top: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 /*-----sidebar styling*/
@@ -260,10 +256,9 @@ option {
 }
 
 #v-and-r-flexWrap {
-  margin-top: 20vh;
   display: flex;
   gap: 5rem;
-  height: 45%;
+  height: 65%;
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
@@ -310,16 +305,16 @@ option {
 
 /*--------------BOTTOM PIE CHARTS---------------*/
 
-/*Bottom Three Graph*/
+/*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
   grid-area: 5/2/6/3;
   /* border: 5px yellow solid; */
-  height: 12em;
+  height: 70%;
   box-sizing: border-box;
-  border: 2px solid chartreuse;
 }
+/*parent wrapper for three pie chart components*/
 #bottom-cont {
-  /* border: 5px salmon solid; */
+  margin-top: 8vh;
   display: flex;
   flex-flow: row;
   justify-content: space-around;
@@ -327,38 +322,48 @@ option {
   width: 100%;
   height: 100%;
 }
+/*--class wrapper for each individual pie chart component--*/
 .bottom-charts {
-  border: 2px rgb(205, 203, 203) solid;
   width: 30%;
   height: 90%;
-  background-color: rgb(233, 231, 231);
-  border-radius: 15px;
-  border: 2px solid red;
+  /* border-radius: 15px; */
 }
 
-/* // */
+/*--wrapper for actual fulfillment pie chart--*/
 #f-chart {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
   height: 100%;
   width: 100%;
 }
+/*--wrapper for actual Opt In Marketing pie chart--*/
 #M-chart {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
   /* background-color: rgba(255, 119, 0, 0.461); */
   height: 100%;
   width: 100%;
 }
+
+/*--wrapper for actual Sales Type pie chart--*/
 #charts {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
   /* background-color: rgba(255, 119, 0, 0.461); */
   height: 100%;
   width: 100%;
@@ -390,12 +395,10 @@ option {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  gap: 3rem;
+  /* gap: 2rem; */
   height: 100%;
-
-  margin-top: 3rem;
 }
-.top-tile-background {
+/* .top-tile-background {
   background-color: white;
   box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
 
@@ -403,12 +406,15 @@ option {
   height: 85%;
   margin-top: 6rem;
   border-radius: 5px;
-}
+} */
 
 .dashboard {
   margin: 1em;
   padding: 1em;
   height: 10vh;
+
+ 
+  /* height: 10vh; */
   color: #000000;
   border: 2px solid black;
   border-radius: 10px;
@@ -426,32 +432,22 @@ option {
   font-size: 5vh;
   display: inline-block;
 }
-/* #total-sales {
-  background: rgb(168, 194, 0);
-  background: linear-gradient(
-    48deg,
-    rgba(168, 194, 0, 1) 0%,
-    rgba(82, 222, 54, 1) 100%
-  );
+#total-sales {
+  background: white;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  color: black;
 }
 #average-price {
-  background: rgb(0, 5, 194);
-  background: linear-gradient(
-    354deg,
-    rgba(0, 5, 194, 0.979411833092612) 2%,
-    rgba(54, 205, 222, 1) 54%,
-    rgba(54, 157, 222, 1) 71%
-  );
+  background: white;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  color: black;
 }
 #item-sold {
-  background: rgb(194, 27, 0);
-  background: linear-gradient(
-    354deg,
-    rgba(194, 27, 0, 0.979411833092612) 2%,
-    rgba(205, 54, 222, 1) 54%
-  );
-} */
-
+  color: black;
+  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  background: white;
+}
+/*----------------------------------------*/
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
   display: flex;
@@ -486,7 +482,6 @@ option {
 /*-----Burger-Map----------*/
 
 #map-component-wrapper {
-  border: 2px solid purple;
   box-sizing: border-box;
 }
 
@@ -494,10 +489,10 @@ option {
 #map-burger-wrapper {
   position: relative;
   top: 7rem;
-  border: 1px solid red;
+
   z-index: 600;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex: auto;
   margin-left: 75vw;
   margin-top: 4rem;
@@ -516,7 +511,6 @@ option {
   border: none;
   cursor: pointer;
   padding: 0;
-  border: 2px solid blue;
 }
 /*Individual three divs*/
 .burger-menu div {

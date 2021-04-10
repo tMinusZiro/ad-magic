@@ -51,8 +51,8 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
           openLegend
             ? {
                 transform: "translateY(0)",
-                display: "flex",
-                alignItems: "stretch",
+                // display: "flex",
+                // alignItems: "stretch",
               }
             : {
                 transform: "translateY(-100%)",
@@ -73,10 +73,11 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
               backgroundColor: item.color,
               flex: 1,
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: "column",
+              // alignItems: "center",
+              // justifyContent: "center",
               color: item.textColor,
-              height: "10vh",
+              height: "4vh",
               border: "none",
               fontWeight: "bolder",
               fontSize: "1.5em",

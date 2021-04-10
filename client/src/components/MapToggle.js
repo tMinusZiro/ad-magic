@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import logo from "./../svg/logo.png"
+import logo from "./../svg/logo.png";
 
 const MapToggle = (props) => {
-  //useHistory to push to correct page on map toggle 
+  //useHistory to push to correct page on map toggle
   const history = useHistory();
   //list of all clients in database
   const [clientList, setClientList] = useState();
@@ -77,9 +77,9 @@ const MapToggle = (props) => {
   function reLoad(event) {
     props.setgetData(true);
     if (window.location.pathname === "/") {
-      props.setGetWorldData(true)
-    } else if (window.location.pathname ==="/united") { 
-      props.setGetUSData(true)
+      props.setGetWorldData(true);
+    } else if (window.location.pathname === "/united") {
+      props.setGetUSData(true);
     }
   }
 
@@ -128,13 +128,13 @@ const MapToggle = (props) => {
     }
   }
 
-  useEffect(() => { 
-  if (window.location.pathname === "/united") {
-    setCheckedStatus(true)
-  } else if(window.location.pathname === "/") {
-    setCheckedStatus(false)
-  }
-}, [window.location.pathname])
+  useEffect(() => {
+    if (window.location.pathname === "/united") {
+      setCheckedStatus(true);
+    } else if (window.location.pathname === "/") {
+      setCheckedStatus(false);
+    }
+  }, [window.location.pathname]);
 
   function handleRegionDropdown(event) {
     setDisplayRegions(!displayRegions);
@@ -147,96 +147,109 @@ const MapToggle = (props) => {
 
   return (
     <div id="side-bar">
-      <img id = "logo" src={logo} ></img>
+      <img id="logo" src={logo}></img>
       <form method="POST" action="/show-item-sales">
-      <div id="map-toggles">
-        MAP TOGGLES
-        <br></br>
-        <div class="switch-container">
-          <div class = "switch-title">World</div> 
-          <label class="switch" onChange={switchMap}>
-            <input type="checkbox" name="US" defaultChecked={checkStatus} />
-            <span class="slider round"></span>
-          </label><div class = "switch-title">US</div> 
-        </div>
-        <br></br>
-        <div class="dropdown-container">
-          <div class="dropdown-title" onClick={handleRegionDropdown}>
-            Region: {props.region}
-          </div>
-          <ul>
-            {displayRegions
-              ? regionList.map((item, index) => {
-                  return <li class = "dropdown-item" onClick ={changeRegion} key={index}>{item}</li>;
-                })
-              : null}
-          </ul>
-        </div>
-      </div>
-
-      <select name="datePreset" onChange={showCalendar} defaultValue="all-time">
-        <option>View By:</option>
-        <option value="all-time">All Time</option>
-        <option value="week">Past Week</option>
-        <option value="month">Past Month</option>
-        <option value="quarter">Last Quarter</option>
-        <option value="six-months">Past Six Months</option>
-        <option value="year">Past Year</option>
-        <option value="custom">Custom Timeframe</option>
-      </select>
-      {showCustomDate ? (
-        <div>
-          <label for="startDate">Start Date: </label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            defaultValue="2018-01-01"
-          ></input>
-
-          <label for="endDate">End Date: </label>
+        <div id="map-toggles">
+          MAP TOGGLES
           <br></br>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            defaultValue={defaultDate}
-          ></input>
+          <div class="switch-container">
+            <div class="switch-title">World</div>
+            <label class="switch" onChange={switchMap}>
+              <input type="checkbox" name="US" defaultChecked={checkStatus} />
+              <span class="slider round"></span>
+            </label>
+            <div class="switch-title">US</div>
+          </div>
+          <br></br>
+          <div class="dropdown-container">
+            <div class="dropdown-title" onClick={handleRegionDropdown}>
+              Region: {props.region}
+            </div>
+            <ul>
+              {displayRegions
+                ? regionList.map((item, index) => {
+                    return (
+                      <li
+                        class="dropdown-item"
+                        onClick={changeRegion}
+                        key={index}
+                      >
+                        {item}
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
         </div>
-      ) : null}
 
-      {clientList ? (
-        <div>
-          <select name="account" defaultValue="all" onChange={changeAccount}>
-            <option>Client</option>
-            <option value="all">View All Clients</option>
-            {clientList.map((client, index) => {
-              return (
-                <option key={index} value={client}>
-                  {client}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      ) : null}
+        <select
+          name="datePreset"
+          onChange={showCalendar}
+          defaultValue="all-time"
+        >
+          <option>View By:</option>
+          <option value="all-time">All Time</option>
+          <option value="week">Past Week</option>
+          <option value="month">Past Month</option>
+          <option value="quarter">Last Quarter</option>
+          <option value="six-months">Past Six Months</option>
+          <option value="year">Past Year</option>
+          <option value="custom">Custom Timeframe</option>
+        </select>
+        {showCustomDate ? (
+          <div>
+            <label for="startDate">Start Date: </label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              defaultValue="2018-01-01"
+            ></input>
 
-      {listOfItems ? (
-        <div>
-          <select name="item" defaultValue="all-items">
-            <option value="all-items">View All Items</option>
-            {listOfItems.map((item, index) => {
-              return (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      ) : null}
+            <label for="endDate">End Date: </label>
+            <br></br>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              defaultValue={defaultDate}
+            ></input>
+          </div>
+        ) : null}
 
-      <input type="submit" value="Show Sales!" onClick={reLoad} />
+        {clientList ? (
+          <div>
+            <select name="account" defaultValue="all" onChange={changeAccount}>
+              <option>Client</option>
+              <option value="all">View All Clients</option>
+              {clientList.map((client, index) => {
+                return (
+                  <option key={index} value={client}>
+                    {client}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        ) : null}
+
+        {listOfItems ? (
+          <div>
+            <select name="item" defaultValue="all-items">
+              <option value="all-items">View All Items</option>
+              {listOfItems.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        ) : null}
+
+        <input type="submit" value="Show Sales!" onClick={reLoad} />
       </form>
     </div>
   );
