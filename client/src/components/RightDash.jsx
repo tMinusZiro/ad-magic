@@ -45,12 +45,13 @@ export default function RightDash() {
     //total sales chart
     Vendors[0].forEach((type) => {
       console.log("TYpe : ", type);
-      VLabels.push(type._id);
-      let amount = type.numberOfSales;
-
-      VAmount.push(amount);
-      let sales = type.totalSales;
-      VSales.push(numFormatter(sales));
+      if (VLabels.length < 5 && type._id !== "Breaking Games") {
+        VLabels.push(type._id);
+        let amount = type.numberOfSales;
+        VAmount.push(amount);
+        let sales = type.totalSales;
+        VSales.push(numFormatter(sales));
+      }
     });
     setVendorsLabels(VLabels);
     setVendorsAmounts(VAmount);
@@ -58,9 +59,11 @@ export default function RightDash() {
     // total revenue chart
     Vendors[1].forEach((type) => {
       console.log("TYpe : ", type);
-      RLabels.push(type._id);
-      let amount = type.totalSales;
-      RAmount.push(numFormatter(amount));
+      if (RLabels.length < 5) {
+        RLabels.push(type._id);
+        let amount = type.totalSales;
+        RAmount.push(numFormatter(amount));
+      }
       console.log("Rev amount :", RAmount);
       // let sales = type.totalSales;
       // RSales.push(numFormatter(sales));

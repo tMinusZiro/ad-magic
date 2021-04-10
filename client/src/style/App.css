@@ -409,16 +409,28 @@ option {
   margin: 1em;
   padding: 1em;
   height: 10vh;
-  color: white;
-
-  border-radius: 15px;
-  background-color: rgb(115, 204, 98);
-  /* height: 10vh; */
+  color: #000000;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #ffffff;
   font-size: 2vh;
   display: flex;
   flex-flow: column wrap;
   align-items: flex-start;
   justify-content: space-around;
+}
+.top-dash-logo {
+  position: absolute;
+  margin-bottom: 6.5em;
+  width: 7vw;
+  height: 3vh;
+  padding: 0.5em;
+  background-color: rgb(59, 184, 59);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .top-dash-small {
   font-size: 3vh;
@@ -427,7 +439,7 @@ option {
   font-size: 5vh;
   display: inline-block;
 }
-#total-sales {
+/* #total-sales {
   background: rgb(168, 194, 0);
   background: linear-gradient(
     48deg,
@@ -451,7 +463,7 @@ option {
     rgba(194, 27, 0, 0.979411833092612) 2%,
     rgba(205, 54, 222, 1) 54%
   );
-}
+} */
 
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {

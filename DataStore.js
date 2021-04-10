@@ -174,49 +174,175 @@ class DataStore {
     }
   }
   //Sale Type chart data
-  async salesTypes() {
+  async salesTypes(client, item) {
     const collection = await this.openConnect();
-    const types = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$Sales_Type__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return types;
+      ]);
+      return types;
+    } else if (client !== "all" && item === "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    } else if (client === "all" && item !== "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    } else if (client !== "all" && item !== "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    }
   }
   //Fullfilment chart data
-  async fullfilmentType(input) {
+  async fullfilmentType(client, item) {
     const collection = await this.openConnect();
-    const fullfilment = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$Fulfillment_Type__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return fullfilment;
+      ]);
+      return fullfilment;
+    } else if (client !== "all" && item === "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    } else if (client === "all" && item !== "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    } else if (client !== "all" && item !== "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    }
   }
   //Marketing chart data
-  async MarketingOpt() {
+  async MarketingOpt(client, item) {
     const collection = await this.openConnect();
-    const marketingOpt = await collection.aggregate([
-      { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$opt_in__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return marketingOpt;
+      ]);
+      return marketingOpt;
+    } else if (client !== "all" && item === "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    } else if (client === "all" && item !== "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    } else if (client !== "all" && item !== "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    }
   }
   //   //Vendors chart data
   async Vendors(client, item) {

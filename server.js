@@ -53,36 +53,77 @@ app.get("/total-sales", async (request, response) => {
 });
 
 app.get("/salesTypes", async (request, response) => {
-  let salesTypes = await salesDB.salesTypes();
-  let types = [];
-  await salesTypes.forEach((entry) => {
-    types.push(entry);
-  });
-  response.send(types);
+  let client = "all";
+  let item = "all-items";
+  if (!formRes) {
+    let salesTypes = await salesDB.salesTypes(client, item);
+    let types = [];
+    await salesTypes.forEach((entry) => {
+      types.push(entry);
+    });
+    response.send(types);
+  } else if (formRes) {
+    client = formRes.account;
+    item = formRes.item;
+    let salesTypes = await salesDB.salesTypes(client, item);
+    let types = [];
+    await salesTypes.forEach((entry) => {
+      types.push(entry);
+    });
+    response.send(types);
+  }
 });
 
 //fullfilment chart data
 app.get("/fullfilment", async (request, response) => {
-  let fullfilmentType = await salesDB.fullfilmentType();
-  let types = [];
-  await fullfilmentType.forEach((entry) => {
-    types.push(entry);
-  });
-  response.send(types);
+  let client = "all";
+  let item = "all-items";
+  // default fetch
+  if (!formRes) {
+    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    let types = [];
+    await fullfilmentType.forEach((entry) => {
+      types.push(entry);
+    });
+    response.send(types);
+    // fetch after the form is submitted
+  } else if (formRes) {
+    client = formRes.account;
+    item = formRes.item;
+    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    let types = [];
+    await fullfilmentType.forEach((entry) => {
+      types.push(entry);
+    });
+    response.send(types);
+  }
 });
 
 //marketing chart data
 app.get("/marketing", async (request, response) => {
-  let optInMarketing = await salesDB.MarketingOpt();
-  let opt = [];
-  await optInMarketing.forEach((entry) => {
-    opt.push(entry);
-  });
-  response.send(opt);
+  let client = "all";
+  let item = "all-items";
+  if (!formRes) {
+    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    let opt = [];
+    await optInMarketing.forEach((entry) => {
+      opt.push(entry);
+    });
+    response.send(opt);
+  } else if (formRes) {
+    client = formRes.account;
+    item = formRes.item;
+    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    let opt = [];
+    await optInMarketing.forEach((entry) => {
+      opt.push(entry);
+    });
+    response.send(opt);
+  }
 });
 
 //vendors chart data
-app.get("/vendorss", async (request, response) => {
+app.get("/vendors", async (request, response) => {
   let vendorQyt = [];
   let vendorRev = [];
   let vendorTopFive = [];
@@ -90,8 +131,10 @@ app.get("/vendorss", async (request, response) => {
   let result = [];
   let client = "all";
   let item = "all-items";
+  // default fetch
   if (!formRes) {
     let Vendors = await salesDB.Vendors(client, item);
+    console.log("2nd fetch vendors", Vendors);
     await Vendors.forEach((entry) => {
       console.log("entry", entry);
       vendorQyt.push(entry.numberOfSales);
@@ -104,6 +147,7 @@ app.get("/vendorss", async (request, response) => {
       await Vendors.forEach((entry) => {
         if (entry.numberOfSales === vendorQyt[i]) {
           vendorTopFive.push(entry);
+
           console.log("top 5 entry:", entry);
           console.log("top 5 §:", vendorTopFive);
         }
@@ -127,6 +171,7 @@ app.get("/vendorss", async (request, response) => {
     console.log("Vendor Rev", vendorTopRev);
     console.log("Result: ", result);
     response.send(result);
+    // filter fetch
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
@@ -140,6 +185,7 @@ app.get("/vendorss", async (request, response) => {
     for (let i = 0; i < 5; i++) {
       await Vendors.forEach((entry) => {
         if (entry.numberOfSales === vendorQyt[i]) {
+          console.log("Top five");
           vendorTopFive.push(entry);
         }
       });
@@ -199,7 +245,7 @@ let showUSSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
-  console.log(formRes);
+  console.log("form results", formRes);
   if (formRes.US === "on") {
     console.log("HI I HAVE ENTERED THE POST and IN US MAP");
     //empty out an prior results
