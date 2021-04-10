@@ -42,12 +42,44 @@ class DataStore {
     return result;
   }
   //filtered top dashboard data
-  async filterTotalSales(client, item) {
+  async filterTotalSales(client, item, formResults) {
+    changeDate(formResults);
+
     const collection = await this.openConnect();
     //filter function
     if (client === "all" && item === "all-items") {
       const result = await collection.aggregate([
-        // { $match: { Scrubbed__c: "true" } },
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        { $match: { Scrubbed__c: "true" } },
         {
           $group: {
             _id: "$Scrubbed__c",
@@ -61,9 +93,41 @@ class DataStore {
     }
     // filter by item
     else if (client === "all" && item !== "all-items") {
+      // changeDate(formResults);
+      console.log("new end :", newEnd);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $gte: [
+        //         newEnd,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $lte: [
+        //         newStart,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
         {
           $group: {
             _id: "$Scrubbed__c",
@@ -80,7 +144,6 @@ class DataStore {
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
-        { $match: { Item__c: item } },
         {
           $group: {
             _id: "$Account__c",
@@ -111,53 +174,182 @@ class DataStore {
     }
   }
   //Sale Type chart data
-  async salesTypes() {
+  async salesTypes(client, item) {
     const collection = await this.openConnect();
-    const types = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$Sales_Type__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return types;
+      ]);
+      return types;
+    } else if (client !== "all" && item === "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    } else if (client === "all" && item !== "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    } else if (client !== "all" && item !== "all-items") {
+      const types = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Sales_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return types;
+    }
   }
   //Fullfilment chart data
-  async fullfilmentType(input) {
+  async fullfilmentType(client, item) {
     const collection = await this.openConnect();
-    const fullfilment = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$Fulfillment_Type__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return fullfilment;
+      ]);
+      return fullfilment;
+    } else if (client !== "all" && item === "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    } else if (client === "all" && item !== "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    } else if (client !== "all" && item !== "all-items") {
+      const fullfilment = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$Fulfillment_Type__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return fullfilment;
+    }
   }
   //Marketing chart data
-  async MarketingOpt() {
+  async MarketingOpt(client, item) {
     const collection = await this.openConnect();
-    const marketingOpt = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
-      {
-        $group: {
-          _id: "$opt_in__c",
-          numberOfSales: { $sum: "$QTY__c" },
-          totalSales: { $sum: "$Total_Sales__c" },
+    if (client === "all" && item === "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
         },
-      },
-    ]);
-    return marketingOpt;
+      ]);
+      return marketingOpt;
+    } else if (client !== "all" && item === "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    } else if (client === "all" && item !== "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    } else if (client !== "all" && item !== "all-items") {
+      const marketingOpt = await collection.aggregate([
+        { $match: { Scrubbed__c: "true" } },
+        { $match: { Account__c: client } },
+        { $match: { Item__c: item } },
+        {
+          $group: {
+            _id: "$opt_in__c",
+            numberOfSales: { $sum: "$QTY__c" },
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+      return marketingOpt;
+    }
   }
   //   //Vendors chart data
   async Vendors(client, item) {
     const collection = await this.openConnect();
+    console.log("in Vendors function");
+    console.log("client: ", client);
+    console.log("item: ", item);
     if (client === "all" && item === "all-items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
@@ -565,7 +757,6 @@ class DataStore {
 
 let newStart = new Date();
 let newEnd = new Date();
-
 function changeDate(formResults) {
   //decide on start date based on pre-sets or user input
   if (formResults.startDate && formResults.endDate) {
