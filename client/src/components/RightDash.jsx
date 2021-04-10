@@ -71,7 +71,7 @@ export default function RightDash() {
     setVTrigger(true);
   }
   return (
-    <div>
+    <div id="v-and-r-flexWrap">
       <div className="right-charts">
         <VendorsTopFive
           VendorsLabels={VendorsLabels}
