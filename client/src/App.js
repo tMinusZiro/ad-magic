@@ -44,22 +44,22 @@ function App() {
           setgetData={setgetData}
         />
       </div>
-      <section className="container-one snap-child">
+      <div id="top-background-color"></div>
+      <section id="container-one" className="snap-child">
         <div id="header-wrapper">
           <Header />
         </div>
-        <div id="top-background-color"></div>
-        <div id="fake-graph-wrapper">
-          <img src={backgroundGraph} />
+
+        <div id="fake-graph-wrapper">{/* <img src={backgroundGraph} /> */}</div>
+
+        <div id="top-dash-header">
+          <TopDash getData={getData} setgetData={setgetData} />
         </div>
         <div id="right-dash-header">
           <RightDash />
         </div>
-        <div id="top-dash-header">
-          <TopDash getData={getData} setgetData={setgetData} />
-        </div>
       </section>
-      <section className="container-two snap-child">
+      <section id="container-two " className="snap-child">
         <div id="home-page">
           <HomePage
             getUSData={getUSData}
@@ -72,7 +72,7 @@ function App() {
           />
         </div>
       </section>
-      <section className="container-three snap-child">
+      <section id="container-three" className="snap-child">
         <div id="bottom-dash-header">
           <BottomDash />
         </div>

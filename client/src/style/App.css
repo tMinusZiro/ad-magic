@@ -2,130 +2,50 @@
   margin: 0;
   padding: 0;
 }
-
+/*This helps the snapping work in safari*/
 body {
   background: #ebe7e7de;
+  scroll-snap-type: y mandatory;
   /* background: #efefef; */
 }
-/*Splits the top half of the viewport with contrasting color*/
-/* #top-background-color {
-  z-index: -3;
-  background-color: #a81515c7;
-  height: 65%;
-} */
+/*This helps the snapping work in chrome and firefox*/
+html {
+  scroll-snap-type: y mandatory;
+}
+
 /*-------Parent Page Grid Wrapper---------*/
 #app-wrapper {
   display: grid;
   grid-template-columns: 0.6fr 3fr;
   grid-template-rows: 100vh 100vh 100vh;
   /* border: blue solid 5px; */
-  grid-gap: 2rem;
+  /* grid-gap: 2rem; */
   box-sizing: border-box;
-  scroll-snap-type: y mandatory;
 }
 
 /*----main grid child containers-----*/
 .snap-child {
   scroll-snap-align: start;
-  border: 1px solid red;
+
+  box-sizing: border-box;
+}
+#container-one {
+  grid-area: 1/2/2/3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.section-one {
-  grid-area: 1/2/2/3;
-}
-.section-two {
+#section-two {
   grid-area: 2/2/3/3;
 }
-.section-three {
+#section-three {
   grid-area: 3/2/4/3;
 }
 
-/* scroll-snap-align: start; */
-/*-----------------MAP-------------*/
-
-/*App.JS tag*/
-#home-page {
-  height: 100%;
-  width: 100%;
-}
-
-/*------Fake Graph Background--------*/
-/* #fake-graph-wrapper {
-  z-index: -1;
-}
-#fake-graph-wrapper img {
-  margin-top: 1.5vh;
-  width: 100%;
-  height: 52%;
-} */
-/*------Header----------*/
-
-#header-wrapper {
-  /* background-color: trans; */
-  /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
-  border-radius: 5px;
-  height: 10%;
-
-  /* margin-right: 2rem;*/
-  margin-top: 0.9rem;
-}
-
-#main-head-flex {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-#head-flex-one {
-  display: flex;
-  /* flex: auto; */
-  width: 35%;
-  align-items: center;
-  justify-content: center;
-  /* background-color: rgb(67, 149, 226); */
-}
-#head-flex-two {
-  display: flex;
-  /* flex: auto; */
-  width: 20%;
-  align-items: center;
-  justify-content: space-evenly;
-  /* margin-left: 5vw; */
-}
-
-.header-svg-wrapper {
-}
-.header-svg-wrapper img {
-  max-width: 1.6vw;
-}
-
-#user-wrapper {
-  box-sizing: border-box;
-  display: flex;
-}
-#user-wrapper img {
-  max-width: 1.8vw;
-  border: 1px solid black;
-  border-radius: 50%;
-}
-
-#user-id {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-/* user name and status*/
-#user-id h5,
-h6 {
-  color: white;
-}
-/*header title*/
-#head-flex-one h3 {
-  color: white;
-}
-
-/*--------------Map Toggle--------- ------*/
-
+/*---------------SIDE BAR------------------*/
+/*Main Side bar parent component wrapper*/
 #map-toggle-wrapper {
   /* border: 5px black solid; */
   grid-area: 1/1/4/2;
@@ -135,7 +55,7 @@ h6 {
   text-align: center;
   align-items: center;
   font-weight: bold;
-  border: 1px solid red;
+
   background-color: #272b2a;
   color: white;
 }
@@ -249,24 +169,122 @@ option {
   display: inline;
 }
 /*-------------------------*/
+
+/*Splits the top half of the viewport with contrasting color*/
+#top-background-color {
+  background-color: #a81515c7;
+  height: 42%;
+  grid-area: 1/2/2/3;
+  z-index: -1;
+}
+
+/*------Header----------*/
+
+#header-wrapper {
+  /* background-color: trans; */
+  /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
+
+  /* align-items: flex-start; */
+  border-radius: 5px;
+  /* height: 10%; */
+  width: 100%;
+  /* flex: auto; */
+}
+
+#main-head-flex {
+  display: flex;
+  /* height: 100%;
+  width: 100%; */
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+#head-flex-one {
+  display: flex;
+  /* flex: auto; */
+  width: 35%;
+  align-items: center;
+  justify-content: center;
+}
+#head-flex-two {
+  display: flex;
+  /* flex: auto; */
+  width: 20%;
+  align-items: center;
+  justify-content: space-evenly;
+  /* margin-left: 5vw; */
+}
+
+.header-svg-wrapper {
+}
+.header-svg-wrapper img {
+  max-width: 1.6vw;
+}
+
+#user-wrapper {
+  box-sizing: border-box;
+  display: flex;
+}
+#user-wrapper img {
+  max-width: 1.8vw;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+#user-id {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+/* user name and status*/
+#user-id h5,
+h6 {
+  color: white;
+}
+/*header title*/
+#head-flex-one h3 {
+  color: white;
+}
+
+/*-----------------MAP-------------*/
+
+/*App.JS tag*/
+#home-page {
+  height: 100%;
+  width: 100%;
+  border: 2px solid purple;
+}
+
+/*------Fake Graph Background--------*/
+/* #fake-graph-wrapper {
+  z-index: -1;
+}
+#fake-graph-wrapper img {
+  margin-top: 1.5vh;
+  width: 100%;
+  height: 52%;
+} */
+
 /*-----------------APEX CHARTS and GRAPHS-----------------------------*/
 
 /*------------------TOP BAR GRAPHS---------------*/
 /*This includes two right side graphs*/
 /*In App.JS Wrapper for main parent component*/
-/* #right-dash-header {
-} */
+#right-dash-header {
+  height: 30vh;
+  margin-bottom: 1rem;
+}
 
 #v-and-r-flexWrap {
   display: flex;
   gap: 5rem;
-  height: 65%;
+  height: 100%;
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
   /* border: 2px rgb(205, 203, 203) solid; */
   /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
-  width: 50%;
+  width: 100%;
   height: 100%;
   /* background-color: white; */
   border-radius: 15px;
@@ -309,7 +327,7 @@ option {
 
 /*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
-  /* border: 5px yellow solid; */
+  border: 2px yellow solid;
   height: 70%;
   box-sizing: border-box;
 }
@@ -381,41 +399,28 @@ option {
 
 /*---------Top Dashboard Tiles-------------- */
 
-/*Three financial top tiles */
+/*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
-  /* margin-top: 10rem; */
-  height: 100%;
-
-  padding: 10px;
 }
 
 #top-dash {
   /* display: grid;
   grid-template-columns: repeat(3 1fr); */
+
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+
   /* gap: 2rem; */
-  height: 100%;
 }
-/* .top-tile-background {
-  background-color: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
 
-  width: 25vw;
-  height: 85%;
-  margin-top: 6rem;
-  border-radius: 5px;
-} */
-
+/*class for each individual top dash tile*/
 .dashboard {
   margin: 1em;
   padding: 1em;
-  height: 10vh;
-
   /* height: 10vh; */
   color: #000000;
-  border: 2px solid black;
+
   border-radius: 10px;
   background-color: #ffffff;
   font-size: 2vh;
