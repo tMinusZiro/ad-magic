@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts";
 export default function VendorsRev(props) {
   const series = [
     {
-      name: "Revenue",
+      name: "Gross Revenue",
       data: props.RevenueAmounts,
     },
   ];
@@ -32,7 +32,7 @@ export default function VendorsRev(props) {
     },
     yaxis: {
       title: {
-        text: "Revenue",
+        text: "Gross Revenue (K)",
       },
     },
     fill: {
@@ -41,7 +41,7 @@ export default function VendorsRev(props) {
     tooltip: {
       y: {
         formatter: function (val) {
-          return "$ " + val + " thousands";
+          return "$ " + val + " Thousand";
         },
       },
     },

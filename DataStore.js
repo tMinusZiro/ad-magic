@@ -43,42 +43,42 @@ class DataStore {
   }
   //filtered top dashboard data
   async filterTotalSales(client, item, formResults) {
-    // changeDate(formResults);
+    changeDate(formResults);
 
     const collection = await this.openConnect();
     //filter function
     if (client === "all" && item === "all-items") {
       const result = await collection.aggregate([
-        // {
-        //   $match: {
-        //     $expr: {
-        //       $gte: [
-        //         newEnd,
-        //         {
-        //           $dateToString: {
-        //             date: "$Transaction_date__c",
-        //             format: "%Y-%m-%d",
-        //           },
-        //         },
-        //       ],
-        //     },
-        //   },
-        // },
-        // {
-        //   $match: {
-        //     $expr: {
-        //       $lte: [
-        //         newStart,
-        //         {
-        //           $dateToString: {
-        //             date: "$Transaction_date__c",
-        //             format: "%Y-%m-%d",
-        //           },
-        //         },
-        //       ],
-        //     },
-        //   },
-        // },
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {

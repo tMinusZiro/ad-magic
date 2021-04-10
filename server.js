@@ -44,7 +44,7 @@ app.get("/total-sales", async (request, response) => {
     }
     console.log("in fetch");
     let filters;
-    let result = await salesDB.filterTotalSales(client, item);
+    let result = await salesDB.filterTotalSales(client, item, formRes);
     await result.forEach((entry) => {
       filters = entry;
     });

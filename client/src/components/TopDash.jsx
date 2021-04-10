@@ -36,7 +36,7 @@ export default function TopDash(props) {
     <section id="top-dash">
       <div className="top-tile-background">
         <div id="total-sales" className="dashboard">
-          <span className={"top-dash-logo"}>Total Sales</span>
+          Gross Revenue
           <span className="top-dash-num">
             {TotalSales} <span className="top-dash-small">$</span>
           </span>
@@ -44,7 +44,7 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="average-price" className="dashboard">
-          <span className={"top-dash-logo"}>Average price</span>
+          Average Sale
           <span className="top-dash-num">
             {averagePrice} <span className="top-dash-small">$</span>
           </span>
@@ -52,7 +52,7 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="item-sold" className="dashboard">
-          <span className={"top-dash-logo"}>Items Sold</span>
+          Items Sold
           <span className="top-dash-num">
             {itemSold} <span className="top-dash-small">items</span>
           </span>

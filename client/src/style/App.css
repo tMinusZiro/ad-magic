@@ -419,19 +419,6 @@ option {
   align-items: flex-start;
   justify-content: space-around;
 }
-.top-dash-logo {
-  position: absolute;
-  margin-bottom: 6.5em;
-  width: 7vw;
-  height: 3vh;
-  padding: 0.5em;
-  background-color: rgb(59, 184, 59);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 .top-dash-small {
   font-size: 3vh;
 }
