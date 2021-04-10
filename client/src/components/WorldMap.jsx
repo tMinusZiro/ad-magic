@@ -25,14 +25,13 @@ const Map = (props) => {
   const [worldMapZoom, setWorldMapZoom] = useState();
   const [newWorldCenter, setWorldCenter] = useState();
 
-
   // countryBorder.properties.color
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
     return {
       fillColor: "white", // color of country
       weight: 1.2, //thickness of country border lines
-      color: "blue", //color of country border line
+      color: "#84b6e1", //color of country border line
       fillOpacity: 1,
     };
   };
@@ -69,16 +68,15 @@ const Map = (props) => {
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
   function onEachState(countryBorder, layer) {
-      //fill color on geojson layer
-      layer.options.fillColor = countryBorder.properties.color;
-      const countryName = countryBorder.properties.ADMIN;
-      //will show total sales of each country when country is clicked
-      const totalSales = countryBorder.properties.totalSales;
-      //info on popup when country is clicked
-      layer.bindPopup(`${countryName} Total Sales:
+    //fill color on geojson layer
+    layer.options.fillColor = countryBorder.properties.color;
+    const countryName = countryBorder.properties.ADMIN;
+    //will show total sales of each country when country is clicked
+    const totalSales = countryBorder.properties.totalSales;
+    //info on popup when country is clicked
+    layer.bindPopup(`${countryName} Total Sales:
     $${Math.round(totalSales)} `);
-    
-    }
+  }
 
   function highlightFeature(e) {
     let layer = e.target;
@@ -103,7 +101,13 @@ const Map = (props) => {
           center={mapCenter}
           scrollWheelZoom={false}
           zoom={mapZoom}
-          style={{ height: "64vh", width: "60vw" }}
+          style={{
+            // width: "50vw",
+            // border: "3px solid black",
+            backgroundColor: "#84b6e1",
+            borderRadius: "5px",
+            height: "60vh",
+          }}
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON

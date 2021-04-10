@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import logo from "./../svg/logo.png"
 
 const MapToggle = (props) => {
   //useHistory to push to correct page on map toggle 
@@ -75,8 +76,10 @@ const MapToggle = (props) => {
 
   function reLoad(event) {
     props.setgetData(true);
-    if (window.location.pathname === "/") { 
-      
+    if (window.location.pathname === "/") {
+      props.setGetWorldData(true)
+    } else if (window.location.pathname ==="/united") { 
+      props.setGetUSData(true)
     }
   }
 
@@ -144,20 +147,20 @@ const MapToggle = (props) => {
 
   return (
     <div id="side-bar">
-      <img id = "logo" src="/logo.png" ></img>
+      <img id = "logo" src={logo} ></img>
       <form method="POST" action="/show-item-sales">
       <div id="map-toggles">
-        MAP TOGGLES:
+        MAP TOGGLES
         <br></br>
         <div class="switch-container">
-          World
+          <div class = "switch-title">World</div> 
           <label class="switch" onChange={switchMap}>
             <input type="checkbox" name="US" defaultChecked={checkStatus} />
             <span class="slider round"></span>
-          </label> US 
+          </label><div class = "switch-title">US</div> 
         </div>
         <br></br>
-        <div class="dropdown-container" style={{ border: "2px black solid" }}>
+        <div class="dropdown-container">
           <div class="dropdown-title" onClick={handleRegionDropdown}>
             Region: {props.region}
           </div>

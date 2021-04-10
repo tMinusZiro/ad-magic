@@ -9,28 +9,7 @@ export default function TopDash(props) {
   const [averagePrice, setAveragePrice] = useState(0);
   const [itemSold, setitemSold] = useState(0);
   useEffect(() => {
-    if (props.getData) {
-      fetch("/total-sales/filter")
-        .then((res) => res.json())
-        .then((totals) => {
-          console.log("getData inside:  ", props.getData);
-          console.log("List ", totals);
-          //take this off the loop
-          // let ts = Math.ceil(totals.totalSales);
-          // ts = ts.toString().split(".");
-          // ts[0] = ts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          // ts = ts.join(".");
-
-          // setTotalSales(ts);
-          console.log("total sales in filter fetch\n", totals.totalSales);
-          setTotalSales(totals.totalSales);
-          setAveragePrice(Math.ceil(totals.averageSale));
-          setitemSold(totals.totalItems);
-          setNewdata(false);
-
-          props.setgetData(false);
-        });
-    } else if (!data) {
+    if (!data) {
       fetch("/total-sales")
         .then((res) => res.json())
         .then((totals) => {
@@ -55,23 +34,29 @@ export default function TopDash(props) {
 
   return (
     <section id="top-dash">
-      <div id="total-sales" className="dashboard">
-        Total Sales
-        <span className="top-dash-num">
-          {TotalSales} <span className="top-dash-small">$</span>
-        </span>
+      <div className="top-tile-background">
+        <div id="total-sales" className="dashboard">
+          Total Sales
+          <span className="top-dash-num">
+            {TotalSales} <span className="top-dash-small">$</span>
+          </span>
+        </div>
       </div>
-      <div id="average-price" className="dashboard">
-        Average price
-        <span className="top-dash-num">
-          {averagePrice} <span className="top-dash-small">$</span>
-        </span>
+      <div className="top-tile-background">
+        <div id="average-price" className="dashboard">
+          Average price
+          <span className="top-dash-num">
+            {averagePrice} <span className="top-dash-small">$</span>
+          </span>
+        </div>
       </div>
-      <div id="item-sold" className="dashboard">
-        Items Sold
-        <span className="top-dash-num">
-          {itemSold} <span className="top-dash-small">items</span>
-        </span>
+      <div className="top-tile-background">
+        <div id="item-sold" className="dashboard">
+          Items Sold
+          <span className="top-dash-num">
+            {itemSold} <span className="top-dash-small">items</span>
+          </span>
+        </div>
       </div>
     </section>
   );

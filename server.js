@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000;
 const DataStore = require("./DataStore.js");
 const app = express();
 const staticDir = path.resolve("./client/public");
+
 //connect to the database and sales data
 const salesDB = new DataStore(
   `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`,
@@ -23,32 +24,36 @@ app.get("/all-sales", async (request, response) => {
 
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
-  let totalSales = await salesDB.totalSales();
-  let countrySalesArray = [];
-  await totalSales.forEach((item) => {
-    // countrySalesArray.push(item);
-    countrySalesArray = item;
-  });
-  response.send(countrySalesArray);
+  if (!formRes) {
+    let totalSales = await salesDB.totalSales();
+    let countrySalesArray = [];
+    await totalSales.forEach((item) => {
+      // countrySalesArray.push(item);
+      countrySalesArray = item;
+    });
+    response.send(countrySalesArray);
+  } else if (formRes) {
+    console.log("crash test", formRes);
+    let client = formRes.account;
+    let item = formRes.item;
+    {
+      item ? null : (item = "all-items");
+    }
+    {
+      client ? null : (client = "all");
+    }
+    console.log("in fetch");
+    let filters;
+    let result = await salesDB.filterTotalSales(client, item);
+    await result.forEach((entry) => {
+      console.log("crash test 1", entry);
+      filters = entry;
+    });
+    console.log(filters);
+    response.send(filters);
+  }
 });
 
-// filtering total sales
-app.get("/total-sales/filter", async (request, response) => {
-  let client = formRes.account;
-  let item = formRes.item;
-  console.log("in fetch");
-  let filters;
-  let result = await salesDB.filterTotalSales(client, item);
-  // console.log("crash test", result);
-  await result.forEach((entry) => {
-    console.log("crash test 1", entry);
-    filters = entry;
-  });
-  console.log(filters);
-  response.send(filters);
-});
-
-//vendors chart data
 app.get("/salesTypes", async (request, response) => {
   let salesTypes = await salesDB.salesTypes();
   let types = [];
@@ -80,23 +85,57 @@ app.get("/marketing", async (request, response) => {
 
 //vendors chart data
 app.get("/vendors", async (request, response) => {
-  let Vendors = await salesDB.Vendors();
   let vendorQyt = [];
   let vendorTopFive = [];
-  await Vendors.forEach((entry) => {
-    vendorQyt.push(entry.numberOfSales);
-  });
-  //sort vendor by qyt
-  vendorQyt.sort((a, b) => b - a);
-  // to get the top 5
-  for (let i = 0; i < 5; i++) {
+  let client;
+  let item;
+  if (!formRes) {
+    {
+      item ? null : (item = "all-items");
+    }
+    {
+      client ? null : (client = "all");
+    }
+
+    let Vendors = await salesDB.Vendors(client, item);
     await Vendors.forEach((entry) => {
-      if (entry.numberOfSales === vendorQyt[i]) {
-        vendorTopFive.push(entry);
-      }
+      vendorQyt.push(entry.numberOfSales);
     });
+    //sort vendor by qyt
+    vendorQyt.sort((a, b) => b - a);
+    // to get the top 5
+    for (let i = 0; i < 5; i++) {
+      await Vendors.forEach((entry) => {
+        if (entry.numberOfSales === vendorQyt[i]) {
+          vendorTopFive.push(entry);
+        }
+      });
+    }
+    response.send(vendorTopFive);
+  } else if (formRes) {
+    {
+      item ? null : (item = "all-items");
+    }
+    {
+      client ? null : (client = "all");
+    }
+
+    let Vendors = await salesDB.Vendors(client, item);
+    await Vendors.forEach((entry) => {
+      vendorQyt.push(entry.numberOfSales);
+    });
+    //sort vendor by qyt
+    vendorQyt.sort((a, b) => b - a);
+    // to get the top 5
+    for (let i = 0; i < 5; i++) {
+      await Vendors.forEach((entry) => {
+        if (entry.numberOfSales === vendorQyt[i]) {
+          vendorTopFive.push(entry);
+        }
+      });
+    }
+    response.send(vendorTopFive);
   }
-  response.send(vendorTopFive);
 });
 
 //create a list of clients
@@ -129,11 +168,13 @@ app.get("/items/:client", async (request, response) => {
 let showWorldSalesArray = [];
 let showUSSalesArray = [];
 let formRes;
+
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
   console.log(formRes);
   if (formRes.US === "on") {
+    console.log("HI I HAVE ENTERED THE POST and IN US MAP");
     //empty out an prior results
     showUSSalesArray = [];
     //re-populate teh array using the function in Data Store
@@ -142,15 +183,16 @@ app.post("/show-item-sales", async (request, response) => {
       showUSSalesArray.push(item);
     });
     //redirect the page so that new map data loads
-    response.redirect("/united")
+    response.redirect("/united");
   } else {
+    console.log("HI I HAVE ENTERED THE POST and IN COUNTRY MAP");
     //findWordSalesByForm uses $match to match the form results with proper parameters
     showWorldSalesArray = [];
     let totalSales = await salesDB.findWorldSalesByForm(formRes);
     await totalSales.forEach((item) => {
       showWorldSalesArray.push(item);
     });
-    response.redirect("/")
+    response.redirect("/");
   }
 });
 
