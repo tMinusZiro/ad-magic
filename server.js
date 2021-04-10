@@ -34,7 +34,6 @@ app.get("/total-sales", async (request, response) => {
     });
     response.send(countrySalesArray);
   } else if (formRes) {
-    console.log("crash test", formRes);
     let client = formRes.account;
     let item = formRes.item;
     {
@@ -47,10 +46,8 @@ app.get("/total-sales", async (request, response) => {
     let filters;
     let result = await salesDB.filterTotalSales(client, item);
     await result.forEach((entry) => {
-      console.log("crash test 1", entry);
       filters = entry;
     });
-    console.log(filters);
     response.send(filters);
   }
 });
@@ -85,47 +82,59 @@ app.get("/marketing", async (request, response) => {
 });
 
 //vendors chart data
-app.get("/vendors", async (request, response) => {
+app.get("/vendorss", async (request, response) => {
   let vendorQyt = [];
+  let vendorRev = [];
   let vendorTopFive = [];
-  let client;
-  let item;
+  let vendorTopRev = [];
+  let result = [];
+  let client = "all";
+  let item = "all-items";
   if (!formRes) {
-    {
-      item ? null : (item = "all-items");
-    }
-    {
-      client ? null : (client = "all");
-    }
-
     let Vendors = await salesDB.Vendors(client, item);
     await Vendors.forEach((entry) => {
+      console.log("entry", entry);
       vendorQyt.push(entry.numberOfSales);
     });
     //sort vendor by qyt
     vendorQyt.sort((a, b) => b - a);
+    console.log("vendor qyt", vendorQyt);
     // to get the top 5
     for (let i = 0; i < 5; i++) {
       await Vendors.forEach((entry) => {
         if (entry.numberOfSales === vendorQyt[i]) {
           vendorTopFive.push(entry);
+          console.log("top 5 entry:", entry);
+          console.log("top 5 §:", vendorTopFive);
         }
       });
     }
-    response.send(vendorTopFive);
+    result.push(vendorTopFive);
+    //sort vendor by revenue
+    await Vendors.forEach((entry) => {
+      vendorRev.push(entry.totalSales);
+    });
+    vendorRev.sort((a, b) => b - a);
+    // to get the top 5
+    for (let i = 0; i < 5; i++) {
+      await Vendors.forEach((entry) => {
+        if (entry.totalSales === vendorRev[i]) {
+          vendorTopRev.push(entry);
+        }
+      });
+    }
+    result.push(vendorTopRev);
+    console.log("Vendor Rev", vendorTopRev);
+    console.log("Result: ", result);
+    response.send(result);
   } else if (formRes) {
-    {
-      item ? null : (item = "all-items");
-    }
-    {
-      client ? null : (client = "all");
-    }
-
-    let Vendors = await salesDB.Vendors(client, item);
+    client = formRes.account;
+    item = formRes.item;
+    let Vendors = await salesDB.Vendors(client, item, formRes);
+    //sort vendor by total sales
     await Vendors.forEach((entry) => {
       vendorQyt.push(entry.numberOfSales);
     });
-    //sort vendor by qyt
     vendorQyt.sort((a, b) => b - a);
     // to get the top 5
     for (let i = 0; i < 5; i++) {
@@ -134,8 +143,26 @@ app.get("/vendors", async (request, response) => {
           vendorTopFive.push(entry);
         }
       });
+      console.log("Vendor top 5", vendorTopFive);
     }
-    response.send(vendorTopFive);
+    result.push(vendorTopFive);
+    //sort vendor by revenue
+    await Vendors.forEach((entry) => {
+      vendorRev.push(entry.totalSales);
+    });
+    vendorRev.sort((a, b) => b - a);
+    // to get the top 5
+    for (let i = 0; i < 5; i++) {
+      await Vendors.forEach((entry) => {
+        if (entry.totalSales === vendorRev[i]) {
+          vendorTopRev.push(entry);
+        }
+      });
+    }
+    result.push(vendorTopRev);
+    console.log("Vendor Rev", vendorTopRev);
+    console.log("Result: ", result);
+    response.send(result);
   }
 });
 
@@ -168,7 +195,6 @@ app.get("/items/:client", async (request, response) => {
 //showSalesArray gets populated when the form is submitted
 let showWorldSalesArray = [];
 let showUSSalesArray = [];
-let formRes;
 
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results

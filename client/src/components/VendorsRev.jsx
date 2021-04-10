@@ -4,7 +4,7 @@ export default function VendorsRev(props) {
   const series = [
     {
       name: "Revenue",
-      data: props.VendorsSales,
+      data: props.RevenueAmounts,
     },
   ];
   const options = {
@@ -28,7 +28,7 @@ export default function VendorsRev(props) {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: props.VendorsLabels,
+      categories: props.RevenueLabels,
     },
     yaxis: {
       title: {

@@ -42,11 +42,43 @@ class DataStore {
     return result;
   }
   //filtered top dashboard data
-  async filterTotalSales(client, item) {
+  async filterTotalSales(client, item, formResults) {
+    // changeDate(formResults);
+
     const collection = await this.openConnect();
     //filter function
     if (client === "all" && item === "all-items") {
       const result = await collection.aggregate([
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $gte: [
+        //         newEnd,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $lte: [
+        //         newStart,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {
@@ -61,9 +93,41 @@ class DataStore {
     }
     // filter by item
     else if (client === "all" && item !== "all-items") {
+      // changeDate(formResults);
+      console.log("new end :", newEnd);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $gte: [
+        //         newEnd,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $lte: [
+        //         newStart,
+        //         {
+        //           $dateToString: {
+        //             date: "$Transaction_date__c",
+        //             format: "%Y-%m-%d",
+        //           },
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
         {
           $group: {
             _id: "$Scrubbed__c",
@@ -80,7 +144,6 @@ class DataStore {
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
-        { $match: { Item__c: item } },
         {
           $group: {
             _id: "$Account__c",
@@ -158,6 +221,9 @@ class DataStore {
   //   //Vendors chart data
   async Vendors(client, item) {
     const collection = await this.openConnect();
+    console.log("in Vendors function");
+    console.log("client: ", client);
+    console.log("item: ", item);
     if (client === "all" && item === "all-items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
@@ -565,7 +631,6 @@ class DataStore {
 
 let newStart = new Date();
 let newEnd = new Date();
-
 function changeDate(formResults) {
   //decide on start date based on pre-sets or user input
   if (formResults.startDate && formResults.endDate) {
