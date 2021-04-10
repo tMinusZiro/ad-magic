@@ -42,7 +42,6 @@ app.get("/total-sales", async (request, response) => {
     {
       client ? null : (client = "all");
     }
-    console.log("in fetch");
     let filters;
     let result = await salesDB.filterTotalSales(client, item, formRes);
     await result.forEach((entry) => {
@@ -134,22 +133,16 @@ app.get("/vendors", async (request, response) => {
   // default fetch
   if (!formRes) {
     let Vendors = await salesDB.Vendors(client, item);
-    console.log("2nd fetch vendors", Vendors);
     await Vendors.forEach((entry) => {
-      console.log("entry", entry);
       vendorQyt.push(entry.numberOfSales);
     });
     //sort vendor by qyt
     vendorQyt.sort((a, b) => b - a);
-    console.log("vendor qyt", vendorQyt);
     // to get the top 5
     for (let i = 0; i < 5; i++) {
       await Vendors.forEach((entry) => {
         if (entry.numberOfSales === vendorQyt[i]) {
           vendorTopFive.push(entry);
-
-          console.log("top 5 entry:", entry);
-          console.log("top 5 §:", vendorTopFive);
         }
       });
     }
@@ -168,8 +161,6 @@ app.get("/vendors", async (request, response) => {
       });
     }
     result.push(vendorTopRev);
-    console.log("Vendor Rev", vendorTopRev);
-    console.log("Result: ", result);
     response.send(result);
     // filter fetch
   } else if (formRes) {
@@ -185,11 +176,9 @@ app.get("/vendors", async (request, response) => {
     for (let i = 0; i < 5; i++) {
       await Vendors.forEach((entry) => {
         if (entry.numberOfSales === vendorQyt[i]) {
-          console.log("Top five");
           vendorTopFive.push(entry);
         }
       });
-      console.log("Vendor top 5", vendorTopFive);
     }
     result.push(vendorTopFive);
     //sort vendor by revenue
@@ -206,8 +195,6 @@ app.get("/vendors", async (request, response) => {
       });
     }
     result.push(vendorTopRev);
-    console.log("Vendor Rev", vendorTopRev);
-    console.log("Result: ", result);
     response.send(result);
   }
 });
@@ -245,26 +232,23 @@ let showUSSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
-  console.log("form results", formRes);
+  //empty out an prior results
+  showUSSalesArray = [];
+  //re-populate teh array using the function in Data Store
+  let totalUSSales = await salesDB.findUSSalesByForm(formRes);
+  await totalUSSales.forEach((item) => {
+    showUSSalesArray.push(item);
+  });
+  //findWordSalesByForm uses $match to match the form results with proper parameters
+  showWorldSalesArray = [];
+  let totalSales = await salesDB.findWorldSalesByForm(formRes);
+  await totalSales.forEach((item) => {
+    showWorldSalesArray.push(item);
+  });
+  //redirect the page so that new map data loads
   if (formRes.US === "on") {
-    console.log("HI I HAVE ENTERED THE POST and IN US MAP");
-    //empty out an prior results
-    showUSSalesArray = [];
-    //re-populate teh array using the function in Data Store
-    let totalSales = await salesDB.findUSSalesByForm(formRes);
-    await totalSales.forEach((item) => {
-      showUSSalesArray.push(item);
-    });
-    //redirect the page so that new map data loads
     response.redirect("/united");
   } else {
-    console.log("HI I HAVE ENTERED THE POST and IN COUNTRY MAP");
-    //findWordSalesByForm uses $match to match the form results with proper parameters
-    showWorldSalesArray = [];
-    let totalSales = await salesDB.findWorldSalesByForm(formRes);
-    await totalSales.forEach((item) => {
-      showWorldSalesArray.push(item);
-    });
     response.redirect("/");
   }
 });
@@ -281,7 +265,6 @@ app.get("/show-sales", async (request, response) => {
     });
     response.send(totalSalesArray);
   } else {
-    console.log(showWorldSalesArray);
     response.send(showWorldSalesArray);
   }
 });

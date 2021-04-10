@@ -1,0 +1,265 @@
+/*-------------------------Map Toggle/Sidebar-----------------------*/
+
+
+/*wraps the entire sidebar and places in grid*/
+#map-toggle-wrapper {
+    grid-area: 1/1/6/2;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: #33475B;
+    color: #dfe3eb;
+  }
+  
+  #side-bar {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 4vh 15px 10px 15px; 
+  }
+  
+  /*AdMagic Logo*/
+  #logo {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 4vh;
+    border-radius: 5%;
+    opacity: 90%; 
+  }
+  
+  /*title sections like Main, Map, etc*/ 
+  .section-title {
+    color: #99acc2;
+    font-size: x-small;
+    font-weight:bold;
+    margin-bottom: 20px; 
+  }
+  
+  /*Icons in front of dropdowns*/
+  #icon {
+    height: 18px;
+    width: 18px;
+    align-items:center;
+    padding-top: 7px; 
+  }
+  
+  /*div used to group icons & dropdowns*/
+  .select-title { 
+    width: 100%;
+    display: flex;
+  }
+  
+  /*dropdown menus*/
+  select {
+    width: 90%;
+    height: 30px;
+    background-color: #33475B;
+    color: #dfe3eb;
+    border: none;
+    padding: 5px;
+    margin-bottom: 5px; 
+  }
+  
+  select:hover{
+    color: #6bbfd1;
+    cursor: pointer;
+  }
+  
+  option {
+    text-align: center;
+    align-items: center;
+    background-color: #264653;
+    color: #dfe3eb;
+  }
+
+  #startDate, #endDate { 
+    font-family: Avenir;
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+    border: 0;
+    padding: 10px;
+    background-color: #a3afc5;
+    color: white; 
+    font-weight: bold;
+    margin: 10px;
+  }
+
+
+  #date-label{
+    font-weight: lighter;
+    font-size: smaller;
+    padding: 5px; 
+    margin: 10px;
+  }
+  
+  /*Update Button for re-rendering map & data with user input*/
+  #button-container { 
+    text-align: center;
+  }
+  
+  #update-button { 
+    margin: 20px;
+    width: 60%;
+    height: 40px;
+    border-radius: 34px;
+    font-size:xx-small;
+    background-color: #a3afc5;
+    color: white;
+    border: 0px; 
+    margin-bottom: 50px;
+  }
+  #update-button:hover { 
+    font-size: small;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /*------switch on sidebar -----*/
+  #world-icon {
+    height: 18px;
+    width: 18px;
+    align-items:center;
+    padding: 2px;
+  }
+  
+  .switch-title, .dropdown-title {
+    font-size: 13px;
+    padding: 5px;
+    font-weight: lighter;
+    align-items: center; 
+  }
+  
+  .switch-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  
+  #icon-container{
+    display:flex;
+  
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #a3afc5;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;;
+    width: 13px;
+    left: 2px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #506f8e;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #506f8e;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  /*-----------------Region Dropdown Settings------------------*/
+  
+  .dropdown-title { 
+    height: 35px;
+    font-weight: lighter;
+    align-items: center;
+    display: flex;
+    font-size:14px; 
+  }
+  
+  .dropdown-title:hover{ 
+    color: #6bbfd1;
+    cursor: pointer;
+  }
+  
+  .dropdown-item {
+    height: 35px;
+    align-items: center;
+    display: flex;
+    font-size:14px;
+    font-weight: lighter;
+    /*TRYING to get the items to extend full width*/
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .dropdown-item:hover {
+    color: #6bbfd1;
+    cursor: pointer;
+  
+  }
+  
+  .dropdown-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* background-color: red; */
+  }
+  
+  #dropdown-icon { 
+    height: 9px;
+    width: 9px;
+    opacity: 90%;
+    /* float: right; */
+    justify-content:right;
+  }
+  
+  #region-icon {
+    height: 18px;
+    width: 18px;
+    align-items:center;
+    padding: 4px;
+    opacity: 70%
+    
+  }
+  
