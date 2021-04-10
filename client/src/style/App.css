@@ -638,16 +638,25 @@ input:checked + .slider:before {
   font-weight: bold;
   padding: 5px;
 }
-/* .dropdown-container {
+.dropdown-container {
+  align-items: center;
 
-} */
+}
 
 .dropdown-title { 
   height: 35px;
-  padding: 5px; 
+  align-items: center;
+  justify-content: center;
+  display: flex; 
 }
 
 .dropdown-title:hover { 
+  background-color: #48504e;
+  border: 2px solid white;
+  border-radius: 5px; 
+}
+
+.dropdown-title:onclick { 
   background-color: #48504e;
   border: 2px solid white;
   border-radius: 5px; 
@@ -659,7 +668,10 @@ input:checked + .slider:before {
 .dropdown-item {
   height: 35px;
   border: 1px solid white;
-  padding: 5px; 
+  border-radius: 5px; 
+  align-items: center;
+  justify-content: center;
+  display: flex; 
 }
 
 #logo {
