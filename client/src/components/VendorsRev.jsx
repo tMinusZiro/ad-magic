@@ -3,8 +3,8 @@ import ReactApexChart from "react-apexcharts";
 export default function VendorsRev(props) {
   const series = [
     {
-      name: "Revenue",
-      data: props.VendorsSales,
+      name: "Gross Revenue",
+      data: props.RevenueAmounts,
     },
   ];
   const options = {
@@ -28,11 +28,11 @@ export default function VendorsRev(props) {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: props.VendorsLabels,
+      categories: props.RevenueLabels,
     },
     yaxis: {
       title: {
-        text: "Revenue",
+        text: "Gross Revenue (K)",
       },
     },
     fill: {
@@ -41,7 +41,7 @@ export default function VendorsRev(props) {
     tooltip: {
       y: {
         formatter: function (val) {
-          return "$ " + val + " thousands";
+          return "$ " + val + " Thousand";
         },
       },
     },

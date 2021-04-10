@@ -4,7 +4,6 @@ import { Switch, Route, Link } from "react-router-dom";
 import WorldMap from "./WorldMap.jsx";
 import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
-import LoadingMap from "./LoadingMap.jsx";
 import { features } from "../borderData/countries.json";
 // import LoadingMap from "./LoadingMap";
 
@@ -87,37 +86,37 @@ const HomePage = ({
   }
 
   function loadUnitedData() {
-    // let BorderData = usBorderData;
-    // for (let usState of BorderData) {
-    //   let usMatchedValue;
-    //   if (totalUSSales) {
-    //     //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
-    //     for (let sale of totalUSSales) {
-    //       if (usState.properties.name === sale._id) {
-    //         //if there is a match assign it to intermediate variable
-    //         usMatchedValue = sale;
-    //       }
-    //     }
-    //   }
-    //   //DEFAULT VALUES:
-    //   //geoJSON layer properties total sales
-    //   usState.properties.totalSales = 0;
-    //   //modal text
-    //   usState.properties.totalSalesText = "0";
-    //   //checks if the matched total sales object has valid state
-    //   if (usMatchedValue != null) {
-    //     //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-    //     //creates intermediate variable
-    //     const assignUSTotalSales = usMatchedValue.totalSales;
-    //     //assigns correct total sales to geoJSON object
-    //     usState.properties.totalSales = assignUSTotalSales;
-    //     //assigns total sales to geoJSON object for displaying text on pop up modal
-    //     usState.properties.totalSalesText = assignUSTotalSales;
-    //   }
-    //   setCountryColor(usState);
-    //   // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
-    // }
-    // setStates(BorderData);
+    let BorderData = usBorderData;
+    for (let usState of BorderData) {
+      let usMatchedValue;
+      if (totalUSSales) {
+        //second for-loop to iterate through total sales list from db and match admagic US states to geoJSON
+        for (let sale of totalUSSales) {
+          if (usState.properties.name === sale._id) {
+            //if there is a match assign it to intermediate variable
+            usMatchedValue = sale;
+          }
+        }
+      }
+      //DEFAULT VALUES:
+      //geoJSON layer properties total sales
+      usState.properties.totalSales = 0;
+      //modal text
+      usState.properties.totalSalesText = "0";
+      //checks if the matched total sales object has valid state
+      if (usMatchedValue != null) {
+        //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
+        //creates intermediate variable
+        const assignUSTotalSales = usMatchedValue.totalSales;
+        //assigns correct total sales to geoJSON object
+        usState.properties.totalSales = assignUSTotalSales;
+        //assigns total sales to geoJSON object for displaying text on pop up modal
+        usState.properties.totalSalesText = assignUSTotalSales;
+      }
+      setCountryColor(usState);
+      // assign finally the geoJSON layer to setCountries that was originally passed when useEffect called the load function
+    }
+    setStates(BorderData);
   }
 
   function loadMapData() {

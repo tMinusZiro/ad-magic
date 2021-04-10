@@ -17,9 +17,15 @@ export default function RightDash() {
   const [VendorsLabels, setVendorsLabels] = useState(["item"]);
   const [VendorsAmounts, setVendorsAmounts] = useState([1]);
   const [VendorsSales, setVendorsSales] = useState([1]);
+  const [RevenueLabels, setRevenueLabels] = useState(["item"]);
+  const [RevenueAmounts, setRevenueAmounts] = useState([1]);
+
   let VLabels = [];
   let VAmount = [];
   let VSales = [];
+  let RLabels = [];
+  let RAmount = [];
+  let RSales = [];
   const [VTrigger, setVTrigger] = useState(true);
 
   //sale type
@@ -28,6 +34,7 @@ export default function RightDash() {
       fetch("/vendors")
         .then((res) => res.json())
         .then((entry) => {
+          console.log("entry: ", entry);
           setVendors(entry);
           setVTrigger(false);
         });
@@ -35,18 +42,35 @@ export default function RightDash() {
   }, []);
 
   if (!VTrigger) {
-    Vendors.forEach((type) => {
-      VLabels.push(type._id);
-      let amount = type.numberOfSales;
-
-      VAmount.push(numFormatter(amount));
-      let sales = type.totalSales;
-
-      VSales.push(numFormatter(sales));
+    //total sales chart
+    Vendors[0].forEach((type) => {
+      console.log("TYpe : ", type);
+      if (VLabels.length < 5 && type._id !== "Breaking Games") {
+        VLabels.push(type._id);
+        let amount = type.numberOfSales;
+        VAmount.push(amount);
+        let sales = type.totalSales;
+        VSales.push(numFormatter(sales));
+      }
     });
     setVendorsLabels(VLabels);
     setVendorsAmounts(VAmount);
     setVendorsSales(VSales);
+    // total revenue chart
+    Vendors[1].forEach((type) => {
+      console.log("TYpe : ", type);
+      if (RLabels.length < 5) {
+        RLabels.push(type._id);
+        let amount = type.totalSales;
+        RAmount.push(numFormatter(amount));
+      }
+      console.log("Rev amount :", RAmount);
+      // let sales = type.totalSales;
+      // RSales.push(numFormatter(sales));
+    });
+    setRevenueLabels(RLabels);
+    setRevenueAmounts(RAmount);
+
     setVTrigger(true);
   }
   return (
@@ -58,7 +82,10 @@ export default function RightDash() {
         />
       </div>
       <div className="right-charts">
-        <VendorsRev VendorsLabels={VendorsLabels} VendorsSales={VendorsSales} />
+        <VendorsRev
+          RevenueLabels={RevenueLabels}
+          RevenueAmounts={RevenueAmounts}
+        />
       </div>
     </div>
   );

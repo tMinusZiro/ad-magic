@@ -58,6 +58,7 @@ function App() {
           setGetUSData={setGetUSData}
           getWorldData={getWorldData}
           setGetWorldData={setGetWorldData}
+          getData = {getData}
           region={region}
           usBorderData={usBorderData}
         />

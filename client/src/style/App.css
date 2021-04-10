@@ -413,9 +413,12 @@ option {
   padding: 1em;
   height: 10vh;
 
-  border-radius: 15px;
-  background-color: rgb(115, 204, 98);
+ 
   /* height: 10vh; */
+  color: #000000;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #ffffff;
   font-size: 2vh;
   display: flex;
   flex-flow: column wrap;
@@ -522,14 +525,140 @@ option {
 
 #map-legend-wrapper {
   transition: transform 0.3s ease-in-out;
-
+}
+/* 
   margin-left: 2rem;
   margin-right: 2rem;
   width: 100%;
-}
+} */
 
 /*Each legend color square*/
 #legend-button {
   border: 1px solid rgba(194, 27, 0, 0.979411833092612);
   /* border-radius: 5px; */
+}
+
+/* -----------------------------------SIDEBAR---------------------------------*/ 
+/*------ switch on sidebar ----------*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#side-bar {
+  max-width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color:  #272b2a;
+  overflow-x: hidden;
+  padding-top: 20px;
+  font-family: Avenir; 
+}
+
+.switch-title { 
+  font-size: 26px;
+  padding: 5px;
+}
+
+.switch-container {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+/*-----------------dropdown stuff------------------*/
+
+#map-toggles {
+  border-radius: 5%; 
+}
+
+.switch-title { 
+  font-weight: bold;
+  padding: 5px;
+}
+/* .dropdown-container {
+
+} */
+
+.dropdown-title { 
+  height: 35px;
+  padding: 5px; 
+}
+
+.dropdown-title:hover { 
+  background-color: #48504e;
+  border: 2px solid white;
+  border-radius: 5px; 
+}
+/* .dropdown-list { 
+  height: 20px; 
+} */
+
+.dropdown-item {
+  height: 35px;
+  border: 1px solid white;
+  padding: 5px; 
+}
+
+#logo {
+  /* align-text: center; */
+  width: 90%;
+  margin-bottom: 4vh;
+  border-radius: 5%;
 }
