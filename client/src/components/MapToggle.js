@@ -156,108 +156,118 @@ const MapToggle = (props) => {
 
   return (
     <div id="side-bar">
-      <img id="logo" src={logo}></img>
-      <form method="POST" action="/show-item-sales">
-        <div class="section-title">MAIN</div>
-        <div className="select-title">
-          <img id="icon" src={calendar}></img>
-          <select
-            name="datePreset"
-            onChange={showCalendar}
-            defaultValue="all-time"
-          >
-            <option value="all-time">Timeframe</option>
-            <option value="all-time">All Time</option>
-            <option value="week">Past Week</option>
-            <option value="month">Past Month</option>
-            <option value="quarter">Last Quarter</option>
-            <option value="six-months">Past Six Months</option>
-            <option value="year">Past Year</option>
-            <option value="custom">Custom Timeframe</option>
-          </select>
-        </div>
-        {showCustomDate ? (
-          <div>
-            <label id="date-label" for="startDate">Start Date: </label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              defaultValue="2018-01-01"
-            ></input>
-
-            <label id="date-label" for="endDate">End Date: </label>
-            <br></br>
-            <input
-              type="date"
-              id="endDate"
-              name="endDate"
-              defaultValue={defaultDate}
-            ></input>
-          </div>
-        ) : null}
-
-        {clientList ? (
+      <div id="side-bar-component">
+        <img id="logo" src={logo}></img>
+        <form method="POST" action="/show-item-sales">
+          <div class="section-title">MAIN</div>
           <div className="select-title">
-            <img id="icon" src={item} />
-            <select name="account" defaultValue="all" onChange={changeAccount}>
-              <option value="all">Client</option>
-              <option value="all">All Clients</option>
-              {clientList.map((client, index) => {
-                return (
-                  <option key={index} value={client}>
-                    {client}
-                  </option>
-                );
-              })}
+            <img id="icon" src={calendar}></img>
+            <select
+              name="datePreset"
+              onChange={showCalendar}
+              defaultValue="all-time"
+            >
+              <option value="all-time">Timeframe</option>
+              <option value="all-time">All Time</option>
+              <option value="week">Past Week</option>
+              <option value="month">Past Month</option>
+              <option value="quarter">Last Quarter</option>
+              <option value="six-months">Past Six Months</option>
+              <option value="year">Past Year</option>
+              <option value="custom">Custom Timeframe</option>
             </select>
           </div>
-        ) : null}
+          {showCustomDate ? (
+            <div>
+              <label id="date-label" for="startDate">
+                Start Date:{" "}
+              </label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                defaultValue="2018-01-01"
+              ></input>
 
-        {listOfItems ? (
-          <div className="select-title">
-            <img id="icon" src={client} />
-            <select name="item" defaultValue="all-items">
-              <option value="all-items">Item</option>
-              <option value="all-items">All Items</option>
-              {listOfItems.map((item, index) => {
-                return (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
+              <label id="date-label" for="endDate">
+                End Date:{" "}
+              </label>
+              <br></br>
+              <input
+                type="date"
+                id="endDate"
+                name="endDate"
+                defaultValue={defaultDate}
+              ></input>
+            </div>
+          ) : null}
+
+          {clientList ? (
+            <div className="select-title">
+              <img id="icon" src={item} />
+              <select
+                name="account"
+                defaultValue="all"
+                onChange={changeAccount}
+              >
+                <option value="all">Client</option>
+                <option value="all">All Clients</option>
+                {clientList.map((client, index) => {
+                  return (
+                    <option key={index} value={client}>
+                      {client}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
+
+          {listOfItems ? (
+            <div className="select-title">
+              <img id="icon" src={client} />
+              <select name="item" defaultValue="all-items">
+                <option value="all-items">Item</option>
+                <option value="all-items">All Items</option>
+                {listOfItems.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
+          <div id="button-container">
+            <input
+              id="update-button"
+              type="submit"
+              value="UPDATE"
+              onClick={reLoad}
+            />
           </div>
-        ) : null}
-        <div id="button-container">
-          <input
-            id="update-button"
-            type="submit"
-            value="UPDATE"
-            onClick={reLoad}
-          />
-        </div>
-      </form>
+        </form>
 
-      <div class="section-title">MAP VIEW</div>
-      <div class="switch-container">
-        <img id="world-icon" src={location} />
-        <div class="switch-title">World</div>
+        <div class="section-title">MAP VIEW</div>
+        <div class="switch-container">
+          <img id="world-icon" src={location} />
+          <div class="switch-title">World</div>
 
-        <label class="switch" onChange={switchMap}>
-          <input type="checkbox" name="US" defaultChecked={checkStatus} />
-          <span class="slider round"></span>
-        </label>
-        <div class="switch-title">United States</div>
-      </div>
-      <div class="dropdown-container">
-        <img src={region} id="region-icon" />
-        <div class="dropdown-title" onClick={showRegions}>
-          Region
+          <label class="switch" onChange={switchMap}>
+            <input type="checkbox" name="US" defaultChecked={checkStatus} />
+            <span class="slider round"></span>
+          </label>
+          <div class="switch-title">United States</div>
         </div>
-        <div id="icon-container">
-          <img src={dropdown} id="dropdown-icon" onClick={showRegions}/>
+        <div class="dropdown-container">
+          <img src={region} id="region-icon" />
+          <div class="dropdown-title" onClick={showRegions}>
+            Region
+            <div id="icon-container">
+              <img src={dropdown} id="dropdown-icon" onClick={showRegions} />
+            </div>
+          </div>
         </div>
       </div>
       {displayRegions ? (
@@ -265,6 +275,7 @@ const MapToggle = (props) => {
           {regionList.map((item, index) => {
             return (
               <li
+                id="region-item"
                 value={item}
                 style={
                   item === props.region

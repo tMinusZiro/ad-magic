@@ -83,7 +83,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
           </button>
         ))}
       </div>
-      {showClients ? (
+      {showClients && clientListInRange ? (
         <ClientPopUp
           min={min}
           max={max}

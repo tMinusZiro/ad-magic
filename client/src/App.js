@@ -28,6 +28,20 @@ function App() {
           setgetData={setgetData}
         />
       </div>
+      <div id="top-background-color"></div>
+      <section id="container-one" className="snap-child">
+        <div id="header-wrapper">
+          <Header />
+        </div>
+        <div id="fake-graph-wrapper">{/* <img src={backgroundGraph} /> */}</div>
+        <div id="top-dash-header">
+          <TopDash getData={getData} setgetData={setgetData} />
+        </div>
+        <div id="right-dash-header">
+          <RightDash />
+        </div>
+      </section>
+      <section id="container-two" className="snap-child">
       <div id="home-page">
         <HomePage
           setGetMapData = {setGetMapData}
@@ -36,15 +50,12 @@ function App() {
           usBorderData={usBorderData}
         />
       </div>
-      <div id="top-dash-header">
-        <TopDash getData={getData} setgetData={setgetData} />
-      </div>
-      <div id="right-dash-header">
-        <RightDash />
-      </div>
-      <div id="bottom-dash-header">
-        <BottomDash />
-      </div>
+      </section>
+      <section id="container-three" className="snap-child">
+        <div id="bottom-dash-header">
+          <BottomDash />
+        </div>
+      </section>
     </div>
   );
 }
