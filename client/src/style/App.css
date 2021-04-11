@@ -1,84 +1,85 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Avenir; 
 }
-html {
-  scroll-snap-type: y mandatory
-}
+/*This helps the snapping work in safari*/
 body {
   background: #ebe7e7de;
-  font-family: Avenir; 
+  scroll-snap-type: y mandatory;
   /* background: #efefef; */
 }
-/*Splits the top half of the viewport with contrasting color*/
-#top-background-color {
-  grid-area: 1/1/3/4;
-  z-index: -3;
-  background-color: #a81515c7;
-  height: 65%;
+/*This helps the snapping work in chrome and firefox*/
+html {
+  scroll-snap-type: y mandatory;
 }
+
 /*-------Parent Page Grid Wrapper---------*/
 #app-wrapper {
   display: grid;
   grid-template-columns: 0.6fr 3fr;
-  grid-template-rows: 0.4fr 0.4fr 0.6fr 1fr 0.8fr;
+  grid-template-rows: 100vh 100vh 100vh;
   /* border: blue solid 5px; */
-  grid-gap: 2rem;
+  /* grid-gap: 2rem; */
   box-sizing: border-box;
 }
 
-/* scroll-snap-align: start; */
-/*-----------------MAP-------------*/
+/*----main grid child containers-----*/
+.snap-child {
+  scroll-snap-align: start;
 
-/*App.JS tag*/
-#home-page {
-  /* border: 10px solid white; */
-  /* border-radius: 5px; */
-  height: 100%;
-  width: 100%;
-  /* background: white; */
-  /* box-shadow: 0.7px 0.7px 1.5px rgba(83, 82, 82, 0.514); */
-  grid-area: 4/2/5/3;
-  border: 1px solid red;
+  box-sizing: border-box;
+}
+#container-one {
+  grid-area: 1/2/2/3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/*------Fake Graph Background--------*/
-#fake-graph-wrapper {
-  grid-area: 1/2/3/4;
+#container-two {
+  grid-area: 2/2/3/3;
+}
+#container-three {
+  grid-area: 3/2/4/3;
+}
+
+/*Splits the top half of the viewport with contrasting color*/
+#top-background-color {
+  background-color: #a81515c7;
+  height: 42%;
+  grid-area: 1/2/2/3;
   z-index: -1;
 }
-#fake-graph-wrapper img {
-  margin-top: 1.5vh;
-  width: 100%;
-  height: 52%;
-}
+
 /*------Header----------*/
 
 #header-wrapper {
-  grid-area: 1/2/2/3;
-
   /* background-color: trans; */
   /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
-  border-radius: 5px;
-  height: 10%;
 
-  /* margin-right: 2rem;*/
-  margin-top: 0.9rem;
+  /* align-items: flex-start; */
+  border-radius: 5px;
+  /* height: 10%; */
+  width: 100%;
+  /* flex: auto; */
 }
 
 #main-head-flex {
   display: flex;
-  height: 100%;
-  align-items: center;
+  /* height: 100%;
+  width: 100%; */
+  /* align-items: center; */
   justify-content: space-between;
 }
+
 #head-flex-one {
   display: flex;
   /* flex: auto; */
   width: 35%;
   align-items: center;
   justify-content: center;
-  /* background-color: rgb(67, 149, 226); */
 }
 #head-flex-two {
   display: flex;
@@ -89,6 +90,8 @@ body {
   /* margin-left: 5vw; */
 }
 
+.header-svg-wrapper {
+}
 .header-svg-wrapper img {
   max-width: 1.6vw;
 }
@@ -118,6 +121,42 @@ h6 {
   color: white;
 }
 
+/*-----------------MAP-------------*/
+
+/*App.JS tag*/
+#home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+}
+/*-----Burger-Map----------*/
+
+#map-component-wrapper {
+  box-sizing: border-box;
+
+  width: 70vw;
+}
+
+#map-legend-wrapper {
+  width: 100%;
+}
+
+/*Each legend color square*/
+#legend-button {
+  /* border-radius: 5px; */
+}
+
+/*------Fake Graph Background--------*/
+/* #fake-graph-wrapper {
+  z-index: -1;
+}
+#fake-graph-wrapper img {
+  margin-top: 1.5vh;
+  width: 100%;
+  height: 52%;
+} */
 
 /*-----------------APEX CHARTS and GRAPHS-----------------------------*/
 
@@ -125,19 +164,20 @@ h6 {
 /*This includes two right side graphs*/
 /*In App.JS Wrapper for main parent component*/
 #right-dash-header {
-  grid-area: 3/2/4/3;
+  height: 30vh;
+  margin-bottom: 1rem;
 }
 
 #v-and-r-flexWrap {
   display: flex;
   gap: 5rem;
-  height: 65%;
+  height: 100%;
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
   /* border: 2px rgb(205, 203, 203) solid; */
   /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
-  width: 50%;
+  width: 100%;
   height: 100%;
   /* background-color: white; */
   border-radius: 15px;
@@ -180,8 +220,7 @@ h6 {
 
 /*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
-  grid-area: 5/2/6/3;
-  /* border: 5px yellow solid; */
+  border: 2px yellow solid;
   height: 70%;
   box-sizing: border-box;
 }
@@ -253,43 +292,28 @@ h6 {
 
 /*---------Top Dashboard Tiles-------------- */
 
-/*Three financial top tiles */
+/*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
-  grid-area: 2/2/3/3;
-  /* margin-top: 10rem; */
-  height: 100%;
-
-  padding: 10px;
 }
 
 #top-dash {
   /* display: grid;
   grid-template-columns: repeat(3 1fr); */
+
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+
   /* gap: 2rem; */
-  height: 100%;
 }
-/* .top-tile-background {
-  background-color: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
 
-  width: 25vw;
-  height: 85%;
-  margin-top: 6rem;
-  border-radius: 5px;
-} */
-
+/*class for each individual top dash tile*/
 .dashboard {
   margin: 1em;
   padding: 1em;
-  height: 10vh;
-
- 
   /* height: 10vh; */
   color: #000000;
-  border: 2px solid black;
+
   border-radius: 10px;
   background-color: #ffffff;
   font-size: 2vh;
@@ -321,21 +345,6 @@ h6 {
   background: white;
 }
 /*----------------------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
   display: flex;
@@ -365,66 +374,3 @@ h6 {
   text-align: center;
   font-size: x-large;
 }
-
-
-/*------Burger Menu------*/
-/*-----Burger-Map----------*/
-
-#map-component-wrapper {
-  box-sizing: border-box;
-}
-
-/*div wrapper on burger component in Home Page*/
-#map-burger-wrapper {
-  position: relative;
-  top: 7rem;
-
-  z-index: 600;
-  display: flex;
-  justify-content: flex-start;
-  flex: auto;
-  margin-left: 75vw;
-  margin-top: 4rem;
-}
-
-/*section tag that wraps all three divs*/
-.burger-menu {
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-/*Individual three divs*/
-.burger-menu div {
-  width: 2rem;
-  height: 0.25rem;
-  border-radius: 10px;
-  transition: all 0.3s linear;
-  /* position: relative; */
-  transform-origin: 1px;
-  box-sizing: border-box;
-}
-
-#map-legend-wrapper {
-  transition: transform 0.3s ease-in-out;
-}
-/* 
-  margin-left: 2rem;
-  margin-right: 2rem;
-  width: 100%;
-} */
-
-/*Each legend color square*/
-#legend-button {
-  border: 1px solid rgba(194, 27, 0, 0.979411833092612);
-  /* border-radius: 5px; */
-}
-
-/* -----------------------------------SIDEBAR---------------------------------*/ 

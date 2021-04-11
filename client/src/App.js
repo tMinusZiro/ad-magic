@@ -20,13 +20,6 @@ function App() {
 
   return (
     <div id="app-wrapper">
-      <div id="header-wrapper">
-        <Header />
-      </div>
-      <div id="top-background-color"></div>
-      <div id="fake-graph-wrapper">
-        <img src={backgroundGraph} />
-      </div>
       <div id="map-toggle-wrapper">
         <MapToggle
           setRegion={setRegion}

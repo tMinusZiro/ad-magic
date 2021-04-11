@@ -14,7 +14,6 @@ import Loading from "./Loading.jsx";
 // import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
 //legend items - part of legends class
 import legendItems from "../entities/LegendItems";
-import MapBurger from "./MapBurger.jsx";
 
 const HomePage = ({
   getMapData,
@@ -27,7 +26,7 @@ const HomePage = ({
   //total sales
   const [totalSales, setTotalSales] = useState();
   const [totalUSSales, setTotalUSSales] = useState();
-  const [openLegend, setOpenLegend] = useState(false);
+
   const [loadUnitedMap, setLoadUnitedMap] = useState(false);
   //reverse the array so that it's in descending order
   const legendItemsInReverse = [...legendItems].reverse();
@@ -178,12 +177,6 @@ const HomePage = ({
               <Loading />
             ) : (
               <div id="map-component-wrapper">
-                <div id="map-burger-wrapper">
-                  <MapBurger
-                    setOpenLegend={setOpenLegend}
-                    openLegend={openLegend}
-                  />
-                </div>
                 <div>
                   <WorldMap
                     region={region}
@@ -192,11 +185,7 @@ const HomePage = ({
                   />
                 </div>
                 <div>
-                  <MapLegend
-                    legendItems={legendItemsInReverse}
-                    openLegend={openLegend}
-                    setOpenLegend={setOpenLegend}
-                  />
+                  <MapLegend legendItems={legendItemsInReverse} />
                 </div>
               </div>
             )
@@ -210,12 +199,6 @@ const HomePage = ({
               <Loading />
             ) : (
               <div id="map-component-wrapper">
-                <div id="map-burger-wrapper">
-                  <MapBurger
-                    setOpenLegend={setOpenLegend}
-                    openLegend={openLegend}
-                  />
-                </div>
                 <div>
                   <UnitedMap
                     region={region}
@@ -224,11 +207,7 @@ const HomePage = ({
                   />
                 </div>
                 <div>
-                  <MapLegend
-                    legendItems={legendItemsInReverse}
-                    openLegend={openLegend}
-                    setOpenLegend={setOpenLegend}
-                  />
+                  <MapLegend legendItems={legendItemsInReverse} />
                 </div>
               </div>
             )

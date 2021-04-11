@@ -14,11 +14,8 @@
     url("../svg/ocean-background-four.jpg");
 
   z-index: 5;
-  font: 3rem;
-  margin-top: 3rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+
   box-shadow: 2px -2px 30px 20px rgba(112, 110, 110, 0.246);
   /* rgba(112, 110, 110, 0.246); */
-  /* width: 100%; */
+  width: 100%;
 }
