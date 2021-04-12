@@ -13,15 +13,12 @@ const salesDB = new DataStore(
   "Sales"
 );
 let formRes;
+let defaultForm = {
+  datePreset: "All time",
+};
 
 app.use(express.static(staticDir));
 app.use(express.urlencoded({ extended: true }));
-
-//show all sales objects
-app.get("/all-sales", async (request, response) => {
-  let allSalesObjects = await salesDB.showAll();
-  response.json(allSalesObjects);
-});
 
 // filtering total sales
 app.get("/total-sales", async (request, response) => {
@@ -54,8 +51,9 @@ app.get("/total-sales", async (request, response) => {
 app.get("/salesTypes", async (request, response) => {
   let client = "All Clients";
   let item = "All Items";
+  console.log("inside /salesTypes, formRes:", formRes);
   if (!formRes) {
-    let salesTypes = await salesDB.salesTypes(client, item);
+    let salesTypes = await salesDB.salesTypes(client, item, defaultForm);
     let types = [];
     await salesTypes.forEach((entry) => {
       types.push(entry);
@@ -64,7 +62,7 @@ app.get("/salesTypes", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let salesTypes = await salesDB.salesTypes(client, item);
+    let salesTypes = await salesDB.salesTypes(client, item, formRes);
     let types = [];
     await salesTypes.forEach((entry) => {
       types.push(entry);
@@ -79,7 +77,7 @@ app.get("/fullfilment", async (request, response) => {
   let item = "All Items";
   // default fetch
   if (!formRes) {
-    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    let fullfilmentType = await salesDB.fullfilmentType(client, item, defaultForm);
     let types = [];
     await fullfilmentType.forEach((entry) => {
       types.push(entry);
@@ -89,7 +87,7 @@ app.get("/fullfilment", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    let fullfilmentType = await salesDB.fullfilmentType(client, item, formRes);
     let types = [];
     await fullfilmentType.forEach((entry) => {
       types.push(entry);
@@ -103,7 +101,7 @@ app.get("/marketing", async (request, response) => {
   let client = "All Clients";
   let item = "All Items";
   if (!formRes) {
-    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    let optInMarketing = await salesDB.MarketingOpt(client, item, defaultForm);
     let opt = [];
     await optInMarketing.forEach((entry) => {
       opt.push(entry);
@@ -112,7 +110,7 @@ app.get("/marketing", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    let optInMarketing = await salesDB.MarketingOpt(client, item, formRes);
     let opt = [];
     await optInMarketing.forEach((entry) => {
       opt.push(entry);
@@ -132,7 +130,7 @@ app.get("/vendors", async (request, response) => {
   let item = "All Items";
   // default fetch
   if (!formRes) {
-    let Vendors = await salesDB.Vendors(client, item);
+    let Vendors = await salesDB.Vendors(client, item, defaultForm);
     await Vendors.forEach((entry) => {
       vendorQyt.push(entry.numberOfSales);
     });
@@ -232,7 +230,7 @@ let showUSSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
-  console.log(formRes)
+  console.log(formRes);
   //empty out an prior results
   showUSSalesArray = [];
   //re-populate the array using the function in Data Store
@@ -247,8 +245,7 @@ app.post("/show-item-sales", async (request, response) => {
     showWorldSalesArray.push(item);
   });
   //redirect the page so that new map data loads
-    response.redirect("/");
-  
+  response.redirect("/");
 });
 
 //totalSalesArray gets populated when the page loads
@@ -300,19 +297,19 @@ app.get("/client/:min/:max", async (request, response) => {
 
 app.get("/formresults", (request, response) => {
   if (formRes) {
-    response.send(formRes)
+    response.send(formRes);
   } else {
     let defaultForm = {
       datePreset: "All time",
-      presetDateName: "Timeframe", 
+      presetDateName: "Timeframe",
       account: "All Clients",
-      presetClientName: "Clients", 
-      item: "All Items", 
-      presetItem: "Items"
-    }
-    response.send(defaultForm)
+      presetClientName: "Clients",
+      item: "All Items",
+      presetItem: "Items",
+    };
+    response.send(defaultForm);
   }
-})
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));

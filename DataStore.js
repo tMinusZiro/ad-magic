@@ -93,40 +93,41 @@ class DataStore {
     }
     // filter by item
     else if (client === "All Clients" && item !== "All Items") {
-      // changeDate(formResults);
+      changeDate(formResults);
+      console.log("new end :", newEnd);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
-        // {
-        //   $match: {
-        //     $expr: {
-        //       $gte: [
-        //         newEnd,
-        //         {
-        //           $dateToString: {
-        //             date: "$Transaction_date__c",
-        //             format: "%Y-%m-%d",
-        //           },
-        //         },
-        //       ],
-        //     },
-        //   },
-        // },
-        // {
-        //   $match: {
-        //     $expr: {
-        //       $lte: [
-        //         newStart,
-        //         {
-        //           $dateToString: {
-        //             date: "$Transaction_date__c",
-        //             format: "%Y-%m-%d",
-        //           },
-        //         },
-        //       ],
-        //     },
-        //   },
-        // },
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         {
           $group: {
             _id: "$Scrubbed__c",
@@ -140,7 +141,38 @@ class DataStore {
     }
     // filter by client
     else if (client !== "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const result = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         {
@@ -173,10 +205,41 @@ class DataStore {
     }
   }
   //Sale Type chart data
-  async salesTypes(client, item) {
+  async salesTypes(client, item, formResults) {
     const collection = await this.openConnect();
     if (client === "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const types = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {
@@ -188,7 +251,38 @@ class DataStore {
       ]);
       return types;
     } else if (client !== "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const types = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         {
@@ -201,7 +295,38 @@ class DataStore {
       ]);
       return types;
     } else if (client === "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const types = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         {
@@ -214,7 +339,38 @@ class DataStore {
       ]);
       return types;
     } else if (client !== "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const types = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         { $match: { Item__c: item } },
@@ -230,10 +386,41 @@ class DataStore {
     }
   }
   //Fullfilment chart data
-  async fullfilmentType(client, item) {
+  async fullfilmentType(client, item, formResults) {
     const collection = await this.openConnect();
     if (client === "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const fullfilment = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {
@@ -245,7 +432,38 @@ class DataStore {
       ]);
       return fullfilment;
     } else if (client !== "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const fullfilment = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         {
@@ -257,8 +475,40 @@ class DataStore {
         },
       ]);
       return fullfilment;
-    } else if (client === "All Clients" && item !== "All Items") {
+    } 
+     else if (client === "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const fullfilment = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         {
@@ -271,7 +521,38 @@ class DataStore {
       ]);
       return fullfilment;
     } else if (client !== "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const fullfilment = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         { $match: { Item__c: item } },
@@ -287,10 +568,41 @@ class DataStore {
     }
   }
   //Marketing chart data
-  async MarketingOpt(client, item) {
+  async MarketingOpt(client, item, formResults) {
     const collection = await this.openConnect();
     if (client === "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const marketingOpt = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {
@@ -302,7 +614,38 @@ class DataStore {
       ]);
       return marketingOpt;
     } else if (client !== "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const marketingOpt = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         {
@@ -315,7 +658,38 @@ class DataStore {
       ]);
       return marketingOpt;
     } else if (client === "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const marketingOpt = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         {
@@ -328,7 +702,38 @@ class DataStore {
       ]);
       return marketingOpt;
     } else if (client !== "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const marketingOpt = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         { $match: { Item__c: item } },
@@ -344,10 +749,44 @@ class DataStore {
     }
   }
   //   //Vendors chart data
-  async Vendors(client, item) {
+  async Vendors(client, item, formResults) {
     const collection = await this.openConnect();
     if (client === "All Clients" && item === "All Items") {
+    console.log("in Vendors function");
+    console.log("client: ", client);
+    console.log("item: ", item);
+      changeDate(formResults);
       const vendor = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         {
           $group: {
@@ -359,7 +798,38 @@ class DataStore {
       ]);
       return vendor;
     } else if (client !== "All Clients" && item === "All Items") {
+      changeDate(formResults);
       const vendor = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
         {
@@ -372,7 +842,38 @@ class DataStore {
       ]);
       return vendor;
     } else if (client === "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const vendor = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         {
@@ -385,7 +886,38 @@ class DataStore {
       ]);
       return vendor;
     } else if (client !== "All Clients" && item !== "All Items") {
+      changeDate(formResults);
       const vendor = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
         { $match: { Account__c: client } },

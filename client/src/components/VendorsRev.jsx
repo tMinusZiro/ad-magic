@@ -47,7 +47,7 @@ export default function VendorsRev(props) {
     },
     colors: ["#6A78D1"],
     title: {
-      text: "Vendor vs. Revenue",
+      text: "Top 5 Vendors (Revenue)",
       align: 'center',
       margin: 10,
       offsetX: 0,

@@ -5,14 +5,10 @@ import WorldMap from "./WorldMap.jsx";
 import UnitedMap from "./UnitedMap.jsx";
 import MapLegend from "./MapLegend.jsx";
 import { features } from "../borderData/countries.json";
-// import LoadingMap from "./LoadingMap";
 
 import Loading from "./Loading.jsx";
 
-//importing the component task that brings in the geoJSON file
-//task will also handle all map data gathering and parsing and then send it to the map
-// import NewLoadMap from "../mapTasks/NewLoadMap.jsx";
-//legend items - part of legends class
+//array of class instances for building each rectangle in the color legend range
 import legendItems from "../entities/LegendItems";
 
 const HomePage = ({

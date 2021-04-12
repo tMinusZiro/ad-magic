@@ -4,43 +4,37 @@ export default function SalesType(props) {
   const series = props.SaleTypesAmounts;
   const options = {
     labels: props.SaleTypesLabels,
-
-    chart: {
-      type: "pie",
-      width: "100%",
-      height: "100%",
-    },
     title: {
       text: "Sales Type",
-      align: 'center',
+      align: "center",
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '18px',
-        fontWeight:  'bold',
-        fontFamily:  "Avenir",
-        color:  '#425B76'
+        fontSize: "18px",
+        fontWeight: "bold",
+        fontFamily: "Avenir",
+        color: "#425B76",
       },
-  },
-  stroke: {
-    width: 2,
-    colors:["#eaf0f6"]
-  },
-  dataLabels: {
-    enabled: true,
-    style: {
-      colors: ["#425B76"],
-      opacity: "0.8"
     },
-    background: {
+    stroke: {
+      width: 2,
+      colors: ["#eaf0f6"],
+    },
+    dataLabels: {
       enabled: true,
-      foreColor: "#fff",
-      borderWidth: 0,
+      style: {
+        colors: ["#425B76"],
+        opacity: "0.8",
+      },
+      background: {
+        enabled: true,
+        foreColor: "#fff",
+        borderWidth: 0,
+      },
     },
-  },
-  colors: ["#6FB7FF", "#FF9F6F"],
+    colors: ["#6FB7FF", "#FF9F6F"],
 
     legend: {
       position: "bottom",
@@ -48,6 +42,44 @@ export default function SalesType(props) {
       containerMargin: {
         left: 50,
         right: 100,
+      },
+    },
+    chart: {
+      type: "pie",
+      width: "100%",
+      height: "100%",
+      toolbar: {
+        show: true,
+        offsetX: 0,
+        offsetY: 0,
+        tools: {
+          download: true,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true | '<img src="/static/icons/reset.png" width="20">',
+          customIcons: [],
+        },
+        export: {
+          csv: {
+            filename: undefined,
+            columnDelimiter: ",",
+            headerCategory: "category",
+            headerValue: "value",
+            dateFormatter(timestamp) {
+              return new Date(timestamp).toDateString();
+            },
+          },
+          svg: {
+            filename: undefined,
+          },
+          png: {
+            filename: undefined,
+          },
+        },
+        autoSelected: "zoom",
       },
     },
     responsive: [

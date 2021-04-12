@@ -8,6 +8,7 @@ import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
 import Header from "./components/Header.jsx";
+import AreaGraph from "./components/AreaGraph";
 import { features } from "./borderData/usBorder.json";
 
 function App() {
@@ -30,12 +31,14 @@ function App() {
           setgetData={setgetData}
         />
       </div>
+      <div id="header-wrapper">
+        <Header />
+      </div>
       <div id="top-background-color"></div>
       <section id="container-one" className="snap-child">
-        <div id="header-wrapper">
-          <Header />
+        <div id="fake-graph-wrapper">
+          <AreaGraph />
         </div>
-        <div id="fake-graph-wrapper">{/* <img src={backgroundGraph} /> */}</div>
         <div id="top-dash-header">
           <TopDash getData={getData} setgetData={setgetData} />
         </div>

@@ -51,7 +51,7 @@ export default function VendorsTopFive(props) {
     },
     colors: ["#6A78D1"],
     title: {
-      text: "Vendor vs. Items Sold",
+      text: "Top 5 Vendors (items sold)",
       align: 'center',
       margin: 10,
       offsetX: 0,
