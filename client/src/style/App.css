@@ -179,8 +179,6 @@ border-radius: 10px;
   gap: 5rem;
   height: 100%;
   /* width:100%; */
-  border: 2px solid green; 
-
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
@@ -204,7 +202,6 @@ border-radius: 10px;
   height: 100%;
   width: 85%;
   margin-left: 5rem;
-  border: 2px blue solid; 
 }
 /*--Revenue Bar Graph-*/
 /*Closest Div Wrapper: child of .right-charts */
@@ -218,7 +215,6 @@ border-radius: 10px;
   box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
   height: 100%;
   width: 85%;
-  border: red 2px solid; 
 }
 
 /*--------------BOTTOM PIE CHARTS---------------*/
@@ -376,6 +372,7 @@ border-radius: 10px;
   display: grid;
   grid-template-columns: 1.5fr 2fr;
   text-align: center;
+  backdrop-filter: blur(8px);
   backdrop-filter: brightness(60%);
   backdrop-filter: contrast(40%);
   backdrop-filter: drop-shadow(4px 4px 10px blue);
@@ -423,9 +420,12 @@ border-radius: 10px;
   background-color: #cbd6e2;
   grid-column: 2;
   display:flex;
+  flex-direction: row;
   padding: 15px 15px 15px 45px; 
   color: #33475B;
+  justify-content:space-between;
 }
+
 #client-list {
   text-align: left;
   align-items: center;
@@ -439,9 +439,12 @@ border-radius: 10px;
 }
 
 #exit-popup {
-  position: absolute;
+  align-self: flex-start;
+  flex-direction: column-reverse; 
+  /* justify-self: last baseline; */
   top: 5px;
   right: 10px;
+  padding-left: 10px; 
 }
 ul {
   list-style: none;
@@ -456,6 +459,4 @@ ul {
 cursor: pointer;
 }
 
-#exit-button {
-border: 0;
-}
+
