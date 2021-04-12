@@ -427,7 +427,7 @@ class DataStore {
     let item = formResults.item;
     let salesResults;
     //if all accounts are chosen, match the start & end date
-    if (account === "All Clients") {
+    if (account === "All Clients" && item==="All Items") {
       salesResults = await collection.aggregate([
         {
           ///////////////////////
@@ -470,7 +470,7 @@ class DataStore {
         },
       ]);
       //if all accounts are chosen, match the start date, end date, & client
-    } else if (item === "All Items") {
+    } else if (account !== "All Clients" && item === "All Items") {
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -511,7 +511,51 @@ class DataStore {
           },
         },
       ]);
-    } else {
+    } 
+    else if (account === "All Clients" && item !== "All Items") {
+      salesResults = await collection.aggregate([
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        { $match: { Account__c: formResults.account } },
+        {
+          $group: {
+            _id: "$Country__c",
+            totalSales: { $sum: "$Total_Sales__c" },
+          },
+        },
+      ]);
+    }
+    
+    else {
       //match the start date, end date, client, & item
       salesResults = await collection.aggregate([
         {

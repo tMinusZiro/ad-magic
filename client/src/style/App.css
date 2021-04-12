@@ -7,7 +7,6 @@
 body {
   background: #EAF0F6;
   scroll-snap-type: y mandatory;
-  /* background: #efefef; */
 }
 /*This helps the snapping work in chrome and firefox*/
 html {
@@ -19,7 +18,6 @@ html {
   display: grid;
   grid-template-columns: 0.6fr 3fr;
   grid-template-rows: 100vh 100vh 100vh;
-  /* border: blue solid 5px; */
   /* grid-gap: 2rem; */
   box-sizing: border-box;
 }
@@ -179,16 +177,11 @@ border-radius: 10px;
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
-  /* border: 2px rgb(205, 203, 203) solid; */
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   width: 100%;
   height: 100%;
-  /* background-color: white; */
   border-radius: 15px;
   margin-bottom: 1em;
-  /* border: 3px solid green; */
   align-items: center;
-  /* background-color: #dfe3eb; */
 }
 
 /*--Top Five Total Sales Bar Graph--*/
@@ -199,12 +192,10 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
   border-radius: 5px;
   height: 100%;
   width: 85%;
-
   margin-left: 5rem;
 }
 /*--Revenue Bar Graph-*/
@@ -216,9 +207,7 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
-
   height: 100%;
   width: 85%;
 }
@@ -244,7 +233,6 @@ border-radius: 10px;
 .bottom-charts {
   width: 30%;
   height: 90%;
-  /* border-radius: 15px; */
 }
 
 /*--wrapper for actual fulfillment pie chart--*/
@@ -253,14 +241,11 @@ border-radius: 10px;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  /* background-color: white; */
   border-radius: 5px;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
   height: 100%;
   width: 100%;
   background-color: #f5f8fa;
-
 }
 /*--wrapper for actual Opt In Marketing pie chart--*/
 #M-chart {
@@ -270,9 +255,7 @@ border-radius: 10px;
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
-
   background-color: #f5f8fa;
   height: 100%;
   width: 100%;
@@ -284,24 +267,12 @@ border-radius: 10px;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  /* background-color: white; */
   background-color: #f5f8fa;
   border-radius: 5px;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
-  /* background-color: rgba(255, 119, 0, 0.461); */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
   height: 100%;
   width: 100%;
 }
-
-/* #data-displays-wrapper {
-  border: 5px pink solid;
-  grid-area: 3/3/4/4;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-} */
 
 /*---------Top Dashboard Tiles-------------- */
 
@@ -312,12 +283,9 @@ border-radius: 10px;
 #top-dash {
   /* display: grid;
   grid-template-columns: repeat(3 1fr); */
-
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  
-
   /* gap: 2rem; */
 }
 #top-dash-icon {
@@ -351,34 +319,22 @@ border-radius: 10px;
   display: inline-block;
 }
 #total-sales {
-  /* background: white; */
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
-  /* color: black; */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
   width: 20vw;
-  /* background-color: #6a78d1; */
   opacity: 80%;
   background-image: url("./../svg/PurpleGradient.png");
   background-size: 100% 100%; 
 }
 #average-price {
-  /* background: white; */
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
-  /* color: black; */
   width: 20vw;
-  /* background-color: #00a4bd; */
   opacity: 80%;
   background-image: url("./../svg/Blu3.png");
   background-size: 100% 100%; 
-
 }
+
 #item-sold {
-  /* color: black; */
   width: 20vw;
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
-  /* background: white; */
-  /* background-color: #06cc97; */
   opacity: 80%;
   background-image: url("./../svg/Gradient4.png");
   background-size: 100% 100%; 
@@ -388,7 +344,6 @@ border-radius: 10px;
 
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
-  /* display: flex;*/
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -398,11 +353,9 @@ border-radius: 10px;
   left: 0;
   right: 0;
   bottom: 0;
-  /* margin: auto; */
   z-index: 10000;
   backdrop-filter: blur(8px);
   overflow:hidden;
-  /* box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); */
   box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
 }
 
@@ -411,7 +364,6 @@ border-radius: 10px;
   width: 45vw;
   border-radius: 10px;
   background-color: #edf6f9;
-  /* padding: 10px; */
   display: grid;
   grid-template-columns: 1.5fr 2fr;
   text-align: center;
