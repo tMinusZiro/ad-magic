@@ -55,7 +55,10 @@ app.get("/salesTypes", async (request, response) => {
   let client = "all";
   let item = "all-items";
   if (!formRes) {
-    let salesTypes = await salesDB.salesTypes(client, item);
+    {
+      formRes ? null : (formRes = { datePreset: "All time" });
+    }
+    let salesTypes = await salesDB.salesTypes(client, item, formRes);
     let types = [];
     await salesTypes.forEach((entry) => {
       types.push(entry);
@@ -64,7 +67,7 @@ app.get("/salesTypes", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let salesTypes = await salesDB.salesTypes(client, item);
+    let salesTypes = await salesDB.salesTypes(client, item, formRes);
     let types = [];
     await salesTypes.forEach((entry) => {
       types.push(entry);
@@ -79,7 +82,10 @@ app.get("/fullfilment", async (request, response) => {
   let item = "all-items";
   // default fetch
   if (!formRes) {
-    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    {
+      formRes ? null : (formRes = { datePreset: "All time" });
+    }
+    let fullfilmentType = await salesDB.fullfilmentType(client, item, formRes);
     let types = [];
     await fullfilmentType.forEach((entry) => {
       types.push(entry);
@@ -89,7 +95,7 @@ app.get("/fullfilment", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let fullfilmentType = await salesDB.fullfilmentType(client, item);
+    let fullfilmentType = await salesDB.fullfilmentType(client, item, formRes);
     let types = [];
     await fullfilmentType.forEach((entry) => {
       types.push(entry);
@@ -103,7 +109,10 @@ app.get("/marketing", async (request, response) => {
   let client = "all";
   let item = "all-items";
   if (!formRes) {
-    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    {
+      formRes ? null : (formRes = { datePreset: "All time" });
+    }
+    let optInMarketing = await salesDB.MarketingOpt(client, item, formRes);
     let opt = [];
     await optInMarketing.forEach((entry) => {
       opt.push(entry);
@@ -112,7 +121,7 @@ app.get("/marketing", async (request, response) => {
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
-    let optInMarketing = await salesDB.MarketingOpt(client, item);
+    let optInMarketing = await salesDB.MarketingOpt(client, item, formRes);
     let opt = [];
     await optInMarketing.forEach((entry) => {
       opt.push(entry);
@@ -132,7 +141,10 @@ app.get("/vendors", async (request, response) => {
   let item = "all-items";
   // default fetch
   if (!formRes) {
-    let Vendors = await salesDB.Vendors(client, item);
+    {
+      formRes ? null : (formRes = { datePreset: "All time" });
+    }
+    let Vendors = await salesDB.Vendors(client, item, formRes);
     await Vendors.forEach((entry) => {
       vendorQyt.push(entry.numberOfSales);
     });
