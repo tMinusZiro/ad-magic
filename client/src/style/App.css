@@ -63,6 +63,11 @@ html {
   /* height: 10%; */
   width: 100%;
   /* flex: auto; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  border: 1px solid blue;
+  z-index: 1000;
 }
 
 #main-head-flex {
@@ -291,12 +296,13 @@ h6 {
 
 /*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
+  border: 1px solid red;
 }
 
 #top-dash {
   /* display: grid;
   grid-template-columns: repeat(3 1fr); */
-
+  border: 1px solid blue;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
@@ -310,7 +316,7 @@ h6 {
   padding: 1em;
   /* height: 10vh; */
   color: #000000;
-
+  border: 1px solid green;
   border-radius: 10px;
   background-color: #ffffff;
   font-size: 2vh;
@@ -357,7 +363,7 @@ h6 {
   /* margin: auto; */
   z-index: 10000;
   backdrop-filter: blur(8px);
-  overflow:hidden;
+  overflow: hidden;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -379,24 +385,24 @@ h6 {
   backdrop-filter: opacity(20%);
   backdrop-filter: sepia(90%);
   backdrop-filter: saturate(80%);
-  overflow:scroll;
+  overflow: scroll;
 }
 
 #popup-icon {
-  height: 15px; 
+  height: 15px;
   width: 15px;
-  opacity: 70%; 
+  opacity: 70%;
 }
 #arrow-icon {
-  height: 30px; 
-  width: 30px; 
+  height: 30px;
+  width: 30px;
 }
 
-#left-popup { 
+#left-popup {
   grid-column: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   background-image: url("./../svg/leftpopup.png");
   background-size: 100% 100%;
   color: #dfe3eb;
@@ -404,40 +410,38 @@ h6 {
 }
 
 #popup-item {
-  padding: 40px; 
+  padding: 40px;
 }
 #right-popup {
-  background-color: #cbd6e2; 
+  background-color: #cbd6e2;
   grid-column: 2;
-  display:flex;
-  padding-left: 10px; 
-  color: #33475B;
+  display: flex;
+  padding-left: 10px;
+  color: #33475b;
 }
 #client-list {
-  text-align:left;
+  text-align: left;
   align-items: center;
   display: inline-block;
-  align-self:center
-
+  align-self: center;
 }
 
 #exit-popup {
-  position:absolute;
-  top:5px;
-  right:10px;
-
+  position: absolute;
+  top: 5px;
+  right: 10px;
 }
 ul {
   list-style: none;
   marker: none;
 }
 
-#exit-icon { 
-  height: 20px; 
-  width: 20px; 
+#exit-icon {
+  height: 20px;
+  width: 20px;
 }
 
 #exit-button {
-  color:white; 
+  color: white;
   border: 0;
 }

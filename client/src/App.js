@@ -1,5 +1,5 @@
 import "./style/App.css";
-import "./style/Sidebar.css"
+import "./style/Sidebar.css";
 import MapToggle from "./components/MapToggle";
 import { useState, useEffect } from "react";
 import backgroundGraph from "./svg/background-graph.svg";
@@ -24,15 +24,15 @@ function App() {
         <MapToggle
           setRegion={setRegion}
           region={region}
-          setGetMapData = {setGetMapData}
+          setGetMapData={setGetMapData}
           setgetData={setgetData}
         />
       </div>
+      <div id="header-wrapper">
+        <Header />
+      </div>
       <div id="top-background-color"></div>
       <section id="container-one" className="snap-child">
-        <div id="header-wrapper">
-          <Header />
-        </div>
         <div id="fake-graph-wrapper">{/* <img src={backgroundGraph} /> */}</div>
         <div id="top-dash-header">
           <TopDash getData={getData} setgetData={setgetData} />
@@ -42,14 +42,14 @@ function App() {
         </div>
       </section>
       <section id="container-two" className="snap-child">
-      <div id="home-page">
-        <HomePage
-          setGetMapData = {setGetMapData}
-          getMapData = {getMapData}
-          region={region}
-          usBorderData={usBorderData}
-        />
-      </div>
+        <div id="home-page">
+          <HomePage
+            setGetMapData={setGetMapData}
+            getMapData={getMapData}
+            region={region}
+            usBorderData={usBorderData}
+          />
+        </div>
       </section>
       <section id="container-three" className="snap-child">
         <div id="bottom-dash-header">
