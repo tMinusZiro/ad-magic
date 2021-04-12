@@ -4,17 +4,19 @@ export default function AreaGraph() {
   const series = [
     {
       data: [
-        [1327359600000, 20],
-        [1327446000000, 25],
-        [1327532400000, 35],
-        [1327618800000, 30],
-        [1327878000000, 45],
-        [1327964400000, 40],
-        [1328050800000, 30],
-        [1328137200000, 20],
-        [1328223600000, 25],
-        [1328482800000, 35],
-        [1328569200000, 40],
+        //jan 2021
+        [1617235920000, 102],
+        [1614557520000, 79],
+        [1612138320000, 285],
+        [1609459920000, 119],
+        [1606781520000, 102],
+        [1604189520000, 37],
+        [1601511120000, 27],
+        [1598919120000, 16],
+        [1596240720000, 16],
+        [1593562320000, 7],
+        [1590970320000, 6],
+        [1588291920000, 67],
       ],
     },
   ];
@@ -34,7 +36,6 @@ export default function AreaGraph() {
           borderColor: "#999",
           label: {
             show: true,
-            text: "Support",
             style: {
               color: "#fff",
               background: "#00E396",
@@ -44,15 +45,14 @@ export default function AreaGraph() {
       ],
       xaxis: [
         {
-          x: new Date("14 Nov 2012").getTime(),
-          borderColor: "#999",
+          x: new Date("05 01 2020").getTime(),
+          borderColor: "#000",
           yAxisIndex: 0,
           label: {
-            show: true,
-            text: "Rally",
+            show: false,
             style: {
               color: "#fff",
-              background: "#775DD0",
+              background: "#ff7711",
             },
           },
         },
@@ -67,7 +67,7 @@ export default function AreaGraph() {
     },
     xaxis: {
       type: "datetime",
-      min: new Date("01 Mar 2012").getTime(),
+      min: new Date("05 01 2020").getTime(),
       tickAmount: 6,
     },
     tooltip: {

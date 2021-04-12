@@ -5,7 +5,7 @@
 }
 /*This helps the snapping work in safari*/
 body {
-  background: #EAF0F6;
+  background: #eaf0f6;
   scroll-snap-type: y mandatory;
 }
 /*This helps the snapping work in chrome and firefox*/
@@ -44,13 +44,12 @@ html {
 
 /*Splits the top half of the viewport with contrasting color*/
 #top-background-color {
-  background-color: #EAF0F6; 
+  background-color: #eaf0f6;
   opacity: 60%;
   height: 42%;
   grid-area: 1/2/2/3;
   z-index: -1;
 }
-
 
 /*------Header----------*/
 
@@ -103,11 +102,10 @@ html {
   display: flex;
 }
 #user-wrapper img {
-  width: 40px; 
+  width: 40px;
   border: 0.5px solid #dfe3eb;
   border-radius: 50%;
-  box-shadow: 5px 5px 60px 0.5px rgb(0,0,0, 0.45);
-
+  box-shadow: 5px 5px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #user-id {
@@ -140,19 +138,17 @@ h6 {
 #map-component-wrapper {
   box-sizing: border-box;
   width: 70vw;
-  box-shadow: 20px 30px 60px 0.5px rgb(0,0,0, 0.45);
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
-
 
 #map-legend-wrapper {
   width: 100%;
-border-radius: 10px; 
+  border-radius: 10px;
 }
 
-#legend-button:hover { 
+#legend-button:hover {
   cursor: pointer;
 }
-
 
 /*------Fake Graph Background--------*/
 /* #fake-graph-wrapper {
@@ -179,8 +175,7 @@ border-radius: 10px;
   gap: 5rem;
   height: 100%;
   /* width:100%; */
-  border: 2px solid green; 
-
+  border: 2px solid green;
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
@@ -199,12 +194,12 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   border-radius: 5px;
   height: 100%;
   width: 85%;
   margin-left: 5rem;
-  border: 2px blue solid; 
+  border: 2px blue solid;
 }
 /*--Revenue Bar Graph-*/
 /*Closest Div Wrapper: child of .right-charts */
@@ -215,10 +210,10 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 85%;
-  border: red 2px solid; 
+  border: red 2px solid;
 }
 
 /*--------------BOTTOM PIE CHARTS---------------*/
@@ -251,7 +246,7 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
   background-color: #f5f8fa;
@@ -264,7 +259,7 @@ border-radius: 10px;
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   background-color: #f5f8fa;
   height: 100%;
   width: 100%;
@@ -278,7 +273,7 @@ border-radius: 10px;
   align-items: center;
   background-color: #f5f8fa;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
 }
@@ -303,7 +298,7 @@ border-radius: 10px;
   padding-right: 8px;
 }
 #top-dash-title {
-  font-size:22px;
+  font-size: 22px;
 }
 
 /*class for each individual top dash tile*/
@@ -311,7 +306,7 @@ border-radius: 10px;
   margin: 1em;
   padding: 1em;
   /* height: 10vh; */
-  color: #EAF0F6;
+  color: #eaf0f6;
 
   border-radius: 10px;
   font-size: 2vh;
@@ -328,28 +323,27 @@ border-radius: 10px;
   display: inline-block;
 }
 #total-sales {
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  box-shadow: 15px -20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 20vw;
   opacity: 80%;
   background-image: url("./../svg/PurpleGradient.png");
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
 }
 #average-price {
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 20vw;
   opacity: 80%;
   background-image: url("./../svg/Blu3.png");
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
 }
 
 #item-sold {
   width: 20vw;
   opacity: 80%;
   background-image: url("./../svg/Gradient4.png");
-  background-size: 100% 100%; 
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  background-size: 100% 100%;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
-
 
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
@@ -364,8 +358,8 @@ border-radius: 10px;
   bottom: 0;
   z-index: 10000;
   backdrop-filter: blur(8px);
-  overflow:hidden;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  overflow: hidden;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 .popup {
@@ -385,19 +379,19 @@ border-radius: 10px;
   backdrop-filter: opacity(20%);
   backdrop-filter: sepia(90%);
   backdrop-filter: saturate(80%);
-  overflow:scroll;
-  box-shadow: 20px 30px 60px 0.5px rgb(0,0,0, 0.45);
+  overflow: scroll;
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #popup-icon {
-  height: 18px; 
+  height: 18px;
   width: 18px;
-  opacity: 90%; 
+  opacity: 90%;
   padding-right: 5px;
 }
 #arrow-icon {
-  height: 26px; 
-  width: 26px; 
+  height: 26px;
+  width: 26px;
 }
 
 #left-popup {
@@ -415,25 +409,25 @@ border-radius: 10px;
   padding: 40px;
   font-size: bigger;
 }
-#popup-title { 
-  padding: 40px; 
+#popup-title {
+  padding: 40px;
   font-size: 1.5em;
 }
 #right-popup {
   background-color: #cbd6e2;
   grid-column: 2;
-  display:flex;
-  padding: 15px 15px 15px 45px; 
-  color: #33475B;
+  display: flex;
+  padding: 15px 15px 15px 45px;
+  color: #33475b;
 }
 #client-list {
   text-align: left;
   align-items: center;
   display: inline-block;
-  align-self:center
+  align-self: center;
 }
 
-#client-list-item { 
+#client-list-item {
   padding-bottom: 4px;
   opacity: 85%;
 }
@@ -452,10 +446,10 @@ ul {
   height: 20px;
   width: 20px;
 }
-#exit-popup:hover { 
-cursor: pointer;
+#exit-popup:hover {
+  cursor: pointer;
 }
 
 #exit-button {
-border: 0;
+  border: 0;
 }
