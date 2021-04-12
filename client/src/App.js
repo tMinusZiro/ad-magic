@@ -31,6 +31,9 @@ function App() {
           setgetData={setgetData}
         />
       </div>
+      {/* <div id="header-wrapper">
+        <Header />
+      </div> */}
       <div id="top-background-color"></div>
       <section id="container-one" className="snap-child">
         <div id="fake-graph-wrapper">

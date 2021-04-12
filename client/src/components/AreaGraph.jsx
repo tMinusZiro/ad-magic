@@ -29,6 +29,10 @@ export default function AreaGraph() {
         autoScaleYaxis: true,
       },
     },
+    colors: ["#FAAF7D"],
+    stroke: {
+      width: 5,
+    },
     annotations: {
       yaxis: [
         {
@@ -49,7 +53,7 @@ export default function AreaGraph() {
           borderColor: "#000",
           yAxisIndex: 0,
           label: {
-            show: false,
+            show: true,
             style: {
               color: "#fff",
               background: "#ff7711",
@@ -82,6 +86,20 @@ export default function AreaGraph() {
         opacityFrom: 0.7,
         opacityTo: 0.9,
         stops: [0, 100],
+      },
+    },
+    title: {
+      text: "Total Sales by month",
+      align: "left",
+      margin: 15,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize: "14px",
+        fontWeight: "bold",
+        fontFamily: "Avenir",
+        color: "#263238",
       },
     },
   };
