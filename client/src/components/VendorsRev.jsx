@@ -48,18 +48,18 @@ export default function VendorsRev(props) {
     colors: ["#6A78D1"],
     title: {
       text: "Top 5 Vendors (Revenue)",
-      align: 'center',
+      align: "center",
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '14px',
-        fontWeight:  'bold',
-        fontFamily:  "Avenir",
-        color:  '#263238'
+        fontSize: "14px",
+        fontWeight: "bold",
+        fontFamily: "Avenir",
+        color: "#263238",
       },
-  }
+    },
   };
 
   return (

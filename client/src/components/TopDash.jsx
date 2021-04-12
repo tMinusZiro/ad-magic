@@ -1,13 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import averageSaleIcon from "./../svg/averagesale.svg"
-import revenueIcon from "./../svg/grossrevenue.svg"
-import itemsSoldIcon from "./../svg/itemsold.svg"
+import averageSaleIcon from "./../svg/averagesale.svg";
+import revenueIcon from "./../svg/grossrevenue.svg";
+import itemsSoldIcon from "./../svg/itemsold.svg";
 
 export default function TopDash(props) {
   const [data, setdata] = useState(false);
   const [Newdatas, setNewdata] = useState(false);
-  const [List, setList] = useState();
   const [TotalSales, setTotalSales] = useState(0);
   const [averagePrice, setAveragePrice] = useState(0);
   const [itemSold, setitemSold] = useState(0);
@@ -23,7 +22,6 @@ export default function TopDash(props) {
           ts = ts.join(".");
 
           setTotalSales(ts);
-
           setAveragePrice(Math.ceil(totals.averageSale));
           setitemSold(totals.totalItems);
           setdata(true);
@@ -37,8 +35,9 @@ export default function TopDash(props) {
       <div className="top-tile-background">
         <div id="total-sales" className="dashboard">
           <div id="top-dash-title">
-        <img src = {revenueIcon} id= "top-dash-icon" />
-          Gross Revenue</div>
+            <img src={revenueIcon} id="top-dash-icon" />
+            Gross Revenue
+          </div>
           <span className="top-dash-num">
             {TotalSales} <span className="top-dash-small">$</span>
           </span>
@@ -46,9 +45,10 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="average-price" className="dashboard">
-        <div id="top-dash-title">
-        <img src = {averageSaleIcon} id= "top-dash-icon" />
-          Average Sale</div>
+          <div id="top-dash-title">
+            <img src={averageSaleIcon} id="top-dash-icon" />
+            Average Sale
+          </div>
           <span className="top-dash-num">
             {averagePrice} <span className="top-dash-small">$</span>
           </span>
@@ -56,9 +56,10 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="item-sold" className="dashboard">
-        <div id="top-dash-title">
-        <img src = {itemsSoldIcon} id= "top-dash-icon" />
-          Items Sold</div>
+          <div id="top-dash-title">
+            <img src={itemsSoldIcon} id="top-dash-icon" />
+            Items Sold
+          </div>
           <span className="top-dash-num">
             {itemSold} <span className="top-dash-small">items</span>
           </span>

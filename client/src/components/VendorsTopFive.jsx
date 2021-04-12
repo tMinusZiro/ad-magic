@@ -6,10 +6,6 @@ export default function VendorsTopFive(props) {
       name: "Total Sales",
       data: props.VendorsAmounts,
     },
-    // {
-    //   name: "Revenue",
-    //   data: props.VendorsSales,
-    // },
   ];
   const options = {
     chart: {
@@ -52,18 +48,18 @@ export default function VendorsTopFive(props) {
     colors: ["#6A78D1"],
     title: {
       text: "Top 5 Vendors (items sold)",
-      align: 'center',
+      align: "center",
       margin: 10,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize:  '14px',
-        fontWeight:  'bold',
-        fontFamily:  "Avenir",
-        color:  '#2425B76'
+        fontSize: "14px",
+        fontWeight: "bold",
+        fontFamily: "Avenir",
+        color: "#2425B76",
       },
-  }
+    },
   };
 
   return (

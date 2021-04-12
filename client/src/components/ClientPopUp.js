@@ -4,10 +4,8 @@ import arrow from "./../svg/arrow.svg";
 import exit from "./../svg/exit.png";
 
 const ClientPopUp = (props) => {
-  // const [list, createList] = useState()
 
   let array = [];
-
   for (let i = 0; i < props.clientListInRange.length / 2; i += 2) {
     array.push(
       `${props.clientListInRange[i]}: $${props.clientListInRange[i + 1]}`
@@ -15,6 +13,7 @@ const ClientPopUp = (props) => {
   }
   console.log(array);
 
+  //hide the popup when user clicks the X in corner 
   function hidePopup(event) {
     props.setShowClients(false);
   }
@@ -42,8 +41,6 @@ const ClientPopUp = (props) => {
           </div>
 
           <div id="right-popup">
-
-
             <div id="client-list">
               <ul>
                 {array.map((client, index) => {
@@ -56,8 +53,8 @@ const ClientPopUp = (props) => {
               </ul>
             </div>
 
-                        <div id="exit-popup" onClick={hidePopup}>
-                <img src={exit} />
+            <div id="exit-popup" onClick={hidePopup}>
+              <img src={exit} />
             </div>
           </div>
         </div>

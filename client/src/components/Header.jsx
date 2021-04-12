@@ -1,10 +1,8 @@
 import React from "react";
 import settingsIcon from "../svg/settings.svg";
 import alertBell from "../svg/alert.svg";
-
 import note from "../svg/note.svg";
-// import userPic from "../svg/woman-stock-image.png";
-import userPic from "../svg/userphoto.png";
+import userPic from "../svg/user.jpeg";
 
 const Header = () => {
   return (
