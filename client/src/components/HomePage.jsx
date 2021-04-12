@@ -16,8 +16,10 @@ import Loading from "./Loading.jsx";
 import legendItems from "../entities/LegendItems";
 
 const HomePage = ({
-  getMapData,
-  setGetMapData,
+  getUSMapData,
+  setGetUSMapData,
+  getWorldMapData,
+  setGetWorldMapData,
   region,
   usBorderData,
 }) => {
@@ -36,11 +38,12 @@ const HomePage = ({
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
-    if (getMapData) {
+    if (getWorldMapData) {
       let interArray = [];
       fetch(`/show-sales/`)
         .then((res) => res.json())
         .then((list) => {
+          console.log(list);
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
@@ -49,7 +52,10 @@ const HomePage = ({
           setTotalSales(interArray);
           //trigger the loadMap() function
           setLoadMap(true);
+          setGetWorldMapData(false);
         });
+    }
+    if (getUSMapData) {
       let interStateArray = [];
       fetch(`/show-us`)
         .then((res) => res.json())
@@ -63,7 +69,7 @@ const HomePage = ({
           //trigger the loadMap() function
           //conditional for which map to load
           setLoadUnitedMap(true);
-          setGetMapData(false);
+          setGetUSMapData(false);
         });
     }
   });

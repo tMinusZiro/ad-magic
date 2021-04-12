@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ClientPopUp from "./ClientPopUp";
-const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
+const MapLegend = ({ legendItems}) => {
   const [min, setMin] = useState();
   const [max, setMax] = useState();
   const [clientListInRange, setClientListInRange] = useState();
@@ -34,9 +34,6 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
     }
     setShowClients(true);
   }
-  function flipMenu() {
-    openLegend ? setOpenLegend(!openLegend) : setOpenLegend(openLegend);
-  }
 
   return (
     <div
@@ -47,13 +44,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
     >
       <div
         id="map-legend-wrapper"
-        style={
-          openLegend
-            ? {
-                display: "flex",
-                alignItems: "stretch",
-              }
-            : {
+        style={ {
                 display: "flex",
                 alignItems: "stretch",
               }
@@ -75,7 +66,7 @@ const MapLegend = ({ legendItems, openLegend, setOpenLegend }) => {
               color: item.textColor,
               height: "5vh",
               border: "none",
-              fontWeight: "bolder",
+              // fontWeight: "bolder",
               fontSize: "1.2em",
             }}
           >

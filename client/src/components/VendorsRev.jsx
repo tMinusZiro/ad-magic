@@ -32,7 +32,7 @@ export default function VendorsRev(props) {
     },
     yaxis: {
       title: {
-        text: "Gross Revenue (K)",
+        text: "Gross Revenue (thousands)",
       },
     },
     fill: {
@@ -45,6 +45,21 @@ export default function VendorsRev(props) {
         },
       },
     },
+    colors: ["#6A78D1"],
+    title: {
+      text: "Vendor vs. Revenue",
+      align: 'center',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  "Avenir",
+        color:  '#263238'
+      },
+  }
   };
 
   return (

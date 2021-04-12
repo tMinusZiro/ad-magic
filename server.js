@@ -37,10 +37,10 @@ app.get("/total-sales", async (request, response) => {
     let client = formRes.account;
     let item = formRes.item;
     {
-      item ? null : (item = "all-items");
+      item ? null : (item = "All Items");
     }
     {
-      client ? null : (client = "all");
+      client ? null : (client = "All Clients");
     }
     let filters;
     let result = await salesDB.filterTotalSales(client, item, formRes);
@@ -52,8 +52,8 @@ app.get("/total-sales", async (request, response) => {
 });
 
 app.get("/salesTypes", async (request, response) => {
-  let client = "all";
-  let item = "all-items";
+  let client = "All Clients";
+  let item = "All Items";
   if (!formRes) {
     let salesTypes = await salesDB.salesTypes(client, item);
     let types = [];
@@ -75,8 +75,8 @@ app.get("/salesTypes", async (request, response) => {
 
 //fullfilment chart data
 app.get("/fullfilment", async (request, response) => {
-  let client = "all";
-  let item = "all-items";
+  let client = "All Clients";
+  let item = "All Items";
   // default fetch
   if (!formRes) {
     let fullfilmentType = await salesDB.fullfilmentType(client, item);
@@ -100,8 +100,8 @@ app.get("/fullfilment", async (request, response) => {
 
 //marketing chart data
 app.get("/marketing", async (request, response) => {
-  let client = "all";
-  let item = "all-items";
+  let client = "All Clients";
+  let item = "All Items";
   if (!formRes) {
     let optInMarketing = await salesDB.MarketingOpt(client, item);
     let opt = [];
@@ -128,8 +128,8 @@ app.get("/vendors", async (request, response) => {
   let vendorTopFive = [];
   let vendorTopRev = [];
   let result = [];
-  let client = "all";
-  let item = "all-items";
+  let client = "All Clients";
+  let item = "All Items";
   // default fetch
   if (!formRes) {
     let Vendors = await salesDB.Vendors(client, item);
@@ -216,7 +216,7 @@ app.get("/items/:client", async (request, response) => {
   let client = request.params.client;
   let itemArray = [];
   await clientsArray.forEach((item) => {
-    if (client === "all") {
+    if (client === "All Clients") {
       itemArray.push(item.itemList);
     } else if (client === item._id) {
       itemArray.push(item.itemList);
@@ -232,9 +232,10 @@ let showUSSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
+  console.log(formRes)
   //empty out an prior results
   showUSSalesArray = [];
-  //re-populate teh array using the function in Data Store
+  //re-populate the array using the function in Data Store
   let totalUSSales = await salesDB.findUSSalesByForm(formRes);
   await totalUSSales.forEach((item) => {
     showUSSalesArray.push(item);
@@ -246,11 +247,8 @@ app.post("/show-item-sales", async (request, response) => {
     showWorldSalesArray.push(item);
   });
   //redirect the page so that new map data loads
-  if (formRes.US === "on") {
-    response.redirect("/united");
-  } else {
     response.redirect("/");
-  }
+  
 });
 
 //totalSalesArray gets populated when the page loads
@@ -299,6 +297,22 @@ app.get("/client/:min/:max", async (request, response) => {
   }
   response.send(clientsOfCertainSales);
 });
+
+app.get("/formresults", (request, response) => {
+  if (formRes) {
+    response.send(formRes)
+  } else {
+    let defaultForm = {
+      datePreset: "All time",
+      presetDateName: "Timeframe", 
+      account: "All Clients",
+      presetClientName: "Clients", 
+      item: "All Items", 
+      presetItem: "Items"
+    }
+    response.send(defaultForm)
+  }
+})
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(staticDir + "/index.html"));

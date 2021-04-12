@@ -47,7 +47,7 @@ class DataStore {
 
     const collection = await this.openConnect();
     //filter function
-    if (client === "all" && item === "all-items") {
+    if (client === "All Clients" && item === "All Items") {
       const result = await collection.aggregate([
         {
           $match: {
@@ -92,9 +92,8 @@ class DataStore {
       return result;
     }
     // filter by item
-    else if (client === "all" && item !== "all-items") {
+    else if (client === "All Clients" && item !== "All Items") {
       // changeDate(formResults);
-      console.log("new end :", newEnd);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -140,7 +139,7 @@ class DataStore {
       return result;
     }
     // filter by client
-    else if (client !== "all" && item === "all-items") {
+    else if (client !== "All Clients" && item === "All Items") {
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -155,7 +154,7 @@ class DataStore {
       ]);
 
       return result;
-    } else if (client !== "all" && item !== "all-items") {
+    } else if (client !== "All Clients" && item !== "All Items") {
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -176,7 +175,7 @@ class DataStore {
   //Sale Type chart data
   async salesTypes(client, item) {
     const collection = await this.openConnect();
-    if (client === "all" && item === "all-items") {
+    if (client === "All Clients" && item === "All Items") {
       const types = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         {
@@ -188,7 +187,7 @@ class DataStore {
         },
       ]);
       return types;
-    } else if (client !== "all" && item === "all-items") {
+    } else if (client !== "All Clients" && item === "All Items") {
       const types = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -201,7 +200,7 @@ class DataStore {
         },
       ]);
       return types;
-    } else if (client === "all" && item !== "all-items") {
+    } else if (client === "All Clients" && item !== "All Items") {
       const types = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -214,7 +213,7 @@ class DataStore {
         },
       ]);
       return types;
-    } else if (client !== "all" && item !== "all-items") {
+    } else if (client !== "All Clients" && item !== "All Items") {
       const types = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -233,7 +232,7 @@ class DataStore {
   //Fullfilment chart data
   async fullfilmentType(client, item) {
     const collection = await this.openConnect();
-    if (client === "all" && item === "all-items") {
+    if (client === "All Clients" && item === "All Items") {
       const fullfilment = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         {
@@ -245,7 +244,7 @@ class DataStore {
         },
       ]);
       return fullfilment;
-    } else if (client !== "all" && item === "all-items") {
+    } else if (client !== "All Clients" && item === "All Items") {
       const fullfilment = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -258,7 +257,7 @@ class DataStore {
         },
       ]);
       return fullfilment;
-    } else if (client === "all" && item !== "all-items") {
+    } else if (client === "All Clients" && item !== "All Items") {
       const fullfilment = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -271,7 +270,7 @@ class DataStore {
         },
       ]);
       return fullfilment;
-    } else if (client !== "all" && item !== "all-items") {
+    } else if (client !== "All Clients" && item !== "All Items") {
       const fullfilment = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -290,7 +289,7 @@ class DataStore {
   //Marketing chart data
   async MarketingOpt(client, item) {
     const collection = await this.openConnect();
-    if (client === "all" && item === "all-items") {
+    if (client === "All Clients" && item === "All Items") {
       const marketingOpt = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         {
@@ -302,7 +301,7 @@ class DataStore {
         },
       ]);
       return marketingOpt;
-    } else if (client !== "all" && item === "all-items") {
+    } else if (client !== "All Clients" && item === "All Items") {
       const marketingOpt = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -315,7 +314,7 @@ class DataStore {
         },
       ]);
       return marketingOpt;
-    } else if (client === "all" && item !== "all-items") {
+    } else if (client === "All Clients" && item !== "All Items") {
       const marketingOpt = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -328,7 +327,7 @@ class DataStore {
         },
       ]);
       return marketingOpt;
-    } else if (client !== "all" && item !== "all-items") {
+    } else if (client !== "All Clients" && item !== "All Items") {
       const marketingOpt = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -347,10 +346,7 @@ class DataStore {
   //   //Vendors chart data
   async Vendors(client, item) {
     const collection = await this.openConnect();
-    console.log("in Vendors function");
-    console.log("client: ", client);
-    console.log("item: ", item);
-    if (client === "all" && item === "all-items") {
+    if (client === "All Clients" && item === "All Items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         {
@@ -362,7 +358,7 @@ class DataStore {
         },
       ]);
       return vendor;
-    } else if (client !== "all" && item === "all-items") {
+    } else if (client !== "All Clients" && item === "All Items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: client } },
@@ -375,7 +371,7 @@ class DataStore {
         },
       ]);
       return vendor;
-    } else if (client === "all" && item !== "all-items") {
+    } else if (client === "All Clients" && item !== "All Items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -388,7 +384,7 @@ class DataStore {
         },
       ]);
       return vendor;
-    } else if (client !== "all" && item !== "all-items") {
+    } else if (client !== "All Clients" && item !== "All Items") {
       const vendor = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -431,7 +427,7 @@ class DataStore {
     let item = formResults.item;
     let salesResults;
     //if all accounts are chosen, match the start & end date
-    if (account === "all") {
+    if (account === "All Clients") {
       salesResults = await collection.aggregate([
         {
           ///////////////////////
@@ -474,7 +470,7 @@ class DataStore {
         },
       ]);
       //if all accounts are chosen, match the start date, end date, & client
-    } else if (item === "all-items") {
+    } else if (item === "All Items") {
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -575,8 +571,7 @@ class DataStore {
     let item = formResults.item;
     let salesResults;
     //if all accounts are chosen, match the start & end date
-    if (account === "all") {
-      console.log(account, item, newStart, newEnd);
+    if (account === "All Clients") {
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -619,7 +614,7 @@ class DataStore {
         },
       ]);
       //if all accounts are chosen, match the start date, end date, & client
-    } else if (item === "all-items") {
+    } else if (item === "All Items") {
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -773,30 +768,30 @@ function changeDate(formResults) {
     let endMonth = newEnd.getMonth() + 1;
     let endDate = newEnd.getDate();
     // if client chooses last newYear subtract 1 from current newYear
-    if (formResults.datePreset === "year") {
+    if (formResults.datePreset === "Past Year") {
       startYear = startYear - 1;
     }
     //if client chooses last 6 months, subtract 6 months from months
-    else if (formResults.datePreset === "six-months") {
+    else if (formResults.datePreset === "Past Six Months") {
       newStart.setMonth(startMonth - 6);
       startMonth = newStart.getMonth();
       startYear = newStart.getFullYear();
     }
     //if client chooses last month, subtract 1 month from months
-    else if (formResults.datePreset === "month") {
+    else if (formResults.datePreset === "Past Month") {
       newStart.setMonth(startMonth - 1);
       startMonth = newStart.getMonth();
       startYear = newStart.getFullYear();
     }
     //if client chooses last week, subtract 7 days from date
-    else if (formResults.datePreset === "week") {
+    else if (formResults.datePreset === "Past Week") {
       newStart.setDate(startDay - 7);
       startDay = newStart.getDate();
       startMonth = newStart.getMonth() + 1;
       startYear = newStart.getFullYear();
     }
     //client chooses quarter
-    else if (formResults.datePreset === "quarter") {
+    else if (formResults.datePreset === "Last quarter") {
       startDay = 1;
       //if it's Jan, Feb, or March, set the quarter to be the last three months of the previous year
       if (startMonth === 0 || startMonth === 1 || startMonth === 2) {
@@ -821,7 +816,7 @@ function changeDate(formResults) {
         endMonth = 9;
         endDate = 30;
       }
-    } else if (formResults.datePreset === "all-time") {
+    } else if (formResults.datePreset === "All time") {
       startDay = 1;
       startMonth = 1;
       startYear = 2018;

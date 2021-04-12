@@ -42,7 +42,20 @@ export default function Fullfilment(props) {
         autoSelected: "zoom",
       },
     },
-
+    title: {
+      text: "Fullfillment Type",
+      align: 'center',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '18px',
+        fontWeight:  'bold',
+        fontFamily:  "Avenir",
+        color:  '#425B76'
+      },
+  },
     legend: {
       position: "bottom",
       verticalAlign: "right",
@@ -66,6 +79,23 @@ export default function Fullfilment(props) {
         },
       },
     ],
+    colors: ["#FF9F6F", "#6FB7FF"],
+    stroke: {
+      width: 2,
+      colors:["#eaf0f6"]
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        colors: ["#425B76"],
+        opacity: "0.8",
+      },
+      background: {
+        enabled: true,
+        foreColor: "#fff",
+        borderWidth: 0,
+      },
+    },
   };
   return (
     <div id="f-chart">

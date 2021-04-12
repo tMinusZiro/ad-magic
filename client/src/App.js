@@ -1,5 +1,5 @@
 import "./style/App.css";
-import "./style/Sidebar.css"
+import "./style/Sidebar.css";
 import MapToggle from "./components/MapToggle";
 import { useState, useEffect } from "react";
 import backgroundGraph from "./svg/background-graph.svg";
@@ -14,7 +14,8 @@ function App() {
   //set the region that the map should focus on
   const [region, setRegion] = useState();
   //trigger the data to re-fetch when form is submitted
-  const [getMapData, setGetMapData] = useState(true);
+  const [getUSMapData, setGetUSMapData] = useState(true);
+  const [getWorldMapData, setGetWorldMapData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
   const [getData, setgetData] = useState(false);
 
@@ -24,7 +25,8 @@ function App() {
         <MapToggle
           setRegion={setRegion}
           region={region}
-          setGetMapData = {setGetMapData}
+          setGetUSMapData={setGetUSMapData}
+          setGetWorldMapData={setGetWorldMapData}
           setgetData={setgetData}
         />
       </div>
@@ -42,14 +44,16 @@ function App() {
         </div>
       </section>
       <section id="container-two" className="snap-child">
-      <div id="home-page">
-        <HomePage
-          setGetMapData = {setGetMapData}
-          getMapData = {getMapData}
-          region={region}
-          usBorderData={usBorderData}
-        />
-      </div>
+        <div id="home-page">
+          <HomePage
+            setGetUSMapData={setGetUSMapData}
+            setGetWorldMapData={setGetWorldMapData}
+            getUSMapData={getUSMapData}
+            getWorldMapData={getWorldMapData}
+            region={region}
+            usBorderData={usBorderData}
+          />
+        </div>
       </section>
       <section id="container-three" className="snap-child">
         <div id="bottom-dash-header">
