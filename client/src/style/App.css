@@ -5,7 +5,7 @@
 }
 /*This helps the snapping work in safari*/
 body {
-  background: #EAF0F6;
+  background: #eaf0f6;
   scroll-snap-type: y mandatory;
 }
 /*This helps the snapping work in chrome and firefox*/
@@ -44,24 +44,24 @@ html {
 
 /*Splits the top half of the viewport with contrasting color*/
 #top-background-color {
-  background-color: #EAF0F6; 
+  background-color: #eaf0f6;
   opacity: 60%;
   height: 42%;
   grid-area: 1/2/2/3;
   z-index: -1;
 }
 
-
 /*------Header----------*/
 
 #header-wrapper {
-  /* background-color: trans; */
+  grid-area: 1/2/6/3;
+
   /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
 
   /* align-items: flex-start; */
   border-radius: 5px;
   /* height: 10%; */
-  width: 100%;
+  /* width: 100%; */
   /* flex: auto; */
   position: -webkit-sticky;
   position: sticky;
@@ -103,11 +103,10 @@ html {
   display: flex;
 }
 #user-wrapper img {
-  width: 40px; 
+  width: 40px;
   border: 0.5px solid #dfe3eb;
   border-radius: 50%;
-  box-shadow: 5px 5px 60px 0.5px rgb(0,0,0, 0.45);
-
+  box-shadow: 5px 5px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #user-id {
@@ -118,11 +117,11 @@ html {
 /* user name and status*/
 #user-id h5,
 h6 {
-  color: white;
+  color: black;
 }
 /*header title*/
 #head-flex-one h3 {
-  color: white;
+  color: black;
 }
 
 /*-----------------MAP-------------*/
@@ -140,29 +139,33 @@ h6 {
 #map-component-wrapper {
   box-sizing: border-box;
   width: 70vw;
-  box-shadow: 20px 30px 60px 0.5px rgb(0,0,0, 0.45);
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
-
 
 #map-legend-wrapper {
   width: 100%;
-border-radius: 10px; 
+  border-radius: 10px;
 }
 
-#legend-button:hover { 
+#legend-button:hover {
   cursor: pointer;
 }
 
-
 /*------Fake Graph Background--------*/
-/* #fake-graph-wrapper {
-  z-index: -1;
-}
-#fake-graph-wrapper img {
-  margin-top: 1.5vh;
+
+/*wraps graph component in app.js*/
+#fake-graph-wrapper {
+  margin-top: 2.2rem;
+  height: 32%;
   width: 100%;
-  height: 52%;
-} */
+  display: flex;
+  justify-content: center;
+}
+
+/*Directly wraps the actual graph*/
+#area-chart-wrapper {
+  width: 98%;
+}
 
 /*-----------------APEX CHARTS and GRAPHS-----------------------------*/
 
@@ -171,19 +174,21 @@ border-radius: 10px;
 /*In App.JS Wrapper for main parent component*/
 #right-dash-header {
   height: 30vh;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 #v-and-r-flexWrap {
   display: flex;
   gap: 5rem;
   height: 100%;
-  /* width:100%; */
+  /* border: 2px solid blue; */
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
   width: 100%;
   height: 100%;
+
+  /* background-color: white; */
   border-radius: 15px;
   margin-bottom: 1em;
   align-items: center;
@@ -197,7 +202,7 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   border-radius: 5px;
   height: 100%;
   width: 85%;
@@ -212,7 +217,7 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 85%;
 }
@@ -247,7 +252,7 @@ border-radius: 10px;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
   background-color: #f5f8fa;
@@ -260,7 +265,7 @@ border-radius: 10px;
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   background-color: #f5f8fa;
   height: 100%;
   width: 100%;
@@ -274,7 +279,7 @@ border-radius: 10px;
   align-items: center;
   background-color: #f5f8fa;
   border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.40);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
 }
@@ -283,6 +288,7 @@ border-radius: 10px;
 
 /*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
+  margin-bottom: 6rem;
 }
 
 #top-dash {
@@ -293,24 +299,24 @@ border-radius: 10px;
   align-items: flex-start;
   /* gap: 2rem; */
 }
+
 #top-dash-icon {
-  height: 22px;
-  width: 22px;
+  height: 17px;
+  width: 17px;
   padding-right: 8px;
 }
 #top-dash-title {
-  font-size:22px;
+  font-size: 22px;
 }
 
 /*class for each individual top dash tile*/
 .dashboard {
   margin: 1em;
   padding: 1em;
-  /* height: 10vh; */
-  color: #EAF0F6;
+  color: #eaf0f6;
 
   border-radius: 10px;
-  font-size: 2vh;
+  font-size: 0.9vh;
   display: flex;
   flex-flow: column wrap;
   align-items: flex-start;
@@ -324,28 +330,27 @@ border-radius: 10px;
   display: inline-block;
 }
 #total-sales {
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
-  width: 20vw;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/PurpleGradient.png");
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
 }
 #average-price {
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
-  width: 20vw;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Blu3.png");
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
 }
 
 #item-sold {
-  width: 20vw;
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Gradient4.png");
-  background-size: 100% 100%; 
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  background-size: 100% 100%;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
-
 
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
@@ -360,8 +365,8 @@ border-radius: 10px;
   bottom: 0;
   z-index: 10000;
   backdrop-filter: blur(8px);
-  overflow:hidden;
-  box-shadow: 15px 20px 40px 0.5px rgb(0,0,0, 0.45);
+  overflow: hidden;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 .popup {
@@ -382,19 +387,19 @@ border-radius: 10px;
   backdrop-filter: opacity(20%);
   backdrop-filter: sepia(90%);
   backdrop-filter: saturate(80%);
-  overflow:scroll;
-  box-shadow: 20px 30px 60px 0.5px rgb(0,0,0, 0.45);
+  overflow: scroll;
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #popup-icon {
-  height: 18px; 
+  height: 18px;
   width: 18px;
-  opacity: 90%; 
+  opacity: 90%;
   padding-right: 5px;
 }
 #arrow-icon {
-  height: 26px; 
-  width: 26px; 
+  height: 26px;
+  width: 26px;
 }
 
 #left-popup {
@@ -412,8 +417,8 @@ border-radius: 10px;
   padding: 40px;
   font-size: bigger;
 }
-#popup-title { 
-  padding: 40px; 
+#popup-title {
+  padding: 40px;
   font-size: 1.5em;
 }
 #right-popup {
@@ -430,10 +435,10 @@ border-radius: 10px;
   text-align: left;
   align-items: center;
   display: inline-block;
-  align-self:center
+  align-self: center;
 }
 
-#client-list-item { 
+#client-list-item {
   padding-bottom: 4px;
   opacity: 85%;
 }
@@ -455,8 +460,7 @@ ul {
   height: 20px;
   width: 20px;
 }
-#exit-popup:hover { 
-cursor: pointer;
+#exit-popup:hover {
+  cursor: pointer;
 }
-
 
