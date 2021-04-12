@@ -1,6 +1,7 @@
 import React from "react";
 import popupicon from "./../svg/popupicon.png";
 import arrow from "./../svg/arrow.svg";
+import exit from "./../svg/exit.png"
 
 const ClientPopUp = (props) => {
   // const [list, createList] = useState()
@@ -31,13 +32,13 @@ const ClientPopUp = (props) => {
 
           <div id="left-popup">
 
-            <div id="popup-item">
+            <div id="popup-title">
               <img id="popup-icon" src={popupicon} /> Clients
             </div>
 
             <div id="popup-item">
-              Sales Range<br></br> ${props.min} - ${props.max}
-              <br></br>
+              <div>
+              Sales Range<br></br> ${props.min} - ${props.max}</div>
               <img src={arrow} id="arrow-icon" />
             </div>
 
@@ -49,13 +50,13 @@ const ClientPopUp = (props) => {
           <div id="right-popup">
 
               <div id="exit-popup">
-            <button id="exit-button" onClick={hidePopup}> X
-            </button></div>
+            <div id="exit-button" onClick={hidePopup}> <img src = {exit} />
+            </div></div>
 
             <div id="client-list"> 
             <ul>
               {array.map((client, index) => {
-                return <li key={index}>{client}</li>;
+                return <li id = "client-list-item" key={index}>{client}</li>;
               })}
             </ul></div>
 

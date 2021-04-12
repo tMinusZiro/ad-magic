@@ -23,7 +23,9 @@ const MapToggle = (props) => {
   const [checkStatus, setCheckedStatus] = useState();
   //status of switch checked = US Map, false = world map
   const [USmap, setUSMap] = useState(false);
-  const [account, setAccount] = useState("all");
+  //store
+  const [account, setAccount] = useState("All Clients");
+  //regions change based on current map
   const [regionList, setRegionList] = useState([
     "World",
     "Africa",
@@ -33,8 +35,45 @@ const MapToggle = (props) => {
     "North America",
     "South America",
   ]);
+  //show/hide the region dropdown
   const [displayRegions, setDisplayRegions] = useState(false);
+  //get the form results on page load to save in dropdowns
+  const [getFormRes, setGetFormRes] = useState(true);
+  //set a default date preset - "All time" or user chosen preset
+  const [defaultDatePreset, setDefaultDatePreset] = useState();
+  //set a default account - "All Accounts" or user chosen preset
+  const [defaultAccount, setDefaultAccount] = useState();
+  //set a default item - "All Items" or user chosen items
+  const [defaultItem, setDefaultItem] = useState();
+  //set default date title - make it "Timeframe" if user has not input data
+  const [presetDateTitle, setPresetDateTitle] = useState();
+  //set default account title - make it "Clients" if user has not input data
+  const [presetAccountTitle, setPresetAccountTitle] = useState();
+    //set default account title - make it "Items" if user has not input data
+  const [presetItemName, setPresetItemName] = useState();
 
+  //set default date on form for custom date 
+  let today = new Date();
+  let year = today.getFullYear();
+  let month;
+  //add a 0 if month or day is signle digits
+  if (today.getMonth() + 1 < 10) {
+    month = "0" + (today.getMonth() + 1);
+  } else month = today.getMonth() + 1;
+  let day;
+  if (today.getDate() < 10) {
+    day = "0" + today.getDate();
+  } else day = today.getDate();
+  //set default end date
+
+  //use above code to input a default end date for the function 
+  const [defaultEndDate, setDefaultEndDate] = useState(
+    `${year}-${month}-${day}`
+  );
+  //make default start date early 2018 
+  const [defaultStartDate, setDefaultStartDate] = useState("2018-01-01");
+
+  //create an array of clients 
   let clientArray = [];
   useEffect(() => {
     // if there is no clientList, fetch the list of clients from server
@@ -47,7 +86,7 @@ const MapToggle = (props) => {
           });
           //order clients, make all acounts default, trigger item list to load
           setClientList(clientArray.sort());
-          setAccount("all");
+          setAccount("All Clients");
           setLoadItems(true);
         });
     }
@@ -67,54 +106,53 @@ const MapToggle = (props) => {
           setListOfItems(itemArray.sort());
         });
     }
+    //we lose form results on the refresh 
+    if (getFormRes) {
+      fetch("/formresults")
+        .then((res) => res.json())
+        .then((results) => {
+          setDefaultDatePreset(results.datePreset);
+          setDefaultAccount(results.account);
+          setDefaultItem(results.item);
+          if (results.presetDateName) {
+            setPresetDateTitle(results.presetDateName);
+            setPresetAccountTitle(results.presetClientName);
+            setPresetItemName(results.presetItem);
+          } else {
+            setPresetDateTitle(results.datePreset);
+            setPresetAccountTitle(results.account);
+            setPresetItemName(results.item);
+          }
+          if (results.startDate && results.endDate) {
+            setDefaultEndDate(results.endDate);
+            setDefaultStartDate(results.startDate);
+            setShowCustomDate(true);
+          }
+        });
+      setGetFormRes(false);
+    }
   });
 
   //display calendars for user to choose custom date
   function showCalendar(event) {
-    if (event.target.value === "custom") {
+    if (event.target.value === "Custom") {
       setShowCustomDate(true);
     } else setShowCustomDate(false);
   }
-
-  //set default date on form
-  let today = new Date();
-  let year = today.getFullYear();
-  let month;
-  //add a 0 if month or day is signle digits
-  if (today.getMonth() + 1 < 10) {
-    month = "0" + (today.getMonth() + 1);
-  } else month = today.getMonth() + 1;
-  let day;
-  if (today.getDate() < 10) {
-    day = "0" + today.getDate();
-  } else day = today.getDate();
-  //set default end date
-  let defaultDate = `${year}-${month}-${day}`;
 
   //change the client account in order to show data from that client then render the item menu for that client
   function changeAccount(event) {
     setAccount(event.target.value);
     setLoadItems(true);
+    setDefaultItem("All Items");
   }
 
   //trigger the map and data displays to re-load with new data based on user input
   function reLoad(event) {
     props.setgetData(true);
-    if (window.location.pathname === "/") {
-      props.setGetWorldData(true);
-    } else if (window.location.pathname === "/united") {
-      props.setGetUSData(true);
-    }
+    props.setGetUSMapData(true);
+    props.setGetWorldMapData(true);
   }
-
-  //on the re-load, make sure that the switch is ON if re-loading to /united, make sure it it set to off it world map
-  useEffect(() => {
-    if (window.location.pathname === "/united") {
-      setCheckedStatus(true);
-    } else if (window.location.pathname === "/") {
-      setCheckedStatus(false);
-    }
-  }, [window.location.pathname]);
 
   function changeRegion(event) {
     props.setRegion(event.target.innerHTML);
@@ -165,39 +203,39 @@ const MapToggle = (props) => {
             <select
               name="datePreset"
               onChange={showCalendar}
-              defaultValue="all-time"
+              defaultValue={defaultDatePreset}
             >
-              <option value="all-time">Timeframe</option>
-              <option value="all-time">All Time</option>
-              <option value="week">Past Week</option>
-              <option value="month">Past Month</option>
-              <option value="quarter">Last Quarter</option>
-              <option value="six-months">Past Six Months</option>
-              <option value="year">Past Year</option>
-              <option value="custom">Custom Timeframe</option>
+              <option value={defaultDatePreset}>{presetDateTitle}</option>
+              <option value="All time">Timeframe</option>
+              <option value="All time">All Time</option>
+              <option value="Past Week">Past Week</option>
+              <option value="Past Month">Past Month</option>
+              <option value="Last quarter">Last Quarter</option>
+              <option value="Past Six Months">Past Six Months</option>
+              <option value="Past Year">Past Year</option>
+              <option value="Custom">Custom Timeframe</option>
             </select>
           </div>
           {showCustomDate ? (
             <div>
               <label id="date-label" for="startDate">
-                Start Date:{" "}
+                Start Date:
               </label>
               <input
                 type="date"
                 id="startDate"
                 name="startDate"
-                defaultValue="2018-01-01"
+                defaultValue={defaultStartDate}
               ></input>
-
               <label id="date-label" for="endDate">
-                End Date:{" "}
+                End Date:
               </label>
               <br></br>
               <input
                 type="date"
                 id="endDate"
                 name="endDate"
-                defaultValue={defaultDate}
+                defaultValue={defaultEndDate}
               ></input>
             </div>
           ) : null}
@@ -207,11 +245,11 @@ const MapToggle = (props) => {
               <img id="icon" src={item} />
               <select
                 name="account"
-                defaultValue="all"
+                defaultValue={defaultAccount}
                 onChange={changeAccount}
               >
-                <option value="all">Client</option>
-                <option value="all">All Clients</option>
+                <option value={defaultAccount}>{presetAccountTitle}</option>
+                <option value="All Clients">All Clients</option>
                 {clientList.map((client, index) => {
                   return (
                     <option key={index} value={client}>
@@ -226,9 +264,9 @@ const MapToggle = (props) => {
           {listOfItems ? (
             <div className="select-title">
               <img id="icon" src={client} />
-              <select name="item" defaultValue="all-items">
-                <option value="all-items">Item</option>
-                <option value="all-items">All Items</option>
+              <select name="item" defaultValue={defaultItem}>
+                <option value={defaultItem}>{presetItemName}</option>
+                <option value="All Items">All Items</option>
                 {listOfItems.map((item, index) => {
                   return (
                     <option key={index} value={item}>
@@ -239,6 +277,7 @@ const MapToggle = (props) => {
               </select>
             </div>
           ) : null}
+          
           <div id="button-container">
             <input
               id="update-button"

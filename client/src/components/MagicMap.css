@@ -1,15 +1,8 @@
 .leaflet-container {
-  /* background-image: linear-gradient(
-      354deg,
-      rgba(0, 6, 194, 0.781) 0%,
-      rgba(54, 205, 222, 0.959) 54%,
-      rgba(54, 157, 222, 1) 72%
-    ),
-    url("../svg/ocean-underlay.jpg"); */
-  background: rgb(114, 114, 218);
+  background-color: #a0d3fa;
 
   z-index: 5;
-
+  border: 0;
   box-shadow: 2px -2px 30px 20px rgba(112, 110, 110, 0.246);
   /* rgba(112, 110, 110, 0.246); */
   width: 100%;

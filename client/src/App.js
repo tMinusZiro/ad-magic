@@ -8,13 +8,15 @@ import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
 import Header from "./components/Header.jsx";
+import AreaGraph from "./components/AreaGraph";
 import { features } from "./borderData/usBorder.json";
 
 function App() {
   //set the region that the map should focus on
   const [region, setRegion] = useState();
   //trigger the data to re-fetch when form is submitted
-  const [getMapData, setGetMapData] = useState(true);
+  const [getUSMapData, setGetUSMapData] = useState(true);
+  const [getWorldMapData, setGetWorldMapData] = useState(true);
   const [usBorderData, setUSBorderData] = useState(features);
   const [getData, setgetData] = useState(false);
 
@@ -24,7 +26,8 @@ function App() {
         <MapToggle
           setRegion={setRegion}
           region={region}
-          setGetMapData={setGetMapData}
+          setGetUSMapData={setGetUSMapData}
+          setGetWorldMapData={setGetWorldMapData}
           setgetData={setgetData}
         />
       </div>
@@ -33,7 +36,9 @@ function App() {
       </div>
       <div id="top-background-color"></div>
       <section id="container-one" className="snap-child">
-        <div id="fake-graph-wrapper">{/* <img src={backgroundGraph} /> */}</div>
+        <div id="fake-graph-wrapper">
+          <AreaGraph />
+        </div>
         <div id="top-dash-header">
           <TopDash getData={getData} setgetData={setgetData} />
         </div>
@@ -44,8 +49,10 @@ function App() {
       <section id="container-two" className="snap-child">
         <div id="home-page">
           <HomePage
-            setGetMapData={setGetMapData}
-            getMapData={getMapData}
+            setGetUSMapData={setGetUSMapData}
+            setGetWorldMapData={setGetWorldMapData}
+            getUSMapData={getUSMapData}
+            getWorldMapData={getWorldMapData}
             region={region}
             usBorderData={usBorderData}
           />

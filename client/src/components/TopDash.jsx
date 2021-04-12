@@ -1,5 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import averageSaleIcon from "./../svg/averagesale.svg"
+import revenueIcon from "./../svg/grossrevenue.svg"
+import itemsSoldIcon from "./../svg/itemsold.svg"
 
 export default function TopDash(props) {
   const [data, setdata] = useState(false);
@@ -13,7 +16,6 @@ export default function TopDash(props) {
       fetch("/total-sales")
         .then((res) => res.json())
         .then((totals) => {
-          console.log("main fetch!!");
           // take this off the loop
           let ts = Math.ceil(totals.totalSales);
           ts = ts.toString().split(".");
@@ -28,15 +30,15 @@ export default function TopDash(props) {
           setNewdata(true);
         });
     }
-    console.log("getData outside:  ", props.getData);
-    console.log("in use effect");
   }, []);
 
   return (
     <section id="top-dash">
       <div className="top-tile-background">
         <div id="total-sales" className="dashboard">
-          Gross Revenue
+          <div id="top-dash-title">
+        <img src = {revenueIcon} id= "top-dash-icon" />
+          Gross Revenue</div>
           <span className="top-dash-num">
             {TotalSales} <span className="top-dash-small">$</span>
           </span>
@@ -44,7 +46,9 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="average-price" className="dashboard">
-          Average Sale
+        <div id="top-dash-title">
+        <img src = {averageSaleIcon} id= "top-dash-icon" />
+          Average Sale</div>
           <span className="top-dash-num">
             {averagePrice} <span className="top-dash-small">$</span>
           </span>
@@ -52,7 +56,9 @@ export default function TopDash(props) {
       </div>
       <div className="top-tile-background">
         <div id="item-sold" className="dashboard">
-          Items Sold
+        <div id="top-dash-title">
+        <img src = {itemsSoldIcon} id= "top-dash-icon" />
+          Items Sold</div>
           <span className="top-dash-num">
             {itemSold} <span className="top-dash-small">items</span>
           </span>

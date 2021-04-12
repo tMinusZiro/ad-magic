@@ -36,7 +36,7 @@ export default function VendorsTopFive(props) {
     },
     yaxis: {
       title: {
-        text: "Total Sales",
+        text: "Total Sales (items)",
       },
     },
     fill: {
@@ -49,6 +49,21 @@ export default function VendorsTopFive(props) {
         },
       },
     },
+    colors: ["#6A78D1"],
+    title: {
+      text: "Top 5 Vendors (items sold)",
+      align: 'center',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  "Avenir",
+        color:  '#2425B76'
+      },
+  }
   };
 
   return (

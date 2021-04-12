@@ -5,9 +5,8 @@
 }
 /*This helps the snapping work in safari*/
 body {
-  background: #ebe7e7de;
+  background: #eaf0f6;
   scroll-snap-type: y mandatory;
-  /* background: #efefef; */
 }
 /*This helps the snapping work in chrome and firefox*/
 html {
@@ -19,7 +18,6 @@ html {
   display: grid;
   grid-template-columns: 0.6fr 3fr;
   grid-template-rows: 100vh 100vh 100vh;
-  /* border: blue solid 5px; */
   /* grid-gap: 2rem; */
   box-sizing: border-box;
 }
@@ -46,7 +44,8 @@ html {
 
 /*Splits the top half of the viewport with contrasting color*/
 #top-background-color {
-  background-color: #a81515c7;
+  background-color: #eaf0f6;
+  opacity: 60%;
   height: 42%;
   grid-area: 1/2/2/3;
   z-index: -1;
@@ -66,7 +65,6 @@ html {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  border: 1px solid blue;
   z-index: 1000;
 }
 
@@ -94,10 +92,9 @@ html {
   /* margin-left: 5vw; */
 }
 
-.header-svg-wrapper {
-}
 .header-svg-wrapper img {
-  max-width: 1.6vw;
+  max-width: 1.8vw;
+  max-height: 1.6vh;
 }
 
 #user-wrapper {
@@ -105,9 +102,10 @@ html {
   display: flex;
 }
 #user-wrapper img {
-  max-width: 1.8vw;
-  border: 1px solid black;
+  width: 40px;
+  border: 0.5px solid #dfe3eb;
   border-radius: 50%;
+  box-shadow: 5px 5px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #user-id {
@@ -140,14 +138,16 @@ h6 {
 #map-component-wrapper {
   box-sizing: border-box;
   width: 70vw;
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #map-legend-wrapper {
   width: 100%;
+  border-radius: 10px;
 }
 
-/*Each legend color square*/
-#legend-button {
+#legend-button:hover {
+  cursor: pointer;
 }
 
 /*------Fake Graph Background--------*/
@@ -179,15 +179,12 @@ h6 {
 }
 /*----- Bar Graphs Wrapper for graph components----*/
 .right-charts {
-  /* border: 2px rgb(205, 203, 203) solid; */
-  /* box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246); */
   width: 100%;
   height: 100%;
   border: 1px solid rgb(224, 72, 98);
   /* background-color: white; */
   border-radius: 15px;
   margin-bottom: 1em;
-  /* border: 3px solid green; */
   align-items: center;
 }
 
@@ -199,12 +196,12 @@ h6 {
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   border-radius: 5px;
   height: 100%;
   width: 85%;
-
   margin-left: 5rem;
+  border: 2px blue solid;
 }
 /*--Revenue Bar Graph-*/
 /*Closest Div Wrapper: child of .right-charts */
@@ -215,17 +212,16 @@ h6 {
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 85%;
+  border: red 2px solid;
 }
-/*----------------------------------------------------*/
 
 /*--------------BOTTOM PIE CHARTS---------------*/
 
 /*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
-  border: 2px yellow solid;
   height: 70%;
   box-sizing: border-box;
 }
@@ -243,7 +239,6 @@ h6 {
 .bottom-charts {
   width: 30%;
   height: 90%;
-  /* border-radius: 15px; */
 }
 
 /*--wrapper for actual fulfillment pie chart--*/
@@ -252,11 +247,11 @@ h6 {
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  background-color: white;
   border-radius: 5px;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
+  background-color: #f5f8fa;
 }
 /*--wrapper for actual Opt In Marketing pie chart--*/
 #M-chart {
@@ -266,8 +261,8 @@ h6 {
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
-  /* background-color: rgba(255, 119, 0, 0.461); */
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
+  background-color: #f5f8fa;
   height: 100%;
   width: 100%;
 }
@@ -278,39 +273,34 @@ h6 {
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  background-color: white;
+  background-color: #f5f8fa;
   border-radius: 5px;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
-  /* background-color: rgba(255, 119, 0, 0.461); */
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
 }
-
-/* #data-displays-wrapper {
-  border: 5px pink solid;
-  grid-area: 3/3/4/4;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-} */
 
 /*---------Top Dashboard Tiles-------------- */
 
 /*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
-  border: 1px solid red;
 }
 
 #top-dash {
   /* display: grid;
   grid-template-columns: repeat(3 1fr); */
-  border: 1px solid blue;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-
   /* gap: 2rem; */
+}
+#top-dash-icon {
+  height: 22px;
+  width: 22px;
+  padding-right: 8px;
+}
+#top-dash-title {
+  font-size: 22px;
 }
 
 /*class for each individual top dash tile*/
@@ -318,10 +308,9 @@ h6 {
   margin: 1em;
   padding: 1em;
   /* height: 10vh; */
-  color: #000000;
-  border: 1px solid green;
+  color: #eaf0f6;
+
   border-radius: 10px;
-  background-color: #ffffff;
   font-size: 2vh;
   display: flex;
   flex-flow: column wrap;
@@ -336,24 +325,30 @@ h6 {
   display: inline-block;
 }
 #total-sales {
-  background: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
-  color: black;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
+  width: 20vw;
+  opacity: 80%;
+  background-image: url("./../svg/PurpleGradient.png");
+  background-size: 100% 100%;
 }
 #average-price {
-  background: white;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
-  color: black;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
+  width: 20vw;
+  opacity: 80%;
+  background-image: url("./../svg/Blu3.png");
+  background-size: 100% 100%;
 }
+
 #item-sold {
-  color: black;
-  box-shadow: 2px -2px 30px 12px rgba(112, 110, 110, 0.246);
-  background: white;
+  width: 20vw;
+  opacity: 80%;
+  background-image: url("./../svg/Gradient4.png");
+  background-size: 100% 100%;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
-/*----------------------------------------*/
+
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
-  /* display: flex;*/
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -363,11 +358,10 @@ h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  /* margin: auto; */
   z-index: 10000;
   backdrop-filter: blur(8px);
   overflow: hidden;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 .popup {
@@ -375,7 +369,6 @@ h6 {
   width: 45vw;
   border-radius: 10px;
   background-color: #edf6f9;
-  /* padding: 10px; */
   display: grid;
   grid-template-columns: 1.5fr 2fr;
   text-align: center;
@@ -389,16 +382,18 @@ h6 {
   backdrop-filter: sepia(90%);
   backdrop-filter: saturate(80%);
   overflow: scroll;
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
 }
 
 #popup-icon {
-  height: 15px;
-  width: 15px;
-  opacity: 70%;
+  height: 18px;
+  width: 18px;
+  opacity: 90%;
+  padding-right: 5px;
 }
 #arrow-icon {
-  height: 30px;
-  width: 30px;
+  height: 26px;
+  width: 26px;
 }
 
 #left-popup {
@@ -414,12 +409,17 @@ h6 {
 
 #popup-item {
   padding: 40px;
+  font-size: bigger;
+}
+#popup-title {
+  padding: 40px;
+  font-size: 1.5em;
 }
 #right-popup {
   background-color: #cbd6e2;
   grid-column: 2;
   display: flex;
-  padding-left: 10px;
+  padding: 15px 15px 15px 45px;
   color: #33475b;
 }
 #client-list {
@@ -427,6 +427,11 @@ h6 {
   align-items: center;
   display: inline-block;
   align-self: center;
+}
+
+#client-list-item {
+  padding-bottom: 4px;
+  opacity: 85%;
 }
 
 #exit-popup {
@@ -443,8 +448,10 @@ ul {
   height: 20px;
   width: 20px;
 }
+#exit-popup:hover {
+  cursor: pointer;
+}
 
 #exit-button {
-  color: white;
   border: 0;
 }

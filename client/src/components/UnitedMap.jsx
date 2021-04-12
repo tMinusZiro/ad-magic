@@ -29,9 +29,9 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
     return {
-      fillColor: "white", // color of country
-      weight: 1.2, //thickness of country border lines
-      color: "black", //color of country border line
+      // fillColor: "white", // color of country
+      weight: 0.3, //thickness of country border lines
+      color: "#335171", //color of country border line
       fillOpacity: 1,
     };
   };

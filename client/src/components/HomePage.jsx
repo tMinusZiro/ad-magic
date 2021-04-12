@@ -11,7 +11,14 @@ import Loading from "./Loading.jsx";
 //array of class instances for building each rectangle in the color legend range
 import legendItems from "../entities/LegendItems";
 
-const HomePage = ({ getMapData, setGetMapData, region, usBorderData }) => {
+const HomePage = ({
+  getUSMapData,
+  setGetUSMapData,
+  getWorldMapData,
+  setGetWorldMapData,
+  region,
+  usBorderData,
+}) => {
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
@@ -27,11 +34,12 @@ const HomePage = ({ getMapData, setGetMapData, region, usBorderData }) => {
 
   // fetch array of objects from db for each  country admagic does business with and total sales for that country
   useEffect(() => {
-    if (getMapData) {
+    if (getWorldMapData) {
       let interArray = [];
       fetch(`/show-sales/`)
         .then((res) => res.json())
         .then((list) => {
+          console.log(list);
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);
@@ -40,7 +48,10 @@ const HomePage = ({ getMapData, setGetMapData, region, usBorderData }) => {
           setTotalSales(interArray);
           //trigger the loadMap() function
           setLoadMap(true);
+          setGetWorldMapData(false);
         });
+    }
+    if (getUSMapData) {
       let interStateArray = [];
       fetch(`/show-us`)
         .then((res) => res.json())
@@ -54,7 +65,7 @@ const HomePage = ({ getMapData, setGetMapData, region, usBorderData }) => {
           //trigger the loadMap() function
           //conditional for which map to load
           setLoadUnitedMap(true);
-          setGetMapData(false);
+          setGetUSMapData(false);
         });
     }
   });
