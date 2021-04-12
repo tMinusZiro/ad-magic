@@ -1,6 +1,7 @@
 import React from "react";
 //this import brings in the necessary css that stitches the map tiles together
 //alternative to providing style sheet link in public/index.html
+import { L } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MagicMap.css";
 // import LoadBorderTask from "../mapTasks/LoadBorderTask.js";
@@ -60,7 +61,26 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
     }
   }, [region]);
 
-  //when region is changed, send a new center and zoom into the map view
+  const geojson = states;
+
+  //when mouse hovers over country or state
+  function highlightBorder(e) {
+    let layer = e.target;
+    layer.setStyle({
+      weight: 5,
+      color: "#666",
+      dashArray: "",
+      fillOpacity: 0.7,
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+  }
+  //reset to default values
+  function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+  }
 
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer => thing drawn on screen
