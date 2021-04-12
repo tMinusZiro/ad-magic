@@ -87,12 +87,12 @@ export default function AreaGraph() {
   };
 
   return (
-    <div id="chart">
+    <div id="area-chart-wrapper">
       <ReactApexChart
         options={options}
         series={series}
         type="area"
-        height={350}
+        height={"100%"}
       />
     </div>
   );

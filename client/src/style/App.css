@@ -54,14 +54,16 @@ html {
 /*------Header----------*/
 
 #header-wrapper {
-  /* background-color: trans; */
+  grid-area: 1/2/6/3;
+
   /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
 
   /* align-items: flex-start; */
   border-radius: 5px;
   /* height: 10%; */
-  width: 100%;
+  /* width: 100%; */
   /* flex: auto; */
+  border: 2px solid red;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -116,11 +118,11 @@ html {
 /* user name and status*/
 #user-id h5,
 h6 {
-  color: white;
+  color: black;
 }
 /*header title*/
 #head-flex-one h3 {
-  color: white;
+  color: black;
 }
 
 /*-----------------MAP-------------*/
@@ -151,14 +153,20 @@ h6 {
 }
 
 /*------Fake Graph Background--------*/
-/* #fake-graph-wrapper {
-  z-index: -1;
-}
-#fake-graph-wrapper img {
-  margin-top: 1.5vh;
+
+/*wraps graph component in app.js*/
+#fake-graph-wrapper {
+  margin-top: 2.2rem;
+  height: 32%;
   width: 100%;
-  height: 52%;
-} */
+  display: flex;
+  justify-content: center;
+}
+
+/*Directly wraps the actual graph*/
+#area-chart-wrapper {
+  width: 98%;
+}
 
 /*-----------------APEX CHARTS and GRAPHS-----------------------------*/
 
@@ -167,8 +175,7 @@ h6 {
 /*In App.JS Wrapper for main parent component*/
 #right-dash-header {
   height: 30vh;
-  margin-bottom: 1rem;
-  border: 1px solid chartreuse;
+  margin-bottom: 4rem;
 }
 
 #v-and-r-flexWrap {
@@ -181,7 +188,7 @@ h6 {
 .right-charts {
   width: 100%;
   height: 100%;
-  border: 1px solid rgb(224, 72, 98);
+
   /* background-color: white; */
   border-radius: 15px;
   margin-bottom: 1em;
@@ -201,7 +208,6 @@ h6 {
   height: 100%;
   width: 85%;
   margin-left: 5rem;
-  border: 2px blue solid;
 }
 /*--Revenue Bar Graph-*/
 /*Closest Div Wrapper: child of .right-charts */
@@ -215,7 +221,6 @@ h6 {
   box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 85%;
-  border: red 2px solid;
 }
 
 /*--------------BOTTOM PIE CHARTS---------------*/
@@ -284,6 +289,7 @@ h6 {
 
 /*wrapper for top dash parent component in App.JS*/
 #top-dash-header {
+  margin-bottom: 6rem;
 }
 
 #top-dash {
@@ -294,9 +300,10 @@ h6 {
   align-items: flex-start;
   /* gap: 2rem; */
 }
+
 #top-dash-icon {
-  height: 22px;
-  width: 22px;
+  height: 17px;
+  width: 17px;
   padding-right: 8px;
 }
 #top-dash-title {
@@ -307,11 +314,10 @@ h6 {
 .dashboard {
   margin: 1em;
   padding: 1em;
-  /* height: 10vh; */
   color: #eaf0f6;
 
   border-radius: 10px;
-  font-size: 2vh;
+  font-size: 0.9vh;
   display: flex;
   flex-flow: column wrap;
   align-items: flex-start;
@@ -326,21 +332,21 @@ h6 {
 }
 #total-sales {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
-  width: 20vw;
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/PurpleGradient.png");
   background-size: 100% 100%;
 }
 #average-price {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
-  width: 20vw;
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Blu3.png");
   background-size: 100% 100%;
 }
 
 #item-sold {
-  width: 20vw;
+  width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Gradient4.png");
   background-size: 100% 100%;
