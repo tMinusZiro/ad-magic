@@ -18,19 +18,22 @@ html {
 /*sits above and outside the main grid container*/
 
 #header-wrapper {
-  height: 0;
-  margin-left: 16.667vw;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  grid-area: 1/1/2/3;
+  width: 100%;
+  /* margin-top: 1.5rem; */
+  height: 4vh;
+  /* border-radius: 5px; */
+  /* align-self: center; */
+  /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
   z-index: 1000;
 }
 
 #main-head-flex {
   display: flex;
-  box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726);
+
   justify-content: space-between;
   background: white;
+  height: 100%;
 }
 
 #head-flex-one {
@@ -38,7 +41,7 @@ html {
   /* flex: auto; */
   width: 35%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 #head-flex-two {
   display: flex;
@@ -46,6 +49,7 @@ html {
   width: 20%;
   align-items: center;
   justify-content: space-evenly;
+
   /* margin-left: 5vw; */
 }
 
@@ -73,11 +77,12 @@ html {
 /* user name and status*/
 #user-id h5,
 h6 {
-  color: black;
+  color: #33475b;
 }
 /*header title*/
 #head-flex-one h3 {
-  color: black;
+  color: #33475b;
+  padding-left: 1.7rem;
 }
 
 /*-------Parent Page Grid Wrapper---------*/
@@ -101,6 +106,7 @@ h6 {
   flex-direction: column;
   justify-content: space-between;
   /* align-items: center; */
+  box-sizing: border-box;
 }
 
 #container-two {
@@ -125,8 +131,8 @@ h6 {
 /*------Area Graph--------*/
 /*wraps area graph component in app.js*/
 #area-graph-comp-wrap {
-  margin-top: 3rem;
   height: 32%;
+  margin-top: 3rem;
   width: 98%; /*manipulate the width or height here to easily change graph size*/
   display: flex;
   border-radius: 5px;

@@ -7,7 +7,7 @@
   height: 100%;
   font-weight: bold;
   background-color: #33475b;
-  background-color: #33475B;
+  /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
   /* box-shadow: 15px 20px 50px 0.5px rgb(0,0,0, 0.40); */
 
   color: #dfe3eb;
@@ -33,6 +33,7 @@
   margin-bottom: 4vh;
   border-radius: 5%;
   opacity: 90%;
+  padding-top: 0.5rem;
 }
 
 /*title sections like Main, Map, etc*/
@@ -77,7 +78,7 @@ option {
   text-align: center;
   align-items: center;
   /* background-color: #264653; */
-  background-color: #33475B;
+  background-color: #33475b;
   color: #dfe3eb;
 }
 
