@@ -42,7 +42,7 @@ const HomePage = ({
     //world map
     if (getWorldMapData) {
       let interArray = [];
-      fetch(`/show-sales/`)
+      fetch(`/show-sales`)
         .then((res) => res.json())
         .then((list) => {
           console.log(list);

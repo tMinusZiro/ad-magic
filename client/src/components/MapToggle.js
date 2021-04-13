@@ -154,13 +154,16 @@ const MapToggle = (props) => {
     props.setGetWorldMapData(true);
   }
 
+  //send chosen region to App -> Home -> Map to adjust zoom 
   function changeRegion(event) {
     props.setRegion(event.target.innerHTML);
   }
-
+  
+  //show all regions when the user clicks on the region dropdown 
   function showRegions(event) {
     setDisplayRegions(!displayRegions);
   }
+
   //change the map view between US and World Map
   function switchMap(event) {
     if (USmap) {
@@ -216,6 +219,7 @@ const MapToggle = (props) => {
               <option value="Custom">Custom Timeframe</option>
             </select>
           </div>
+
           {showCustomDate ? (
             <div>
               <label id="date-label" for="startDate">
@@ -311,6 +315,7 @@ const MapToggle = (props) => {
       </div>
       {displayRegions ? (
         <ul>
+
           {regionList.map((item, index) => {
             return (
               <li
@@ -334,6 +339,7 @@ const MapToggle = (props) => {
               </li>
             );
           })}
+          
         </ul>
       ) : null}
     </div>

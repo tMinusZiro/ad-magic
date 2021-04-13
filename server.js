@@ -51,7 +51,6 @@ app.get("/total-sales", async (request, response) => {
 app.get("/salesTypes", async (request, response) => {
   let client = "All Clients";
   let item = "All Items";
-  console.log("inside /salesTypes, formRes:", formRes);
   if (!formRes) {
     let salesTypes = await salesDB.salesTypes(client, item, defaultForm);
     let types = [];
@@ -230,7 +229,6 @@ let showUSSalesArray = [];
 app.post("/show-item-sales", async (request, response) => {
   //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
-  console.log(formRes);
   //empty out an prior results
   showUSSalesArray = [];
   //re-populate the array using the function in Data Store
@@ -295,6 +293,7 @@ app.get("/client/:min/:max", async (request, response) => {
   response.send(clientsOfCertainSales);
 });
 
+//send the form results back up to the map toggle so they can be displayed after 
 app.get("/formresults", (request, response) => {
   if (formRes) {
     response.send(formRes);

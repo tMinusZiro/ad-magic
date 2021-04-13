@@ -94,7 +94,6 @@ class DataStore {
     // filter by item
     else if (client === "All Clients" && item !== "All Items") {
       changeDate(formResults);
-      console.log("new end :", newEnd);
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: item } },
@@ -752,9 +751,6 @@ class DataStore {
   async Vendors(client, item, formResults) {
     const collection = await this.openConnect();
     if (client === "All Clients" && item === "All Items") {
-    console.log("in Vendors function");
-    console.log("client: ", client);
-    console.log("item: ", item);
       changeDate(formResults);
       const vendor = await collection.aggregate([
         {

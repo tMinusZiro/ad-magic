@@ -3,19 +3,7 @@ import React from "react";
 //alternative to providing style sheet link in public/index.html
 import "leaflet/dist/leaflet.css";
 import "./MagicMap.css";
-// import LoadBorderTask from "../mapTasks/LoadBorderTask.js";
-import {
-  MapContainer,
-  TileLayer,
-  Polygon,
-  Marker,
-  GeoJSON,
-} from "react-leaflet";
-
-//data set for global country borders
-import { features } from "../borderData/countries.json";
-//data set for us state borders
-// import { features } from "../borderData/usBorder.json";
+import { MapContainer, GeoJSON } from "react-leaflet";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
@@ -25,11 +13,10 @@ const Map = (props) => {
   const [worldMapZoom, setWorldMapZoom] = useState();
   const [newWorldCenter, setWorldCenter] = useState();
 
-  // countryBorder.properties.color
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
     return {
-      // fillColor: "white", // color of country
+      fillColor: "white", // color of country
       weight: 0.3, //thickness of country border lines
       color: "#335171", //color of country border line
       fillOpacity: 1,
@@ -79,7 +66,6 @@ const Map = (props) => {
   }
 
   //----------function that changes style of map based on total sales----------//
-  //steps
   //GeoJSON layer will rely on the country object.totalsales
   //fill color will change based on the total sales number
 

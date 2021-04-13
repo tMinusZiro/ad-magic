@@ -4,19 +4,8 @@ import React from "react";
 import { L } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MagicMap.css";
-// import LoadBorderTask from "../mapTasks/LoadBorderTask.js";
-import {
-  MapContainer,
-  TileLayer,
-  Polygon,
-  Marker,
-  GeoJSON,
-} from "react-leaflet";
-
-//data set for global country borders
-import { features } from "../borderData/countries.json";
+import { MapContainer, GeoJSON } from "react-leaflet";
 //data set for us state borders
-// import { features } from "../borderData/usBorder.json";
 import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
@@ -25,11 +14,11 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   const [mapZoom, setMapZoom] = useState(4);
   const [USMapZoom, setUSmapZoom] = useState();
   const [newUSCenter, setUSCenter] = useState();
-  // countryBorder.properties.color
+
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
     return {
-      // fillColor: "white", // color of country
+      fillColor: "white", // color of country
       weight: 0.3, //thickness of country border lines
       color: "#335171", //color of country border line
       fillOpacity: 1,
@@ -83,14 +72,13 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   }
 
   //first argument is the feature for GeoJSON we are dealing with
-  //second is the layer => thing drawn on screen
+  //second is the layer (what's drawn on screen)
   function onEachState(countryBorder, layer) {
     //fill color on geojson layer
     layer.options.fillColor = countryBorder.properties.color;
     const usStateName = countryBorder.properties.name;
 
     //will show total sales of each country when country is clicked
-
     const totalSales = countryBorder.properties.totalSales;
 
     //info on popup when country is clicked
@@ -98,8 +86,7 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
        $${Math.round(totalSales)} `);
   }
 
-  //----------function that changes style of map based on total sales----------//
-  //steps
+  //----------function that changes style of map based on total sales----------/
   //GeoJSON layer will rely on the country object.totalsales
   //fill color will change based on the total sales number
 
