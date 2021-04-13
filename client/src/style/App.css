@@ -135,7 +135,7 @@ h6 {
 /*wraps area graph component in app.js*/
 #area-graph-comp-wrap {
   height: 32%;
-  margin-top: 3rem;
+  margin-top: 4rem;
   width: 98%; /*manipulate the width or height here to easily change graph size*/
   display: flex;
   border-radius: 5px;
