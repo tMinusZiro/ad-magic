@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 //world map component
 import WorldMap from "./WorldMap.jsx";
 //united states map component
@@ -45,7 +45,6 @@ const HomePage = ({
       fetch(`/show-sales`)
         .then((res) => res.json())
         .then((list) => {
-          console.log(list);
           //push each sales item into the intermediate array
           list.forEach((countrySale) => {
             interArray.push(countrySale);

@@ -1,4 +1,3 @@
-import React from "react";
 
 class LegendItem {
   constructor(title, color, isFor, textColor) {

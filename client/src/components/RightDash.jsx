@@ -16,17 +16,15 @@ export default function RightDash() {
   const [Vendors, setVendors] = useState([]);
   const [VendorsLabels, setVendorsLabels] = useState(["item"]);
   const [VendorsAmounts, setVendorsAmounts] = useState([1]);
-  const [VendorsSales, setVendorsSales] = useState([1]);
   const [RevenueLabels, setRevenueLabels] = useState(["item"]);
   const [RevenueAmounts, setRevenueAmounts] = useState([1]);
+  const [VTrigger, setVTrigger] = useState(true);
 
   let VLabels = [];
   let VAmount = [];
   let VSales = [];
   let RLabels = [];
   let RAmount = [];
-  let RSales = [];
-  const [VTrigger, setVTrigger] = useState(true);
 
   //sale type
   useEffect(() => {
@@ -53,7 +51,6 @@ export default function RightDash() {
     });
     setVendorsLabels(VLabels);
     setVendorsAmounts(VAmount);
-    setVendorsSales(VSales);
     // total revenue chart
     Vendors[1].forEach((type) => {
       if (RLabels.length < 5) {
@@ -62,7 +59,6 @@ export default function RightDash() {
         RAmount.push(numFormatter(amount));
       }
       // let sales = type.totalSales;
-      // RSales.push(numFormatter(sales));
     });
     setRevenueLabels(RLabels);
     setRevenueAmounts(RAmount);

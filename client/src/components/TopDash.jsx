@@ -6,7 +6,6 @@ import itemsSoldIcon from "./../svg/itemsold.svg";
 
 export default function TopDash(props) {
   const [data, setdata] = useState(false);
-  const [Newdatas, setNewdata] = useState(false);
   const [TotalSales, setTotalSales] = useState(0);
   const [averagePrice, setAveragePrice] = useState(0);
   const [itemSold, setitemSold] = useState(0);
@@ -25,7 +24,6 @@ export default function TopDash(props) {
           setAveragePrice(Math.ceil(totals.averageSale));
           setitemSold(totals.totalItems);
           setdata(true);
-          setNewdata(true);
         });
     }
   }, []);
@@ -35,7 +33,7 @@ export default function TopDash(props) {
       <div className="top-tile-background">
         <div id="total-sales" className="dashboard">
           <div id="top-dash-title">
-            <img src={revenueIcon} id="top-dash-icon" />
+            <img src={revenueIcon} id="top-dash-icon" alt="revenue" />
             Gross Revenue
           </div>
           <span className="top-dash-num">
@@ -46,7 +44,7 @@ export default function TopDash(props) {
       <div className="top-tile-background">
         <div id="average-price" className="dashboard">
           <div id="top-dash-title">
-            <img src={averageSaleIcon} id="top-dash-icon" />
+            <img src={averageSaleIcon} id="top-dash-icon" alt="average sales"/>
             Average Sale
           </div>
           <span className="top-dash-num">
@@ -57,7 +55,7 @@ export default function TopDash(props) {
       <div className="top-tile-background">
         <div id="item-sold" className="dashboard">
           <div id="top-dash-title">
-            <img src={itemsSoldIcon} id="top-dash-icon" />
+            <img src={itemsSoldIcon} id="top-dash-icon" alt="item" />
             Items Sold
           </div>
           <span className="top-dash-num">

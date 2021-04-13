@@ -18,17 +18,17 @@ const Header = () => {
       </div>
       <div id="head-flex-two">
         <div className="header-svg-wrapper">
-          <img src={settingsIcon} />
+          <img src={settingsIcon} alt="settings icon"/>
         </div>
 
         <div className="header-svg-wrapper">
-          <img src={alertBell} />
+          <img src={alertBell} alt="alert bell"/>
         </div>
         <div id="user-wrapper">
           <div id="user-id">
             <h5>Margaret</h5>
           </div>
-          <img src={userPic} />
+          <img src={userPic} alt="user"/>
         </div>
       </div>
     </header>
