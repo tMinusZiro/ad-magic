@@ -93,13 +93,13 @@ export default function OptInMarketing(props) {
     // },
     stroke: {
       width: 2,
-      colors:["#eaf0f6"]
+      colors: ["#eaf0f6"],
     },
     dataLabels: {
       enabled: true,
       style: {
         colors: ["#425B76"],
-        opacity: "0.8"
+        opacity: "0.8",
       },
       background: {
         enabled: true,
