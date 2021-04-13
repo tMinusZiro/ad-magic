@@ -21,48 +21,51 @@ function App() {
   const [getData, setgetData] = useState(false);
 
   return (
-    <div id="app-wrapper">
-      <div id="map-toggle-wrapper">
-        <MapToggle
-          setRegion={setRegion}
-          region={region}
-          setGetUSMapData={setGetUSMapData}
-          setGetWorldMapData={setGetWorldMapData}
-          setgetData={setgetData}
-        />
-      </div>
+    <div id="main-parent-site-wrap">
       <div id="header-wrapper">
         <Header />
       </div>
-      <div id="top-background-color"></div>
-      <section id="container-one" className="snap-child">
-        <div id="fake-graph-wrapper">
-          <AreaGraph />
-        </div>
-        <div id="top-dash-header">
-          <TopDash getData={getData} setgetData={setgetData} />
-        </div>
-        <div id="right-dash-header">
-          <RightDash />
-        </div>
-      </section>
-      <section id="container-two" className="snap-child">
-        <div id="home-page">
-          <HomePage
+      <div id="app-wrapper">
+        <div id="map-toggle-wrapper">
+          <MapToggle
+            setRegion={setRegion}
+            region={region}
             setGetUSMapData={setGetUSMapData}
             setGetWorldMapData={setGetWorldMapData}
-            getUSMapData={getUSMapData}
-            getWorldMapData={getWorldMapData}
-            region={region}
-            usBorderData={usBorderData}
+            setgetData={setgetData}
           />
         </div>
-      </section>
-      <section id="container-three" className="snap-child">
-        <div id="bottom-dash-header">
-          <BottomDash />
-        </div>
-      </section>
+
+        {/* <div id="top-background-color"></div> */}
+        <section id="container-one" className="snap-child">
+          <div id="area-graph-comp-wrap">
+            <AreaGraph />
+          </div>
+          <div id="top-dash-header">
+            <TopDash getData={getData} setgetData={setgetData} />
+          </div>
+          <div id="right-dash-header">
+            <RightDash />
+          </div>
+        </section>
+        <section id="container-two" className="snap-child">
+          <div id="home-page">
+            <HomePage
+              setGetUSMapData={setGetUSMapData}
+              setGetWorldMapData={setGetWorldMapData}
+              getUSMapData={getUSMapData}
+              getWorldMapData={getWorldMapData}
+              region={region}
+              usBorderData={usBorderData}
+            />
+          </div>
+        </section>
+        <section id="container-three" className="snap-child">
+          <div id="bottom-dash-header">
+            <BottomDash />
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ClientPopUp from "./ClientPopUp";
-const MapLegend = ({ legendItems}) => {
+const MapLegend = ({ legendItems }) => {
   const [min, setMin] = useState();
   const [max, setMax] = useState();
   const [clientListInRange, setClientListInRange] = useState();
@@ -44,11 +44,10 @@ const MapLegend = ({ legendItems}) => {
     >
       <div
         id="map-legend-wrapper"
-        style={ {
-                display: "flex",
-                alignItems: "stretch",
-              }
-        }
+        style={{
+          display: "flex",
+          alignItems: "stretch",
+        }}
       >
         {legendItems.map((item, index) => (
           <button
@@ -64,7 +63,7 @@ const MapLegend = ({ legendItems}) => {
               alignItems: "center",
               justifyContent: "center",
               color: item.textColor,
-              height: "5vh",
+              height: "6vh",
               border: "none",
               // fontWeight: "bolder",
               fontSize: "1.2em",
