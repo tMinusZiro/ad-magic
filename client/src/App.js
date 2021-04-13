@@ -1,8 +1,7 @@
 import "./style/App.css";
 import "./style/Sidebar.css";
 import MapToggle from "./components/MapToggle";
-import { useState, useEffect } from "react";
-import backgroundGraph from "./svg/background-graph.svg";
+import { useState } from "react";
 import HomePage from "./components/HomePage.jsx";
 import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
@@ -17,7 +16,7 @@ function App() {
   //trigger the data to re-fetch when form is submitted
   const [getUSMapData, setGetUSMapData] = useState(true);
   const [getWorldMapData, setGetWorldMapData] = useState(true);
-  const [usBorderData, setUSBorderData] = useState(features);
+  const usBorderData= features;
   const [getData, setgetData] = useState(false);
 
   return (

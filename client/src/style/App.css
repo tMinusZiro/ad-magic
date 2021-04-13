@@ -190,21 +190,21 @@ h6 {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/PurpleGradient.png");
+  background-image: url("./../svg/Purple.png");
   background-size: 100% 100%;
 }
 #average-price {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/Blu3.png");
+  background-image: url("./../svg/Blue.png");
   background-size: 100% 100%;
 }
 
 #item-sold {
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/Gradient4.png");
+  background-image: url("./../svg/Yellow.png");
   background-size: 100% 100%;
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }

@@ -12,7 +12,7 @@ const staticDir = process.env.PRODUCTION
 
 //connect to the database and sales data
 const salesDB = new DataStore(
-  `mongodb+srv://admagic:${process.env.ADMAGICPASS}@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`,
+  `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`,
   "adMagic",
   "Sales"
 );

@@ -20,7 +20,6 @@ const MapToggle = (props) => {
   const [listOfItems, setListOfItems] = useState();
   //show and hide custom date function
   const [showCustomDate, setShowCustomDate] = useState(false);
-  const [checkStatus, setCheckedStatus] = useState();
   //status of switch checked = US Map, false = world map
   const [USmap, setUSMap] = useState(false);
   //store
@@ -88,7 +87,7 @@ const MapToggle = (props) => {
           setClientList(clientArray.sort());
           setAccount("All Clients");
           setLoadItems(true);
-        });
+        }, [clientList]);
     }
     //once the client/account is selected, fetch all items from server that are sold by that client/account
     let itemArray = [];
@@ -131,7 +130,7 @@ const MapToggle = (props) => {
         });
       setGetFormRes(false);
     }
-  });
+  } );
 
   //display calendars for user to choose custom date
   function showCalendar(event) {
@@ -198,11 +197,11 @@ const MapToggle = (props) => {
   return (
     <div id="side-bar">
       <div id="side-bar-component">
-        <img id="logo" src={logo}></img>
+        <img id="logo" src={logo} alt="Ad Magic Logo"></img>
         <form method="POST" action="/show-item-sales">
-          <div class="section-title">MAIN</div>
+          <div className="section-title">MAIN</div>
           <div className="select-title">
-            <img id="icon" src={calendar}></img>
+            <img id="icon" src={calendar} alt="calendar"></img>
             <select
               name="datePreset"
               onChange={showCalendar}
@@ -246,7 +245,7 @@ const MapToggle = (props) => {
 
           {clientList ? (
             <div className="select-title">
-              <img id="icon" src={item} />
+              <img id="icon" src={item} alt="item"/>
               <select
                 name="account"
                 defaultValue={defaultAccount}
@@ -267,7 +266,7 @@ const MapToggle = (props) => {
 
           {listOfItems ? (
             <div className="select-title">
-              <img id="icon" src={client} />
+              <img id="icon" src={client} alt="client" />
               <select name="item" defaultValue={defaultItem}>
                 <option value={defaultItem}>{presetItemName}</option>
                 <option value="All Items">All Items</option>
@@ -292,23 +291,23 @@ const MapToggle = (props) => {
           </div>
         </form>
 
-        <div class="section-title">MAP VIEW</div>
-        <div class="switch-container">
-          <img id="world-icon" src={location} />
-          <div class="switch-title">World</div>
+        <div className="section-title">MAP VIEW</div>
+        <div className="switch-container">
+          <img id="world-icon" src={location} alt="world" />
+          <div className="switch-title">World</div>
 
-          <label class="switch" onChange={switchMap}>
-            <input type="checkbox" name="US" defaultChecked={checkStatus} />
-            <span class="slider round"></span>
+          <label className="switch" onChange={switchMap}>
+            <input type="checkbox" name="US" />
+            <span className="slider round"></span>
           </label>
-          <div class="switch-title">United States</div>
+          <div className="switch-title">United States</div>
         </div>
-        <div class="dropdown-container">
-          <img src={region} id="region-icon" />
-          <div class="dropdown-title" onClick={showRegions}>
+        <div className="dropdown-container">
+          <img src={region} id="region-icon" alt="region"/>
+          <div className="dropdown-title" onClick={showRegions}>
             Region
             <div id="icon-container">
-              <img src={dropdown} id="dropdown-icon" onClick={showRegions} />
+              <img src={dropdown} id="dropdown-icon" alt="downwards arrow" onClick={showRegions} />
             </div>
           </div>
         </div>
@@ -331,7 +330,7 @@ const MapToggle = (props) => {
                       }
                     : null
                 }
-                class="dropdown-item"
+                className="dropdown-item"
                 onClick={changeRegion}
                 key={index}
               >

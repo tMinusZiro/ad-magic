@@ -11,32 +11,29 @@ const ClientPopUp = (props) => {
       `${props.clientListInRange[i]}: $${props.clientListInRange[i + 1]}`
     );
   }
-  console.log(array);
 
   //hide the popup when user clicks the X in corner 
   function hidePopup(event) {
     props.setShowClients(false);
   }
 
-  console.log(props.clientListInRange);
-
   if (props.showClients) {
     return (
       <div
-        class="popup-wrapper"
+        className="popup-wrapper"
         style={props.showClients ? { display: "flex" } : { display: "none" }}
       >
-        <div class="popup">
+        <div className="popup">
           <div id="left-popup">
             <div id="popup-title">
-              <img id="popup-icon" src={popupicon} /> Clients
+              <img id="popup-icon" src={popupicon} alt="graph"/> Clients
             </div>
 
             <div id="popup-item">
               <div>
                 Sales Range<br></br> ${props.min} - ${props.max}
               </div>
-              <img src={arrow} id="arrow-icon" />
+              <img src={arrow} id="arrow-icon" alt="arrow icon" />
             </div>
           </div>
 
@@ -54,7 +51,7 @@ const ClientPopUp = (props) => {
             </div>
 
             <div id="exit-popup" onClick={hidePopup}>
-              <img src={exit} />
+              <img src={exit} alt="X arrow"/>
             </div>
           </div>
         </div>
