@@ -1,14 +1,18 @@
 const express = require("express");
 const path = require("path");
 const port = process.env.PORT || 5000;
+//needed to use local .env variables
+require("dotenv").config();
 //import the Sales class from DataStore.js
 const DataStore = require("./DataStore.js");
 const app = express();
-const staticDir = path.resolve("./client/public");
+const staticDir = process.env.PRODUCTION
+  ? path.resolve("./client/build")
+  : path.resolve("./client/public");
 
 //connect to the database and sales data
 const salesDB = new DataStore(
-  `mongodb+srv://admagic:admagic12345@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`,
+  `mongodb+srv://admagic:${process.env.ADMAGICPASS}@cluster0.9xf59.mongodb.net/adMagic?retryWrites=true&w=majority`,
   "adMagic",
   "Sales"
 );
@@ -76,7 +80,11 @@ app.get("/fullfilment", async (request, response) => {
   let item = "All Items";
   // default fetch
   if (!formRes) {
-    let fullfilmentType = await salesDB.fullfilmentType(client, item, defaultForm);
+    let fullfilmentType = await salesDB.fullfilmentType(
+      client,
+      item,
+      defaultForm
+    );
     let types = [];
     await fullfilmentType.forEach((entry) => {
       types.push(entry);
@@ -293,7 +301,7 @@ app.get("/client/:min/:max", async (request, response) => {
   response.send(clientsOfCertainSales);
 });
 
-//send the form results back up to the map toggle so they can be displayed after 
+//send the form results back up to the map toggle so they can be displayed after
 app.get("/formresults", (request, response) => {
   if (formRes) {
     response.send(formRes);
