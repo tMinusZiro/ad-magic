@@ -114,6 +114,9 @@ h6 {
 }
 #container-three {
   grid-area: 3/2/4/3;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
 /*Splits the top half of the viewport with contrasting color*/
@@ -151,8 +154,6 @@ h6 {
 /*Gross Rev, Avg Sale, Items Sold*/
 
 /*wrapper for top dash parent component in App.JS*/
-#top-dash-header {
-}
 
 #top-dash {
   /* display: grid;
@@ -196,21 +197,21 @@ h6 {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/PurpleGradient.png");
+  background-image: url("./../svg/Purple.png");
   background-size: 100% 100%;
 }
 #average-price {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/Blu3.png");
+  background-image: url("./../svg/Blue.png");
   background-size: 100% 100%;
 }
 
 #item-sold {
   width: 17vw;
   opacity: 80%;
-  background-image: url("./../svg/Gradient4.png");
+  background-image: url("./../svg/Yellow.png");
   background-size: 100% 100%;
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
 }
@@ -471,4 +472,13 @@ ul {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
+}
+/* footer */
+#footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  background-color: #33475b;
+  color: #dfe3eb;
+  font-size: 2vh;
 }

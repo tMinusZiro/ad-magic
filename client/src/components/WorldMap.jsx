@@ -8,8 +8,8 @@ import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
 const Map = (props) => {
-  const [mapCenter, setMapCenter] = useState([39, -29]);
-  const [mapZoom, setMapZoom] = useState(1.5);
+  const mapCenter = [39, -29];
+  const mapZoom = 1.5; 
   const [worldMapZoom, setWorldMapZoom] = useState();
   const [newWorldCenter, setWorldCenter] = useState();
 

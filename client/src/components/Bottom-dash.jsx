@@ -34,11 +34,9 @@ export default function BottomDash() {
       fetch("/salesTypes")
         .then((res) => res.json())
         .then((entry) => {
-          console.log("inside SF fetch")
           setSaleTypes(entry);
           setStTrigger(false);
         });
-        console.log("inside SF fetch")
 
     }
   }, []);

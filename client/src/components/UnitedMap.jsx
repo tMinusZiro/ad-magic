@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 import RegionZoom from "./RegionZoom";
 
 const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
-  const [mapCenter, setMapCenter] = useState([37.0902, -95.7129]);
-  const [mapZoom, setMapZoom] = useState(4);
+  const mapCenter = [37.0902, -95.7129];
+  const mapZoom = 4;
   const [USMapZoom, setUSmapZoom] = useState();
   const [newUSCenter, setUSCenter] = useState();
 
