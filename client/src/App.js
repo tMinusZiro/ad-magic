@@ -7,6 +7,7 @@ import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
 import Header from "./components/Header.jsx";
+import Footer from "./components/footer.jsx";
 import AreaGraph from "./components/AreaGraph";
 import { features } from "./borderData/usBorder.json";
 
@@ -63,6 +64,7 @@ function App() {
           <div id="bottom-dash-header">
             <BottomDash />
           </div>
+          <Footer />
         </section>
       </div>
     </div>

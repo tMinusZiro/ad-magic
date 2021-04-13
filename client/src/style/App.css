@@ -108,6 +108,9 @@ h6 {
 }
 #container-three {
   grid-area: 3/2/4/3;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
 /*Splits the top half of the viewport with contrasting color*/
@@ -145,8 +148,6 @@ h6 {
 /*Gross Rev, Avg Sale, Items Sold*/
 
 /*wrapper for top dash parent component in App.JS*/
-#top-dash-header {
-}
 
 #top-dash {
   /* display: grid;
@@ -465,4 +466,13 @@ ul {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
   height: 100%;
   width: 100%;
+}
+/* footer */
+#footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  background-color: #33475b;
+  color: #dfe3eb;
+  font-size: 2vh;
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import settingsIcon from "../svg/settings.svg";
 import alertBell from "../svg/alert.svg";
-import userPic from "../svg/user.jpeg";
+import note from "../svg/note.svg";
+import userPic from "../svg/userphoto.png";
 
 const Header = () => {
   return (
@@ -26,7 +27,6 @@ const Header = () => {
         <div id="user-wrapper">
           <div id="user-id">
             <h5>Margaret</h5>
-            <h6>Active</h6>
           </div>
           <img src={userPic} alt="user"/>
         </div>
