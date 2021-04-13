@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: Avenir;
+  /* box-sizing: border-box; */ /*fixes some issues with padding and margin pushing boxes out of bounds but also shrinks top tile svg sizes for some reason*/
 }
 /*This helps the snapping work in safari*/
 body {
@@ -13,59 +14,12 @@ html {
   scroll-snap-type: y mandatory;
 }
 
-/*-------Parent Page Grid Wrapper---------*/
-#app-wrapper {
-  display: grid;
-  grid-template-columns: 0.6fr 3fr;
-  grid-template-rows: 100vh 100vh 100vh;
-  /* grid-gap: 2rem; */
-  box-sizing: border-box;
-}
-
-/*----main grid child containers-----*/
-.snap-child {
-  scroll-snap-align: start;
-  box-sizing: border-box;
-}
-
-#container-one {
-  grid-area: 1/2/2/3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#container-two {
-  grid-area: 2/2/3/3;
-}
-#container-three {
-  grid-area: 3/2/4/3;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-}
-
-/*Splits the top half of the viewport with contrasting color*/
-#top-background-color {
-  background-color: #eaf0f6;
-  opacity: 60%;
-  height: 42%;
-  grid-area: 1/2/2/3;
-  z-index: -1;
-}
-
 /*------Header----------*/
+/*sits above and outside the main grid container*/
 
 #header-wrapper {
-  grid-area: 1/2/6/3;
-
-  /* box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726); */
-
-  /* align-items: flex-start; */
-  border-radius: 5px;
-  /* height: 10%; */
-  /* width: 100%; */
-  /* flex: auto; */
+  height: 0;
+  margin-left: 16.667vw;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -74,10 +28,9 @@ html {
 
 #main-head-flex {
   display: flex;
-  /* height: 100%;
-  width: 100%; */
-  /* align-items: center; */
+  box-shadow: 2px 2px 1px rgba(58, 55, 55, 0.726);
   justify-content: space-between;
+  background: white;
 }
 
 #head-flex-one {
@@ -127,172 +80,74 @@ h6 {
   color: black;
 }
 
-/*-----------------MAP-------------*/
+/*-------Parent Page Grid Wrapper---------*/
+#app-wrapper {
+  display: grid;
+  grid-template-columns: 0.6fr 3fr;
+  grid-template-rows: 100vh 100vh 100vh;
+  /* grid-gap: 2rem; */
+  margin-top: 0;
+  box-sizing: border-box;
+}
 
-/*App.JS tag*/
-#home-page {
+/*----main grid child containers-----*/
+.snap-child {
+  scroll-snap-align: start;
+}
+
+#container-one {
+  grid-area: 1/2/2/3;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  height: 100%;
-}
-/*-------MAP----------*/
-
-#map-component-wrapper {
-  box-sizing: border-box;
-  width: 70vw;
-  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45);
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
 }
 
-#map-legend-wrapper {
-  width: 100%;
-  border-radius: 10px;
+#container-two {
+  grid-area: 2/2/3/3;
+}
+#container-three {
+  grid-area: 3/2/4/3;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
-#legend-button:hover {
-  cursor: pointer;
-}
+/*Splits the top half of the viewport with contrasting color*/
+/* #top-background-color {
+  background-color: #eaf0f6;
+  opacity: 60%;
+  height: 42%;
+  grid-area: 1/2/2/3;
+  z-index: -1;
+} */
 
-/*------Fake Graph Background--------*/
+/*----------------MAIN SECTION GROUPING----------------*/
 
-/*wraps graph component in app.js*/
-#fake-graph-wrapper {
-  margin-top: 2.2rem;
+/*--------SECTION ONE---------*/
+/*------Area Graph--------*/
+/*wraps area graph component in app.js*/
+#area-graph-comp-wrap {
+  margin-top: 3rem;
   height: 32%;
-  width: 100%;
+  width: 98%; /*manipulate the width or height here to easily change graph size*/
   display: flex;
+  border-radius: 5px;
+  background-color: white;
   justify-content: center;
+  box-shadow: 10px -1px 30px 5px rgba(112, 110, 110, 0.246);
+  margin-left: 0.8vw;
+  /*margin-right: 1rem; */
 }
-
-/*Directly wraps the actual graph*/
+/*directly wraps the actual graph*/
 #area-chart-wrapper {
-  width: 98%;
-}
-
-/*-----------------APEX CHARTS and GRAPHS-----------------------------*/
-
-/*------------------TOP BAR GRAPHS---------------*/
-/*This includes two right side graphs*/
-/*In App.JS Wrapper for main parent component*/
-#right-dash-header {
-  height: 30vh;
-  margin-bottom: 4rem;
-}
-
-#v-and-r-flexWrap {
-  display: flex;
-  gap: 5rem;
-  height: 100%;
-  /* border: 2px solid blue; */
-}
-/*----- Bar Graphs Wrapper for graph components----*/
-.right-charts {
-  width: 100%;
-  height: 100%;
-
-  /* background-color: white; */
-  border-radius: 15px;
-  margin-bottom: 1em;
-  align-items: center;
-}
-
-/*--Top Five Total Sales Bar Graph--*/
-/*Closest Div Wrapper: child of .right-charts*/
-#V-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
-  border-radius: 5px;
-  height: 100%;
-  width: 85%;
-  margin-left: 5rem;
-}
-/*--Revenue Bar Graph-*/
-/*Closest Div Wrapper: child of .right-charts */
-#R-chart {
-  display: flex;
-  flex-flow: column;
-  border-radius: 5px;
-  justify-content: space-around;
-  align-items: flex-start;
-  background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
-  height: 100%;
-  width: 85%;
-}
-
-/*--------------BOTTOM PIE CHARTS---------------*/
-
-/*Bottom Three Graph: Wraps parent component in App.JS*/
-#bottom-dash-header {
-  height: 70%;
-  box-sizing: border-box;
-}
-/*parent wrapper for three pie chart components*/
-#bottom-cont {
-  margin-top: 8vh;
-  display: flex;
-  flex-flow: row;
-  justify-content: space-around;
-  align-items: baseline;
-  width: 100%;
-  height: 100%;
-}
-/*--class wrapper for each individual pie chart component--*/
-.bottom-charts {
-  width: 30%;
-  height: 90%;
-}
-
-/*--wrapper for actual fulfillment pie chart--*/
-#f-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
-  height: 100%;
-  width: 100%;
-  background-color: #f5f8fa;
-}
-/*--wrapper for actual Opt In Marketing pie chart--*/
-#M-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
-  background-color: #f5f8fa;
-  height: 100%;
   width: 100%;
 }
 
-/*--wrapper for actual Sales Type pie chart--*/
-#charts {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #f5f8fa;
-  border-radius: 5px;
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
-  height: 100%;
-  width: 100%;
-}
-
-/*---------Top Dashboard Tiles-------------- */
+/*-------Top Dashboard Tiles------- */
+/*Gross Rev, Avg Sale, Items Sold*/
 
 /*wrapper for top dash parent component in App.JS*/
-#top-dash-header {
-  margin-bottom: 6rem;
-}
 
 #top-dash {
   /* display: grid;
@@ -353,6 +208,88 @@ h6 {
   background-image: url("./../svg/Gradient4.png");
   background-size: 100% 100%;
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.45);
+}
+
+/*--------TOP BAR GRAPHS---------*/
+/*This includes two bar graphs first section*/
+/*In App.JS Wrapper for main parent component*/
+#right-dash-header {
+  height: 30vh;
+  margin-bottom: 2.8rem;
+}
+/*flex wrap for two bar graphs: manages apex charts unpredictable sizing issues*/
+#v-and-r-flexWrap {
+  display: flex;
+  gap: 5rem;
+  height: 100%;
+  /* border: 2px solid blue; */
+}
+/*- Bar Graphs Wrapper for graph components--*/
+.right-charts {
+  width: 100%;
+  height: 100%;
+
+  /* background-color: white; */
+  border-radius: 15px;
+  margin-bottom: 1em;
+  align-items: center;
+}
+
+/*--Top Five Total Sales Bar Graph--*/
+/*Closest Div Wrapper: child of .right-charts*/
+#V-chart {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
+  border-radius: 5px;
+  height: 100%;
+  width: 85%;
+  margin-left: 5rem;
+}
+/*--Revenue Bar Graph-*/
+/*Closest Div Wrapper: child of .right-charts */
+#R-chart {
+  display: flex;
+  flex-flow: column;
+  border-radius: 5px;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.4);
+  height: 100%;
+  width: 85%;
+}
+
+/*----------SECTION TWO------------*/
+
+/*-------MAP--------*/
+/*see separate style sheet -magicMap- for the closest direct manipulation of the leaflet map instance, the rest below are wrappers */
+
+/* wrapper for main parent component in app.js*/
+#home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+}
+/*next level down wrapper for*/
+#map-component-wrapper {
+  box-sizing: border-box;
+  width: 70vw;
+  /* box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.45); */
+}
+
+#map-legend-wrapper {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#legend-button:hover {
+  cursor: pointer;
 }
 
 /*-------------Client Popup onClick Map Legend--- -------*/
@@ -467,6 +404,69 @@ ul {
   cursor: pointer;
 }
 
+/*------------SECTION THREE-------------*/
+
+/*----PIE CHARTS----*/
+
+/*Bottom Three Graph: Wraps parent component in App.JS*/
+#bottom-dash-header {
+  height: 70%;
+  box-sizing: border-box;
+}
+/*parent wrapper for three pie chart components*/
+#bottom-cont {
+  margin-top: 8vh;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: baseline;
+  width: 100%;
+  height: 100%;
+}
+/*--class wrapper for each individual pie chart component--*/
+.bottom-charts {
+  width: 30%;
+  height: 90%;
+}
+
+/*--wrapper for actual fulfillment pie chart--*/
+#f-chart {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  background-color: #f5f8fa;
+}
+/*--wrapper for actual Opt In Marketing pie chart--*/
+#M-chart {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
+  background-color: #f5f8fa;
+  height: 100%;
+  width: 100%;
+}
+
+/*--wrapper for actual Sales Type pie chart--*/
+#charts {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f5f8fa;
+  border-radius: 5px;
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+}
 /* footer */
 #footer {
   display: flex;

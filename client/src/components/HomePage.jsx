@@ -1,16 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
+//world map component
 import WorldMap from "./WorldMap.jsx";
+//united states map component
 import UnitedMap from "./UnitedMap.jsx";
+//map legend
 import MapLegend from "./MapLegend.jsx";
+//array of geoJson for world country border lines
 import { features } from "../borderData/countries.json";
-
+//component that renders while map data is loading
 import Loading from "./Loading.jsx";
-
 //array of class instances for building each rectangle in the color legend range
 import legendItems from "../entities/LegendItems";
 
+//props de-structured
 const HomePage = ({
   getUSMapData,
   setGetUSMapData,
@@ -19,6 +23,7 @@ const HomePage = ({
   region,
   usBorderData,
 }) => {
+  //------STATE------//
   //list of countries
   const [countries, setCountries] = useState([]);
   //total sales
@@ -31,9 +36,10 @@ const HomePage = ({
   //use to trigger the loadMap() function
   const [loadMap, setLoadMap] = useState(false);
   const [states, setStates] = useState([]);
-
-  // fetch array of objects from db for each  country admagic does business with and total sales for that country
+  //------------------//
+  // fetch array of objects from db - first on a default value - then based on filter tool being used
   useEffect(() => {
+    //world map
     if (getWorldMapData) {
       let interArray = [];
       fetch(`/show-sales`)
@@ -51,6 +57,7 @@ const HomePage = ({
           setGetWorldMapData(false);
         });
     }
+    //united states map
     if (getUSMapData) {
       let interStateArray = [];
       fetch(`/show-us`)
@@ -63,13 +70,13 @@ const HomePage = ({
           //set totalSales to be the inner array
           setTotalUSSales(interStateArray);
           //trigger the loadMap() function
-          //conditional for which map to load
           setLoadUnitedMap(true);
           setGetUSMapData(false);
         });
     }
   });
 
+  //function assigns color to each country or U.S. state based on what sales range it fits into
   function setCountryColor(country) {
     const legendItem = legendItems.find((legendItem) =>
       legendItem.isFor(country.properties.totalSales)
@@ -80,6 +87,8 @@ const HomePage = ({
     }
   }
 
+  //main function for united states that gets called to generate a new map based on sales filter
+  //two for loops
   function loadUnitedData() {
     let BorderData = usBorderData;
     for (let usState of BorderData) {
@@ -113,12 +122,10 @@ const HomePage = ({
     }
     setStates(BorderData);
   }
-
+  //main function for world that gets called to generate a new map based on sales filter
   function loadMapData() {
     //Conditional branch for rendering just US State geoJSON data
-
     // const mapCountries = features ;
-
     //iterate through array of geoJSON objects representing each country in world
     // for (let country of mapCountries) {
     let mapCountries = features.map((country) => {
