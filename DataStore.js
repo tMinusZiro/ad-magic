@@ -28,7 +28,7 @@ class DataStore {
   async totalSales() {
     const collection = await this.openConnect();
     const result = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
+      { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Scrubbed__c",
@@ -188,6 +188,36 @@ class DataStore {
     } else if (client !== "All Clients" && item !== "All Items") {
       const result = await collection.aggregate([
         { $match: { Scrubbed__c: "true" } },
+        {
+          $match: {
+            $expr: {
+              $gte: [
+                newEnd,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            $expr: {
+              $lte: [
+                newStart,
+                {
+                  $dateToString: {
+                    date: "$Transaction_date__c",
+                    format: "%Y-%m-%d",
+                  },
+                },
+              ],
+            },
+          },
+        },
         { $match: { Account__c: client } },
         { $match: { Item__c: item } },
         {
@@ -474,8 +504,7 @@ class DataStore {
         },
       ]);
       return fullfilment;
-    } 
-     else if (client === "All Clients" && item !== "All Items") {
+    } else if (client === "All Clients" && item !== "All Items") {
       changeDate(formResults);
       const fullfilment = await collection.aggregate([
         {
@@ -933,7 +962,7 @@ class DataStore {
   async findClients() {
     const collection = await this.openConnect();
     const clientsResult = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
+      { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Account__c",
@@ -955,7 +984,7 @@ class DataStore {
     let item = formResults.item;
     let salesResults;
     //if all accounts are chosen, match the start & end date
-    if (account === "All Clients" && item==="All Items") {
+    if (account === "All Clients" && item === "All Items") {
       salesResults = await collection.aggregate([
         {
           ///////////////////////
@@ -989,7 +1018,7 @@ class DataStore {
             },
           },
         },
-        /////////////
+        { $match: { Scrubbed__c: "true" } },
         {
           $group: {
             _id: "$Country__c",
@@ -1031,6 +1060,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: formResults.account } },
         {
           $group: {
@@ -1039,8 +1069,7 @@ class DataStore {
           },
         },
       ]);
-    } 
-    else if (account === "All Clients" && item !== "All Items") {
+    } else if (account === "All Clients" && item !== "All Items") {
       salesResults = await collection.aggregate([
         {
           $match: {
@@ -1073,6 +1102,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: formResults.account } },
         {
           $group: {
@@ -1081,9 +1111,7 @@ class DataStore {
           },
         },
       ]);
-    }
-    
-    else {
+    } else {
       //match the start date, end date, client, & item
       salesResults = await collection.aggregate([
         {
@@ -1117,6 +1145,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         {
           $match: { Account__c: formResults.account },
         },
@@ -1175,6 +1204,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         {
           $match: { Country__c: "United States" },
         },
@@ -1219,6 +1249,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         { $match: { Item__c: formResults.item } },
         {
           $match: { Country__c: "United States" },
@@ -1263,6 +1294,7 @@ class DataStore {
             },
           },
         },
+        { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: formResults.account } },
         {
           $match: { Country__c: "United States" },
@@ -1274,8 +1306,7 @@ class DataStore {
           },
         },
       ]);
-    }  
-    else {
+    } else {
       //match the start date, end date, client, & item
       salesResults = await collection.aggregate([
         {
@@ -1293,7 +1324,7 @@ class DataStore {
             },
           },
         },
-
+        { $match: { Scrubbed__c: "true" } },
         {
           $match: {
             $expr: {
@@ -1333,7 +1364,7 @@ class DataStore {
     const collection = await this.openConnect();
 
     const salesResults = await collection.aggregate([
-      // { $match: { Scrubbed__c: "true" } },
+      { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$Country__c",
@@ -1350,6 +1381,7 @@ class DataStore {
       {
         $match: { Country__c: "United States" },
       },
+      { $match: { Scrubbed__c: "true" } },
       {
         $group: {
           _id: "$State_Provence__c",
