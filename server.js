@@ -78,7 +78,6 @@ app.get("/salesTypes", async (request, response) => {
 app.get("/fullfilment", async (request, response) => {
   let client = "All Clients";
   let item = "All Items";
-  // default fetch
   if (!formRes) {
     let fullfilmentType = await salesDB.fullfilmentType(
       client,
@@ -90,7 +89,6 @@ app.get("/fullfilment", async (request, response) => {
       types.push(entry);
     });
     response.send(types);
-    // fetch after the form is submitted
   } else if (formRes) {
     client = formRes.account;
     item = formRes.item;
