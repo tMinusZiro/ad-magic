@@ -32,20 +32,20 @@ const Map = (props) => {
       setWorldCenter([6.611111, 20.939444]);
       setWorldMapZoom(3.3);
     } else if (props.region === "Asia") {
-      setWorldCenter([34.0479, 100.6197]);
+      setWorldCenter([55, 85]);
       setWorldMapZoom(2.9);
     } else if (props.region === "Australia") {
       setWorldCenter([-29.274398, 151.775136]);
       setWorldMapZoom(3.7);
     } else if (props.region === "Europe") {
-      setWorldCenter([53, 23]);
-      setWorldMapZoom(3.45);
+      setWorldCenter([55, 32]);
+      setWorldMapZoom(3.3);
     } else if (props.region === "North America") {
       setWorldCenter([50, -101.2996]);
       setWorldMapZoom(2.5);
     } else if (props.region === "South America") {
-      setWorldCenter([-27, -68]);
-      setWorldMapZoom(3.1);
+      setWorldCenter([-30, -70]);
+      setWorldMapZoom(3.48);
     } else {
       setWorldCenter([39, -29]);
       setWorldMapZoom(1.5);

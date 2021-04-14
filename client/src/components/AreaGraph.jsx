@@ -89,14 +89,14 @@ export default function AreaGraph() {
       },
     },
     title: {
-      text: "Total Sales by month",
-      align: "left",
+      text: "Total Sales by Month",
+      align: "center",
       margin: 15,
       offsetX: 0,
       offsetY: 0,
       floating: false,
       style: {
-        fontSize: "14px",
+        fontSize: "18px",
         fontWeight: "bold",
         fontFamily: "Avenir",
         color: "#263238",

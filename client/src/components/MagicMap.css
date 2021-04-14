@@ -1,9 +1,6 @@
 .leaflet-container {
   background-color: #a0d3fa;
-
   z-index: 5;
   border: 0;
-  box-shadow: 0px -5px 30px 20px rgba(112, 110, 110, 0.246);
-  /* rgba(112, 110, 110, 0.246); */
   width: 100%;
 }
