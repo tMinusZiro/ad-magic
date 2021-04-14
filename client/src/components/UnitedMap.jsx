@@ -14,6 +14,7 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
   const mapZoom = 4;
   const [USMapZoom, setUSmapZoom] = useState();
   const [newUSCenter, setUSCenter] = useState();
+  const [geojson, setGeojson] = useState();
 
   //manages style of geoJSON child component
   const geoJSONStyle = () => {
@@ -50,30 +51,30 @@ const UnitedMap = ({ region, usBorderData, states, loadUnitedMap }) => {
     }
   }, [region]);
 
-  const geojson = states;
-
   //when mouse hovers over country or state
-  function highlightBorder(e) {
-    let layer = e.target;
-    layer.setStyle({
-      weight: 5,
-      color: "#666",
-      dashArray: "",
-      fillOpacity: 0.7,
-    });
+  // function highlightBorder(e) {
+  //   let layer = e.target;
+  //   layer.setStyle({
+  //     weight: 5,
+  //     color: "#666",
+  //     dashArray: "",
+  //     fillOpacity: 0.7,
+  //   });
 
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
-    }
-  }
+  // }
   //reset to default values
-  function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-  }
+  // function resetHighlight(e) {
+  //   geojson.resetStyle(e.target);
+  // }
 
   //first argument is the feature for GeoJSON we are dealing with
   //second is the layer (what's drawn on screen)
   function onEachState(countryBorder, layer) {
+    // layer.on({
+    //   mouseover: highlightBorder,
+    //   mouseout: resetHighlight,
+    // });
+
     //fill color on geojson layer
     layer.options.fillColor = countryBorder.properties.color;
     const usStateName = countryBorder.properties.name;

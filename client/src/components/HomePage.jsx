@@ -121,6 +121,7 @@ const HomePage = ({
     }
     setStates(BorderData);
   }
+
   //main function for world that gets called to generate a new map based on sales filter
   function loadMapData() {
     //Conditional branch for rendering just US State geoJSON data
