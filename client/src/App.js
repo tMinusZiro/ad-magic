@@ -6,7 +6,6 @@ import HomePage from "./components/HomePage.jsx";
 import TopDash from "./components/TopDash";
 import RightDash from "./components/RightDash";
 import BottomDash from "./components/Bottom-dash";
-import Header from "./components/Header.jsx";
 import Footer from "./components/footer.jsx";
 import AreaGraph from "./components/AreaGraph";
 import { features } from "./borderData/usBorder.json";
@@ -31,10 +30,7 @@ function App() {
           setgetData={setgetData}
         />
       </div>
-      <div id="header-wrapper">
-        <Header />
-      </div>
-      {/* <div id="top-background-color"></div> */}
+
       <section id="container-one" className="snap-child">
         <div id="area-graph-comp-wrap">
           <AreaGraph />
@@ -46,6 +42,7 @@ function App() {
           <RightDash />
         </div>
       </section>
+
       <section id="container-two" className="snap-child">
         <div id="home-page">
           <HomePage

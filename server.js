@@ -233,31 +233,27 @@ let showWorldSalesArray = [];
 let showUSSalesArray = [];
 
 app.post("/show-item-sales", async (request, response) => {
-  //if user has already submitted a form, clear the results to re-load new results
   formRes = request.body;
-  //empty out an prior results
+
   showUSSalesArray = [];
-  //re-populate the array using the function in Data Store
   let totalUSSales = await salesDB.findUSSalesByForm(formRes);
   await totalUSSales.forEach((item) => {
     showUSSalesArray.push(item);
   });
-  //findWordSalesByForm uses $match to match the form results with proper parameters
+
   showWorldSalesArray = [];
   let totalSales = await salesDB.findWorldSalesByForm(formRes);
   await totalSales.forEach((item) => {
     showWorldSalesArray.push(item);
   });
-  //redirect the page so that new map data loads
+
   response.redirect("/");
 });
 
 //totalSalesArray gets populated when the page loads
 let totalSalesArray = [];
 app.get("/show-sales", async (request, response) => {
-  //if user has not submitted sidebar form, show all sales
   if (!formRes) {
-    //findAllSales() filters by country (long term - country or US)
     let totalSalesByCountry = await salesDB.findAllWorldSales();
     await totalSalesByCountry.forEach((item) => {
       totalSalesArray.push(item);

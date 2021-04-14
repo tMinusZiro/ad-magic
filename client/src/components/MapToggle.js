@@ -8,6 +8,7 @@ import item from "./../svg/item.svg";
 import location from "./../svg/location.svg";
 import region from "./../svg/Region.svg";
 import dropdown from "./../svg/dropdown.svg";
+import userPic from "../svg/userphoto1.png";
 
 const MapToggle = (props) => {
   //useHistory to push to correct page on map toggle
@@ -48,10 +49,10 @@ const MapToggle = (props) => {
   const [presetDateTitle, setPresetDateTitle] = useState();
   //set default account title - make it "Clients" if user has not input data
   const [presetAccountTitle, setPresetAccountTitle] = useState();
-    //set default account title - make it "Items" if user has not input data
+  //set default account title - make it "Items" if user has not input data
   const [presetItemName, setPresetItemName] = useState();
 
-  //set default date on form for custom date 
+  //set default date on form for custom date
   let today = new Date();
   let year = today.getFullYear();
   let month;
@@ -65,29 +66,32 @@ const MapToggle = (props) => {
   } else day = today.getDate();
   //set default end date
 
-  //use above code to input a default end date for the function 
+  //use above code to input a default end date for the function
   const [defaultEndDate, setDefaultEndDate] = useState(
     `${year}-${month}-${day}`
   );
-  //make default start date early 2018 
+  //make default start date early 2018
   const [defaultStartDate, setDefaultStartDate] = useState("2018-01-01");
 
-  //create an array of clients 
+  //create an array of clients
   let clientArray = [];
   useEffect(() => {
     // if there is no clientList, fetch the list of clients from server
     if (!clientList) {
       fetch("/clients")
         .then((res) => res.json())
-        .then((list) => {
-          list.forEach((obj) => {
-            clientArray.push(obj._id);
-          });
-          //order clients, make all acounts default, trigger item list to load
-          setClientList(clientArray.sort());
-          setAccount("All Clients");
-          setLoadItems(true);
-        }, [clientList]);
+        .then(
+          (list) => {
+            list.forEach((obj) => {
+              clientArray.push(obj._id);
+            });
+            //order clients, make all acounts default, trigger item list to load
+            setClientList(clientArray.sort());
+            setAccount("All Clients");
+            setLoadItems(true);
+          },
+          [clientList]
+        );
     }
     //once the client/account is selected, fetch all items from server that are sold by that client/account
     let itemArray = [];
@@ -105,7 +109,7 @@ const MapToggle = (props) => {
           setListOfItems(itemArray.sort());
         });
     }
-    //we lose form results on the refresh 
+    //we lose form results on the refresh
     if (getFormRes) {
       fetch("/formresults")
         .then((res) => res.json())
@@ -130,7 +134,7 @@ const MapToggle = (props) => {
         });
       setGetFormRes(false);
     }
-  } );
+  });
 
   //display calendars for user to choose custom date
   function showCalendar(event) {
@@ -153,12 +157,12 @@ const MapToggle = (props) => {
     props.setGetWorldMapData(true);
   }
 
-  //send chosen region to App -> Home -> Map to adjust zoom 
+  //send chosen region to App -> Home -> Map to adjust zoom
   function changeRegion(event) {
     props.setRegion(event.target.innerHTML);
   }
-  
-  //show all regions when the user clicks on the region dropdown 
+
+  //show all regions when the user clicks on the region dropdown
   function showRegions(event) {
     setDisplayRegions(!displayRegions);
   }
@@ -198,6 +202,13 @@ const MapToggle = (props) => {
     <div id="side-bar">
       <div id="side-bar-component">
         <img id="logo" src={logo} alt="Ad Magic Logo"></img>
+        <div id="sidebar-title">Executive Financial Dashboard</div>
+        {/* <div className="section-title">USER</div> */}
+        <div id="user-wrapper">
+          <img src={userPic} alt="user" />
+          <div className="section-title">PATRICIA SMITH</div>
+        </div>
+
         <form method="POST" action="/show-item-sales">
           <div className="section-title">MAIN</div>
           <div className="select-title">
@@ -245,7 +256,7 @@ const MapToggle = (props) => {
 
           {clientList ? (
             <div className="select-title">
-              <img id="icon" src={item} alt="item"/>
+              <img id="icon" src={item} alt="item" />
               <select
                 name="account"
                 defaultValue={defaultAccount}
@@ -280,7 +291,7 @@ const MapToggle = (props) => {
               </select>
             </div>
           ) : null}
-          
+
           <div id="button-container">
             <input
               id="update-button"
@@ -303,18 +314,22 @@ const MapToggle = (props) => {
           <div className="switch-title">United States</div>
         </div>
         <div className="dropdown-container">
-          <img src={region} id="region-icon" alt="region"/>
+          <img src={region} id="region-icon" alt="region" />
           <div className="dropdown-title" onClick={showRegions}>
             Region
             <div id="icon-container">
-              <img src={dropdown} id="dropdown-icon" alt="downwards arrow" onClick={showRegions} />
+              <img
+                src={dropdown}
+                id="dropdown-icon"
+                alt="downwards arrow"
+                onClick={showRegions}
+              />
             </div>
           </div>
         </div>
       </div>
       {displayRegions ? (
         <ul>
-
           {regionList.map((item, index) => {
             return (
               <li
@@ -338,7 +353,6 @@ const MapToggle = (props) => {
               </li>
             );
           })}
-          
         </ul>
       ) : null}
     </div>
