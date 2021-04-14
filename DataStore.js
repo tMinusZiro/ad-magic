@@ -977,7 +977,6 @@ class DataStore {
   //return WORLD SALES sales on form results
   async findWorldSalesByForm(formResults) {
     const collection = await this.openConnect();
-    //function to get new dates
     changeDate(formResults);
 
     let account = formResults.account;
@@ -1044,7 +1043,6 @@ class DataStore {
             },
           },
         },
-
         {
           $match: {
             $expr: {
@@ -1061,7 +1059,7 @@ class DataStore {
           },
         },
         { $match: { Scrubbed__c: "true" } },
-        { $match: { Account__c: formResults.account } },
+        { $match: { Account__c: account } },
         {
           $group: {
             _id: "$Country__c",
@@ -1103,7 +1101,7 @@ class DataStore {
           },
         },
         { $match: { Scrubbed__c: "true" } },
-        { $match: { Account__c: formResults.account } },
+        { $match: { Account__c: account } },
         {
           $group: {
             _id: "$Country__c",
@@ -1147,10 +1145,10 @@ class DataStore {
         },
         { $match: { Scrubbed__c: "true" } },
         {
-          $match: { Account__c: formResults.account },
+          $match: { Account__c: account },
         },
         {
-          $match: { Item__c: formResults.item },
+          $match: { Item__c: item },
         },
         {
           $group: {
@@ -1250,7 +1248,7 @@ class DataStore {
           },
         },
         { $match: { Scrubbed__c: "true" } },
-        { $match: { Item__c: formResults.item } },
+        { $match: { Item__c: item } },
         {
           $match: { Country__c: "United States" },
         },
@@ -1295,7 +1293,7 @@ class DataStore {
           },
         },
         { $match: { Scrubbed__c: "true" } },
-        { $match: { Account__c: formResults.account } },
+        { $match: { Account__c: account } },
         {
           $match: { Country__c: "United States" },
         },
@@ -1341,10 +1339,10 @@ class DataStore {
           },
         },
         {
-          $match: { Account__c: formResults.account },
+          $match: { Account__c: account },
         },
         {
-          $match: { Item__c: formResults.item },
+          $match: { Item__c: item },
         },
         {
           $match: { Country__c: "United States" },
