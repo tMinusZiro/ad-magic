@@ -58,6 +58,7 @@ export default function RightDash() {
         let amount = type.totalSales;
         if (amount <= 999) {
           amount = amount * 0.001;
+          amount = amount.toFixed(2);
         }
         RAmount.push(numFormatter(amount));
       }
