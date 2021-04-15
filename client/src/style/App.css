@@ -149,13 +149,13 @@ html {
   display: flex;
   gap: 5rem;
   height: 100%;
-  /* border: 2px solid blue; */
 }
 
 /*- Bar Graphs Wrapper for graph components--*/
 .right-charts {
   width: 100%;
   height: 100%;
+
   border-radius: 15px;
   margin-bottom: 1em;
   align-items: center;
@@ -341,7 +341,7 @@ ul {
 
 /*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
-  height: 70%;
+  height: 80%;
   box-sizing: border-box;
 }
 
@@ -351,15 +351,15 @@ ul {
   display: flex;
   flex-flow: row;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: center;
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 /*--class wrapper for each individual pie chart component--*/
 .bottom-charts {
-  width: 30%;
-  height: 90%;
+  width: 29%;
+  height: 75%;
 }
 
 /*--wrapper for actual fulfillment pie chart--*/
