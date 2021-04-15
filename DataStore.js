@@ -1028,40 +1028,16 @@ class DataStore {
       //if all accounts are chosen, match the start date, end date, & client
     } else if (account !== "All Clients" && item === "All Items") {
       salesResults = await collection.aggregate([
-        {
-          $match: {
-            $expr: {
-              $gte: [
-                newEnd,
-                {
-                  $dateToString: {
+        {$match: { $expr: { $gte: [ newEnd, { $dateToString: {
                     date: "$Transaction_date__c",
-                    format: "%Y-%m-%d",
-                  },
-                },
-              ],
-            },
-          },
-        },
-        {
-          $match: {
-            $expr: {
-              $lte: [
-                newStart,
-                {
-                  $dateToString: {
+                    format: "%Y-%m-%d", }, }, ],}, }, },
+        {$match: { $expr: { $lte: [ newStart, { $dateToString: {
                     date: "$Transaction_date__c",
-                    format: "%Y-%m-%d",
-                  },
-                },
-              ],
-            },
-          },
-        },
+                    format: "%Y-%m-%d", },}, ], }, }, },
         { $match: { Scrubbed__c: "true" } },
         { $match: { Account__c: account } },
-        {
-          $group: {
+        
+        { $group: {
             _id: "$Country__c",
             totalSales: { $sum: "$Total_Sales__c" },
           },

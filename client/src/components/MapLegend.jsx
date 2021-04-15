@@ -75,6 +75,8 @@ const MapLegend = ({ legendItems }) => {
               border: "none",
               // fontWeight: "bolder",
               fontSize: "1.2em",
+              borderBottomLeftRadius: item.borderBottomLeftRadius,
+              borderBottomRightRadius: item.borderBottomRightRadius
             }}
           >
             {item.title}
