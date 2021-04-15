@@ -121,47 +121,29 @@ const HomePage = ({
     }
     setStates(BorderData);
   }
-  //main function for world that gets called to generate a new map based on sales filter
+
   function loadMapData() {
-    //Conditional branch for rendering just US State geoJSON data
-    // const mapCountries = features ;
-    //iterate through array of geoJSON objects representing each country in world
-    // for (let country of mapCountries) {
     let mapCountries = features.map((country) => {
       let matchedValue;
-      //if total sales list that was fetched has valid state
-      //guard clause
+
       if (totalSales) {
-        //second for loop to iterate through total sales list from db and match admagic country to geoJSON
         for (let sale of totalSales) {
           if (country.properties.ADMIN === sale._id) {
-            //if there is a match assign it to intermediate variable
             matchedValue = sale;
           }
         }
       }
-      //DEFAULT VALUES:
-      //geoJSON layer properties total sales
       country.properties.totalSales = 0;
-      //modal text
       country.properties.totalSalesText = "0";
 
-      //checks if the matched total sales object has valid state
       if (matchedValue != null) {
-        //once object enters this conditional the total sales will be isolated and assigned to correct geoJSON country
-        //creates intermediate variable
         const assignTotalSales = matchedValue.totalSales;
-
-        //assigns correct total sales to geoJSON object
         country.properties.totalSales = assignTotalSales;
-        //assigns total sales to geoJSON object for displaying text on pop up modal
         country.properties.totalSalesText = assignTotalSales;
       }
       setCountryColor(country);
       return country;
-      // assign finally the geoJSON layer to setCountryBorder that was originally passed when useEffect called the load function
     });
-
     setCountries(mapCountries);
   }
 

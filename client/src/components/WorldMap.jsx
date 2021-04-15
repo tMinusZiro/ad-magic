@@ -77,7 +77,8 @@ const Map = (props) => {
           scrollWheelZoom={false}
           zoom={mapZoom}
           style={{
-            borderRadius: "5px",
+            borderTopLeftRadius: "5px",
+            borderTopRightRadius: "5px",
             height: "60vh",
           }}
         >

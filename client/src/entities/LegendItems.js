@@ -6,7 +6,9 @@ new LegendItem(
   "50,000 +",
   "#08330E",
   (totalSales) => totalSales >= 50_000,
-  "white"
+  "white",
+  "0",
+  "5px"
 ),
 new LegendItem(
   "25,000 - 49,999",
@@ -38,7 +40,7 @@ new LegendItem(
   (totalSales) => totalSales >= 1 && totalSales < 3_000,
   "white"
 ),
-new LegendItem("0", "white", (totalSales) => totalSales < 1 || null),
+new LegendItem("0", "white", (totalSales) => totalSales < 1 || null, "#6F9473", "5px", "0")
 ];
 
 export default legendItems;

@@ -113,7 +113,7 @@ html {
 }
 
 #total-sales {
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.30);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
   width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Purple.png");
@@ -121,7 +121,7 @@ html {
 }
 
 #average-price {
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.30);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
   width: 17vw;
   opacity: 80%;
   background-image: url("./../svg/Blue.png");
@@ -133,7 +133,7 @@ html {
   opacity: 80%;
   background-image: url("./../svg/Yellow.png");
   background-size: 100% 100%;
-  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.30);
+  box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
 }
 
 /*--------TOP BAR GRAPHS---------*/
@@ -149,13 +149,13 @@ html {
   display: flex;
   gap: 5rem;
   height: 100%;
-  /* border: 2px solid blue; */
 }
 
 /*- Bar Graphs Wrapper for graph components--*/
 .right-charts {
   width: 100%;
   height: 100%;
+
   border-radius: 15px;
   margin-bottom: 1em;
   align-items: center;
@@ -185,7 +185,7 @@ html {
   justify-content: space-around;
   align-items: flex-start;
   background-color: white;
-  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.);
+  box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0);
   height: 100%;
   width: 85%;
 }
@@ -208,7 +208,7 @@ html {
 #map-component-wrapper {
   box-sizing: border-box;
   width: 70vw;
-  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.20);
+  box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.2);
 }
 
 #map-legend-wrapper {
@@ -341,7 +341,7 @@ ul {
 
 /*Bottom Three Graph: Wraps parent component in App.JS*/
 #bottom-dash-header {
-  height: 70%;
+  height: 80%;
   box-sizing: border-box;
 }
 
@@ -351,15 +351,15 @@ ul {
   display: flex;
   flex-flow: row;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: center;
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 /*--class wrapper for each individual pie chart component--*/
 .bottom-charts {
-  width: 30%;
-  height: 90%;
+  width: 29%;
+  height: 75%;
 }
 
 /*--wrapper for actual fulfillment pie chart--*/
