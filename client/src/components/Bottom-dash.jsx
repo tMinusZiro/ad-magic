@@ -37,7 +37,6 @@ export default function BottomDash() {
           setSaleTypes(entry);
           setStTrigger(false);
         });
-
     }
   }, []);
 
@@ -62,7 +61,6 @@ export default function BottomDash() {
         });
     }
   }, []);
-
   if (!FTrigger) {
     FullfilmentType.forEach((type) => {
       FLabels.push(type._id);

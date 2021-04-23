@@ -56,6 +56,10 @@ export default function RightDash() {
       if (RLabels.length < 5) {
         RLabels.push(type._id);
         let amount = type.totalSales;
+        if (amount <= 999) {
+          amount = amount * 0.001;
+          amount = amount.toFixed(2);
+        }
         RAmount.push(numFormatter(amount));
       }
       // let sales = type.totalSales;

@@ -68,7 +68,7 @@ export default function VendorsRev(props) {
         options={options}
         series={series}
         type="bar"
-        width="100%"
+        width="635px"
         height="100%"
       />
     </div>
