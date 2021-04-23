@@ -551,11 +551,7 @@ class DataStore {
     } else if (client !== "All Clients" && item !== "All Items") {
       changeDate(formResults);
       const fullfilment = await collection.aggregate([
-        {
-          $match: {
-            $expr: {
-              $gte: [
-                newEnd,
+        { $match: {$expr: { $gte: [newEnd,
                 {
                   $dateToString: {
                     date: "$Transaction_date__c",

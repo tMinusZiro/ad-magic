@@ -27,7 +27,7 @@
 #sidebar-title {
   text-align:center; 
   margin-bottom: 4vh;
-  opacity: 80%; 
+  opacity: 0.8;  
   font-weight: lighter; 
 }
 
@@ -36,7 +36,7 @@
   text-align: center;
   width: 100%;
   border-radius: 5%;
-  opacity: 90%;
+  opacity: 0.9; 
   padding-top: 0.5rem;
 }
 
@@ -274,7 +274,7 @@ input:checked + .slider:before {
 #dropdown-icon {
   height: 9px;
   width: 9px;
-  opacity: 90%;
+  opacity: 0.9;
   justify-content: flex-end;
 }
 #icon-container {
@@ -291,5 +291,5 @@ input:checked + .slider:before {
   width: 18px;
   align-items: center;
   padding: 4px;
-  opacity: 70%;
+  opacity: 0.7; 
 }

@@ -115,7 +115,7 @@ html {
 #total-sales {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
   width: 17vw;
-  opacity: 80%;
+  opacity: 0.8;
   background-image: url("./../svg/Purple.png");
   background-size: 100% 100%;
 }
@@ -123,14 +123,14 @@ html {
 #average-price {
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
   width: 17vw;
-  opacity: 80%;
+  opacity: 0.8;
   background-image: url("./../svg/Blue.png");
   background-size: 100% 100%;
 }
 
 #item-sold {
   width: 17vw;
-  opacity: 80%;
+  opacity: 0.8;
   background-image: url("./../svg/Yellow.png");
   background-size: 100% 100%;
   box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
@@ -252,7 +252,7 @@ html {
   backdrop-filter: grayscale(30%);
   backdrop-filter: hue-rotate(120deg);
   backdrop-filter: invert(70%);
-  backdrop-filter: opacity(20%);
+  backdrop-filter: opacity(0.2);
   backdrop-filter: sepia(90%);
   backdrop-filter: saturate(80%);
   overflow: scroll;
@@ -262,7 +262,7 @@ html {
 #popup-icon {
   height: 18px;
   width: 18px;
-  opacity: 90%;
+  opacity: 0.9;
   padding-right: 5px;
 }
 
@@ -311,7 +311,7 @@ html {
 
 #client-list-item {
   padding-bottom: 4px;
-  opacity: 85%;
+  opacity: 0.85; 
 }
 
 #exit-popup {
