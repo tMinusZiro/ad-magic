@@ -41,7 +41,9 @@ function App() {
         <div id="right-dash-header">
           <RightDash />
         </div>
+              {/* 
       </section>
+              */}
 
       <section id="container-two" className="snap-child">
         <div id="home-page">
@@ -56,11 +58,12 @@ function App() {
         </div>
       </section>
 
+              {/*
       <section id="container-three" className="snap-child">
         <div id="bottom-dash-header">
           <BottomDash />
         </div>
-        <Footer />
+        <Footer /> */}
       </section>
     </div>
   );

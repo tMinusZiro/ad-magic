@@ -11,11 +11,16 @@ export default function VendorsTopFive(props) {
     chart: {
       type: "bar",
       height: 350,
+      width: "100%",
+      zoom: {
+        autoScaleYaxis: true,
+        autoScaleXaxis:true,
+      },
     },
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "100%",
+        columnWidth: "50vw",
         endingShape: "rounded",
       },
     },
@@ -24,7 +29,7 @@ export default function VendorsTopFive(props) {
     },
     stroke: {
       show: true,
-      width: 15,
+      width: 5,
       colors: ["transparent"],
     },
     xaxis: {

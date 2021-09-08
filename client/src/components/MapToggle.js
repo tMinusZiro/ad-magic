@@ -40,17 +40,17 @@ const MapToggle = (props) => {
   //get the form results on page load to save in dropdowns
   const [getFormRes, setGetFormRes] = useState(true);
   //set a default date preset - "All time" or user chosen preset
-  const [defaultDatePreset, setDefaultDatePreset] = useState();
+  const [defaultDatePreset, setDefaultDatePreset] = useState("All Time");
   //set a default account - "All Accounts" or user chosen preset
   const [defaultAccount, setDefaultAccount] = useState();
   //set a default item - "All Items" or user chosen items
   const [defaultItem, setDefaultItem] = useState();
   //set default date title - make it "Timeframe" if user has not input data
-  const [presetDateTitle, setPresetDateTitle] = useState();
+  const [presetDateTitle, setPresetDateTitle] = useState("Time");
   //set default account title - make it "Clients" if user has not input data
-  const [presetAccountTitle, setPresetAccountTitle] = useState();
+  const [presetAccountTitle, setPresetAccountTitle] = useState("Account");
   //set default account title - make it "Items" if user has not input data
-  const [presetItemName, setPresetItemName] = useState();
+  const [presetItemName, setPresetItemName] = useState("Item");
 
   //set default date on form for custom date
   let today = new Date();
@@ -118,7 +118,7 @@ const MapToggle = (props) => {
           setDefaultAccount(results.account);
           setDefaultItem(results.item);
           if (results.presetDateName) {
-            setPresetDateTitle(results.presetDateName);
+            setPresetDateTitle(results.datePreset);
             setPresetAccountTitle(results.presetClientName);
             setPresetItemName(results.presetItem);
           } else {
@@ -219,7 +219,6 @@ const MapToggle = (props) => {
               defaultValue={defaultDatePreset}
             >
               <option value={defaultDatePreset}>{presetDateTitle}</option>
-              <option value="All time">Timeframe</option>
               <option value="All time">All Time</option>
               <option value="Past Week">Past Week</option>
               <option value="Past Month">Past Month</option>
@@ -311,7 +310,7 @@ const MapToggle = (props) => {
             <input type="checkbox" name="US" />
             <span className="slider round"></span>
           </label>
-          <div className="switch-title">United States</div>
+          <div id = "USTitle" className="switch-title">U.S.</div>
         </div>
         <div className="dropdown-container">
           <img src={region} id="region-icon" alt="region" />

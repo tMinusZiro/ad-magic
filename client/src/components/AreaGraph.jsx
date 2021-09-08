@@ -27,6 +27,7 @@ export default function AreaGraph() {
       height: 350,
       zoom: {
         autoScaleYaxis: true,
+        autoScaleXaxis:true,
       },
     },
     colors: ["#FAAF7D"],
@@ -93,8 +94,9 @@ export default function AreaGraph() {
       align: "center",
       margin: 15,
       offsetX: 0,
-      offsetY: 0,
+      offsetY: 15,
       floating: false,
+      paddingTop: "50px",
       style: {
         fontSize: "18px",
         fontWeight: "bold",

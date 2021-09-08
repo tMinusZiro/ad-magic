@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: Avenir;
-  /* box-sizing: border-box; */ /*fixes some issues with padding and margin pushing boxes out of bounds but also shrinks top tile svg sizes for some reason*/
+  box-sizing: border-box; /*fixes some issues with padding and margin pushing boxes out of bounds but also shrinks top tile svg sizes for some reason*/
 }
 /*This helps the snapping work in safari*/
 body {
@@ -155,7 +155,6 @@ html {
 .right-charts {
   width: 100%;
   height: 100%;
-
   border-radius: 15px;
   margin-bottom: 1em;
   align-items: center;
@@ -164,10 +163,6 @@ html {
 /*--Top Five Total Sales Bar Graph--*/
 /*Closest Div Wrapper: child of .right-charts*/
 #V-chart {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: flex-start;
   background-color: white;
   box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -179,11 +174,7 @@ html {
 /*--Revenue Bar Graph-*/
 /*Closest Div Wrapper: child of .right-charts */
 #R-chart {
-  display: flex;
-  flex-flow: column;
   border-radius: 5px;
-  justify-content: space-around;
-  align-items: flex-start;
   background-color: white;
   box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0);
   height: 100%;
@@ -220,6 +211,11 @@ html {
   cursor: pointer;
 }
 
+#map-container {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 60vh;
+}
 /*-------------Client Popup onClick Map Legend--- -------*/
 .popup-wrapper {
   justify-content: center;
@@ -410,4 +406,187 @@ ul {
   background-color: #33475b;
   color: #dfe3eb;
   font-size: 2vh;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #app-wrapper {
+    display: grid;
+    grid-template-columns: 30vw 70vw;
+    grid-template-rows: 80vh 60vh 35vh 35vh 35vh 35vh 35vh 35vh;
+    margin-top: 0;
+    box-sizing: none;
+  }
+  html {
+    width: 100vw; 
+  }
+
+  #area-graph-comp-wrap {
+    height: 32%;
+    margin-top: 3rem;
+    width: 85%; /*manipulate the width or height here to easily change graph size*/
+    display: flex;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 10px -1px 30px 5px rgba(112, 110, 110, 0.246);
+    margin-left: 7vw;
+  }
+
+  #top-dash {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #top-dash-icon {
+    height: 17px;
+    width: 17px;
+    padding-right: 8px;
+  }
+  #top-dash-title {
+    font-size: 22px;
+  }
+  
+  /*class for each individual top dash tile*/
+  .dashboard {
+    margin: 1em;
+    padding: 1em;
+    color: #eaf0f6;
+    border-radius: 10px;
+    font-size: 0.9vh;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .top-dash-small {
+    font-size: 3vh;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
+  }
+  
+  .top-dash-num {
+    font-size: 5vh;
+    display: flex;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
+  }
+
+  #total-sales {
+    box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
+    width: 60vw;
+    opacity: 0.8;
+    background-image: url("./../svg/Purple.png");
+    background-size: 100% 100%;
+  }
+
+  #average-price {
+    box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
+    width: 60vw;
+    opacity: 0.8;
+    background-image: url("./../svg/Blue.png");
+    background-size: 100% 100%;
+  }
+  
+  #item-sold {
+    width: 60vw;
+    opacity: 0.8;
+    background-image: url("./../svg/Yellow.png");
+    background-size: 100% 100%;
+    box-shadow: 15px 20px 40px 0.5px rgb(0, 0, 0, 0.3);
+  }
+
+  #right-dash-header {
+    height: 30vh;
+    margin-bottom: 2.8rem;
+  }
+  
+  /*flex wrap for two bar graphs: manages apex charts unpredictable sizing issues*/
+  #v-and-r-flexWrap {
+    display: flex;
+    gap: 5rem;
+    height: 100%;
+  }
+  
+  /*- Bar Graphs Wrapper for graph components--*/
+  .right-charts {
+    width: 75vw;
+    border-radius: 15px;
+    margin-bottom: 1em;
+    display: none; 
+    flex-direction: column; 
+    grid-row: 2; 
+
+  }
+  
+  /*--Top Five Total Sales Bar Graph--*/
+  /*Closest Div Wrapper: child of .right-charts*/
+  #V-chart {
+    background-color: white;
+    box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: none; 
+  }
+  
+  /*--Revenue Bar Graph-*/
+  /*Closest Div Wrapper: child of .right-charts */
+  #R-chart {
+    display: none; 
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 15px 20px 50px 0.5px rgb(0, 0, 0, 0);
+    height: 100%;
+    width: 85%;
+  }
+
+  #right-dash-header {
+    display: none; 
+    height: 30vh;
+    margin-bottom: 2.8rem;
+  }
+  
+  /*flex wrap for two bar graphs: manages apex charts unpredictable sizing issues*/
+  #v-and-r-flexWrap {
+    display: none;
+    gap: 5rem;
+    height: 100%;
+    width: 75vw; 
+  }
+
+  .apexcharts-svg{
+    width: 75vw; 
+  }
+
+  #home-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+  }
+  
+  /*next level down wrapper for*/
+  #map-component-wrapper {
+    box-sizing: border-box;
+    width: 75vw;
+    box-shadow: 20px 30px 60px 0.5px rgb(0, 0, 0, 0.2);
+  }
+  
+  #map-legend-wrapper {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  #legend-button:hover {
+    cursor: pointer;
+  }
+  
+
 }

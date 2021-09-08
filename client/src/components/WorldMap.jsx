@@ -76,11 +76,12 @@ const Map = (props) => {
           center={mapCenter}
           scrollWheelZoom={false}
           zoom={mapZoom}
-          style={{
-            borderTopLeftRadius: "5px",
-            borderTopRightRadius: "5px",
-            height: "60vh",
-          }}
+          id = "map-container"
+          // style={{
+          //   borderTopLeftRadius: "5px",
+          //   borderTopRightRadius: "5px",
+          //   height: "60vh",
+          // }}
         >
           {/*This GeoJson is overlaying polygons onto the tilelayer => polygons are the borders of US States */}
           <GeoJSON
